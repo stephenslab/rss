@@ -13,6 +13,6 @@ and/or request features.
 ### Contact
 [Xiang Zhu](https://github.com/xiangzhu) <br>
 [Matthew Stephens Lab](http://stephenslab.uchicago.edu) <br>
-Department of Statistics <br>
-University of Chicago <br>
+[Department of Statistics](https://galton.uchicago.edu) <br>
+[University of Chicago](https://www.uchicago.edu) <br>
 
