@@ -1,7 +1,7 @@
 clear;
 
 % add search paths
-addpath(genpath('/home/xiangzhu/rss/src'));
+addpath(genpath('../src'));
 
 % load summary-level data
 example_data = matfile('example1.mat');
