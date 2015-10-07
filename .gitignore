@@ -7,6 +7,7 @@
 *.log
 *.txt
 *.txt.gz
+*.sbatch
 
 local/
 
@@ -14,5 +15,3 @@ src/lightspeed*
 src/lapack*
 src/progress.m
 
-data/example1_*.m
-data/example1_*.sbatch
