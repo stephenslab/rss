@@ -1,5 +1,8 @@
 # Regression with Summary Statistics (RSS)
 
+### Overview
+Standard analysis of multiple regression model relies on the individual-level data (response and predictors). Here we assume that the full data are not available, and only summary statistics of simple linear regression (effect size estimates and their standard errors) are provided. The aim is to infer the multiple linear regression model using simple regression summary statistics.
+
 ### License 
 Distributed under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
