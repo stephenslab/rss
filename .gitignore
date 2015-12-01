@@ -15,3 +15,4 @@ src/lightspeed*
 src/lapack*
 src/progress.m
 src/compute_pve2.m
+src/rss_bvsr_mdp.m
