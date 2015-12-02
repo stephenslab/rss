@@ -33,6 +33,24 @@ function [bsam, zsam, lpsam, hsam, rsam, Naccept] = rss_bslmm(betahat, se, R, Ns
 		error('length of betahat and se must be the same!');
 	end
 
+	% if R is an identity matrix, then we have a faster implementation
+        matrix_type = 1;
+        if R == eye(p)
+                matrix_type = 0;
+                fprintf('faster computation avaialbe if R is identity matrix \n')
+        end
+
+	% save SiRiS in banded storage to exploit benefit of lapack
+        Si      = 1 ./ se(:);
+        SiRiS   = repmat(Si, 1, p) .* R .* repmat(Si', p, 1);
+        % bandwidth of SiRiS
+        bw = findbandwidth(SiRiS);
+        % band storage of SiRiS
+        BM = bandstorage(SiRiS, bw); clear SiRiS;
+        % band storage of R
+        BR = bandstorage(R, bw);
+        fprintf('banded storage of matrices done \n');
+
 	Nstart 	= Nburn + Nthin;
         Nsam 	= length(Nstart:Nthin:Ndraw);
 	tsam 	= 0;
@@ -44,7 +62,7 @@ function [bsam, zsam, lpsam, hsam, rsam, Naccept] = rss_bslmm(betahat, se, R, Ns
 	stepsize  = 1; % sd of gaussian random walk
 
 	% preallocate memory for mcmc output
-	zsam 	= zeros(Nsam, p);
+	zsam 	= uint8(zeros(Nsam, p));
 	bsam 	= zeros(Nsam, p);
 	lpsam 	= zeros(Nsam, 1);
 	hsam 	= zeros(Nsam, 1);
@@ -54,17 +72,6 @@ function [bsam, zsam, lpsam, hsam, rsam, Naccept] = rss_bslmm(betahat, se, R, Ns
 	q 	= betahat ./ (se.^2);
 	zs 	= betahat ./ se;
 	xxyysum = sum( 1 ./ ( Nsnp .* (se.^2) ) );  % used in induced prior SDs on beta
-
-	% save SiRiS in banded storage to exploit benefit of lapack
-	Si 	= 1 ./ se(:);
-	SiRiS 	= repmat(Si, 1, p) .* R .* repmat(Si', p, 1);
-	% bandwidth of SiRiS
-	bw = findbandwidth(SiRiS);
-	% band storage of SiRiS
-	BM = bandstorage(SiRiS, bw);
-	% band storage of R
-	BR = bandstorage(R, bw);
-	fprintf('banded storage done \n')
 
 	% initiate the latent label based on marginal z-scores
 	abz = abs(zs);
@@ -93,13 +100,6 @@ function [bsam, zsam, lpsam, hsam, rsam, Naccept] = rss_bslmm(betahat, se, R, Ns
 	% rank-based proposal distribution
 	p_gamma = pmf_ugmix(p, 2e3);
 	p_gamma = p_gamma(snp_rank);
-
-	% if R is an identity matrix, then we have a faster implementation
-	matrix_type = 1;
-	if R == eye(p)
-		matrix_type = 0;
-		fprintf('faster computation avaialbe if R is identity matrix \n')
-	end
 
 	% run the FIRST mcmc step outside for loop
 	[loglik, lpart, qpart] = compute_loglik_rssbslmm(q, bw, BR, b, bs, bin, matrix_type);
@@ -145,7 +145,7 @@ end
 function bandwidth = findbandwidth(A)
 % USAGE: find the bandwidth of a symmetric band matrix
 % SOURCE: Numerical Computing with MATLAB: Revised Reprint pp 72
-        [i, j] = find(A);
+        [i, j] 	  = find(A);
         bandwidth = max(abs(i-j));
 end
 
@@ -218,7 +218,7 @@ function sig_b = compute_sd_bslmm(xxyysum, lp, h, r)
         sig2_poly = (h*(1-r)) / xxyysum;
 
         sig2_b = [sig2_poly sig2_poly+sig2_beta];
-        sig_b = sqrt(sig2_b);
+        sig_b  = sqrt(sig2_b);
 end
 
 function p_gamma = pmf_ugmix(p, geomean)
