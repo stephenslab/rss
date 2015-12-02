@@ -17,4 +17,4 @@ src/progress.m
 src/compute_pve2.m
 src/rss_bvsr_mdp.m
 
-example/example1_2.m
+examples/example1_2.m
