@@ -8,6 +8,7 @@
 *.txt
 *.txt.gz
 *.sbatch
+*.mat
 
 local/
 
