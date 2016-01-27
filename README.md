@@ -9,9 +9,10 @@ Distributed under the terms of the GNU General Public License as published by th
 The repository is distributed in the hope that it will be useful, but **without any warranty**; without even the implied warranty of **merchantability** or **fitness for a particular purpose**. See [LICENSE](LICENSE) for more details.
 
 ### Support
-1. Get started from a short tutorial in our [wiki](https://github.com/stephenslab/rss/wiki).
-2. Create an [issue](https://github.com/stephenslab/rss/issues) to report bugs
-and/or request features. 
+1. Get started from the short documents in our [wiki](https://github.com/stephenslab/rss/wiki).
+2. Refer to the [FAQ](https://github.com/stephenslab/rss/wiki/FAQ) page.
+3. Create a new [issue](https://github.com/stephenslab/rss/issues) to report bugs and/or request features.
+4. Add a new [question](https://groups.google.com/forum/#!forum/rss_users) in the Google Group. 
 
 ### Contact
 [Xiang Zhu](https://github.com/xiangzhu) <br>
