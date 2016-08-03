@@ -24,7 +24,9 @@ The repository is distributed in the hope that it will be useful, but **without 
 - Gene set enrichment analysis based on RSS <br> TBA
 
 ### Collaboration
-This work derives a likelihood of multiple regression coefficients based on univariate regression summary data, which opens the door to a wide range of statistical machinery for inference. Using this likelihood, we implement Bayesian methods to estimate SNP heritability, detect genetic association and perform gene set enrichment analysis. If you have specific applications that use GWAS summary data as input, and want to build new methods based on the RSS likelihood, please feel free to contact us. We are glad to help!  
+This work derives a likelihood of multiple regression coefficients based on univariate regression summary data, which opens the door to a wide range of statistical machinery for inference. Using this likelihood, we implement Bayesian methods to estimate SNP heritability, detect genetic association, perform gene set enrichment analysis, etc. The update on our progress can be found in [NEWS](NEWS.md). 
+
+If you have specific applications that use GWAS summary data as input, and want to build new methods based on the RSS likelihood, please feel free to contact us. We are glad to help!  
 
 ### Contact
 [Xiang Zhu](https://github.com/xiangzhu) <br>
