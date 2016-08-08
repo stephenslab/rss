@@ -11,7 +11,7 @@ bwd = example_data.bwd; % bandwidth of R
 BR  = example_data.BR; 	% banded storage of R
 
 betahat = example_data.betahat; % single-SNP effect size estimates
-se 	= example_data.se; 		% standard error of betahat
+se 	= example_data.se; 	% standard error of betahat
 Nsnp 	= example_data.Nsnp; 	% sample size of each SNP
 
 fprintf('Data set is loaded ... \n');
