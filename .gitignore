@@ -17,5 +17,6 @@ src/lapack*
 src/progress.m
 src/compute_pve2.m
 src/rss_bvsr_mdp.m
+src/rss_bvsr_cap.m
+src/propose_gamma_cap.m
 
-examples/example1_2.m
