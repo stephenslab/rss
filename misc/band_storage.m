@@ -9,7 +9,8 @@ function B = band_storage(A, p)
 %	A: symmetric matrix
 % OUTPUT: 
 %	B: the banded storage of A
-% SOURCE: http://www.mathworks.com/matlabcentral/fileexchange/31131-efficient-cholesky-decomposition-of-symmetric-banded-matrix/content/SymmetricBandedCholesky.m
+% SOURCE: http://www.mathworks.com/matlabcentral/fileexchange/
+%	  31131-efficient-cholesky-decomposition-of-symmetric-banded-matrix/
 
   dim=size(A);
   n = dim(1);
