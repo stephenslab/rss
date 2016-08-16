@@ -4,7 +4,7 @@ clear;
 addpath(genpath('../src'));
 
 % load summary-level data
-example_data = matfile('example1.mat');
+example_data = matfile('/tmp/pcarbo/example1.mat');
 
 R   = example_data.R; 	% population LD matrix
 bwd = example_data.bwd; % bandwidth of R 
@@ -19,7 +19,9 @@ fprintf('Data set is loaded ... \n');
 % check model assumption
 chat = sqrt((betahat(:).^2) ./ (Nsnp(:).*(se(:).^2) + betahat(:).^2));
 fprintf('Look at the five-number summary of log10 sample phenotype-genotype correlations: \n')
-disp(prctile(log10(chat), 0:25:100));
+disp(percentile(log10(chat),0:0.25:1));
+
+return
 
 % fit rss-bvsr model
 fprintf('Start RSS-BVSR analysis ... \n');
