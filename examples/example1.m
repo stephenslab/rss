@@ -4,6 +4,7 @@ clear;
 addpath(genpath('../src'));
 
 % load summary-level data
+fprintf('Loading data.\n');
 example_data = matfile('/tmp/pcarbo/example1.mat');
 
 R   = example_data.R; 	% population LD matrix
@@ -16,35 +17,42 @@ Nsnp 	= example_data.Nsnp; 	% sample size of each SNP
 
 fprintf('Data set is loaded ... \n');
 
-% check model assumption
+% Check model assumption.
 chat = sqrt((betahat(:).^2) ./ (Nsnp(:).*(se(:).^2) + betahat(:).^2));
-fprintf('Look at the five-number summary of log10 sample phenotype-genotype correlations: \n')
+fprintf('Look at the five-number summary of log10 sample\n');
+fprintf('phenotype-genotype correlations: \n')
 disp(percentile(log10(chat),0:0.25:1));
 
-return
-
-% fit rss-bvsr model
+% Fit rss-bvsr model.
 fprintf('Start RSS-BVSR analysis ... \n');
 Ndraw = 2e6;
 Nburn = 2e5;
 Nthin = 9e1;
 tic;
-% 1. simulate posterior samples via mcmc
-[betasam, gammasam, hsam, logpisam, Naccept] = rss_bvsr(betahat, se, R, Nsnp, Ndraw, Nburn, Nthin);
-% 2. compute the posterior samples of pve
+
+% 1. Simulate posterior samples via mcmc.
+[betasam, gammasam, hsam, logpisam, Naccept] = ...
+    rss_bvsr(betahat, se, R, Nsnp, Ndraw, Nburn, Nthin);
+
+% 2. Compute the posterior samples of PVE.
 matrix_type 	= 1;
 M 		= length(hsam);
 pvesam 		= zeros(M,1);
 progress_bar 	= progress('init','start PVE calculation');
 for i = 1:M
-	pvesam(i) 	= compute_pve(betasam(i,:), betahat, se, Nsnp, bwd, BR, matrix_type);
-	progress_bar 	= progress(progress_bar, i/M);
+  pvesam(i) = compute_pve(betasam(i,:), betahat, se, Nsnp, bwd, BR,...
+                          matrix_type);
+  progress_bar	= progress(progress_bar, i/M);
 end
 runtime = toc;
-% 3. save output
-save('example1_rssbvsr.mat', 'betasam', 'gammasam', 'hsam', 'logpisam', 'pvesam', 'Naccept', 'runtime', '-v7.3');
+
+% 3. Save output.
+save('example1_rssbvsr.mat', 'betasam', 'gammasam', 'hsam', 'logpisam',...
+     'pvesam', 'Naccept', 'runtime', '-v7.3');
 clearvars betasam gammasam hsam logpisam pvesam Naccept runtime;
 fprintf('RSS-BVSR analysis is done ... \n');
+
+return
 
 % fit rss-bslmm model
 fprintf('Start RSS-BSLMM analysis ... \n');
