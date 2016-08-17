@@ -40,7 +40,7 @@ function [rank_new, gamma_logratio] = propose_gamma(rank_old, p_gamma, repeat)
 
 		% rare case 2: all snps in the current model; must remove one snp
 		if ngamma_new == p 
-			col_id 		= unidrnd(ngamma_new); 			% uniformly pick one snp to remove
+			col_id 		= randint(1,ngamma_new); 			% uniformly pick one snp to remove
 			r_remove 	= rank_new(col_id);
 			remove(snpmap, r_remove);
 			rank_new(col_id) = []; 					% remove the snp	
@@ -70,7 +70,7 @@ function [rank_new, gamma_logratio] = propose_gamma(rank_old, p_gamma, repeat)
 
 		elseif gamma_flag >=0.4 && gamma_flag < 0.8 % remove a snp
 			% uniformly draw a snp from the current model
-			col_id 	 = unidrnd(ngamma_new); 
+			col_id 	 = randint(1,ngamma_new); 
 			r_remove = rank_new(col_id); % return the location (a.k.a. rank) of the chosen snp
 			% calculate Pr(picking a snp NOT in the proposed model)
 			prob_total = 1;
@@ -84,7 +84,7 @@ function [rank_new, gamma_logratio] = propose_gamma(rank_old, p_gamma, repeat)
 			ngamma_new 	= ngamma_new - 1;
 
 		else % swap inclusion/exclusion status of two snps
-			col_id 	 = unidrnd(ngamma_new); % pick a snp in the model to remove
+			col_id 	 = randint(1,ngamma_new); % pick a snp in the model to remove
 			r_remove = rank_new(col_id);
 			while true
 				r_add = sample(p_gamma); % randomly pick a snp based on marginal association rank
