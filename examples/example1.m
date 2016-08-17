@@ -46,13 +46,15 @@ for i = 1:M
 end
 runtime = toc;
 
+
+
 % 3. Save output.
-save('example1_rssbvsr.mat', 'betasam', 'gammasam', 'hsam', 'logpisam',...
-     'pvesam', 'Naccept', 'runtime', '-v7.3');
+save('/tmp/pcarbo/example1_rssbvsr.mat', 'betasam', 'gammasam', 'hsam',...
+     'logpisam','pvesam', 'Naccept', 'runtime', '-v7.3');
 clearvars betasam gammasam hsam logpisam pvesam Naccept runtime;
 fprintf('RSS-BVSR analysis is done ... \n');
 
-return
+% *** This is where I am in the script. ***
 
 % fit rss-bslmm model
 fprintf('Start RSS-BSLMM analysis ... \n');
