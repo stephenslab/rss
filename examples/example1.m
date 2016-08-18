@@ -1,11 +1,15 @@
 clear;
 
+% Set this to the directory containing example1.mat and where the output
+% files will be stored.
+working_dir = '.';
+
 % add search paths
 addpath(genpath('../src'));
 
 % load summary-level data
 fprintf('Loading data.\n');
-example_data = matfile('/tmp/pcarbo/example1.mat');
+example_data = matfile(cat(2,working_dir,'/','example1.mat'));
 
 R   = example_data.R; 	% population LD matrix
 bwd = example_data.bwd; % bandwidth of R 
@@ -47,8 +51,9 @@ end
 runtime = toc;
 
 % 3. Save output.
-save('/tmp/pcarbo/example1_rssbvsr.mat', 'betasam', 'gammasam', 'hsam',...
-     'logpisam','pvesam', 'Naccept', 'runtime', '-v7.3');
+save(cat(2,working_dir,'/','example1_rssbvsr.mat'),...
+     'betasam', 'gammasam', 'hsam', 'logpisam', 'pvesam', ...
+     'Naccept', 'runtime', '-v7.3');
 clearvars betasam gammasam hsam logpisam pvesam Naccept runtime;
 fprintf('RSS-BVSR analysis is done ... \n');
 
@@ -75,8 +80,9 @@ end
 runtime = toc;
 
 % 3. save output
-save('/tmp/pcarbo/example1_rssbslmm.mat', 'bsam', 'zsam', 'lpsam', 'hsam',...
-     'rsam', 'pvesam', 'Naccept', 'runtime', '-v7.3');
+save(cat(2,working_dir,'/','example1_rssbslmm.mat'),...
+     'bsam', 'zsam', 'lpsam', 'hsam', 'rsam', 'pvesam',...
+     'Naccept', 'runtime', '-v7.3');
 clearvars bsam zsam lpsam hsam rsam pvesam Naccept runtime;
 fprintf('RSS-BSLMM analysis is done ... \n');
 
@@ -104,8 +110,9 @@ end
 runtime = toc;
 
 % 3. save output
-save('/tmp/pcarbo/example1_rssash.mat', 'bsam', 'zsam', 'wsam', 'lsam', ...
-     'pvesam', 'Naccept', 'runtime', '-v7.3');
+save(cat(2,working_dir,'/','example1_rssash.mat'),...
+     'bsam', 'zsam', 'wsam', 'lsam', 'pvesam', 'Naccept', ...
+     'runtime', '-v7.3');
 clearvars bsam zsam wsam lsam pvesam Naccept runtime;
 fprintf('RSS-ASH analysis is done ... \n');
 
