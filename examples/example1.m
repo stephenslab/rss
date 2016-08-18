@@ -46,15 +46,11 @@ for i = 1:M
 end
 runtime = toc;
 
-
-
 % 3. Save output.
 save('/tmp/pcarbo/example1_rssbvsr.mat', 'betasam', 'gammasam', 'hsam',...
      'logpisam','pvesam', 'Naccept', 'runtime', '-v7.3');
 clearvars betasam gammasam hsam logpisam pvesam Naccept runtime;
 fprintf('RSS-BVSR analysis is done ... \n');
-
-% *** This is where I am in the script. ***
 
 % fit rss-bslmm model
 fprintf('Start RSS-BSLMM analysis ... \n');
@@ -62,20 +58,25 @@ Ndraw = 2e6;
 Nburn = 2e5;
 Nthin = 9e1;
 tic;   
+
 % 1. simulate posterior samples via mcmc
-[bsam, zsam, lpsam, hsam, rsam, Naccept] = rss_bslmm(betahat, se, R, Nsnp, Ndraw, Nburn, Nthin);
+[bsam, zsam, lpsam, hsam, rsam, Naccept] = ...
+    rss_bslmm(betahat, se, R, Nsnp, Ndraw, Nburn, Nthin);
+
 % 2. compute the posterior samples of pve
 matrix_type 	= 1;
 M 		= length(hsam);
 pvesam 		= zeros(M,1);
 progress_bar 	= progress('init','start PVE calculation');
 for i = 1:M 
-        pvesam(i) 	= compute_pve(bsam(i,:), betahat, se, Nsnp, bwd, BR, matrix_type);
-        progress_bar 	= progress(progress_bar, i/M);
+  pvesam(i) = compute_pve(bsam(i,:), betahat, se, Nsnp, bwd, BR, matrix_type);
+  progress_bar = progress(progress_bar, i/M);
 end
 runtime = toc;
+
 % 3. save output
-save('example1_rssbslmm.mat', 'bsam', 'zsam', 'lpsam', 'hsam', 'rsam', 'pvesam', 'Naccept', 'runtime', '-v7.3');
+save('/tmp/pcarbo/example1_rssbslmm.mat', 'bsam', 'zsam', 'lpsam', 'hsam',...
+     'rsam', 'pvesam', 'Naccept', 'runtime', '-v7.3');
 clearvars bsam zsam lpsam hsam rsam pvesam Naccept runtime;
 fprintf('RSS-BSLMM analysis is done ... \n');
 
@@ -86,20 +87,25 @@ Nburn = 1e7;
 Nthin = 1e3;
 sigma_beta = [0 0.001 0.003 0.01 0.03 0.1 0.3 1 3];
 tic;
+
 % 1. simulate posterior samples via mcmc
-[bsam, zsam, wsam, lsam, Naccept] = rss_ash(betahat, se, R, Nsnp, sigma_beta, Ndraw, Nburn, Nthin);
+[bsam, zsam, wsam, lsam, Naccept] =...
+    rss_ash(betahat, se, R, Nsnp, sigma_beta, Ndraw, Nburn, Nthin);
+
 % 2. compute the posterior samples of pve
 matrix_type 	= 1;
 M 		= length(lsam);
 pvesam 		= zeros(M,1);
 progress_bar 	= progress('init','start PVE calculation');
 for i = 1:M
-        pvesam(i) 	= compute_pve(bsam(i,:), betahat, se, Nsnp, bwd, BR, matrix_type);
-        progress_bar 	= progress(progress_bar, i/M);
+  pvesam(i) = compute_pve(bsam(i,:), betahat, se, Nsnp, bwd, BR, matrix_type);
+  progress_bar	= progress(progress_bar, i/M);
 end
 runtime = toc;
+
 % 3. save output
-save('example1_rssash.mat', 'bsam', 'zsam', 'wsam', 'lsam', 'pvesam', 'Naccept', 'runtime', '-v7.3');
+save('/tmp/pcarbo/example1_rssash.mat', 'bsam', 'zsam', 'wsam', 'lsam', ...
+     'pvesam', 'Naccept', 'runtime', '-v7.3');
 clearvars bsam zsam wsam lsam pvesam Naccept runtime;
 fprintf('RSS-ASH analysis is done ... \n');
 
