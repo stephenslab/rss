@@ -132,7 +132,7 @@ for i = 1:Nrep
   bf(i,:)         = [bf_b bf_r];
   bf_reldiff(i)   = (bf_b-bf_r)/bf_b;
 
-fprintf('Trial %d is done ...\n', i);
+  fprintf('Trial %d is done ...\n', i);
 
 end
 
