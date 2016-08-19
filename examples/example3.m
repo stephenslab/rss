@@ -69,4 +69,3 @@ runtime = toc;
 save('example3_se2.mat', 'betasam', 'gammasam', 'hsam', 'logpisam', 'pvesam', 'Naccept', 'runtime', '-v7.3');
 clearvars betasam gammasam hsam logpisam pvesam Naccept runtime;
 
-exit;

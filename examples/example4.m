@@ -5,7 +5,7 @@ addpath(genpath('../src_vb'));
 addpath('../misc');
 addpath('/home/xiangzhu/varbvs-master/varbvs-MATLAB/');
 
-% set the random number generator seed
+% set the number of replications
 prompt = 'What is the number of replications? ';
 Nrep   = input(prompt);
 
