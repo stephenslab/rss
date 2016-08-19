@@ -13,15 +13,15 @@ Distributed under the terms of the GNU General Public License as published by th
 The repository is distributed in the hope that it will be useful, but **without any warranty**; without even the implied warranty of **merchantability** or **fitness for a particular purpose**. See [LICENSE](LICENSE) for more details.
 
 ### Support
-1. Get started from the short documents in our [wiki](https://github.com/stephenslab/rss/wiki).
+1. Get started from the short tutorials in RSS [wiki](https://github.com/stephenslab/rss/wiki).
 2. Refer to the [FAQ](https://github.com/stephenslab/rss/wiki/FAQ) page for answers to some common questions.
 3. Create a new [issue](https://github.com/stephenslab/rss/issues) to report bugs and/or request features.
-4. Send an email to `xiangzhu@uchicago.edu`.
+4. Send an email to `xiangzhu[at]uchicago.edu`.
 
 ### Citation
 - The Regression with Summary Statistics (RSS) likelihood <br> Xiang Zhu and Matthew Stephens (2016). [Bayesian large-scale multiple regression with summary statistics from genome-wide association studies](http://biorxiv.org/content/early/2016/03/04/042457). bioRxiv.
 
-- Gene set enrichment analysis based on RSS <br> TBA
+- Gene set enrichment analysis based on RSS <br> Manuscript in preparation. [Online Notebook.](http://xiangzhu.github.io/rss-gsea/_book/)
 
 ### Collaboration
 This work derives a likelihood of multiple regression coefficients based on univariate regression summary data, which opens the door to a wide range of statistical machinery for inference. Using this likelihood, we implement Bayesian methods to estimate SNP heritability, detect genetic association, perform gene set enrichment analysis, etc. The update on our progress can be found in [NEWS](NEWS.md). 
