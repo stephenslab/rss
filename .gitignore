@@ -21,3 +21,5 @@ src/rss_bvsr_cap.m
 src/propose_gamma_cap.m
 src/rss_bslmm_mwt.m
 
+examples/example*_plot.m
+

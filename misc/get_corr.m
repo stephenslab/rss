@@ -17,10 +17,10 @@ function [R, BR] = get_corr(m, Ne, cummap, Hpanel, cutoff)
   R = corrcov(SigHat); clear SigHat;
 
   % get the bandwidth of R
-  bwd = findbandwidth(R);
+  bwd = find_bandwidth(R);
   
   % get the banded storage of R
-  BR = bandstorage(R, bwd);
+  BR = band_storage(R, bwd);
 
   % store R as a sparse matrix
   R = sparse(R);
@@ -70,36 +70,3 @@ function SigHat = shrink_cov(m, Ne, cummap, Hpanel, cutoff)
   SigHat = (1-theta)^2 * S + 0.5*theta * (1-0.5*theta) * eye(numSNP);
 end
 
-function bandwidth = findbandwidth(A)
-% USAGE: find the bandwidth of a symmetric band matrix
-% SOURCE: Numerical Computing with MATLAB: Revised Reprint pp 72
-  [i, j]    = find(A);
-  bandwidth = max(abs(i-j));
-end
-
-function B = bandstorage(A, p)
-% USAGE: this function stores symmetric banded matrix A in a 
-% compact form bA in such a way that only the main diagonal,
-% and the nonzero superdiagonals are stored. The first column 
-% of bA corresponds to the main diagonal of A and the subsequent 
-% columns of bA correspond to superdiagonals of A.
-% INPUT: 
-%	p: upper or lower bandwidth
-%	A: symmetric matrix
-% OUTPUT: 
-%	B: the banded storage of A
-  dim=size(A);
-  n = dim(1);
-  B = zeros(p+1, n);
-  for i=1:n % column
-    if i<=n-p
-      for j=i:p+i
-      B(j-i+1, i) = A(j, i);
-      end
-    else
-      for j=i:n
-      B(j-i+1, i) = A(j, i);
-      end
-    end
-  end
-end
