@@ -2,7 +2,7 @@ clear;
 
 % Set this to the directory containing example1.mat and where the output
 % files will be stored.
-working_dir = '/tmp/pcarbo';
+working_dir = '.';
 
 % add search paths
 addpath(genpath('../src'));

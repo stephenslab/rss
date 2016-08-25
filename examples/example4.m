@@ -33,6 +33,8 @@ s_e_diff     = zeros(Nrep, 1); % max absolute difference of estimated s from enr
 bf           = zeros(Nrep, 2); % absolute difference of estimated Bayes factors 
 bf_reldiff   = zeros(Nrep, 1); % relative difference of estimated Bayes factors
 
+return
+
 % generate the individual-level and summary-level data
 genotype = matfile('genotype.mat');
 C 	 = genotype.C;
