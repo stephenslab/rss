@@ -1,7 +1,8 @@
-% Note: Only works in MATLAB 2014a or later since "histogram" function
-% was introduced in that version of MATLAB.
-se1=matfile('example3_se1.mat');
-se2=matfile('example3_se2.mat');
+% Run this script after example3.m. Note: This script only works in MATLAB
+% 2014a or later since "histogram" function was introduced in that version
+% of MATLAB.
+se1 = matfile('example3_se1.mat');
+se2 = matfile('example3_se2.mat');
 
 figure(1);
 subplot(2,2,1);
