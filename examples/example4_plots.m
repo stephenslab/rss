@@ -18,9 +18,9 @@ ylabel('maximum absolute difference');
 title('Enrichment models');
 
 subplot(2,2,3);
-scatter(log10(bf(:, 1)), log10(bf(:, 2)),'b','*');
+scatter(log10(bf(:, 1)), log10(bf(:, 2)),'b','o');
 hold on
-plot([-5 30],[-5 30],'-','Color','red');
+plot([-5 30],[-5 30],':','Color','red');
 hold off
 % ozline = refline([1 0]);
 % ozline.Color = 'r';
