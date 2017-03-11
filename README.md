@@ -19,7 +19,7 @@ The repository is distributed in the hope that it will be useful, but **without 
 4. Send an email to `xiangzhu[at]uchicago.edu`.
 
 ### Citation
-- The Regression with Summary Statistics (RSS) likelihood <br> Xiang Zhu and Matthew Stephens (2016). [Bayesian large-scale multiple regression with summary statistics from genome-wide association studies](http://biorxiv.org/content/early/2016/03/04/042457). bioRxiv.
+- The Regression with Summary Statistics (RSS) likelihood <br> Xiang Zhu and Matthew Stephens (2016). [Bayesian large-scale multiple regression with summary statistics from genome-wide association studies](https://doi.org/10.1101/042457). bioRxiv.
 
 - Gene set enrichment analysis based on RSS <br> Manuscript in preparation. [Online Notebook.](http://xiangzhu.github.io/rss-gsea/_book/)
 
