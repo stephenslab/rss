@@ -1,5 +1,6 @@
 ### Progress Update
 
+- **04/04/2017**: The manuscript describing RSS likelihood is accepted by *Annals of Applied Statistics*.
 - **02/22/2017**: Xiang presented RSS likelihood at [Statistics Department Seminar](https://statistics.stanford.edu/events/bayesian-large-scale-regression-model-genome-wide-summary-data), Stanford University. [[Slides]](http://www.stat.uchicago.edu/~xiangzhu/STANFORD_20170222.html) [[Abstract]](https://statistics.stanford.edu/sites/default/files/Feb22-2017.pdf)
 - **01/11/2017**: Xiang presented gene set enrichment analysis using RSS likelihood at [Work in Progress seminar](http://genes.uchicago.edu/page/work-progress-series), Department of Human Genetics, University of Chicago. [[Slides]](http://www.stat.uchicago.edu/~xiangzhu/WIP_20170111.html)
 - **10/20/2016**: Xiang presented gene set enrichment analysis using RSS likelihood at the 2016 American Society of Human Genetics Annual Meeting ([ASHG2016](http://www.ashg.org/2016meeting/)), Vancouver, BC, Canada. [[Poster]](http://www.stat.uchicago.edu/~xiangzhu/ASHG_2016.pdf) [[Abstract]](https://ep70.eventpilot.us/web/page.php?page=IntHtml&project=ASHG16&id=160120613) 
