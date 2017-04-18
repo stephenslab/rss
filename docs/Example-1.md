@@ -98,16 +98,16 @@ After applying RSS methods to these simulated data, we obtain the following resu
 
 **Scenario 2.1 (sparse), True PVE = 0.2**
 
-<img src="https://github.com/xiangzhu/pubfig/blob/master/wiki/pve2sparse_1.png" width="600">
+<img src="images/pve2sparse_1.png" width="600">
 
 **Scenario 2.1 (sparse), True PVE = 0.6**
 
-<img src="https://github.com/xiangzhu/pubfig/blob/master/wiki/pve2sparse_2.png" width="600">
+<img src="images/pve2sparse_2.png" width="600">
 
 **Scenario 2.2 (polygenic), True PVE = 0.2**
 
-<img src="https://github.com/xiangzhu/pubfig/blob/master/wiki/pve2polygenic_1.png" width="600">
+<img src="images/pve2polygenic_1.png" width="600">
 
 **Scenario 2.2 (polygenic), True PVE = 0.6** 
 
-<img src="https://github.com/xiangzhu/pubfig/blob/master/wiki/pve2polygenic_2.png" width="600">
+<img src="images/pve2polygenic_2.png" width="600">
