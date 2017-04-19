@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 We illustrate how to use RSS software through the following examples.
 
 - [**Example 1**](Example-1): Fit the RSS models via MCMC, and

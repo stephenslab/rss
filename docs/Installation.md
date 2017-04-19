@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 * [**RSS via MCMC**](RSS-via-MCMC)
   - Install the [`MATLAB` scripts](https://github.com/stephenslab/rss/tree/master/src) that implement the Monte Carlo Markov chain (MCMC) algorithms to fit the RSS models.
   - Testing environment: 

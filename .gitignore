@@ -10,6 +10,8 @@
 *.sbatch
 *.mat
 
+docs/_site
+
 local/
 
 src/lightspeed*

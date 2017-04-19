@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 Welcome to the RSS (Regression with Summary Statistics) wiki!
 
 This wiki hosts the documentation of RSS methods. It contains the
