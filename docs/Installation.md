@@ -1,6 +1,5 @@
 ---
 layout: default
-title: Installing RSS
 ---
 
 * [**RSS via MCMC**](RSS-via-MCMC)
