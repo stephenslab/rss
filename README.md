@@ -1,7 +1,17 @@
 # Regression with Summary Statistics (RSS)
 
 ### Overview
-Multiple regression analyses often assume that the response and covariates of each individual are observed, and use them to infer the regression coefficients. Here, motivated by the applications in genetics, we assume that these individual-level data are not available, but instead the summary statistics of univariate regression (essentially, the effect size estimates and their standard errors) are provided. We also assume that information on the correlation structure among covariates is available. The aim is to infer the multiple regression coefficients using the marginal regression summary statistics.
+
+Multiple regression analyses often assume that the response and
+covariates of each individual are observed, and use them to infer the
+regression coefficients. Here, motivated by the applications in
+genetics, we assume that these individual-level data are not
+available, but instead the summary statistics of univariate regression
+(essentially, the effect size estimates and their standard errors) are
+provided. We also assume that information on the correlation structure
+among covariates is available. The aim is to infer the multiple
+regression coefficients using the marginal regression summary
+statistics.
 
 This work is motivated by applications in genome-wide association studies ([GWAS](https://en.wikipedia.org/wiki/Genome-wide_association_study)). When fitting the multiple regression model to GWAS individual-level data, the covariates are the genotypes typed at different genetic variants ([SNPs](https://en.wikipedia.org/wiki/Single-nucleotide_polymorphism)), the response is the quantitative phenotype (e.g. height), and the regression coefficients are the effects of each SNP on phenotype. Due to privacy and logistical issues, the individual-level data are often not easily available. In contrast, the GWAS summary statistics (from single-SNP analysis) are widely available in the public domain (e.g. [GIANT](https://www.broadinstitute.org/collaboration/giant/index.php/GIANT_consortium_data_files) and [PGC](https://www.med.unc.edu/pgc/downloads)). Moreover, the correlation among covariantes (SNPs), known as [linkage disequilibrium](https://en.wikipedia.org/wiki/Linkage_disequilibrium), also can be obtained from public databases (e.g. the [1000 Genomes Project](http://www.1000genomes.org/home)). When the individual-level data are not available, can we perform "multiple-SNP" analysis using these public assets?
 
