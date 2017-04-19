@@ -13,7 +13,7 @@ Distributed under the terms of the GNU General Public License as published by th
 The repository is distributed in the hope that it will be useful, but **without any warranty**; without even the implied warranty of **merchantability** or **fitness for a particular purpose**. See [LICENSE](LICENSE) for more details.
 
 ### Support
-1. Get started from the short tutorials in RSS [wiki](https://github.com/stephenslab/rss/wiki).
+1. Get started from some short [tutorials](http://stephenslab.github.io/rss).
 2. Refer to the [FAQ](https://github.com/stephenslab/rss/wiki/FAQ) page for answers to some common questions.
 3. Create a new [issue](https://github.com/stephenslab/rss/issues) to report bugs and/or request features.
 4. Send an email to `xiangzhu[at]uchicago.edu`.
