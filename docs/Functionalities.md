@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 ### Model Fitting based on Markov chain Monte Carlo (MCMC)
 
 - [**`rss_bvsr.m`**](https://github.com/stephenslab/rss/blob/master/src/rss_bvsr.m) <br> Fit the Bayesian model that consists of the RSS likelihood and the "Bayesian variable selection regression" (BVSR; [Guan and Stephens, 2011](https://projecteuclid.org/euclid.aoas/1318514285)) prior.
