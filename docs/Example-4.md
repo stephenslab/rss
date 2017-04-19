@@ -8,10 +8,10 @@ Based on the theoretical derivations, we further set the input values of `se` an
 
 #### Details
 
-The summary-level data are computed from a simulated GWAS dataset. The GWAS data are simulated by [`enrich_datamaker.m
-`](https://github.com/stephenslab/rss/blob/master/misc/enrich_datamaker.m), which makes "signal-enriched" data based on the gene set. Specifically, SNPs outside the gene set are selected to be causal ones with probability `10^theta0`, whereas SNPs inside the gene set are selected with a higher probability `10^(theta0+theta)`, where `theta>0`. For more details, see [Carbonetto and Stephens (2013)](http://journals.plos.org/plosgenetics/article?id=10.1371%2Fjournal.pgen.1003770). 
+The summary-level data are computed from a simulated GWAS dataset. The GWAS data are simulated by [`enrich_datamaker.m`](https://github.com/stephenslab/rss/blob/master/misc/enrich_datamaker.m), which makes "signal-enriched" data based on the gene set. Specifically, SNPs outside the gene set are selected to be causal ones with probability `10^theta0`, whereas SNPs inside the gene set are selected with a higher probability `10^(theta0+theta)`, where `theta>0`. For more details, see [Carbonetto and Stephens (2013)](http://journals.plos.org/plosgenetics/article?id=10.1371%2Fjournal.pgen.1003770). 
 
-After generating the data, we feed the individual-level and summary-level data to [`varbvs`](https://github.com/pcarbo/varbvs) and [`rss-varbvsr`](https://github.com/stephenslab/rss/tree/master/src_vb) respectively, and then compare the VB output from these two methods.
+After generating the data, we feed the individual-level and summary-level data to [`varbvs`](https://github.com/pcarbo/varbvs) and [`rss-varbvsr`](https://github.com/stephenslab/rss/tree/master/src_vb) respectively,
+and then compare the VB output from these two methods.
 
 **To reproduce results of Example 4, please use [example4.m](https://github.com/stephenslab/rss/blob/master/examples/example4.m).**
 
@@ -99,7 +99,7 @@ bf_b = exp(fit_gsea.logw - fit_null.logw);
 1. the variance of phenotype is the same as residual variance `sigma.^2`;
 2. the input LD matrix `R` is the same as the sample correlation matrix of cohort genotypes `X`
 
-Interestingly, these two assumptions are **exactly the same assumptions in Proposition 2.1 of RSS [paper](http://biorxiv.org/content/early/2016/03/04/042457), which guarantees that the RSS likelihood is equivalent to the Gaussian likelihood of individual-level data.**
+Interestingly, these two assumptions are **exactly the same assumptions in Proposition 2.1 of RSS [paper](https://doi.org/10.1101/042457), which guarantees that the RSS likelihood is equivalent to the Gaussian likelihood of individual-level data.**
 
 These two assumptions are implemented as follows.
 ```matlab
@@ -120,7 +120,7 @@ Now we perform the VB analysis of summary data via `rss-varbvsr`.
 ```
 **Step 8**. Compare VB output from `varbvs` and `rss-varbvsr`. Both `varbvs` and `rss-varbvsr` output an estimated posterior distribution of `beta` (the multiple regression coefficients, or, the multiple-SNP effects). Specifically, the estimated distributions have the same analytical form (Equations 6-7 in [Carbonetto and Stephens (2012)](https://projecteuclid.org/euclid.ba/1339616726)).
 
-![](https://github.com/xiangzhu/pubfig/blob/master/wiki/varbvs_output.png)
+![](images/varbvs_output.png)
 
 Hence, it suffices to compare the estimated `[alpha, mu, s]`, and the estimated Bayes factors based on the VB output. Here is the result when I only run `example4.m` with one replication.
 ```matlab
@@ -154,4 +154,4 @@ What is the log-fold enrichment? 2
 What is the pve (between 0 and 1)? 0.3
 ``` 
 
-![](https://github.com/xiangzhu/pubfig/blob/master/wiki/rss_example4_rep100.png) 
+![](images/rss_example4_rep100.png) 

@@ -4,7 +4,7 @@
 This example illustrates the impact of different LD estimates on the RSS results. Three types of estimated LD matrices are considered: cohort sample LD, shrinkage panel sample LD ([Wen and Stephens 2010](http://stephenslab.uchicago.edu/assets/papers/Wen2010.pdf)) and panel sample LD.
 
 #### Details
-The summary-level data are computed from a simulated GWAS dataset. The simulation scheme is described in Section 4.1 of the RSS [paper](http://biorxiv.org/content/early/2016/03/04/042457). Specifically, 10 "causal" SNPs are randomly drawn from 982 SNPs on chromosome 16 (WTCCC UK Blood Service Control Group), with effect sizes coming from N(0,1). The true PVE (SNP heritability) is 0.2.
+The summary-level data are computed from a simulated GWAS dataset. The simulation scheme is described in Section 4.1 of the RSS [paper](https://doi.org/10.1101/042457). Specifically, 10 "causal" SNPs are randomly drawn from 982 SNPs on chromosome 16 (WTCCC UK Blood Service Control Group), with effect sizes coming from N(0,1). The true PVE (SNP heritability) is 0.2.
 
 Three types of LD estimates are considered:
 - cohort sample LD:<br>the sample correlation matrix using genotypes in the cohort (WTCCC UK Blood Service Control Group)
@@ -43,7 +43,7 @@ The `genotype2.mat` contains three types of LD estimates.
 
 ### More simulations
 
-The simulations in Section 4.1 of the RSS [paper](http://biorxiv.org/content/early/2016/03/04/042457) are essentially "replications" of the example above. To facilitate reproducible research, we make the simulated datasets in Section 4.1 publicly available ([`rss_example2_data_*.tar.gz`](https://uchicago.box.com/v/example2)).
+The simulations in Section 4.1 of the RSS [paper](https://doi.org/10.1101/042457) are essentially "replications" of the example above. To facilitate reproducible research, we make the simulated datasets in Section 4.1 publicly available ([`rss_example2_data_*.tar.gz`](https://uchicago.box.com/v/example2)).
 
 Each simulated dataset contains three files: `genotype.txt`, `phenotype.txt` and `simulated_data.mat`. The files `genotype.txt` and `phenotype.txt` are the genotype and phenotype files for [`GEMMA`](https://github.com/xiangzhou/GEMMA). The file `simulated_data.mat` contains three cells.
 ```matlab
@@ -59,12 +59,12 @@ After applying RSS methods to these simulated data, we obtain the following resu
 
 **True PVE = 0.2**
 
-![LD1](https://github.com/xiangzhu/pubfig/blob/master/wiki/LD1.png)
+![LD1](images/LD1.png)
 
 **True PVE = 0.02**
 
-![LD2](https://github.com/xiangzhu/pubfig/blob/master/wiki/LD2.png)
+![LD2](images/LD2.png)
 
 **True PVE = 0.002** 
 
-![LD3](https://github.com/xiangzhu/pubfig/blob/master/wiki/LD3.png)     
+![LD3](images/LD3.png)     

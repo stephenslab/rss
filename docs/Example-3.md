@@ -5,11 +5,11 @@ This example illustrates the impact of two definitions of `se` on the RSS result
 
 Here we consider two definitions below. The "simple" version is the standard error of the single-SNP effect estimate, which is often directly provided in the GWAS summary statistics database. The "rigorous" version is used in theoretical derivation (see Section 2.4 of RSS [paper](http://biorxiv.org/content/early/2016/03/04/042457)), and it requires some basic calculations based on the available summary statistics.
 
-![](https://github.com/xiangzhu/pubfig/blob/master/wiki/twose.png)
+![](images/twose.png)
 
 In practice, we find these two definitions differ negligibly, mainly because
 
-1. currently most GWAS have large sample size (`Nsnp`) and small effect sizes (`betahat`); see Table 1 of RSS [paper](http://biorxiv.org/content/early/2016/03/04/042457);
+1. currently most GWAS have large sample size (`Nsnp`) and small effect sizes (`betahat`); see Table 1 of RSS [paper](https://doi.org/10.1101/042457);
 2. the published summary data are often limited to two digits to further limit the possibility of identifiability (e.g. [GIANT](http://portals.broadinstitute.org/collaboration/giant/index.php/GIANT_consortium_data_files#GIANT_consortium_2012-2015_GWAS_Metadata_is_Available_Here_for_Download)). 
 
 Hence, we speculate that using these two definitions of `se` exchangeably would not produce severely different results. In this example, we verify our guess by simulations. 
@@ -48,18 +48,18 @@ To make this example as "hard" as possible for `rss`, we do not round `se_1` and
 
 We can look at the posterior means of `beta`, and the posterior distributions of `h`, `log(pi)` and PVE based on `se_1` (blue) and `se_2` (orange).
 
-![](https://github.com/xiangzhu/pubfig/blob/master/wiki/rss_example3_posterior.png)
+![](images/rss_example3_posterior.png)
 
 The PVE estimate (with 95% credible interval) is 0.1932, [0.1166, 0.2869] when using `se_1`, and it is 0.1896, [0.1162, 0.2765] when using `se_2`.
 
 ### More simulations
 
-The simulations in Section 2.3 of the RSS [paper](http://biorxiv.org/content/early/2016/03/04/042457) (results shown in Supplement) are essentially "replications" of the example above. To facilitate reproducible research, we make the simulated datasets publicly available ([Scenario 2.1 datasets in `rss_example1_simulations.tar.gz`](https://uchicago.box.com/example1)).
+The simulations in Section 2.3 of the RSS [paper](https://doi.org/10.1101/042457) (results shown in Supplement) are essentially "replications" of the example above. To facilitate reproducible research, we make the simulated datasets publicly available ([Scenario 2.1 datasets in `rss_example1_simulations.tar.gz`](https://uchicago.box.com/example1)).
 
 After applying RSS methods to these simulated data, we obtain the following results. In the figures below, `sigma_hat` corresponds to `se_1`, and `s_hat` corresponds to `se_2`.
 
 #### PVE estimation
-![](https://github.com/xiangzhu/pubfig/blob/master/wiki/twose_pve.png)
+![](images/twose_pve.png)
 
 #### Association detection
-![](https://github.com/xiangzhu/pubfig/blob/master/wiki/twose_pip.png)
+![](images/twose_pip.png)

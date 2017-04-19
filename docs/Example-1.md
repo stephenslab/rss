@@ -4,7 +4,7 @@
 This example illustrates how to fit an RSS model using MCMC simulation. Three types of prior distributions are considered: BVSR, BSLMM and ASH. The output of MCMC is further used to estimate SNP heritability.
 
 #### Details 
-The summary-level data are computed from a simulated GWAS dataset. The GWAS data are simulated under the Scenario 2.1 in the RSS [paper](http://biorxiv.org/content/early/2016/03/04/042457). Specifically, 100 "causal" SNPs are randomly drawn from 12758 SNPs on chromosome 16 (WTCCC UK Blood Service Control Group), with effect sizes coming from N(0,1). The true PVE (SNP heritability) is 0.2.
+The summary-level data are computed from a simulated GWAS dataset. The GWAS data are simulated under the Scenario 2.1 in the RSS [paper](https://doi.org/10.1101/042457). Specifically, 100 "causal" SNPs are randomly drawn from 12758 SNPs on chromosome 16 (WTCCC UK Blood Service Control Group), with effect sizes coming from N(0,1). The true PVE (SNP heritability) is 0.2.
 
 The population LD matrix is estimated from a reference panel (WTCCC 1958 British Birth Cohort), using the shrinkage estimator in [Wen and Stephens](http://stephenslab.uchicago.edu/assets/papers/Wen2010.pdf) (2010).
 
@@ -28,13 +28,13 @@ Note that only `betahat`, `se`, `Nsnp` and `R` are needed for model fitting. The
 
 **Step 2**. Check the "small effects" model assumption.
 
-Using the summary data, we can compute the squared sample correlation between the phenotype and each SNP. We check the "small effects" assumption by looking at these marginal squared correlation values. (NB: The function [`prctile`](http://www.mathworks.com/help/stats/prctile.html) requires the [Statistics and Machine Learning Toolbox](http://www.mathworks.com/help/stats/index.html). Please skip this step if the required toolbox is not available.)
+Using the summary data, we can compute the squared sample correlation between the phenotype and each SNP. We check the "small effects" assumption by looking at these marginal squared correlation values. (NB: The function [`prctile`](http://www.mathworks.com/help/stats/prctile.html) requires the [Statistics and Machine Learning Toolbox](http://www.mathworks.com/help/stats/index.html). Please see this [commit](https://github.com/stephenslab/rss/pull/3/commits/566e149ed840a913bfef9c0d7bf82feb41d6735d) (courtesy of Dr. [Dr. Peter Carbonetto](https://pcarbo.github.io/)) if the required toolbox is not available.)
 ```matlab            
 >> chatsqr = (betahat(:).^2) ./ (Nsnp(:).*(se(:).^2) + betahat(:).^2);
 >> disp(prctile(log10(chatsqr), 0:25:100));
   -11.6029   -4.1154   -3.4721   -2.9962   -1.5982
 ```
-Since our data is simulated from genotypes on a single chromosome, the simulated effect sizes per SNP are larger than would be expected in a typical GWAS (Table 1 in the RSS [paper](http://biorxiv.org/content/early/2016/03/04/042457)).
+Since our data is simulated from genotypes on a single chromosome, the simulated effect sizes per SNP are larger than would be expected in a typical GWAS (Table 1 in the RSS [paper](https://doi.org/10.1101/042457)).
 
 **Step 3**. Fit the RSS-BVSR, RSS-BSLMM and RSS-ASH model via MCMC.
 
@@ -65,7 +65,7 @@ for i = 1:M
   pvesam(i) = compute_pve(bsam(i,:), betahat, se, Nsnp, bwd, BR, 1);
 end
 ```
-Recall that the SNP heritability estimator (Equation 3.8 in the RSS [paper](http://biorxiv.org/content/early/2016/03/04/042457)) involves vector-matrix-vector product. To speed the calculation, we exploit the banded structure of `R` and use the banded version of vector-matrix-vector product implemented in `lapack`. Hence, the banded storage `BR`, instead of the original form `R`, is used to calculate the SNP heritability.
+Recall that the SNP heritability estimator (Equation 3.8 in the RSS [paper](https://doi.org/10.1101/042457)) involves vector-matrix-vector product. To speed the calculation, we exploit the banded structure of `R` and use the banded version of vector-matrix-vector product implemented in `lapack`. Hence, the banded storage `BR`, instead of the original form `R`, is used to calculate the SNP heritability.
 
 **Step 5**. Summarize the results.
 
@@ -78,11 +78,11 @@ The data is simulated with the true SNP heritability (PVE) being **0.2**. The fo
 | RSS-ASH   | 0.197 [0.114, 0.286] | 6.69 hours |
 
 The following histograms depict the posterior distributions of estimated SNP heritability under the three models.
-![example1_pve](https://github.com/xiangzhu/pubfig/blob/master/wiki/rss_example1_pve.png)
+![example1_pve](images/rss_example1_pve.png)
 
 ### More simulations
 
-The simulations in Section 4.2 of the RSS [paper](http://biorxiv.org/content/early/2016/03/04/042457) are essentially "replications" of the example above. To facilitate reproducible research, we make the simulated datasets for Scenario 2.1 and 2.2 publicly available ([`rss_example1_simulations.tar.gz`](https://uchicago.box.com/example1)).
+The simulations in Section 4.2 of the RSS [paper](https://doi.org/10.1101/042457) are essentially "replications" of the example above. To facilitate reproducible research, we make the simulated datasets for Scenario 2.1 and 2.2 publicly available ([`rss_example1_simulations.tar.gz`](https://uchicago.box.com/example1)).
 
 Each simulated dataset contains three files: `genotype.txt`, `phenotype.txt` and `simulated_data.mat`. The files `genotype.txt` and `phenotype.txt` are the genotype and phenotype files for [`GEMMA`](https://github.com/xiangzhou/GEMMA). The file `simulated_data.mat` contains three cells.
 ```matlab
