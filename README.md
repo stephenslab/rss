@@ -14,7 +14,7 @@ The repository is distributed in the hope that it will be useful, but **without 
 
 ### Support
 1. Get started from some short [tutorials](http://stephenslab.github.io/rss).
-2. Refer to the [FAQ](https://github.com/stephenslab/rss/wiki/FAQ) page for answers to some common questions.
+2. Refer to the [FAQ](http://stephenslab.github.io/rss/FAQ) page for answers to some common questions.
 3. Create a new [issue](https://github.com/stephenslab/rss/issues) to report bugs and/or request features.
 4. Send an email to `xiangzhu[at]uchicago.edu`.
 
