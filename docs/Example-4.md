@@ -15,7 +15,7 @@ and then compare the VB output from these two methods.
 
 **To reproduce results of Example 4, please use [example4.m](https://github.com/stephenslab/rss/blob/master/examples/example4.m).**
 
-Before running [example4.m](https://github.com/stephenslab/rss/blob/master/examples/example4.m), please make sure the [VB subroutines](https://github.com/stephenslab/rss/tree/master/src_vb) of RSS are installed. See instructions [here](https://github.com/stephenslab/rss/wiki/RSS-via-VB).
+Before running [example4.m](https://github.com/stephenslab/rss/blob/master/examples/example4.m), please make sure the [VB subroutines](https://github.com/stephenslab/rss/tree/master/src_vb) of RSS are installed. See instructions [here](RSS-via-VB).
 
 #### Step-by-step illustration
 

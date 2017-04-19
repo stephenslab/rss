@@ -10,7 +10,7 @@ The population LD matrix is estimated from a reference panel (WTCCC 1958 British
 
 **To reproduce results of Example 1, please use [`example1.m`](https://github.com/stephenslab/rss/blob/master/examples/example1.m).** 
 
-Before running [`example1.m`](https://github.com/stephenslab/rss/blob/master/examples/example1.m), please make sure the [MCMC subroutines](https://github.com/stephenslab/rss/tree/master/src) of RSS are installed. See instructions [here](https://github.com/stephenslab/rss/wiki/RSS-via-MCMC).
+Before running [`example1.m`](https://github.com/stephenslab/rss/blob/master/examples/example1.m), please make sure the [MCMC subroutines](https://github.com/stephenslab/rss/tree/master/src) of RSS are installed. See instructions [here](RSS-via-MCMC).
 
 #### Step-by-step illustration
 

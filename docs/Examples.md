@@ -13,7 +13,7 @@ We illustrate how to use RSS software through the following examples.
 
 > This example illustrates the impact of different LD estimates on the
 > RSS results. Three types of estimated LD matrices are considered:
-> cohort sample LD, shrinkage panel sample LD (Wen and Stephens 2010)
+> cohort sample LD, shrinkage panel sample LD [(Wen and Stephens, 2010)](https://www.ncbi.nlm.nih.gov/pubmed/21479081)
 > and panel sample LD.
 
 - [**Example 3**](Example-3): Fit RSS-BVSR via MCMC with two types of
@@ -27,5 +27,4 @@ We illustrate how to use RSS software through the following examples.
 
 > This example illustrates how to fit an RSS-BVSR model using
 > variational Bayes (VB) approximation, compare the results with
-> previous work based on individual-level data (Carbonetto and
-> Stephens, 2012).
+> previous work based on individual-level data [(Carbonetto and Stephens, 2012)](https://projecteuclid.org/euclid.ba/1339616726).
