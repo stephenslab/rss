@@ -6,7 +6,11 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
 %       SiRiS: inv(S)*R*inv(S), double precision sparse matrix (ccs format), p by p
 %       sigb: the prior SD of the regression coefficients (if included), scalar
 %       logodds: the prior log-odds (i.e. log(prior PIP/(1-prior PIP))) of inclusion for each SNP, p by 1
-%	option: user-specified behaviour of the algorithm, structure
+%       options: user-specified behaviour of the algorithm, structure
+%               - max_walltime: scalar, the maximum wall time (unit: seconds) for this program
+%               - tolerance: scalar, convergence tolerance
+%               - alpha & mu: p by 1 vectors, initial values of variational parameters
+%               - verbose: logical, print program progress if true
 % OUTPUT:
 %	lnZ: scalar, the variational lower bound of the marginal log likelihood (up to some constant)
 %	alpha: p by 1, variational estimates of the posterior inclusion probabilities 
@@ -17,11 +21,30 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
 %       	- maxerr: the maximum relative difference between the parameters at the last two iterations
 %		- sigb: scalar, the maximum likelihood estimate of sigma_beta
 %		- loglik: iter by 1, the variational lower bound at each iteration
+%		- exetime: scalar, the execution time of the program
 
-  % Convergence is reached when the maximum relative distance between
-  % successive updates of the variational parameters is less than this
-  % quantity.
-  tolerance = 1e-4;
+  % Get the time when the program starts.
+  start_time = clock;
+
+  if ~exist('options', 'var')
+    options = [];
+  end
+
+  % Set the maximum wall time for this program (unit: seconds).
+  if isfield(options,'max_walltime')
+    max_walltime = double(options.max_walltime);
+  else
+    max_walltime = (1*24+11)*3600; % 1 day 11 hours
+  end
+
+  % Set tolerance for convergence, which is reached when the maximum relative distance
+  % between successive updates of the variational parameters is less than this quantity.
+  if isfield(options,'tolerance')
+    tolerance = double(options.tolerance);
+  else
+    tolerance = 1e-4;
+  end
+  fprintf('Tolerance for convergence in this program: %0.2e \n', tolerance);
   
   % Get the number of variables (p).
   p = length(betahat);
@@ -31,14 +54,9 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
     SiRiS = sparse(double(SiRiS));
   end
   
-  if ~exist('options', 'var')
-    options = [];
-  end
-
   % Set initial estimates of variational parameters.
   if isfield(options,'alpha')
     alpha = double(options.alpha(:));
-    alpha = alpha / sum(alpha);
   else
     alpha = rand(p,1);
     alpha = alpha / sum(alpha);
@@ -50,13 +68,6 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
   end
   if length(alpha) ~= p || length(mu) ~= p
     error('options.alpha and options.mu must be vectors of the same length');
-  end
-
-  % Determine whether to update the prior SD of the additive effects.
-  if isfield(options,'update_sigb')
-    update_sigb = options.update_sigb;
-  else
-    update_sigb = false;
   end
 
   % Determine whether to display the algorithm's progress.
@@ -78,9 +89,16 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
   s 		= (se_square .* sigb_square) ./ (se_square + sigb_square);
 
   % Initialize the fields of the structure info.
-  lnZ    = -Inf;
   iter   = 0;
   loglik = [];
+
+  % Calculate the variational lower bound based on the initial values.
+  r   = alpha .* mu;
+  lnZ = q'*r - 0.5*r'*SiRiSr - 0.5*(1./se_square)'*betavar(alpha, mu, s);
+  lnZ = lnZ + intgamma(logodds, alpha) + intklbeta_rssbvsr(alpha, mu, s, sigb_square);
+  fprintf('Calculate the variational lower bound based on the initial values: %+13.6e ...\n', lnZ);
+  
+  loglik = [loglik; lnZ]; 
 
   if verbose
     fprintf('       variational    max. incl max.       \n');
@@ -115,14 +133,6 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
     % Record the variational lower bound at each iteration.
     loglik = [loglik; lnZ]; %#ok<AGROW>
 
-    % Compute the maximum pseudo-likelihood estimate of the prior SD of the
-    % additive effects (sigma_beta), if requested. Note that we must also
-    % recalculate the variational variance of the regression coefficients.
-    if update_sigb
-      sigb_square = dot(alpha, s+mu.^2) / sum(alpha);
-      s 	  = (se_square .* sigb_square) ./ (se_square + sigb_square);
-    end
-    
     % Print the status of the algorithm and check the convergence criterion.
     % Convergence is reached when the maximum relative difference between
     % the parameters at two successive iterations is less than the specified
@@ -163,9 +173,23 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
 
     end
 
+    % Terminate the for loop after the given maximum wall time.
+    exetime = etime(clock, start_time);
+    if exetime >= max_walltime
+
+      sigb  = sqrt(sigb_square);
+      if verbose
+        fprintf('\n');
+        fprintf('Maximum wall time reached: %+0.2e seconds\n',exetime);
+        fprintf('The log variational lower bound of the last step increased by %+0.2e\n',lnZ-lnZ0);
+      end
+      break
+
+    end
+
   end
 
   % Save info as a structure array.
-  info = struct('iter',iter,'maxerr',maxerr,'sigb',sigb,'loglik',loglik);
+  info = struct('iter',iter,'maxerr',maxerr,'sigb',sigb,'loglik',loglik,'exetime',exetime);
   
 end
