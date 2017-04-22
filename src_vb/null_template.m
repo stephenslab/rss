@@ -59,7 +59,7 @@ switch(stage)
   % variational estimate of the posterior probability in step 1
   % NB: the file saved in step1_output_path should be generated before step 2
   case 'step2'
-    step1_output_path = strcat(output_path,'step2','step1');
+    step1_output_path = strrep(output_path,'step2','step1');
     step1_output_path = strcat(step1_output_path,trait_name,'_null_seed_',num2str(myseed),'_',method,'_step1.mat');
 
     step1_output = matfile(step1_output_path);
