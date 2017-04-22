@@ -7,7 +7,6 @@
 *.log
 *.txt
 *.txt.gz
-*.sbatch
 *.mat
 
 docs/_site
