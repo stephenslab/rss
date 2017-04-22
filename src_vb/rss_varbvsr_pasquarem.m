@@ -23,7 +23,6 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_pasquarem(betahat, se, SiRiS, s
 %               - maxerr: the maximum relative difference between the parameters at the last two iterations
 %               - sigb: scalar, the maximum likelihood estimate of sigma_beta
 %               - loglik: iter by 1, the variational lower bound at each iteration
-%               - exetime: scalar, the execution time of the program
 
   % Get the time when the program starts.
   start_time = clock;
@@ -381,6 +380,6 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_pasquarem(betahat, se, SiRiS, s
   end
 
   % Save info as a structure array.
-  info = struct('iter',iter,'maxerr',maxerr,'sigb',sigb,'loglik',loglik,'exetime',exetime);
+  info = struct('iter',iter,'maxerr',maxerr,'sigb',sigb,'loglik',loglik);
 end
 
