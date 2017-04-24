@@ -9,9 +9,11 @@ following pages.
 
 - [**Installation**](Installation): instructions for installing RSS
   software;
-- [**Functionalities**](Functionalities): the list of functions
-  associated with RSS software;
+- [**Functionalities**](Functionalities): functions associated with
+  RSS methods and software;
 - [**Examples**](Examples): examples (including input and output data)
   that illustrate RSS methods;
 - [**FAQ**](FAQ): answers to the frequently ask questions about RSS
   methods and software.
+- [**News**](News): progress updates on the development of RSS
+  methods and software. 
