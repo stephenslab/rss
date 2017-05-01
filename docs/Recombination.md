@@ -24,7 +24,7 @@ Eg. 1, for SNP 2 and 3: rho_23 = 4 * 11418 * (0.01847159-0.01029128)/100;
 
 Eg. 2, for SNP 2 and 6: rho_26 = 4 * 11418 * (0.02732511-0.01029128)/100.
 
-Next, as a validation, we compare our calculations with the results provided by [`BLIMP`](http://stephenslab.uchicago.edu/blimp/) ([Wen and Stephens, 2010](https://www.ncbi.nlm.nih.gov/pubmed/21479081)).
+Next, as a validation, we compare our calculations with the results provided by [`BLIMP`](http://stephenslab.uchicago.edu/software_pages/blimp/index.html) ([Wen and Stephens, 2010](https://www.ncbi.nlm.nih.gov/pubmed/21479081)).
 
 The file `rmb.ceu.ch22` lists recombination rate between all adjacent markers in the panel. 
 
