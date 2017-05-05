@@ -1,6 +1,7 @@
 ### Progress Update
 
-- **04/04/2017**<br> The manuscript describing RSS likelihood is accepted by *Annals of Applied Statistics*.
+- **05/02/2017**<br> Xiang presented the enrichment analysis of 31 human phenotypes on 4,026 gene sets using RSS likelihood at the third annual research computing symposium and exposition ([Mind Bytes 2017](http://mindbytes.uchicago.edu/)), University of Chicago. [[Poster]](http://mindbytes.uchicago.edu/posters/04242017110702_posterzhu042417.pdf) [[Abstract]](http://mindbytes.uchicago.edu/gallery.php)
+- **04/04/2017**<br> The [manuscript](https://doi.org/10.1101/042457) describing RSS likelihood is accepted by *Annals of Applied Statistics*.
 - **02/22/2017**<br> Xiang presented RSS likelihood at [Statistics Department Seminar](https://statistics.stanford.edu/events/bayesian-large-scale-regression-model-genome-wide-summary-data), Stanford University. [[Slides]](http://www.stat.uchicago.edu/~xiangzhu/STANFORD_20170222.html) [[Abstract]](https://statistics.stanford.edu/sites/default/files/Feb22-2017.pdf)
 - **01/11/2017**<br> Xiang presented gene set enrichment analysis using RSS likelihood at [Work in Progress seminar](http://genes.uchicago.edu/page/work-progress-series), Department of Human Genetics, University of Chicago. [[Slides]](http://www.stat.uchicago.edu/~xiangzhu/WIP_20170111.html)
 - **12/02/2016**<br> Xiang presented RSS likelihood as an example when giving a tutorial of statistical genetics at the 2016 Novembre-He-Stephens meeting, University of Chicago. [[Slides]](http://www.stat.uchicago.edu/~xiangzhu/gwas_tutorial)
