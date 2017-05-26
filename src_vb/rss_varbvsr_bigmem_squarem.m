@@ -12,6 +12,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_bigmem_squarem(file, sigb, logo
 %		- tolerance: scalar, convergence tolerance
 %		- alpha & mu: p by 1 vectors, initial values of variational parameters
 %		- verbose: logical, print program progress if true 
+%               - modify_step: logical, modify the step length in SQUAREM if true
 % OUTPUT:
 %       lnZ: scalar, the variational lower bound of the marginal log likelihood (up to some constant)
 %       alpha: p by 1, variational estimates of the posterior inclusion probabilities 
