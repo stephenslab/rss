@@ -137,7 +137,7 @@ function [logw1,alpha,mu,s] = gsea_outerloop(method,betahat,se,SiRiS,se_all,Nsnp
 
       sigb0    = calc_beta_sd(se_all, Nsnp_all, sigmoid10(log10odds_null), h(k));
       logodds0 = log(10) * theta0(i);
-      options  = struct('alpha',alpha0(:,i,k),'mu',mu0(:,i,k),'verbose',false);
+      options  = struct('alpha',alpha0(:,i,k),'mu',mu0(:,i,k),'verbose',true);
 
       % run rss-varbvsr under null
       F0 = rss_varbvsr_wrapper(method,betahat,se,SiRiS,sigb0,logodds0,options);
@@ -159,7 +159,7 @@ function [logw1,alpha,mu,s] = gsea_outerloop(method,betahat,se,SiRiS,se_all,Nsnp
 
 	sigb1    = calc_beta_sd(se_all, Nsnp_all, sigmoid10(log10odds_gsea), h(k));
         logodds1 = log(10) * (theta0(i) + theta(j));
-        options  = struct('alpha',alpha(:,i,j,k),'mu',mu(:,i,j,k),'verbose',false);
+        options  = struct('alpha',alpha(:,i,j,k),'mu',mu(:,i,j,k),'verbose',true);
 
         % run rss-varbvsr under enrichment
         [F1,alpha(:,i,j,k),mu(:,i,j,k),s(:,i,j,k)] = rss_varbvsr_wrapper(method,betahat,se,SiRiS,sigb1,logodds1,options);
