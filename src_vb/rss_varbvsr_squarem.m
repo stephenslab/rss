@@ -142,7 +142,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_squarem(betahat, se, SiRiS, sig
     mu_r 	= mu1 - mu0;
     alpha_v 	= (alpha2 - alpha1) - alpha_r;
     mu_v 	= (mu2 - mu1) - mu_r;
-    mtp 	= - sqrt(norm(alpha_r)^2+norm(mu_r)^2) / sqrt(norm(alpha_v)^2+norm(mu_v)^2);
+    mtp 	= - sqrt(norm(alpha_r)^2+norm(mu_r)^2) / sqrt(norm(alpha_v)^2+norm(mu_v)^2+eps); % add eps to avoid 0/0 case
 
     % Modifiy the step length (optional): three scenarios (Section 6).
     if modify_step

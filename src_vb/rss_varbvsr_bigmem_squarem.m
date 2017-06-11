@@ -214,7 +214,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_bigmem_squarem(file, sigb, logo
     end
     
     % Compute the step length (line 5 of Table 1).
-    mtp = - sqrt(sum(alpha_r_norm2)+sum(mu_r_norm2)) / sqrt(sum(alpha_v_norm2)+sum(mu_v_norm2));
+    mtp = - sqrt(sum(alpha_r_norm2)+sum(mu_r_norm2)) / sqrt(sum(alpha_v_norm2)+sum(mu_v_norm2)+eps); % add eps to avoid 0/0 case
 
     % Modifiy the step length under three different scenarios.
     alpha_tmp1_cell  = cell(C, 1);
