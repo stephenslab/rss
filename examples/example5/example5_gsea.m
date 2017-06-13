@@ -13,7 +13,7 @@ method = 'squarem';
 geneset_name = 'path2641'; 
 
 % specify the path of summary data across whole genome
-allstat_path = '/project/mstephens/test_rss/data/ibd2015/ibd2015_sumstat.mat';
+allstat_path = '/project/mstephens/public_html/ibd2015_sumstat.mat';
 
 % trait name and sample size
 trait_name  = 'ibd2015';
@@ -28,7 +28,7 @@ theta  = (0:(3/100):3)';
 data_path = './';
 
 % specify the path of subset of summary data corresponding to the gene set 
-sumstat_path = '/project/mstephens/test_rss/data/ibd2015/pathway/path2641/ibd2015-sumstat.mat';
+sumstat_path = '/project/mstephens/public_html/ibd2015_sumstat_path2641.mat';
 
 % specify the output path
 output_path = './'; 
