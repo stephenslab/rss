@@ -1,6 +1,6 @@
-### Example 3: Choice of SE vector
+## Example 3: Choice of SE vector
 
-#### Overview
+### Overview
 This example illustrates the impact of two definitions of `se` on the RSS results.
 
 Here we consider two definitions below. The "simple" version is the standard error of the single-SNP effect estimate, which is often directly provided in the GWAS summary statistics database. The "rigorous" version is used in theoretical derivation (see Section 2.4 of RSS [paper](https://doi.org/10.1101/042457)), and it requires some basic calculations based on the available summary statistics.
@@ -14,14 +14,14 @@ In practice, we find these two definitions differ negligibly, mainly because
 
 Hence, we speculate that using these two definitions of `se` exchangeably would not produce severely different results. In this example, we verify our guess by simulations. 
 
-#### Details
+### Details
 We use the same dataset in [Example 1](Example-1) for illustration. Please contact us if you have trouble downloading the dataset [`example1.mat`](https://uchicago.box.com/example1).
 
 **To reproduce results of Example 3, please use [`example3.m`](https://github.com/stephenslab/rss/blob/master/examples/example3.m).**
 
 Before running [`example3.m`](https://github.com/stephenslab/rss/blob/master/examples/example3.m), please make sure the [MCMC subroutines of RSS](https://github.com/stephenslab/rss/tree/master/src) are installed. See instructions [here](RSS-via-MCMC).
 
-#### Step-by-step illustration
+### Step-by-step illustration
 
 **Step 1**. Define two types of `se`.
 

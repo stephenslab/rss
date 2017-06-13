@@ -1,10 +1,10 @@
-### Example 5: Enrichment analysis of GWAS summary statistics
+## Example 5: Enrichment analysis of GWAS summary statistics
 
-#### Overview
+### Overview
 
 This example illustrates how to perform enrichment analysis of GWAS summary statistics based on variational Bayes (VB) inference of RSS-BVSR models.
 
-#### Details
+### Details
 
 Here the enrichment analysis consists of fitting the following two models:
 
@@ -19,9 +19,9 @@ The key difference between our work and previous work [notably, Carbonetto and S
 
 Before running scripts of this example, please make sure the [VB subroutines](https://github.com/stephenslab/rss/tree/master/src_vb) of RSS are installed. See instructions [here](RSS-via-VB).
 
-#### Step-by-step illustration
+### Step-by-step illustration
 
-##### Fitting the baseline model ([`example5_null.m`](https://github.com/stephenslab/rss/blob/master/examples/example5/example5_null.m))
+#### Fitting the baseline model ([`example5_null.m`](https://github.com/stephenslab/rss/blob/master/examples/example5/example5_null.m))
 
 **Reminder**: Since we have to fit multiple regression analyses of 1.1 million common SNPs multiple times when fitting the baseline model, we need to use [rss_varbvsr_bigmem_squarem.m](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_bigmem_squarem.m), which requires [Parallel Computing Toolbox](https://www.mathworks.com/help/distcomp/index.html). If you do not have this toolbox available, please skip this section, and use our result files for enrichment analyses instead (see Step 4). 
 
@@ -105,7 +105,7 @@ In case you cannot fit the baseline models in your own computing environment, we
 /project/mstephens/public_html/ibd2015_null_h_30_theta0_290_seed_459_squarem_step1.mat
 ```
 
-##### Fitting the enrichment model ([`example5_gsea.m`](https://github.com/stephenslab/rss/blob/master/examples/example5/example5_gsea.m))
+#### Fitting the enrichment model ([`example5_gsea.m`](https://github.com/stephenslab/rss/blob/master/examples/example5/example5_gsea.m))
 
 Unlike the baseline model, fitting the enrichment model does not require any specialized toolbox. With the baseline result files in place (see Step 4 above), everyone should be able to run this part by typing the following command in a Matlab console:
 ```matlab
@@ -166,6 +166,6 @@ There are four types of variables in the result file:
 - estimated variational lower bounds and Bayes factor: `logw0` (lower bounds under the baseline model), `logw1` (lower bounds under the enrichment model), and `log10bf` (log 10 Bayes factor);
 - computational time: `runtime` (unit: seconds).
 
-#### More examples
+### More examples
 
 Our enrichment analyses of 31 complex traits and 4,026 gene sets are essentially “replications” of the example above. Our full results are available at http://xiangzhu.github.io/rss-gsea/results/.  

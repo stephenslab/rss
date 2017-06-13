@@ -1,12 +1,12 @@
-### Example 4: Fit the RSS model via VB
+## Example 4: Fit the RSS model via VB
 
-#### Overview
+### Overview
 
 This example illustrates how to fit an RSS-BVSR model using variational Bayes (VB) approximation. 
 
 Based on the theoretical derivations, we further set the input values of `se` and `R` such that the VB analysis of summary-level data is equivalent to the VB analysis of individual-level data ([Carbonetto and Stephens, 2012](https://projecteuclid.org/euclid.ba/1339616726)). Hence, this example provides an *in silico* sanity check for our theoretical work. 
 
-#### Details
+### Details
 
 The summary-level data are computed from a simulated GWAS dataset. The GWAS data are simulated by [`enrich_datamaker.m`](https://github.com/stephenslab/rss/blob/master/misc/enrich_datamaker.m), which makes "signal-enriched" data based on the gene set. Specifically, SNPs outside the gene set are selected to be causal ones with probability `10^theta0`, whereas SNPs inside the gene set are selected with a higher probability `10^(theta0+theta)`, where `theta>0`. For more details, see [Carbonetto and Stephens (2013)](http://journals.plos.org/plosgenetics/article?id=10.1371%2Fjournal.pgen.1003770). 
 
@@ -17,7 +17,7 @@ and then compare the VB output from these two methods.
 
 Before running [example4.m](https://github.com/stephenslab/rss/blob/master/examples/example4.m), please make sure the [VB subroutines](https://github.com/stephenslab/rss/tree/master/src_vb) of RSS are installed. See instructions [here](RSS-via-VB).
 
-#### Step-by-step illustration
+### Step-by-step illustration
 
 **Step 1**. [Download](https://uchicago.box.com/v/example4) the input data `genotype.mat` and `AH_chr16.mat` for `enrich_datamaker.m`. Please contact us if you have trouble accessing this file.
 

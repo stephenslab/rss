@@ -1,9 +1,9 @@
-### Example 1: Fit the RSS model via MCMC
+## Example 1: Fit the RSS model via MCMC
 
-#### Overview
+### Overview
 This example illustrates how to fit an RSS model using MCMC simulation. Three types of prior distributions are considered: BVSR, BSLMM and ASH. The output of MCMC is further used to estimate SNP heritability.
 
-#### Details 
+### Details 
 The summary-level data are computed from a simulated GWAS dataset. The GWAS data are simulated under the Scenario 2.1 in the RSS [paper](https://doi.org/10.1101/042457). Specifically, 100 "causal" SNPs are randomly drawn from 12758 SNPs on chromosome 16 (WTCCC UK Blood Service Control Group), with effect sizes coming from N(0,1). The true PVE (SNP heritability) is 0.2.
 
 The population LD matrix is estimated from a reference panel (WTCCC 1958 British Birth Cohort), using the shrinkage estimator in [Wen and Stephens](http://stephenslab.uchicago.edu/assets/papers/Wen2010.pdf) (2010).
@@ -12,7 +12,7 @@ The population LD matrix is estimated from a reference panel (WTCCC 1958 British
 
 Before running [`example1.m`](https://github.com/stephenslab/rss/blob/master/examples/example1.m), please make sure the [MCMC subroutines](https://github.com/stephenslab/rss/tree/master/src) of RSS are installed. See instructions [here](RSS-via-MCMC).
 
-#### Step-by-step illustration
+### Step-by-step illustration
 
 **Step 1**. Download the simulated summary-level data [`example1.mat`](https://uchicago.box.com/example1). Please contact us if you have trouble accessing this file.
 
