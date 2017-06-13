@@ -1,10 +1,8 @@
-### Example 5: Enrichment analysis RSS-BVSR model
+### Example 5: Enrichment analysis of GWAS summary statistics
 
 #### Overview
 
-This example illustrates how to fit an RSS-BVSR model using variational Bayes (VB) approximation. 
-
-Based on the theoretical derivations, we further set the input values of `se` and `R` such that the VB analysis of summary-level data is equivalent to the VB analysis of individual-level data ([Carbonetto and Stephens, 2012](https://projecteuclid.org/euclid.ba/1339616726)). Hence, this example provides an *in silico* sanity check for our theoretical work. 
+This example illustrates how to fit an RSS-BVSR model using variational Bayes (VB) approximation.
 
 #### Details
 
@@ -17,13 +15,58 @@ and then compare the VB output from these two methods.
 
 Before running [example4.m](https://github.com/stephenslab/rss/blob/master/examples/example4.m), please make sure the [VB subroutines](https://github.com/stephenslab/rss/tree/master/src_vb) of RSS are installed. See instructions [here](RSS-via-VB).
 
-#### Step-by-step illustration
+#### Step-by-step illustration of fitting baseline model ([`example5_null.m`](https://github.com/stephenslab/rss/blob/master/examples/example5/example5_null.m))
 
-**Step 1**. [Download](https://uchicago.box.com/v/example4) the input data `genotype.mat` and `AH_chr16.mat` for `enrich_datamaker.m`. Please contact us if you have trouble accessing this file.
+**Step 1**. [Download](http://projects.rcc.uchicago.edu/mstephens/data.txt) the input data file `ibd2015_sumstat.mat`, which contains the GWAS summary statistics and LD matrix estimates. Please contact us if you have trouble accessing this file.
 
-**Step 2**. Install the `MATLAB` implementation of [`varbvs`](https://github.com/pcarbo/varbvs). Please follow the instruction [here](https://github.com/pcarbo/varbvs/tree/master/varbvs-MATLAB#large-scale-bayesian-variable-selection-for-matlab). After the installation, add `varbvs` to the search path (see the example below).
+Before proceeding to next step, let's look at the contents of `ibd2015_sumstat.mat`.
 ```matlab
-addpath('/home/xiangzhu/varbvs-master/varbvs-MATLAB/');
+>> sumstat = matfile('ibd2015_sumstat.mat');
+>> sumstat
+
+sumstat = 
+
+  matlab.io.MatFile
+
+  Properties:
+      Properties.Source: '/project/mstephens/public_html/ibd2015_sumstat.mat'
+    Properties.Writable: false                                               
+                  SiRiS: [22x1 cell]                                         
+                betahat: [22x1 cell]                                         
+                    chr: [22x1 cell]                                         
+                    pos: [22x1 cell]                                         
+                     se: [22x1 cell]
+```
+
+For each Chromosome `j`,
+
+- `betahat{j, 1}` stores single-SNP effect size estimates of all SNPs in Chromosome `j`;
+- `se{j, 1}` stores the corresponding standard errors of `betahat{j, 1}`;
+- `chr{j, 1}` and `pos{j, 1}` store the physical positions of these SNPs;
+- `SiRiS{j, 1}` stores a [sparse](https://www.mathworks.com/help/matlab/ref/sparse.html) matrix, defined as `repmat((1./se), 1, p) .* R .* repmat((1./se)', p, 1)`, where `R` is the estimated LD matrix of these `p` SNPs.
+
+Note that we save GWAS summary statistics and LD estimates as [cell arrays](https://www.mathworks.com/help/matlab/cell-arrays.html) 
+
+**Step 2**. Specify several dataset-specific variables that are required by [`null_template.m`](https://github.com/stephenslab/rss/blob/master/src_vb/null_template.m), the template of fitting baseline model.
+```matlab
+% specify trait-specific information
+trait_name  = 'ibd2015';
+sample_size = (12882+21770); % cases: 12,882; controls: 21,770
+
+% specify grid of hyper-parameters
+h_rv      = 0.3;
+theta0_rv = (-2.9:0.025:-2.85);
+
+% specify stage of analysis
+stage = 'step1';
+
+% specify random start and algorithm 
+myseed = 459;
+method = 'squarem';
+
+% specify input and output paths
+input_path  = '/project/mstephens/public_html/';                   
+output_path = './';
 ```
 
 **Step 3**. Extract the SNPs that inside the gene set. This step is where we need the input data [`AH_chr16.mat`](https://uchicago.box.com/v/example4). The index of SNPs inside the gene set is stored as `snps`.

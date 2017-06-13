@@ -30,5 +30,7 @@ We illustrate how to use RSS software through the following examples.
   methods.
 
 > This example illustrates how to fit an RSS-BVSR model using
-> variational Bayes (VB) approximation, compare the results with
+> variational Bayes (VB) approximation, and compares the results with
 > previous work based on individual-level data [(Carbonetto and Stephens, 2012)](https://projecteuclid.org/euclid.ba/1339616726).
+
+- [**Example5**](Example-5): 
