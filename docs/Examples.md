@@ -33,6 +33,6 @@ We illustrate how to use RSS software through the following examples.
 > variational Bayes (VB) approximation, and compares the results with
 > previous work based on individual-level data [(Carbonetto and Stephens, 2012)](https://projecteuclid.org/euclid.ba/1339616726).
 
-- [**Example5**](Example-5): Enrichment analysis of GWAS summary statistics
+- [**Example 5**](Example-5): Enrichment analysis of GWAS summary statistics
 
 > This example illustrates how to perform enrichment analysis of GWAS summary statistics based on variational Bayes (VB) inference of RSS-BVSR models.
