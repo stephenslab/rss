@@ -162,10 +162,10 @@ Finally, let's look at results of fitting the enrichment model (http://projects.
 There are four types of variables in the result file:
 
 - user-specified quantities in `example5_gsea.m`: `method` (implementation type), `myseed` (seed of random number generator), `h` & `theta0` & `theta` (grid values of hyper-parameters), and `snps` (indices of pathway-annotated SNPs);
-- estimated variational parameters: `alpha` & `mu` & `s`, where `alpha(:, i, j)` & `mu(:, i, j)` & `s(:, i, j)` correspond to the hyper-parameter setting `[h, theta0(i), theta(j)]`; **note that these parameter estimates can be directly used to priortize genes within an enriched pathway; see our paper for more details**.
+- estimated variational parameters: `alpha` & `mu` & `s`, where `alpha(:, i, j)` & `mu(:, i, j)` & `s(:, i, j)` correspond to the hyper-parameter setting `[h, theta0(i), theta(j)]`; **note that these parameter estimates can be directly used to priortize genes within an enriched pathway; see our [paper](http://www.biorxiv.org/content/early/2017/07/08/160770) for more details**.
 - estimated variational lower bounds and Bayes factor: `logw0` (lower bounds under the baseline model), `logw1` (lower bounds under the enrichment model), and `log10bf` (log 10 Bayes factor);
 - computational time: `runtime` (unit: seconds).
 
 ### More examples
 
-Our enrichment analyses of 31 complex traits and 4,026 gene sets are essentially “replications” of the example above. Our full results are available at http://xiangzhu.github.io/rss-gsea/results/.  
+Our enrichment analyses of 31 complex traits and 4,026 gene sets are essentially “replications” of the example above. Our full results are publicly available [online](http://xiangzhu.github.io/rss-gsea/results/).  
