@@ -49,9 +49,11 @@ Please see [LICENSE](LICENSE) for more details.
 4. Send an email to `xiangzhu[at]uchicago.edu`.
 
 ### Citation
-- The Regression with Summary Statistics (RSS) likelihood <br> Xiang Zhu and Matthew Stephens (2016). [Bayesian large-scale multiple regression with summary statistics from genome-wide association studies](https://doi.org/10.1101/042457). bioRxiv. ([*Annals of Applied Statistics*](http://imstat.org/aoas/next_issue.html) To appear.) [[Supplementary Materials](http://www.biorxiv.org/content/early/2016/12/01/042457.figures-only)]
+- The Regression with Summary Statistics (RSS) likelihood <br> Xiang Zhu and Matthew Stephens (2017).
+[Bayesian large-scale multiple regression with summary statistics from genome-wide association studies](http://stephenslab.uchicago.edu/assets/papers/Zhu2017.pdf).
+[*Annals of Applied Statistics* 11(3): 1561-1592](http://dx.doi.org/10.1214/17-AOAS1046). 
 
-- Enrichment analysis of GWAS summary data based on RSS <br> Xiang Zhu and Matthew Stephens (2017). [A large-scale genome-wide enrichment analysis identifies new trait-associated genes, pathways and tissues across 31 human phenotypes](https://doi.org/10.1101/160770). bioRxiv. [[Supplementary Materials](http://www.biorxiv.org/content/early/2017/07/08/160770.figures-only)] [[Full Results](http://xiangzhu.github.io/rss-gsea/results/)]
+- Enrichment and prioritization analysis of GWAS summary data based on RSS <br> Xiang Zhu and Matthew Stephens (2017). [A large-scale genome-wide enrichment analysis identifies new trait-associated genes, pathways and tissues across 31 human phenotypes](https://doi.org/10.1101/160770). bioRxiv. [[Supplementary Materials](http://www.biorxiv.org/content/early/2017/07/08/160770.figures-only)] [[Full Results](http://xiangzhu.github.io/rss-gsea/results/)]
 
 - Inferring genetic architecture of complex human traits based on RSS <br> TBA
 
