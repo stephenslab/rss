@@ -25,7 +25,7 @@ Before running scripts of this example, please make sure the [VB subroutines](ht
 
 **Reminder**: Since we have to fit multiple regression analyses of 1.1 million common SNPs multiple times when fitting the baseline model, we need to use [rss_varbvsr_bigmem_squarem.m](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_bigmem_squarem.m), which requires [Parallel Computing Toolbox](https://www.mathworks.com/help/distcomp/index.html). If you do not have this toolbox available, please skip this section, and use our result files for enrichment analyses instead (see Step 4). 
 
-**Step 1**. [Download](http://projects.rcc.uchicago.edu/mstephens/data.txt) the input data file `ibd2015_sumstat.mat`, which contains the GWAS summary statistics and LD matrix estimates. Please contact us if you have trouble accessing this file.
+**Step 1**. [Download](http://projects.rcc.uchicago.edu/mstephens/ibd2015_sumstat.mat) the input data file `ibd2015_sumstat.mat`, which contains the GWAS summary statistics and LD matrix estimates. Please contact us if you have trouble accessing this file.
 
 Before proceeding to next step, let's look at the contents of `ibd2015_sumstat.mat`.
 ```matlab
