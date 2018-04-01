@@ -24,10 +24,30 @@ clear sumstat se p;
 
 % prepare the input data for gsea
 sumstat = matfile(sumstat_path);
-betahat = sumstat.betahat;
-se      = sumstat.se;
-SiRiS   = sumstat.SiRiS;
 snps    = sumstat.snps;
+
+switch method
+
+  case {'original', 'squarem'} % serial implementation: arrays as input
+    betahat = sumstat.betahat;
+    se      = sumstat.se;
+    SiRiS   = sumstat.SiRiS;
+
+  case {'parallel', 'pasquarem'} % parallel implementation: cell arrays as input
+    sumstat_cell = partition_geneset(sumstat);
+    disp('Input data have been transformed from arrays to cell arrays.');
+
+    betahat = sumstat_cell.betahat;
+    se      = sumstat_cell.se;
+    SiRiS   = sumstat_cell.SiRiS;
+
+    clear sumstat_cell;
+
+    % start the matlabpool with maximum available workers
+    % control how many workers by setting ntasks in your sbatch script
+    pc = parcluster('local');
+    matlabpool(pc, getenv('SLURM_CPUS_ON_NODE')); %#ok<DPOOL>
+end 
 
 % make sure that SNPs assigned to multiple genes are only included once
 % i.e. there should be NO duplicated elements in the vector snps
@@ -76,9 +96,9 @@ for k=1:nh
     if myseed ~= my_data.myseed
       error('The value of myseed is wrong!');
     end
-    if ~strcmp(method, my_data.method)
-      error('The value of method is wrong!');
-    end
+    %if ~strcmp(method, my_data.method)
+    %  error('The value of method is wrong!');
+    %end
     if ~strcmp(stage, my_data.stage)
       error('The value of stage is wrong!');
     end
@@ -101,15 +121,15 @@ alpha = alpha ./ repmat(sum(alpha),p,1);
 rng(myseed+1, 'twister');
 mu    = randn(p,n0,n1,nh);
 
-% run the null analysis using rss-varbvsr
+% run the enrichment analysis using rss-varbvsr
 tic;
 [log10bf,logw1,alpha,mu,s] = gsea_wrapper(method,betahat,se,SiRiS,se_all,Nsnp_all,snps,h,theta0,theta,logw0,alpha0,mu0,alpha,mu);
 runtime = toc;
 
+% remove unused quantities from memory
+clear betahat se SiRiS se_all Nsnp_all alpha0 mu0
+
 % save the output
 output_name = strcat(output_path,trait_name,'_gsea_seed_',num2str(myseed),'_',geneset_name,'_',method,'.mat');
 save(output_name,'method','myseed','snps','h','theta0','theta','log10bf','logw1','logw0','alpha','mu','s','runtime','-v7.3');
-
-% clear some variables
-clear log10bf logw1 alpha mu s betahat se SiRiS se_all Nsnp_all snps logw0 alpha0 mu0 runtime;
 
