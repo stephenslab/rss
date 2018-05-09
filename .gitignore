@@ -25,6 +25,4 @@ src/rss_bslmm_mwt.m
 examples/example*_plot.m
 
 src_vb/compute_pip.m
-src_vb/gsea_wrapper_fixsb.m
-src_vb/null_wrapper_fixsb.m
 
