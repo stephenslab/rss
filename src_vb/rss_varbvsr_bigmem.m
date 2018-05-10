@@ -5,7 +5,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_bigmem(file, sigb, logodds, opt
 % INPUT:
 %	file: the path of mat file that contains cell arrays of betahat, se and SiRiS, string
 %       sigb: the prior SD of the regression coefficients (if included), scalar
-%       logodds: the prior log-odds (i.e. log(prior PIP/(1-prior PIP))) of inclusion for each SNP, p by 1
+%       logodds: the prior log-odds (i.e. log(prior PIP/(1-prior PIP))) of inclusion for each SNP, p by 1 or scalar
 %       options: user-specified behaviour of the algorithm, structure
 %               - max_walltime: scalar, the maximum wall time (unit: seconds) for this program
 %               - tolerance: scalar, convergence tolerance
@@ -53,6 +53,11 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_bigmem(file, sigb, logodds, opt
   % Get the number of analyzed SNPs in the whole genome (p).
   p = length(cell2mat(betahat));
 
+  % Convert logodds to a vector if the input is a scalar.
+  if isscalar(logodds)
+    logodds = repmat(logodds,p,1);
+  end
+
   % Set initial estimates of variational parameters.
   if isfield(options,'alpha')
     alpha = double(options.alpha(:));
@@ -90,13 +95,15 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_bigmem(file, sigb, logodds, opt
   SiRiSr_cell 	= cell(C, 1);
   q_cell 	= cell(C, 1);
   sesquare_cell	= cell(C, 1);
+  logodds_cell  = cell(C, 1);
   sigb_square 	= sigb * sigb;
 
   for c = 1:C
-    chr_start        = chrpar(c, 1); 
-    chr_end          = chrpar(c, 2);
-    alpha_cell{c, 1} = alpha(chr_start:chr_end); 
-    mu_cell{c, 1}    = mu(chr_start:chr_end);
+    chr_start          = chrpar(c, 1); 
+    chr_end            = chrpar(c, 2);
+    alpha_cell{c, 1}   = alpha(chr_start:chr_end); 
+    mu_cell{c, 1}      = mu(chr_start:chr_end);
+    logodds_cell{c, 1} = logodds(chr_start:chr_end);
   end
 
   % Compute a few useful quantities for the main loop.
@@ -125,7 +132,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_bigmem(file, sigb, logodds, opt
   parfor c = 1:C
     r = alpha_cell{c,1} .* mu_cell{c,1};
 
-    lnZ_cell(c) = (q_cell{c,1})'*r - 0.5*r'*SiRiSr_cell{c,1} + intgamma(logodds,alpha_cell{c,1});
+    lnZ_cell(c) = (q_cell{c,1})'*r - 0.5*r'*SiRiSr_cell{c,1} + intgamma(logodds_cell{c,1},alpha_cell{c,1});
     lnZ_cell(c) = lnZ_cell(c) - 0.5*(1./sesquare_cell{c,1})'*betavar(alpha_cell{c,1},mu_cell{c,1},s_cell{c,1});
     lnZ_cell(c) = lnZ_cell(c) + intklbeta_rssbvsr(alpha_cell{c,1},mu_cell{c,1},s_cell{c,1},sigb_square);
   end
@@ -171,7 +178,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_bigmem(file, sigb, logodds, opt
       % Run a forward or backward pass of the coordinate ascent updates on Chr. c.
       SiRiS_tmpcell = sumstat.SiRiS(c,1); %#ok<PFBNS>
 
-      [alpha_tmp,mu_tmp,SiRiSr_tmp] = rss_varbvsr_update(SiRiS_tmpcell{1},sigb,logodds,betahat{c,1},se{c,1}, ...
+      [alpha_tmp,mu_tmp,SiRiSr_tmp] = rss_varbvsr_update(SiRiS_tmpcell{1},sigb,logodds_cell{c,1},betahat{c,1},se{c,1}, ...
 							 alpha0_cell{c,1},mu0_cell{c,1},SiRiSr0_cell{c,1},I);
 
       alpha_cell{c,1} 	= alpha_tmp;
@@ -182,7 +189,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_bigmem(file, sigb, logodds, opt
       SiRiSr_cell{c,1} 	= SiRiSr_tmp;
 
       % Compute the lower bound to the marginal log-likelihood of Chr. c.
-      lnZ_cell(c) = (q_cell{c,1})'*r - 0.5*r'*SiRiSr_cell{c,1} + intgamma(logodds,alpha_cell{c,1});
+      lnZ_cell(c) = (q_cell{c,1})'*r - 0.5*r'*SiRiSr_cell{c,1} + intgamma(logodds_cell{c,1},alpha_cell{c,1});
       lnZ_cell(c) = lnZ_cell(c) - 0.5*(1./sesquare_cell{c,1})'*betavar(alpha_cell{c,1},mu_cell{c,1},s_cell{c,1});
       lnZ_cell(c) = lnZ_cell(c) + intklbeta_rssbvsr(alpha_cell{c,1},mu_cell{c,1},s_cell{c,1},sigb_square);
 
