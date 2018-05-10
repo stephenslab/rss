@@ -6,7 +6,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_squarem(betahat, se, SiRiS, sig
 %       se: standard errors of betahat, p by 1
 %       SiRiS: inv(S)*R*inv(S), double precision sparse matrix (ccs format), p by p
 %       sigb: the prior SD of the regression coefficients (if included), scalar
-%       logodds: the prior log-odds (i.e. log(prior PIP/(1-prior PIP))) of inclusion for each SNP, p by 1
+%       logodds: the prior log-odds (i.e. log(prior PIP/(1-prior PIP))) of inclusion for each SNP, p by 1 or scalar
 %       options: user-specified behaviour of the algorithm, structure
 %               - max_walltime: scalar, the maximum wall time (unit: seconds) for this program
 %               - tolerance: scalar, convergence tolerance
