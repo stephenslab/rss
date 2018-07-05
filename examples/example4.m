@@ -1,9 +1,12 @@
 clear;
 
+% Set this to the directory containing example1.mat and where the output
+% files will be stored.
+working_dir = '/tmp/pcarbo/example4';
+
 % add search paths
 addpath(genpath('../src_vb'));
 addpath('../misc');
-addpath('/home/xiangzhu/varbvs-master/varbvs-MATLAB/');
 
 % set the number of replications
 prompt = 'What is the number of replications? ';
@@ -34,11 +37,11 @@ bf           = zeros(Nrep, 2); % absolute difference of estimated Bayes factors
 bf_reldiff   = zeros(Nrep, 1); % relative difference of estimated Bayes factors
 
 % generate the individual-level and summary-level data
-genotype = matfile('genotype.mat');
+genotype = matfile(cat(2,working_dir,'/','genotype.mat'));
 C 	 = genotype.C;
 [n,p] 	 = size(C);
 
-AH    = matfile('AH_chr16.mat');
+AH    = matfile(cat(2,working_dir,'/','AH_chr16.mat'));
 H     = AH.H;      			% hypothesis matrix 3323x3160
 A     = AH.A;      			% annotation matrix 12758x3323
 paths = find(H(:,end));			% signal transduction (Biosystem, Reactome)
@@ -50,7 +53,8 @@ for i = 1:Nrep
   myseed = 617 + i;
 
   % generate data under enrichment hypothesis
-  [true_para,individual_data,summary_data] = enrich_datamaker(C,thetatype,pve,myseed,snps);
+  [true_para,individual_data,summary_data] = ...
+      enrich_datamaker(C,thetatype,pve,myseed,snps);
   fprintf('Individual-level and summary-level data are ready ...\n');
 
   % fix all hyper-parameters as their true values
@@ -83,7 +87,8 @@ for i = 1:Nrep
 
   % run varbvs on the individual-level data
   options_n = struct('maxiter',1e8,'sa',sa,'logodds',theta0,'alpha',alpha0,...
-		     'mu',mu0,'sigma',sigma,'initialize_params',false,'verbose',false);
+		     'mu',mu0,'sigma',sigma,'initialize_params',false,...
+                     'verbose',false);
 
   fit_null = varbvs(X,[],y,[],'gaussian',options_n);
 
@@ -91,7 +96,8 @@ for i = 1:Nrep
   logodds = repmat(theta0,p,ns);
   logodds(snps,:) = repmat(theta0+theta',length(snps),1);
   options_e = struct('maxiter',1e8,'sa',sa,'logodds',logodds,'alpha',alpha0,...
-                     'mu',mu0,'sigma',sigma,'initialize_params',false,'verbose',false);
+                     'mu',mu0,'sigma',sigma,'initialize_params',false,...
+                     'verbose',false);
 
   fit_gsea = varbvs(X,[],y,[],'gaussian',options_e);
 
@@ -107,8 +113,10 @@ for i = 1:Nrep
 
   options = struct('alpha',alpha0,'mu',mu0,'verbose',false);
 
-  [logw_nr,alpha_nr,mu_nr,s_nr] = rss_varbvsr(betahat,se,SiRiS,sigb,logodds_n,options);
-  [logw_er,alpha_er,mu_er,s_er] = rss_varbvsr(betahat,se,SiRiS,sigb,logodds_e,options);
+  [logw_nr,alpha_nr,mu_nr,s_nr] = ...
+      rss_varbvsr(betahat,se,SiRiS,sigb,logodds_n,options);
+  [logw_er,alpha_er,mu_er,s_er] = ...
+      rss_varbvsr(betahat,se,SiRiS,sigb,logodds_e,options);
 
   bf_r = exp(logw_er-logw_nr);
   clear options betahat se SiRiS;
@@ -133,9 +141,11 @@ for i = 1:Nrep
   bf_reldiff(i)   = (bf_b-bf_r)/bf_b;
 
   fprintf('Trial %d is done ...\n', i);
-
 end
 
-% Save the output
-output_name = strcat('example4-theta0',num2str(-theta0),'-theta',num2str(theta),'-',num2str(Nrep), 'trials.mat');
-save(output_name,'alpha_n_diff','alpha_e_diff','mu_n_diff','mu_e_diff','s_n_diff','s_e_diff','bf','bf_reldiff');
+% Save the output.
+output_name = ...
+    strcat('example4-theta0',num2str(-theta0),'-theta',...
+           num2str(theta),'-',num2str(Nrep),'trials.mat');
+save(cat(2,working_dir,'/',output_name),'alpha_n_diff','alpha_e_diff',...
+     'mu_n_diff','mu_e_diff','s_n_diff','s_e_diff','bf','bf_reldiff');

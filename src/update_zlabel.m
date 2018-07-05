@@ -211,7 +211,7 @@ function [snp_change, z_logratio] = propose_gamma(bin, p_gamma)
 
         % rare case 2: all snps in the current model; must remove one snp
         if ngamma == p
-                r_rmv 	   = unidrnd(ngamma);                   % uniformly pick one snp to remove
+                r_rmv 	   = randint(1,ngamma);                   % uniformly pick one snp to remove
                 z_logratio = z_logratio + log(ngamma);          % compute the contribution to log MH ratio
                 snp_change = r_rmv;
         end
@@ -235,7 +235,7 @@ function [snp_change, z_logratio] = propose_gamma(bin, p_gamma)
 
                 elseif gamma_flag >=0.4 && gamma_flag < 0.8 % remove a snp
                         % uniformly draw a snp from the current model
-                        col_id = unidrnd(ngamma);
+                        col_id = randint(1,ngamma);
                         r_rmv  = rank(col_id); % return the location of the chosen snp
                         % calculate Pr(picking a snp NOT in the proposed model)
                         prob_total = 1;
@@ -246,7 +246,7 @@ function [snp_change, z_logratio] = propose_gamma(bin, p_gamma)
                         snp_change = r_rmv;
 
                 else % swap inclusion/exclusion status of two snps
-                        col_id = unidrnd(ngamma); % pick a snp in the model to remove
+                        col_id = randint(1,ngamma); % pick a snp in the model to remove
                         r_rmv  = rank(col_id);
                         while true
                                 r_add = sample(p_gamma); % randomly pick a snp based on marginal association rank
