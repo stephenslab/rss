@@ -4,23 +4,51 @@ layout: default
 
 [Zhu and Stephens (*Ann. Appl. Stat.*, 2017)]: https://projecteuclid.org/euclid.aoas/1507168840
 [Zhu and Stephens (*bioRxiv*, 2017)]: https://doi.org/10.1101/160770 
+[**`rss_bvsr.m`**]: https://github.com/stephenslab/rss/blob/master/src/rss_bvsr.m
+[Guan and Stephens (*Ann. Appl. Stat.*, 2011)]: https://projecteuclid.org/euclid.aoas/1318514285
+[**`rss_bslmm.m`**]: https://github.com/stephenslab/rss/blob/master/src/rss_bslmm.m
+[Zhou, Carbonetto and Stephens (*PLoS Genet.*, 2013)]: https://doi.org/10.1371/journal.pgen.1003264
+[Stephens (*Biostatistics*, 2017)]: https://doi.org/10.1093/biostatistics/kxw041
+[**`rss_varbvsr.m`**]: https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr.m
+[**`rss_varbvsr_squarem.m`**]: https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_squarem.m
 
 ## Model Fitting based on Markov chain Monte Carlo (MCMC)
 
-- [**`rss_bvsr.m`**](https://github.com/stephenslab/rss/blob/master/src/rss_bvsr.m) <br> Fit the Bayesian model that consists of the RSS likelihood and the "Bayesian variable selection regression" (BVSR; [Guan and Stephens, 2011](https://projecteuclid.org/euclid.aoas/1318514285)) prior using a Metropolis-Hastings algorithm.
-- [**`rss_bslmm.m`**](https://github.com/stephenslab/rss/blob/master/src/rss_bslmm.m) <br> Fit the Bayesian model that consists of the RSS likelihood and the "Bayesian sparse linear mixed model" (BSLMM; [Zhou, Carbonetto and Stephens, 2013](http://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1003264)) prior using a component-wise MCMC algorithm.
-- [**`rss_ash.m`**](https://github.com/stephenslab/rss/blob/master/src/rss_ash.m) <br> Fit the Bayesian model that consists of the RSS likelihood and the "Adaptive shrinkage" (ASH; [Stephens, 2017](https://doi.org/10.1093/biostatistics/kxw041)) prior using a component-wise MCMC algorithm.
+- [**`rss_bvsr.m`**][] <br>
+Fit a Bayesian model that consists of RSS likelihood
+and prior introduced in "Bayesian variable selection regression"
+(BVSR; [Guan and Stephens (*Ann. Appl. Stat.*, 2011)][])
+using a Metropolis-Hastings algorithm.
+- [**`rss_bslmm.m`**][] <br>
+Fit a Bayesian model that consists of RSS likelihood
+and prior introduced in "Bayesian sparse linear mixed model"
+(BSLMM; [Zhou, Carbonetto and Stephens (*PLoS Genet.*, 2013)][])
+using a component-wise MCMC algorithm.
+- [**`rss_ash.m`**](https://github.com/stephenslab/rss/blob/master/src/rss_ash.m) <br>
+Fit a Bayesian model that consists of RSS likelihood
+and prior introduced in "Adaptive shrinkage" (ASH; [Stephens (*Biostatistics*, 2017)][])
+using a component-wise MCMC algorithm.
 
 Details of MCMC algorithms are available in
 [Supplementary Appendix B](http://stephenslab.uchicago.edu/assets/papers/Zhu2017-supplement.pdf)
-of [][]
-and [here](http://www.stat.uchicago.edu/~xiangzhu/rss_mcmc.pdf). 
+of [Zhu and Stephens (*Ann. Appl. Stat.*, 2017)][]
+(or [here](http://www.stat.uchicago.edu/~xiangzhu/rss_mcmc.pdf)).
+
+Note that [**`rss_bvsr.m`**][] and [**`rss_bslmm.m`**][] were used to
+generate results in [Zhu and Stephens (*Ann. Appl. Stat.*, 2017)][].   
 
 ## Model Fitting based on Variational Bayes (VB)
 
-- [**`rss_varbvsr.m`**](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr.m) <br> Fit the Bayesian model that consists of the RSS likelihood and the BVSR prior using a mean-field VB algorithm. This can be viewed as an extension of [Carbonetto and Stephens (2012)](https://projecteuclid.org/euclid.ba/1339616726) for the analysis of summary-level data.
-- [**`rss_varbvsr_squarem.m`**](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_squarem.m) <br> Fit the Bayesian model that consists of the RSS likelihood and the BVSR prior using a mean-field VB algorithm and a [SQUAREM (Varadhan and Roland, 2008)](http://onlinelibrary.wiley.com/doi/10.1111/j.1467-9469.2007.00585.x/abstract) accelerator.
-- [**`rss_varbvsr_parallel.m`**](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_parallel.m) <br> Parallel implementation of [`rss_varbvsr.m`](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr.m).
+- [**`rss_varbvsr.m`**][] <br>
+Fit a Bayesian model that consists of RSS likelihood and BVSR prior
+using a mean-field VB algorithm. The VB algorithm largely follows
+[Carbonetto and Stephens (*Bayesian Anal.*, 2012)](https://projecteuclid.org/euclid.ba/1339616726).
+- [**`rss_varbvsr_squarem.m`**][] <br>
+Fit a Bayesian model that consists of RSS likelihood and BVSR prior
+using a mean-field VB algorithm and a SQUAREM accelerator introduced in
+[Varadhan and Roland (*Scand Stat Theory Appl*, 2008)](https://doi.org/10.1111/j.1467-9469.2007.00585.x).
+- [**`rss_varbvsr_parallel.m`**](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_parallel.m) <br>
+Parallel implementation of [**`rss_varbvsr.m`**][].
 - [**`rss_varbvsr_pasquarem.m`**](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_pasquarem.m) <br> Parallel implementation of [`rss_varbvsr_squarem.m`](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_squarem.m)
 - [**`rss_varbvsr_bigmem.m`**](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_bigmem.m) <br> "Big-data" implementation of [`rss_varbvsr_parallel.m`](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_parallel.m).
 - [**`rss_varbvsr_bigmem_squarem.m`**](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_bigmem_squarem.m) <br> "Big-data" implementation of [`rss_varbvsr_pasquarem.m`](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_pasquarem.m).
