@@ -11,6 +11,7 @@ layout: default
 [Stephens (*Biostatistics*, 2017)]: https://doi.org/10.1093/biostatistics/kxw041
 [**`rss_varbvsr.m`**]: https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr.m
 [**`rss_varbvsr_squarem.m`**]: https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_squarem.m
+[**`rss_varbvsr_bigmem_squarem.m`**]: https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_bigmem_squarem.m
 
 ## Model Fitting based on Markov chain Monte Carlo (MCMC)
 
@@ -46,21 +47,59 @@ using a mean-field VB algorithm. The VB algorithm largely follows
 - [**`rss_varbvsr_squarem.m`**][] <br>
 Fit a Bayesian model that consists of RSS likelihood and BVSR prior
 using a mean-field VB algorithm and a SQUAREM accelerator introduced in
-[Varadhan and Roland (*Scand Stat Theory Appl*, 2008)](https://doi.org/10.1111/j.1467-9469.2007.00585.x).
+[Varadhan and Roland (*Scand. Stat. Theory. Appl.*, 2008)](https://doi.org/10.1111/j.1467-9469.2007.00585.x).
 - [**`rss_varbvsr_parallel.m`**](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_parallel.m) <br>
 Parallel implementation of [**`rss_varbvsr.m`**][].
-- [**`rss_varbvsr_pasquarem.m`**](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_pasquarem.m) <br> Parallel implementation of [`rss_varbvsr_squarem.m`](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_squarem.m)
-- [**`rss_varbvsr_bigmem.m`**](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_bigmem.m) <br> "Big-data" implementation of [`rss_varbvsr_parallel.m`](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_parallel.m).
-- [**`rss_varbvsr_bigmem_squarem.m`**](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_bigmem_squarem.m) <br> "Big-data" implementation of [`rss_varbvsr_pasquarem.m`](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_pasquarem.m).
+- [**`rss_varbvsr_pasquarem.m`**](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_pasquarem.m) <br>
+Parallel implementation of [**`rss_varbvsr_squarem.m`**][].
+- [**`rss_varbvsr_bigmem.m`**](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_bigmem.m) <br>
+Memory-efficient implementation of
+[**`rss_varbvsr_parallel.m`**](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_parallel.m).
+- [**`rss_varbvsr_bigmem_squarem.m`**][] <br>
+Memory-efficient implementation of [**`rss_varbvsr_pasquarem.m`**][].
+
+Details of VB algorithms are available in
+[Supplementary Note](https://www.biorxiv.org/content/biorxiv/suppl/2017/07/08/160770.DC1/160770-2.pdf)
+of [Zhu and Stephens (*bioRxiv*, 2017)][].
+
+Note that [**`rss_varbvsr_squarem.m`**][] and [**`rss_varbvsr_bigmem_squarem.m`**][]
+were used to generate results in [Zhu and Stephens (*bioRxiv*, 2017)][]. 
 
 ## Miscellaneous
 
-- [**`import_1000g_vcf.sh`**](https://github.com/stephenslab/rss/blob/master/misc/import_1000g_vcf.sh) <br> Output [1000 Genomes](http://www.internationalgenome.org/data) phased haplotypes of a given list of SNPs in [IMPUTE reference-panel format](https://mathgen.stats.ox.ac.uk/impute/impute_v2.html#input_options). 
-- [**`compute_pve.m`**](https://github.com/stephenslab/rss/blob/master/src/compute_pve.m) <br> Compute the estimated PVE (or SNP heritability, defined in [Guan and Stephens (2011)](https://projecteuclid.org/euclid.aoas/1318514285)) based on GWAS summary data.
-- [**`band_storage.m`**](https://github.com/stephenslab/rss/blob/master/misc/band_storage.m) <br> Convert a symmetric, banded matrix to a compact matrix in such a way that only the main diagonal and the nonzero superdiagonals are stored.
-- [**`find_bandwidth.m`**](https://github.com/stephenslab/rss/blob/master/misc/find_bandwidth.m) <br> Find the bandwidth of a symmetric, banded matrix.
-- [**`get_corr.m`**](https://github.com/stephenslab/rss/blob/master/misc/get_corr.m) <br> Compute (LD) matrix using the shrinkage estimator proposed in [Wen and Stephens (2010)](https://www.ncbi.nlm.nih.gov/pubmed/21479081).
-- [**`data_maker.m`**](https://github.com/stephenslab/rss/blob/master/misc/data_maker.m) <br> Simulate phenotype data from the genome-wide multiple-SNP model described in [Zhou, Carbonetto and Stephens (2013)](http://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1003264), and then compute the single-SNP summary statistics for each SNP.
-- [**`enrich_datamaker.m`**](https://github.com/stephenslab/rss/blob/master/misc/enrich_datamaker.m) <br> Simulate phenotype data from the genetic association enrichment model described in [Carbonetto and Stephens (2013)](http://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1003770), and then compute the single-SNP summary statistics for each SNP.
-- [**`null_single.m`**](https://github.com/stephenslab/rss/blob/master/src_vb/null_single.m) & [**`null_template.m`**](https://github.com/stephenslab/rss/blob/master/src_vb/null_template.m) <br> Run genome-wide multiple-SNP analysis of single-SNP summary data, using `rss_varbvsr*` functions.
-- [**`gsea_wrapper.m`**](https://github.com/stephenslab/rss/blob/master/src_vb/gsea_wrapper.m) & [**`gsea_template.m`**](https://github.com/stephenslab/rss/blob/master/src_vb/gsea_template.m) <br> Run genome-wide enrichment analysis of single-SNP summary data, using `rss_varbvsr*` functions.
+- [**`import_1000g_vcf.sh`**](https://github.com/stephenslab/rss/blob/master/misc/import_1000g_vcf.sh) <br>
+Output [1000 Genomes](http://www.internationalgenome.org/data)
+phased haplotypes of a given list of SNPs in
+[IMPUTE reference-panel format](https://mathgen.stats.ox.ac.uk/impute/impute_v2.html#input_options). 
+- [**`compute_pve.m`**](https://github.com/stephenslab/rss/blob/master/src/compute_pve.m) <br>
+Use GWAS summary data to compute the estimated PVE (or SNP heritability),
+a quantity defined in [Guan and Stephens (*Ann. Appl. Stat.*, 2011)][].
+This function corresponds to Equation 3.7 in [Zhu and Stephens (*Ann. Appl. Stat.*, 2017)][]. 
+- [**`band_storage.m`**](https://github.com/stephenslab/rss/blob/master/misc/band_storage.m) <br>
+Convert a symmetric, banded matrix to a compact matrix in such a way
+that only the main diagonal and the nonzero super-diagonals are stored.
+- [**`find_bandwidth.m`**](https://github.com/stephenslab/rss/blob/master/misc/find_bandwidth.m) <br>
+Find the bandwidth of a symmetric, banded matrix.
+- [**`get_corr.m`**](https://github.com/stephenslab/rss/blob/master/misc/get_corr.m) <br>
+Compute linkage disequilibrium (LD) matrix using the shrinkage estimator proposed in
+[Wen and Stephens (*Ann. Appl. Stat.*, 2010)](https://www.ncbi.nlm.nih.gov/pubmed/21479081).
+We also implement this function in an `R` package
+[LDshrink](https://github.com/stephenslab/LDshrink).
+- [**`data_maker.m`**](https://github.com/stephenslab/rss/blob/master/misc/data_maker.m) <br>
+Simulate phenotype data from the genome-wide multiple-SNP model described in
+[Zhou, Carbonetto and Stephens (*PLoS Genet.*, 2013)][],
+and then compute the single-SNP summary statistics for each SNP.
+This function was used in simulations in [Zhu and Stephens (*Ann. Appl. Stat.*, 2017)][].  
+- [**`enrich_datamaker.m`**](https://github.com/stephenslab/rss/blob/master/misc/enrich_datamaker.m) <br>
+Simulate phenotype data from the genetic association enrichment model described in
+[Carbonetto and Stephens (*PLoS Genet.*, 2013)](https://doi.org/10.1371/journal.pgen.1003770),
+and then compute the single-SNP summary statistics for each SNP.
+This function was used in simulations in [Zhu and Stephens (*bioRxiv*, 2017)][].
+- [**`null_single.m`**](https://github.com/stephenslab/rss/blob/master/src_vb/null_single.m) &
+[**`null_template.m`**](https://github.com/stephenslab/rss/blob/master/src_vb/null_template.m) <br>
+Fit genome-wide multiple-SNP "baseline model" to single-SNP summary data, using **`rss_varbvsr*`** functions.
+These scripts were used in data analyses in [Zhu and Stephens (*bioRxiv*, 2017)][].
+- [**`gsea_wrapper.m`**](https://github.com/stephenslab/rss/blob/master/src_vb/gsea_wrapper.m) &
+[**`gsea_template.m`**](https://github.com/stephenslab/rss/blob/master/src_vb/gsea_template.m) <br>
+Fit genome-wide multiple-SNP "enrichment model" to single-SNP summary data, using **`rss_varbvsr*`** functions.
+These scripts were used in data analyses in [Zhu and Stephens (*bioRxiv*, 2017)][].
