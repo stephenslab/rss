@@ -15,11 +15,8 @@ Ndraw = 1e6;
 Nburn = 1e5;
 Nthin = 9e1;
 
-% load the three types of ld matrix
-genotype_data = matfile('genotype2.mat');
-
 % fit rss-bvsr model when R is the sample correlation in the panel
-cohort_R = genotype_data.cohort_R;
+cohort_R = example_data.cohort_R;
 tic;
 [betasam, gammasam, hsam, logpisam, Naccept] = rss_bvsr(betahat, se, cohort_R, Nsnp, Ndraw, Nburn, Nthin);
 runtime = toc;
@@ -28,7 +25,7 @@ clearvars betasam gammasam hsam logpisam Naccept runtime;
 fprintf('RSS-C is done ... \n');
 
 % fit rss-bvsr model when R is the sample correlation in the panel
-shrink_R = genotype_data.shrink_R;
+shrink_R = example_data.shrink_R;
 tic;
 [betasam, gammasam, hsam, logpisam, Naccept] = rss_bvsr(betahat, se, shrink_R, Nsnp, Ndraw, Nburn, Nthin);
 runtime = toc;
@@ -37,7 +34,7 @@ clearvars betasam gammasam hsam logpisam Naccept runtime;
 fprintf('RSS is done ... \n');
 
 % fit rss-bvsr model when R is the sample correlation in the panel
-panel_R = genotype_data.panel_R;
+panel_R = example_data.panel_R;
 tic;
 [betasam, gammasam, hsam, logpisam, Naccept] = rss_bvsr(betahat, se, panel_R, Nsnp, Ndraw, Nburn, Nthin);
 runtime = toc;
