@@ -1,7 +1,7 @@
 [Zhu and Stephens (*Ann. Appl. Stat.*, 2017)]: https://projecteuclid.org/euclid.aoas/1507168840
 [`example1.m`]: https://github.com/stephenslab/rss/blob/master/examples/example1.m
 
-# Example 1: Fit the RSS model via MCMC
+# Example 1: Fit RSS models via MCMC, and estimate SNP heritability (PVE).
 
 ## Overview
 
@@ -145,19 +145,19 @@ This matrix `R` is provided in the file `genotype.mat`.
 After applying RSS methods to these simulated data,
 we obtain the following PVE estimation results.   
 
-**Scenario 2.1 (sparse), True PVE = 0.2**
+### Scenario 2.1 (sparse), True PVE = 0.2
 
 <img src="images/pve2sparse_1.png" width="600">
 
-**Scenario 2.1 (sparse), True PVE = 0.6**
+### Scenario 2.1 (sparse), True PVE = 0.6
 
 <img src="images/pve2sparse_2.png" width="600">
 
-**Scenario 2.2 (polygenic), True PVE = 0.2**
+### Scenario 2.2 (polygenic), True PVE = 0.2
 
 <img src="images/pve2polygenic_1.png" width="600">
 
-**Scenario 2.2 (polygenic), True PVE = 0.6** 
+### Scenario 2.2 (polygenic), True PVE = 0.6 
 
 <img src="images/pve2polygenic_2.png" width="600">
 
