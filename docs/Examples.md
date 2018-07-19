@@ -7,8 +7,7 @@ layout: default
 
 We illustrate how to use RSS methods and software through the following examples.
 
-- [**Example 1**](Example-1): Fit the RSS models via MCMC, and
-  estimate the SNP heritability (PVE).
+- [**Example 1**](Example-1): Fit RSS models via MCMC, and estimate SNP heritability (PVE).
 
 > This example illustrates how to fit RSS models using MCMC
 > algorithms. Three types of prior distributions are considered:
@@ -18,8 +17,7 @@ We illustrate how to use RSS methods and software through the following examples
 > The MCMC output is further used to estimate the SNP heritability.
 > This example is closely related to Section 4.2 of [Zhu and Stephens (*Ann. Appl. Stat.*, 2017)][]. 
 
-- [**Example 2**](Example-2): Fit RSS-BVSR via MCMC with three types
-  of estimated LD matrices.
+- [**Example 2**](Example-2): Fit RSS-BVSR via MCMC with three types of LD matrices.
 
 > This example illustrates the impact of different LD estimates on the
 > RSS results. Three types of estimated LD matrices are considered:
@@ -27,15 +25,13 @@ We illustrate how to use RSS methods and software through the following examples
 > shrinkage panel sample LD in [Wen and Stephens, (*Ann. Appl. Stat.*, 2010)](https://www.ncbi.nlm.nih.gov/pubmed/21479081)
 > This example is closely related to Section 4.1 of [Zhu and Stephens (*Ann. Appl. Stat.*, 2017)][]. 
 
-- [**Example 3**](Example-3): Fit RSS-BVSR via MCMC with two types of
-standard error (SE) vectors.
+- [**Example 3**](Example-3): Fit RSS-BVSR via MCMC with two types of standard error (SE) vectors.
 
 > This example illustrates the impact of two definitions of
 > SE vector (`se`) on the RSS results.
 > This example is closely related to Section 2.1 of [Zhu and Stephens (*Ann. Appl. Stat.*, 2017)][].  
 
-- [**Example 4**](Example-4): Fit RSS-BVSR via variational Bayes (VB)
-  methods.
+- [**Example 4**](Example-4): Fit RSS-BVSR via variational Bayes (VB) methods.
 
 > This example illustrates how to fit an RSS-BVSR model using
 > variational Bayes (VB) approximation, and compares the results with
@@ -44,8 +40,8 @@ standard error (SE) vectors.
 > This example is closely related to Section "Connection with enrichment analysis of individual-level data" 
 > of [Zhu and Stephens (*bioRxiv*, 2017)][].
 
-- [**Example 5**](Example-5): Enrichment analysis of GWAS summary statistics
+- [**Example 5**](Example-5): Enrichment analysis of GWAS summary statistics using RSS-BVSR.
 
 > This example illustrates how to perform enrichment analysis of GWAS summary statistics
-> based on variational Bayes (VB) inference of RSS-BVSR models.
-> This example illustrates the actual data analyses of [Zhu and Stephens (*bioRxiv*, 2017)][].
+> based on variational Bayes (VB) inference of RSS-BVSR model.
+> This example is closely related to the actual data analyses in [Zhu and Stephens (*bioRxiv*, 2017)][].
