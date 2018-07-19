@@ -5,7 +5,7 @@ layout: default
 [Wen and Stephens (*Ann. Appl. Stat.*, 2010)]: https://www.ncbi.nlm.nih.gov/pubmed/21479081
 [Li and Stephens (*Genetics*, 2003)]: https://www.ncbi.nlm.nih.gov/pubmed/14704198
 
-# General information
+## General information
 
 > Q: I can't afford `MATLAB`. It would be nice if RSS methods could be made to work with some open source language so everyone can run it.
 
@@ -13,11 +13,11 @@ layout: default
 I am working on an `R` package `rssr` for RSS methods:
 [https://github.com/stephenslab/rssr](https://github.com/stephenslab/rssr).
 
-# RSS methods based on Markov chain Monte Carlo (MCMC)
+## RSS methods based on Markov chain Monte Carlo (MCMC)
 
-# RSS methods based on Variational Bayes (VB)
+## RSS methods based on Variational Bayes (VB)
 
-# Estimation of linkage disequilibrium (LD)
+## Estimation of linkage disequilibrium (LD)
 
 > Q: The shrinkage estimator of LD in Wen and Stephens (*Ann. Appl. Stat.*, 2010)[]
 requires the "scaled population recombination rate" (`rho_ij`). How do I compute it?
@@ -35,7 +35,7 @@ of [`get_corr.m`](https://github.com/stephenslab/rss/blob/master/misc/get_corr.m
 `S = 0.5*cov(Gpanel)`, where `Gpanel` is the genotype matrix from an external reference panel.
 Please see Section 2.4 of [Wen and Stephens (*Ann. Appl. Stat.*, 2010)][] for more details.
 
-# Applications
+## Applications
 
 > Q: If I want to use RSS, how should I prepare for the input data?
 
