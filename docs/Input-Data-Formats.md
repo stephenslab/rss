@@ -1,8 +1,9 @@
-### Input Data Formats
+# Input Data Formats for RSS methods
 
-#### GWAS summary statistics
+## GWAS summary statistics
 
-This section is modified from Box 1 of [Winkler *et al.* (2014)](https://www.ncbi.nlm.nih.gov/pubmed/24762786).   
+This section is modified from Box 1 of
+[Winkler *et al.* (2014)](https://www.ncbi.nlm.nih.gov/pubmed/24762786).   
 
 The following columns are **required** for any RSS analysis:
 
@@ -38,14 +39,17 @@ It is very **important** to make sure that `[a1, betahat, se]` are perfectly ali
 
 Finally, when providing `chr` and `pos` columns, please explicitly specify the [assembly releases and versions](https://genome.ucsc.edu/FAQ/FAQreleases.html) of human genome. If 1000 Genomes Project Phase 3 data are used to estimate LD, please provide `chr` and `pos` columns based on UCSC hg19/GRCh37.   
 
-#### LD matrix estimates
+## LD matrix estimates
+
+All RSS methods to date also require the input of an estimated LD matrix.
 
 The LD estimates are often derived from the phased haplotype data from [1000 Genomes Project Phase 3 data](http://www.internationalgenome.org/data). Because the 1000 Genomes data are publicly available, the LD estimates only require the list of genetic variants, their physical positions and their effect alleles (i.e. `[snp, chr, pos, a1]` from the summary statistics file).
 
 If there are some internal genotype data that can be used to estimate LD matrix, please organize the genotype data in the same format as 1000 Genomes Phase 3 data:<br>[`ALL.chr${chrid}.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz`](ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/)<br>Again, make sure that the physical positions and effect alleles of the internal genotype data are consistent with `[chr, pos, a1]` provided in the GWAS summary statistics file.
 
-#### Genomic annotations
+## Genomic annotations
 
+Annotation data are only required if you want to use RSS for enrichment analyses.
 The most statistician-friendly format of genomic annotation data might look like this:
 
 ```
