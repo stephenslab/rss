@@ -32,7 +32,8 @@ Specifically, we introduce a “Regression with Summary Statistics” (RSS) like
 which relates the multiple regression coefficients to univariate regression results.
 We then combine the RSS likelihood with suitable priors to perform Bayesian inference for the regression coefficients.
 
-### License 
+### License
+
 Distributed under the terms of the GNU General Public License
 as published by the Free Software Foundation, either version 3 of the License,
 or (at your option) any later version.
@@ -43,21 +44,29 @@ but **without any warranty**; without even the implied warranty of
 Please see [LICENSE](LICENSE) for more details.
 
 ### Support
+
 1. Get started from some short [tutorials](http://stephenslab.github.io/rss).
 2. Refer to the [FAQ](http://stephenslab.github.io/rss/FAQ) page for answers to some common questions.
 3. Create a new [issue](https://github.com/stephenslab/rss/issues) to report bugs and/or request features.
 4. Send an email to `xiangzhu[at]uchicago.edu`.
 
 ### Citation
+
 - The Regression with Summary Statistics (RSS) likelihood <br> Xiang Zhu and Matthew Stephens (2017).
 [Bayesian large-scale multiple regression with summary statistics from genome-wide association studies](http://stephenslab.uchicago.edu/assets/papers/Zhu2017.pdf).
 [*Annals of Applied Statistics* 11(3): 1561-1592](http://dx.doi.org/10.1214/17-AOAS1046). 
 
-- Enrichment and prioritization analysis of GWAS summary data based on RSS <br> Xiang Zhu and Matthew Stephens (2017). [A large-scale genome-wide enrichment analysis identifies new trait-associated genes, pathways and tissues across 31 human phenotypes](https://doi.org/10.1101/160770). bioRxiv. [[Supplementary Materials](http://www.biorxiv.org/content/early/2017/07/08/160770.figures-only)] [[Full Results](http://xiangzhu.github.io/rss-gsea/results)]
+- Enrichment and prioritization analysis of GWAS summary data based on RSS <br> Xiang Zhu and Matthew Stephens (2017).
+[A large-scale genome-wide enrichment analysis identifies new trait-associated genes, pathways and tissues across 31 human phenotypes](https://doi.org/10.1101/160770). *bioRxiv*.
+[[Supplementary Figures](https://www.biorxiv.org/content/biorxiv/suppl/2018/07/16/160770.DC2/160770-3.pdf)]
+[[Supplementary Tables](https://www.biorxiv.org/content/biorxiv/suppl/2018/07/16/160770.DC2/160770-2.pdf)]
+[[Supplementary Notes](https://www.biorxiv.org/content/biorxiv/suppl/2018/07/16/160770.DC2/160770-1.pdf)]
+[[Full Results](http://xiangzhu.github.io/rss-gsea/)]
 
 - Inferring genetic architecture of complex human traits based on RSS <br> TBA
 
 ### Collaboration
+
 In this project, we have derived a [likelihood function](https://en.wikipedia.org/wiki/Likelihood_function)
 of multiple regression coefficients based on univariate regression summary data,
 which opens the door to a wide range of statistical machinery for inference.
@@ -70,6 +79,7 @@ and want to build new statistical methods based on the RSS likelihood,
 please feel free to contact us. We are glad to help!  
 
 ### Contact
+
 [Xiang Zhu](https://github.com/xiangzhu) <br>
 [Matthew Stephens Lab](http://stephenslab.uchicago.edu) <br>
 [Department of Statistics](https://galton.uchicago.edu) <br>
