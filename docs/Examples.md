@@ -12,9 +12,9 @@ We illustrate how to use RSS methods and software through the following examples
 This example illustrates how to fit RSS models using MCMC
 algorithms. Three types of prior distributions are considered:
 
-- BVSR in [Guan and Stephens (*Ann. Appl. Stat.*, 2011)](https://projecteuclid.org/euclid.aoas/1318514285),
-- BSLMM in [Zhou, Carbonetto and Stephens (*PLoS Genet.*, 2013)](https://doi.org/10.1371/journal.pgen.1003264),
-- ASH in [Stephens (*Biostatistics*, 2017)](https://doi.org/10.1093/biostatistics/kxw041).
+- BVSR, [Guan and Stephens (*Ann. Appl. Stat.*, 2011)](https://projecteuclid.org/euclid.aoas/1318514285),
+- BSLMM, [Zhou, Carbonetto and Stephens (*PLoS Genet.*, 2013)](https://doi.org/10.1371/journal.pgen.1003264),
+- ASH, [Stephens (*Biostatistics*, 2017)](https://doi.org/10.1093/biostatistics/kxw041).
 
 The MCMC output is further used to estimate the SNP heritability.
 This example is closely related to Section 4.2 of [Zhu and Stephens (*Ann. Appl. Stat.*, 2017)][]. 

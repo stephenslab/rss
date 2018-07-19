@@ -19,11 +19,11 @@ I am working on an `R` package `rssr` for RSS methods:
 
 ## Estimation of linkage disequilibrium (LD)
 
-> Q: The shrinkage estimator of LD in Wen and Stephens (*Ann. Appl. Stat.*, 2010)[]
+> Q: The shrinkage estimator of LD in [Wen and Stephens (*Ann. Appl. Stat.*, 2010)][]
 requires the "scaled population recombination rate" (`rho_ij`). How do I compute it?
 
 - A: One can easily figure out how to calculate this quantity based on
-[Li and Stephens (*Genetics.*, 2003)][] and [Wen and Stephens (*Ann. Appl. Stat.*, 2010)][].
+[Li and Stephens (*Genetics*, 2003)][] and [Wen and Stephens (*Ann. Appl. Stat.*, 2010)][].
 In case you do not have time to read these two great papers,
 I create a short [tutorial](Recombination) to illustrate the calculation of
 scaled population recombination rate using HapMap genetic map.
