@@ -5,7 +5,7 @@
 [`example5_null.sbatch`]: https://github.com/stephenslab/rss/blob/master/examples/example5/example5_null.sbatch
 [`example5_gsea.m`]: https://github.com/stephenslab/rss/blob/master/examples/example5/example5_gsea.m
 
-# Example 5: Enrichment analysis of GWAS summary statistics using RSS-BVSR.
+# Example 5: Enrichment analysis of GWAS summary statistics using RSS.
 
 ## Overview
 
@@ -143,7 +143,7 @@ As soon as the three jobs in Step 3 are completed, the baseline results are save
 
 In case you cannot fit the baseline models in your own computing environment,
 we make the baseline result files publicly available at
-`http://projects.rcc.uchicago.edu/mstephens/[file_name]` (listed below).
+`http://projects.rcc.uchicago.edu/mstephens/[file_name]`.
 
 ```
 /project/mstephens/public_html/ibd2015_null_h_30_theta0_285_seed_459_squarem_step1.mat

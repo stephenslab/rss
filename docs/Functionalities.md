@@ -13,7 +13,7 @@ layout: default
 [**`rss_varbvsr_squarem.m`**]: https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_squarem.m
 [**`rss_varbvsr_bigmem_squarem.m`**]: https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_bigmem_squarem.m
 
-## Model Fitting based on Markov chain Monte Carlo (MCMC)
+## Model Fitting with Markov chain Monte Carlo (MCMC)
 
 - [**`rss_bvsr.m`**][] <br>
 Fit a Bayesian model that consists of RSS likelihood
@@ -38,7 +38,7 @@ of [Zhu and Stephens (*Ann. Appl. Stat.*, 2017)][]
 Note that [**`rss_bvsr.m`**][] and [**`rss_bslmm.m`**][] were used to
 generate results in [Zhu and Stephens (*Ann. Appl. Stat.*, 2017)][].   
 
-## Model Fitting based on Variational Bayes (VB)
+## Model Fitting with Variational Bayes (VB)
 
 - [**`rss_varbvsr.m`**][] <br>
 Fit a Bayesian model that consists of RSS likelihood and BVSR prior
@@ -56,10 +56,11 @@ Parallel implementation of [**`rss_varbvsr_squarem.m`**][].
 Memory-efficient implementation of
 [**`rss_varbvsr_parallel.m`**](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_parallel.m).
 - [**`rss_varbvsr_bigmem_squarem.m`**][] <br>
-Memory-efficient implementation of [**`rss_varbvsr_pasquarem.m`**][].
+Memory-efficient implementation of
+[**`rss_varbvsr_pasquarem.m`**](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_pasquarem.m).
 
 Details of VB algorithms are available in
-[Supplementary Note](https://www.biorxiv.org/content/biorxiv/suppl/2017/07/08/160770.DC1/160770-2.pdf)
+[Supplementary Notes](https://www.biorxiv.org/content/biorxiv/suppl/2018/07/16/160770.DC2/160770-1.pdf)
 of [Zhu and Stephens (*bioRxiv*, 2017)][].
 
 Note that [**`rss_varbvsr_squarem.m`**][] and [**`rss_varbvsr_bigmem_squarem.m`**][]

@@ -103,8 +103,8 @@ we obtain the following results, where
 
 **Footnotes:**
 
-1. The function [`prctile`](http://www.mathworks.com/help/stats/prctile.html)
-used in [`example1.m`][] requires the [Statistics and Machine Learning Toolbox](http://www.mathworks.com/help/stats/index.html).
+1. The function [`prctile`](http://www.mathworks.com/help/stats/prctile.html) used here
+requires the [Statistics and Machine Learning Toolbox](http://www.mathworks.com/help/stats/index.html).
 Please see this [commit](https://github.com/stephenslab/rss/pull/3/commits/566e149ed840a913bfef9c0d7bf82feb41d6735d)
 (courtesy of Dr. [Dr. Peter Carbonetto](https://pcarbo.github.io/))
 if this required toolbox is not available in your environment.
