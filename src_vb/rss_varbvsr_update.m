@@ -19,6 +19,9 @@ function [alpha, mu, SiRiSr] = rss_varbvsr_update(SiRiS, sigma_beta, logodds, be
 
   % Check input SiRiS.
   % SiRiS := inv(S)*R*inv(S) must be a sparse matrix.
+  if ~all(size(SiRiS) == [p p])
+    error('Input SiRiS must be a squared matrix of size p.');
+  end
   if ~issparse(SiRiS)
     error('Input SiRiS must be a sparse matrix.')
   end
@@ -33,7 +36,7 @@ function [alpha, mu, SiRiSr] = rss_varbvsr_update(SiRiS, sigma_beta, logodds, be
     logodds = repmat(logodds,p,1);
   end
   if length(logodds) ~= p
-    error('Input logodds must be a scalar or a vector of length p.');
+    error('Input logodds must be scalar or a vector of length p.');
   end
 
   % Check inputs alpha0 and mu0.
@@ -48,10 +51,13 @@ function [alpha, mu, SiRiSr] = rss_varbvsr_update(SiRiS, sigma_beta, logodds, be
 
   % Check input se.
   if length(se) ~= p
-    error('Input se must be vector of length p.');
+    error('Input se must be a vector of length p.');
   end
 
   % Check input I.
+  if length(I) ~= p
+    error('Input I must be a vector of length p.');
+  end
   if sum(I < 1 | I > p)
     error('Input I contains invalid variable indices');
   end
