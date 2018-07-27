@@ -11,7 +11,7 @@ corefiles = {'C/doublevectormatlab.c '
 	     'C/sparsematrixmatlab.c '};
 	    
 % These are the commands to build the build the MEX shared library files.
-options = '-O -largeArrayDims -DMATLAB_MEX_FILE -IC COPTIMFLAGS="-std=gnu99"';
+options = '-O -largeArrayDims -IC COPTIMFLAGS="-std=gnu99"';
 
 eval(['mex ',options,' C/rss_varbvsr_update_matlab.c ',corefiles{1:5}]);
 
