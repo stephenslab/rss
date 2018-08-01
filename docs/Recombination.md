@@ -2,7 +2,9 @@
 layout: default
 ---
 
-The following example illustrates how to compute the scaled population recombination rate using HapMap genetic map.
+## Compute scaled population recombination rate
+
+The following example illustrates how to compute the "scaled population recombination rate" using HapMap genetic map.
 
 We take six SNPs in chromosome 22 from HapMap CEU Phase 2 sample, and we get the effective diploid population size `Ne=11418` from [IMPUTE](https://mathgen.stats.ox.ac.uk/impute/impute_v1.html) software document.
 
