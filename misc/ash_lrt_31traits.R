@@ -27,6 +27,11 @@
 # chr6	72121430	72121779
 #
 # In addition, please ensure that the BED file is based on hg19.
+#
+# After all input data are downloaded and correctly specified,
+# please type the following command in a R console:
+# > source('ash_lrt_31traits.R')
+# The analysis results will be written to a plain text file.
 
 # Most users only need to modify the following lines.
 
