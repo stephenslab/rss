@@ -27,7 +27,7 @@ function [true_para, individual_data, summary_data] = enrich_data_maker(X, theta
 end
 
 function [y, X, beta, gamma, Nsnp, sigma] = XY_maker(X, thetatype, pve, myseed, path_snps)
-% USAGE: 
+% USAGE: generate continuous phenotype under additive model 
 % INPUT:
 %	X: n by p genotype matrix
 %	thetatype: [theta0, theta]
@@ -48,7 +48,7 @@ function [y, X, beta, gamma, Nsnp, sigma] = XY_maker(X, thetatype, pve, myseed, 
 	
 	[beta, gamma] = effectsize_maker(p, thetatype, path_snps);
  
-        X 	= X - repmat(mean(X),n,1); 		% center columns of genotypes
+	X 	= X - repmat(mean(X),n,1); 		% center columns of genotypes
 	sigma 	= usepve(X, beta, n, pve);		% decide residual sd based on pve
 	y 	= X * beta + sigma * randn(n,1);		
 	y 	= y - mean(y); 				% center trait
@@ -75,7 +75,7 @@ function [beta, gamma] = effectsize_maker(p, thetatype, path_snps)
 		%% effect sizes under the null hypothesis
 		pival = 1 / (1+10^(-theta0));
 		gamma = (rand(p, 1) < pival);
-                beta  = randn(p, 1) .* gamma;
+		beta  = randn(p, 1) .* gamma;
 	
 	else
 		%% effect sizes under the enrichment hypothesis
@@ -125,15 +125,15 @@ function [betahat, se] = single_linreg(y, X)
 %	se: p*1 vector; mle std error of marginal effect;
 
 % NB: y must be centered and X must be column centered; THIS IS IMPORTANT
-	[n, p] 	= size(X);
-	SX2 	= sum(X .* X); 
-	betahat = (X'* y)./ SX2';
-	yrep 	= repmat(y, 1, p);
-	brep 	= repmat(betahat', n, 1);
-	resmat 	= yrep - X .* brep;
+	[n, p] 	 = size(X);
+	SX2 	 = sum(X .* X); 
+	betahat  = (X'* y)./ SX2';
+	yrep 	 = repmat(y, 1, p);
+	brep 	 = repmat(betahat', n, 1);
+	resmat 	 = yrep - X .* brep;
 	sigmahat = sqrt( sum(resmat .* resmat) / n);
-	se 	= (SX2').^(-0.5) .* sigmahat';
-	betahat = betahat(:);
-	se 	= se(:);
+	se 	 = (SX2').^(-0.5) .* sigmahat';
+	betahat  = betahat(:);
+	se 	 = se(:);
 end
 

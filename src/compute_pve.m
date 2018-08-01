@@ -11,14 +11,15 @@ function pve = compute_pve(beta, betahat, se, samplesize, bwd, BR, matrix_type)
 % OUTPUT:
 %       pve: scalar
 
-        beta = beta(:);
-	betahat = betahat(:);
-        se = se(:);
-        samplesize = samplesize(:);
+	beta       = beta(:);
+	betahat    = betahat(:);
+	se         = se(:);
+	samplesize = samplesize(:);
 	
 	p = length(beta);
-        yyxx_sqrt = sqrt(samplesize .* (se.^2) + betahat.^2); 
-        comp1 = beta ./ yyxx_sqrt;
+
+	yyxx_sqrt = sqrt(samplesize .* (se.^2) + betahat.^2); 
+	comp1     = beta ./ yyxx_sqrt;
 
         switch matrix_type
                 case 1

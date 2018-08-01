@@ -149,20 +149,20 @@ function [logw1,alpha,mu,s] = gsea_outerloop(method,betahat,se,SiRiS,se_all,Nsnp
         iter = iter + 1;
         fprintf('(%04d) theta0 = %+0.2f, theta = %0.2f, h = %0.2f \n',iter,theta0(i),theta(j),h(k));
 
-        % NOTE:
-        % Next compute the marginal log-likelihood under the alternative
-        % hypothesis only for SNPs in the pathway. Note that rss_varbvsr
-        % defines the log-odds ratio using the natural logarithm, so we
-        % need to multiply (theta0+theta) by log(10).
+	% NOTE:
+	% Next compute the marginal log-likelihood under the alternative
+	% hypothesis only for SNPs in the pathway. Note that rss_varbvsr
+	% defines the log-odds ratio using the natural logarithm, so we
+	% need to multiply (theta0+theta) by log(10).
 	log10odds_gsea       = theta0(i) * ones(ng,1);  % genome-wide baseline
-      	log10odds_gsea(snps) = theta0(i) + theta(j);    % enriched in the pathway
+	log10odds_gsea(snps) = theta0(i) + theta(j);    % enriched in the pathway
 
 	sigb1    = calc_beta_sd(se_all, Nsnp_all, sigmoid10(log10odds_gsea), h(k));
-        logodds1 = log(10) * (theta0(i) + theta(j));
-        options  = struct('alpha',alpha(:,i,j,k),'mu',mu(:,i,j,k),'verbose',true);
+	logodds1 = log(10) * (theta0(i) + theta(j));
+	options  = struct('alpha',alpha(:,i,j,k),'mu',mu(:,i,j,k),'verbose',true);
 
-        % run rss-varbvsr under enrichment
-        [F1,alpha(:,i,j,k),mu(:,i,j,k),s(:,i,j,k)] = rss_varbvsr_wrapper(method,betahat,se,SiRiS,sigb1,logodds1,options);
+	% run rss-varbvsr under enrichment
+	[F1,alpha(:,i,j,k),mu(:,i,j,k),s(:,i,j,k)] = rss_varbvsr_wrapper(method,betahat,se,SiRiS,sigb1,logodds1,options);
 
         % NOTE:
         % Compute the importance weight under the alternative. The prior and
