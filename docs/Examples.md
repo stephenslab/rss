@@ -44,6 +44,14 @@ of [Zhu and Stephens (*bioRxiv*, 2017)][].
 
 ## [Example 5](Example-5): Enrichment analysis of GWAS summary statistics using RSS.
 
-This example illustrates how to perform enrichment analysis of GWAS summary statistics
-based on variational Bayes (VB) inference of RSS-BVSR model.
-This example is closely related to the actual data analyses in [Zhu and Stephens (*bioRxiv*, 2017)][].
+This example illustrates how to perform enrichment analysis of
+GWAS summary statistics based on VB inference of RSS-BVSR model.
+This example consists of two parts:
+
+- [Part A](Example-5A). An enrichment analysis of a synthetic dataset used in
+simulation studies of [Zhu and Stephens (*bioRxiv*, 2017)][].
+This part gives you a quick view of how RSS works in an enrichment analysis.
+- [Part B](Example-5B). An end-to-end enrichment analysis of inflammatory bowel disease GWAS summary statistics
+([Liu et al, *Nat Genet.*, 2015](https://www.ncbi.nlm.nih.gov/pubmed/26192919)) and
+a gene set named *IL23-mediated signaling events* (Pathway Commons 2, PID, 37 genes) using RSS.
+This part illustrates the actual data analyses performed in [Zhu and Stephens (*bioRxiv*, 2017)][].
