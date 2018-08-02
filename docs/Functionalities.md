@@ -136,7 +136,14 @@ These scripts were used in data analyses of [Zhu and Stephens (*bioRxiv*, 2017)]
 
 Fit genome-wide multiple-SNP "enrichment model" to single-SNP summary data, using
 [`rss_varbvsr*` functions](https://github.com/stephenslab/rss/tree/master/src_vb).
-These scripts were used in data analyses in [Zhu and Stephens (*bioRxiv*, 2017)][].
+These scripts were used in data analyses of [Zhu and Stephens (*bioRxiv*, 2017)][].
+
+### [`null_wrapper_fixsb.m`](https://github.com/stephenslab/rss/blob/master/src_vb/null_wrapper_fixsb.m) & [`gsea_wrapper_fixsb.m`](https://github.com/stephenslab/rss/blob/master/src_vb/gsea_wrapper_fixsb.m)
+
+Fit genome-wide multiple-SNP "baseline model" and "enrichment model" to single-SNP summary data,
+using a fixed value of `sigb^2` (prior variance of causal genetic effects) in
+[`rss_varbvsr*` functions](https://github.com/stephenslab/rss/tree/master/src_vb).
+These scripts were used in simulation studies of [Zhu and Stephens (*bioRxiv*, 2017)][].
 
 ### [`ash_lrt_31traits.R`](https://github.com/stephenslab/rss/blob/master/misc/ash_lrt_31traits.R)
 
