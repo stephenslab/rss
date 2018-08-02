@@ -21,7 +21,7 @@ myseed = 459;
 method = 'squarem';
 
 % specify input and output paths
-input_path  = '/project/mstephens/public_html/'; 
+input_path  = './'; 
 output_path = './';
 
 %%%%%%%%%%%%% DO NOT MODIFY CODES BELOW %%%%%%%%%%%%%
