@@ -168,8 +168,8 @@ Please see [Zhu and Stephens (*bioRxiv*, 2017)][] for more details.
 
 The third group consists of estimated variational lower bounds and Bayes factor.
 
-- `b_logw`: variational lower bounds under the baseline model.
-- `e_logw`: variational lower bounds under the enrichment model.
+- `b_logw`: variational lower bounds under baseline models.
+- `e_logw`: variational lower bounds under enrichment models.
 - `log10_bf`: log 10 enrichment Bayes factor.
 
 Since this dataset is simulated from the enrichment model,

@@ -111,7 +111,7 @@ where [Slurm](https://slurm.schedmd.com/) has been installed.
 sbatch example5_null.sbatch
 ```
 
-The script [`example5_null.sbatch`][] makes three copies of `example5_null.m`
+The script [`example5_null.sbatch`][] makes three copies of [`example5_null.m`][]
 (because there are three sets of `(h, theta0)` in the grid),
 and then assigns one copy to each `(h, theta0)` setting.
 
@@ -214,7 +214,7 @@ The first group consists of user-specified quantities in [`example5_gsea.m`][].
 - `method`: model fitting algorithm.
 - `myseed`: seed of random number generator.
 - `h` & `theta0` & `theta`: grid values of hyper-parameters.
-- `snps`: indices of "inside-pathway"" SNPs.
+- `snps`: indices of "inside-pathway" SNPs.
 
 The second group consists of estimated variational parameters
 `alpha` & `mu` & `s` under the enrichment model,
@@ -226,8 +226,8 @@ please see [Zhu and Stephens (*bioRxiv*, 2017)][] for more details.
 
 The third group consists of estimated variational lower bounds and Bayes factor.
 
-- `logw0`: variational lower bounds under the baseline model.
-- `logw1`: variational lower bounds under the enrichment model.
+- `logw0`: variational lower bounds under baseline models.
+- `logw1`: variational lower bounds under enrichment models.
 - `log10bf`: log 10 enrichment Bayes factor.
 - `runtime`: computational time (unit: seconds).
 

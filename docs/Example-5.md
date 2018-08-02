@@ -39,8 +39,8 @@ To reproduce results of Example 5,
 please use scripts in the directory [example5][],
 and follow the step-by-step guide in each part.
 
-- Part A: http://stephenslab.github.io/rss/Example-5A
-- Part B: http://stephenslab.github.io/rss/Example-5B
+- Part A: [http://stephenslab.github.io/rss/Example-5A](Example-5A)
+- Part B: [http://stephenslab.github.io/rss/Example-5B](Example-5B)
 
 Before running either part, please make sure the
 [VB subroutines](https://github.com/stephenslab/rss/tree/master/src_vb)
