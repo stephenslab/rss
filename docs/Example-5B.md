@@ -27,6 +27,11 @@ Before running any script in [example5][], please make sure the
 [VB subroutines](https://github.com/stephenslab/rss/tree/master/src_vb) of RSS are installed.
 Please find installation instructions [here](RSS-via-VB).
 
+Since a genome-wide enrichment analysis is conducted here,
+this part is more complicated than [Example 5 Part A](Example-5A).
+It is advisable to go through [Example 5 Part A](Example-5A) before
+diving into this real data example.
+
 ## Step-by-step illustration
 
 ### Fitting the baseline model with [`example5_null.m`][]
