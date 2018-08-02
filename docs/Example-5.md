@@ -45,3 +45,6 @@ and follow the step-by-step guide in each part.
 Before running either part, please make sure the
 [VB subroutines](https://github.com/stephenslab/rss/tree/master/src_vb)
 of RSS are installed. Please find installation instructions [here](RSS-via-VB).
+
+It is advisable to go through the simulated example in [Example 5 Part A](Example-5A)
+before diving into the real data example in [Example 5 Part B](Example-5B).
