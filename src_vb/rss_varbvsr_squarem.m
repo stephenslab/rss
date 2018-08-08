@@ -23,6 +23,9 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_squarem(betahat, se, SiRiS, sig
 %       	- maxerr: the maximum relative difference between the parameters at the last two iterations
 %		- sigb: scalar, the maximum likelihood estimate of sigma_beta
 %		- loglik: iter by 1, the variational lower bound at each iteration
+% NOTE:
+%       The pseudocode for SQUAREM is available at Table 1 of Varadhan and Roland (2008):
+%       https://doi.org/10.1111/j.1467-9469.2007.00585.x
 
   % Get the time when the program starts.
   start_time = clock;
@@ -147,13 +150,13 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_squarem(betahat, se, SiRiS, sig
 
     % Modifiy the step length (optional): three scenarios (Section 6).
     if modify_step
-      % scenario 1: use the output of the second fix-point mapping output
+      % Scenario 1: use the output of the second fix-point mapping output.
       % i.e. set mtp = -1
       if mtp >= -1
         alpha3  = alpha2;
         mu3     = mu2;
         SiRiSr3 = SiRiSr;
-      % scenario 2: no need to modify the step length (line 7 of Table 1)
+      % Scenario 2: no need to modify the step length (line 7 of Table 1).
       % i.e. mtp < -1  
       else
         alpha3  = alpha0 - 2*mtp*alpha_r + (mtp^2)*alpha_v;
@@ -167,14 +170,14 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_squarem(betahat, se, SiRiS, sig
       SiRiSr3 = full(SiRiS * (alpha3 .* mu3));
     end
 
-    % Run the last fix-point mapping step for scenario 1 and 2 (line 8 of Table 1).
+    % Run the last fix-point mapping step for Scenarios 1 and 2 (line 8 of Table 1).
     [alpha, mu, SiRiSr] = rss_varbvsr_update(SiRiS, sigb, logodds, betahat, se, alpha3, mu3, SiRiSr3, I);
     
     r   = alpha .* mu;
     lnZ = q'*r - 0.5*r'*SiRiSr - 0.5*(1./se_square)'*betavar(alpha, mu, s);
     lnZ = lnZ + intgamma(logodds, alpha) + intklbeta_rssbvsr(alpha, mu, s, sigb_square);
    
-    % scenario 3: use a simple back-tracking to modify the steplength iteratively
+    % Deal with Scenario 3: use a simple back-tracking to modify the step length iteratively.
     if modify_step && (mtp < -1) && (lnZ < lnZ0)
       num_bt = 0;
       
