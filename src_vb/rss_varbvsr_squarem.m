@@ -177,10 +177,9 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_squarem(betahat, se, SiRiS, sig
     lnZ = q'*r - 0.5*r'*SiRiSr - 0.5*(1./se_square)'*betavar(alpha, mu, s);
     lnZ = lnZ + intgamma(logodds, alpha) + intklbeta_rssbvsr(alpha, mu, s, sigb_square);
    
-    % Deal with Scenario 3: use a simple back-tracking to modify the step length iteratively.
+    % Scenario 3: use a simple back-tracking to modify the step length iteratively.
     if modify_step && (mtp < -1) && (lnZ < lnZ0)
-      num_bt = 0;
-      
+      num_bt = 0;      
       % stop back-tracking after ten steps
       while (lnZ < lnZ0) && (num_bt < 10)
         mtp     = 0.5*(mtp-1); % back-tracking
