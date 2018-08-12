@@ -8,19 +8,25 @@ function [R, BR] = get_corr(m, Ne, cummap, Hpanel, cutoff)
 %	cutoff: the hard threshold for small entries being zero, scalar 
 % OUTPUT:
 %	R: the estimated LD matrix, numSNP by numSNP, sparse matrix
-%	BR: the banded storage of R
+%	BR: the banded storage of R, dense matrix
 
-  % compute the shrinkage estimator of covariance matrix 
+  % compute the shrinkage estimator of covariance matrix
+  disp('Compute Wen-Stephens shrinkage LD estimator ...'); 
   SigHat = shrink_cov(m, Ne, cummap, Hpanel, cutoff);
 
   % convert covariance to correlation
-  R = corrcov(SigHat); clear SigHat;
+  R = corrcov(SigHat);
+  clear SigHat;
 
-  % get the bandwidth of R
-  bwd = find_bandwidth(R);
+  if nargout > 1
+    disp('Convert LD matrix to a banded storage ...');
+ 
+    % get the bandwidth of R
+    bwd = find_bandwidth(R);
   
-  % get the banded storage of R
-  BR = band_storage(R, bwd);
+    % get the banded storage of R
+    BR = band_storage(R, bwd);
+  end
 
   % store R as a sparse matrix
   R = sparse(R);
