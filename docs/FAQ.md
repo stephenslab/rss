@@ -31,8 +31,17 @@ scaled population recombination rate (`rho_ij`) using HapMap genetic map.
 
 #### Q: Can I use unphased genotype data to compute the shrinkage estimator?
 
-A: Yes. You need to modify [Line 46](https://github.com/stephenslab/rss/blob/master/misc/get_corr.m#L46)
-of [`get_corr.m`][] as `S = 0.5*cov(Gpanel)`, where `Gpanel` is the genotype matrix from an external panel.
+A: Yes. You can input an unphased genotype matrix as `Hpanel` in [`get_corr.m`][],
+and [`get_corr.m`][] will execute the following code chunk:
+
+```matlab
+if Hpanel_max>1
+  disp('Hpanel is an unphased genotype matrix.');
+  S = 0.5*S;
+end
+```
+
+The "0.5" correction term comes from a random mating assumption. 
 Please see Section 2.4 of [Wen and Stephens (*Ann. Appl. Stat.*, 2010)][] for more details.
 
 #### Q: I know of [Wen and Stephens (*Ann. Appl. Stat.*, 2010)][], but I'm not interested in imputation. Do you have software that just computes the banded covariance matrix?
