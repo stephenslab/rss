@@ -35,11 +35,11 @@ end
 function SigHat = shrink_cov(m, Ne, cummap, Hpanel, cutoff)
 % USAGE: compute the shrinkage estimator of covariance matrix in Wen and Stephens (2010)
 % INPUT:
-%	m: the number of individuals in the reference panel, integer
-%	Ne: the effective population size (diploid), integer
+%	m: number of individuals in a reference panel, integer
+%	Ne: effective population size (diploid), integer
 %	cummap: cumulative genetic map in cM, numSNP by 1
-%	Hpanel: the (phased) haplotypes from a reference panel, numIND by numSNP
-%	cutoff: the hard threshold for small entries being zero, scalar 
+%	Hpanel: phased haplotypes or unphased genotypes in a reference panel, numIND by numSNP
+%	cutoff: hard threshold for small entries being zero, scalar 
 % OUTPUT:
 %	SigHat: estimated covariance matrix of haplotype, numSNP by numSNP
 
@@ -48,8 +48,23 @@ function SigHat = shrink_cov(m, Ne, cummap, Hpanel, cutoff)
   theta = (1/nmsum) / (2*m + 1/nmsum);
 	
   % S is obtained from Sigma_panel by shrinking off-diagonal entries toward 0
-  % NB: Hpanel is a phased haplotype matrix
+  % check range of Hpanel entries before computing S
+  Hpanel_min = min(Hpanel(:));
+  Hpanel_max = max(Hpanel(:));
+
+  if (Hpanel_min<0) || (Hpanel_max>2)
+    error('Hpanel must be haplotype (0-1) or genotype (0-2).');
+  end
+
+  % Scenario 1: Hpanel is a phased haplotype matrix
   S = cov(Hpanel);
+
+  % Scenario 2: Hpanel is an unphased genotype matrix
+  if Hpanel_max>1
+    disp('Hpanel is an unphased genotype matrix.');
+    S = 0.5*S;
+  end
+
   S = triu(S);
 
   % compute the values on and above the 1st diagonal
