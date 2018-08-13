@@ -31,11 +31,12 @@ scaled population recombination rate (`rho_ij`) using HapMap genetic map.
 
 #### Q: Can I use unphased genotype data to compute the shrinkage estimator?
 
-A: Yes. You can input an unphased genotype matrix as `Hpanel` in [`get_corr.m`][],
-and [`get_corr.m`][] will execute the following code chunk:
+A: Yes. You can input an unphased genotype matrix as `Hpanel` in [`get_corr.m`][]
+and specify that `isgeno=true`.
+With `isgeno=true`, [`get_corr.m`][] will execute the following code chunk:
 
 ```matlab
-if Hpanel_max>1
+if isgeno
   disp('Hpanel is an unphased genotype matrix.');
   S = 0.5*S;
 end
