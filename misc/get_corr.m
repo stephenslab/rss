@@ -1,4 +1,4 @@
-function [R, BR] = get_corr(m, Ne, cummap, Hpanel, cutoff)
+function [R, BR] = get_corr(m, Ne, cummap, Hpanel, cutoff, isgeno)
 % USAGE: compute LD matrix using the shrinkage estimator in Wen and Stephens (2010)
 % INPUT:
 %	m: the number of individuals in the reference panel, integer
@@ -6,13 +6,19 @@ function [R, BR] = get_corr(m, Ne, cummap, Hpanel, cutoff)
 %	cummap: cumulative genetic map in cM, numSNP by 1
 %	Hpanel: the (phased) haplotypes from a reference panel, numIND by numSNP
 %	cutoff: the hard threshold for small entries being zero, scalar 
+%       isgeno: true if Hpanel is an unphased genotype matrix, logical
 % OUTPUT:
 %	R: the estimated LD matrix, numSNP by numSNP, sparse matrix
 %	BR: the banded storage of R, dense matrix
 
+  % decide whether Hpanel is haplotype or genotype
+  if ~exist('isgeno', 'var')
+    isgeno = false;
+  end
+
   % compute the shrinkage estimator of covariance matrix
   disp('Compute Wen-Stephens shrinkage LD estimator ...'); 
-  SigHat = shrink_cov(m, Ne, cummap, Hpanel, cutoff);
+  SigHat = shrink_cov(m, Ne, cummap, Hpanel, cutoff, isgeno);
 
   % convert covariance to correlation
   R = corrcov(SigHat);
@@ -32,14 +38,15 @@ function [R, BR] = get_corr(m, Ne, cummap, Hpanel, cutoff)
   R = sparse(R);
 end
 
-function SigHat = shrink_cov(m, Ne, cummap, Hpanel, cutoff)
+function SigHat = shrink_cov(m, Ne, cummap, Hpanel, cutoff, isgeno)
 % USAGE: compute the shrinkage estimator of covariance matrix in Wen and Stephens (2010)
 % INPUT:
 %	m: number of individuals in a reference panel, integer
 %	Ne: effective population size (diploid), integer
 %	cummap: cumulative genetic map in cM, numSNP by 1
 %	Hpanel: phased haplotypes or unphased genotypes in a reference panel, numIND by numSNP
-%	cutoff: hard threshold for small entries being zero, scalar 
+%	cutoff: hard threshold for small entries being zero, scalar
+%	isgeno: true if Hpanel is an unphased genotype matrix, logical 
 % OUTPUT:
 %	SigHat: estimated covariance matrix of haplotype, numSNP by numSNP
 
@@ -48,19 +55,12 @@ function SigHat = shrink_cov(m, Ne, cummap, Hpanel, cutoff)
   theta = (1/nmsum) / (2*m + 1/nmsum);
 	
   % S is obtained from Sigma_panel by shrinking off-diagonal entries toward 0
-  % check range of Hpanel entries before computing S
-  Hpanel_min = min(Hpanel(:));
-  Hpanel_max = max(Hpanel(:));
-
-  if (Hpanel_min<0) || (Hpanel_max>2)
-    error('Hpanel must be haplotype (0-1) or genotype (0-2).');
-  end
-
+  
   % Scenario 1: Hpanel is a phased haplotype matrix
   S = cov(Hpanel);
 
   % Scenario 2: Hpanel is an unphased genotype matrix
-  if Hpanel_max>1
+  if isgeno
     disp('Hpanel is an unphased genotype matrix.');
     S = 0.5*S;
   end
