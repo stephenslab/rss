@@ -32,7 +32,7 @@ Below we verify this speculation by simulations.
 
 Here we use the same dataset in [Example 1](Example-1).
 Please contact me if you have trouble downloading the dataset
-[`example1.mat`](https://uchicago.box.com/example1).
+[`example1.mat`](https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example1/).
 
 To reproduce results of Example 3, please read the step-by-step guide below and run [`example3.m`][].
 Before running [`example3.m`][], please make sure the
@@ -84,8 +84,8 @@ and it is 0.1896, [0.1162, 0.2765] when using `se_2`.
 
 The simulations in Section 2.3 of [Zhu and Stephens (*Ann. Appl. Stat.*, 2017)][]
 are essentially "replications" of the example above. To facilitate reproducible research,
-we make the simulated datasets publicly available
-([`rss_example1_simulations.tar.gz`](https://uchicago.box.com/example1))<sup>2</sup>.
+we make the simulated datasets available
+([`rss_example1_simulations.tar.gz`](https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example1/readme))<sup>2</sup>.
 
 After applying RSS methods to these simulated data,
 we obtain the following results, where
