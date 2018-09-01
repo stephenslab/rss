@@ -46,8 +46,8 @@ Please find installation instructions [here](RSS-via-VB).
 
 ## Step-by-step illustration
 
-**Step 1**. [Download](https://uchicago.box.com/v/example4) the input data
-`genotype.mat` and `AH_chr16.mat` for the function `enrich_datamaker.m`.
+**Step 1**. [Download](https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example4/readme)
+the input data `genotype.mat` and `AH_chr16.mat` for the function `enrich_datamaker.m`.
 Please contact me if you have trouble accessing these files<sup>1</sup>.
 
 **Step 2**. Install the `MATLAB` implementation of [`varbvs`](https://github.com/pcarbo/varbvs).
@@ -61,7 +61,8 @@ addpath('/home/xiangzhu/varbvs-master/varbvs-MATLAB/');
 
 **Step 3**. Extract SNPs that inside the target gene set.
 
-This step is where we need the input data [`AH_chr16.mat`](https://uchicago.box.com/v/example4).
+This step is where we need the input data
+[`AH_chr16.mat`](https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example4/readme).
 The index of SNPs inside the gene set is stored as `snps`.
 
 ```matlab
