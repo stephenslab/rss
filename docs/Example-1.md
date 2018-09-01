@@ -29,7 +29,7 @@ Please find installation instructions [here](RSS-via-MCMC).
 
 **Step 1**.
 Download the simulated single-SNP summary-level data
-[`example1.mat`](https://uchicago.box.com/example1).
+[`example1.mat`](https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example1/).
 Please contact me if you have trouble accessing this file.
 
 The data file `example1.mat` contains the following elements.
@@ -123,8 +123,8 @@ The following histograms depict the posterior distributions of estimated SNP her
 Simulations in Section 4.2 of [Zhu and Stephens (*Ann. Appl. Stat.*, 2017)][]
 are essentially "replications" of the example above.
 To facilitate reproducible research, we make the simulated datasets
-for Scenarios 2.1 and 2.2 in Section 4.2 of [Zhu and Stephens (*Ann. Appl. Stat.*, 2017)][].
-publicly available ([`rss_example1_simulations.tar.gz`](https://uchicago.box.com/example1))<sup>2</sup>.
+for Scenarios 2.1 and 2.2 in Section 4.2 of [Zhu and Stephens (*Ann. Appl. Stat.*, 2017)][]
+available ([`rss_example1_simulations.tar.gz`](https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example1/readme))<sup>2</sup>.
 
 Each simulated dataset contains three files: `genotype.txt`, `phenotype.txt` and `simulated_data.mat`.
 The files `genotype.txt` and `phenotype.txt` are the genotype and phenotype files for
