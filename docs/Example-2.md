@@ -36,7 +36,7 @@ Please find installation instructions [here](RSS-via-MCMC).
 
 **Step 1**.
 Download the simulated single-SNP summary-level data and LD estimates
-[`example2.mat`](https://uchicago.box.com/v/example2).
+[`example2.mat`](https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example2/).
 Please contact me if you have trouble accessing these files.
 
 The data file `example2.mat` contains the following elements.
@@ -66,8 +66,8 @@ The data file `example2.mat` contains the following elements.
 
 The simulations in Section 4.1 of [Zhu and Stephens (*Ann. Appl. Stat.*, 2017)][]
 are essentially "replications" of the example above. To facilitate reproducible research,
-we make the simulated datasets in Section 4.1 publicly available
-([`rss_example2_data_*.tar.gz`](https://uchicago.box.com/v/example2))<sup>1</sup>.
+we make the simulated datasets in Section 4.1 available
+([`rss_example2_data_*.tar.gz`](https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example2/readme))<sup>1</sup>.
 
 Each simulated dataset contains three files:
 `genotype.txt`, `phenotype.txt` and `simulated_data.mat`.
