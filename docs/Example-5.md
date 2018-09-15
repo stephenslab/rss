@@ -8,36 +8,40 @@
 
 This example illustrates how to perform enrichment analysis of
 GWAS summary statistics based on variational Bayes (VB) inference of RSS-BVSR model.
-This example consists of two parts:
+This example consists of:
 
-- [Part A](Example-5A). An enrichment analysis of a synthetic dataset used in
-simulation studies of [Zhu and Stephens (*bioRxiv*, 2017)][].
-This part gives you a quick view of how RSS works in an enrichment analysis.
-- [Part B](Example-5B). An end-to-end enrichment analysis of inflammatory bowel disease GWAS summary statistics
+- [Part A](Example-5A): an enrichment analysis of a synthetic dataset used in
+simulation studies of [Zhu and Stephens (*bioRxiv*, 2017)][];
+- [Part B](Example-5B): an end-to-end enrichment analysis of inflammatory bowel disease GWAS summary statistics
 ([Liu et al, *Nat Genet.*, 2015](https://www.ncbi.nlm.nih.gov/pubmed/26192919)) and
 a gene set named *IL23-mediated signaling events* (Pathway Commons 2, PID, 37 genes) using RSS.
-This part illustrates the actual data analyses performed in [Zhu and Stephens (*bioRxiv*, 2017)][].
+
+[Part A](Example-5A) provides a quick view of how RSS works in an enrichment analysis.
+[Part B](Example-5B) illustrates the actual data analyses performed in [Zhu and Stephens (*bioRxiv*, 2017)][].
 
 ## Details
 
-The following figure provides a schematic overview of the analysis method.
+The following figure provides a schematic overview of the method.
 For more details, please see [Zhu and Stephens (*bioRxiv*, 2017)][].
 
 ![](images/rss_gsea.png)
 
-Here the enrichment analysis consists of fitting the following two models:
+As shown above, two models are fitted for the enrichment analysis:
 
 - **baseline model**: SNPs across the genome are equally likely to be associated with a target phenotype. 
 - **enrichment model**: SNPs "inside" a gene in a gene set are more likely (i.e. "enriched") to be
-associated with a target phenotype than remaining SNPs. 
+associated with a target phenotype than remaining SNPs.
+
+If the gene set is truly enriched, then the GWAS data should show more support for enrichment over baseline model, that is, a larger Bayes factor (BF). 
 
 The key difference between RSS and previous work
 notably, [Carbonetto and Stephens (*PLoS Genet.*, 2013)][], is that
-RSS uses **publicly available** GWAS summary data, rather than individual-level genetic data.
+RSS uses **publicly available** GWAS summary data, rather than individual-level genotypes and phenotypes.
+To perform similar analysis of individual-level data, please use [`bmapathway`](https://github.com/pcarbo/bmapathway).
 
 To reproduce results of Example 5,
 please use scripts in the directory [example5][],
-and follow the step-by-step guide in each part.
+and follow the step-by-step guide below.
 
 - Part A: [http://stephenslab.github.io/rss/Example-5A](Example-5A)
 - Part B: [http://stephenslab.github.io/rss/Example-5B](Example-5B)
