@@ -1,5 +1,9 @@
 ## Progress Update
 
+### 07/16/2018
+
+The [revised manuscript](https://doi.org/10.1101/160770) describing enrichment and prioritization analyses based on RSS likelihood was ranked as the Best Biorxiv Papers Today in Genomics by [Assert](http://assert.pub/). 
+
 ### 10/19/2017
 
 Xiang presented the enrichment analysis of 31 human phenotypes and 4,026 gene sets using RSS likelihood at the 2017 American Society of Human Genetics Annual Meeting ([ASHG2017](http://www.ashg.org/2017meeting/)), Orlando, FL.
@@ -14,7 +18,7 @@ Xiang presented the enrichment analysis of 31 human phenotypes and 4,026 gene se
 
 ### 07/07/2017
 
-Xiang posted a manuscript describing the enrichment analysis of 31 human phenotypes and 4,026 gene sets using RSS likelihood on [bioRxiv](http://www.biorxiv.org/content/early/2017/07/08/160770).
+Xiang posted a manuscript describing the enrichment analysis of 31 human phenotypes and 4,026 gene sets using RSS likelihood on [bioRxiv](https://doi.org/10.1101/160770).
 
 ### 06/30/2017
 
