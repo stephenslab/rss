@@ -1,8 +1,12 @@
 ## Progress Update
 
+### 09/29/2018
+
+The [manuscript](https://doi.org/10.1101/160770) describing enrichment and prioritization analyses based on RSS likelihood was accepted by [*Nature Communications*](https://www.nature.com/ncomms/).
+
 ### 07/16/2018
 
-The [revised manuscript](https://doi.org/10.1101/160770) describing enrichment and prioritization analyses based on RSS likelihood was ranked as the Best Biorxiv Papers Today in Genomics by [Assert](http://assert.pub/). 
+The [manuscript](https://doi.org/10.1101/160770) describing enrichment and prioritization analyses based on RSS likelihood was ranked as the Best Biorxiv Papers Today in Genomics by [Assert](http://assert.pub/). 
 
 ### 10/19/2017
 
