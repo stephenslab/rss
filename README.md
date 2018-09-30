@@ -57,7 +57,7 @@ Please see [LICENSE](LICENSE) for more details.
 [*Annals of Applied Statistics* 11(3): 1561-1592](http://dx.doi.org/10.1214/17-AOAS1046). 
 
 - Enrichment and prioritization analysis of GWAS summary data based on RSS <br> Xiang Zhu and Matthew Stephens (2017).
-[A large-scale genome-wide enrichment analysis identifies new trait-associated genes, pathways and tissues across 31 human phenotypes](https://doi.org/10.1101/160770). *bioRxiv*.
+[Large-scale genome-wide enrichment analyses identify new trait-associated genes and pathways across 31 human phenotypes](https://doi.org/10.1101/160770). To appear in *Nature Communications*.
 [[Supplementary Figures](https://www.biorxiv.org/content/biorxiv/suppl/2018/07/16/160770.DC2/160770-3.pdf)]
 [[Supplementary Tables](https://www.biorxiv.org/content/biorxiv/suppl/2018/07/16/160770.DC2/160770-2.pdf)]
 [[Supplementary Notes](https://www.biorxiv.org/content/biorxiv/suppl/2018/07/16/160770.DC2/160770-1.pdf)]
@@ -67,7 +67,7 @@ Please see [LICENSE](LICENSE) for more details.
 
 ### Collaboration
 
-In this project, we have derived a [likelihood function](https://en.wikipedia.org/wiki/Likelihood_function)
+In this project, we have derived a [likelihood function](http://dx.doi.org/10.1214/17-AOAS1046)
 of multiple regression coefficients based on univariate regression summary data,
 which opens the door to a wide range of statistical machinery for inference.
 Using this likelihood, we have implemented Bayesian methods to estimate SNP heritability,
