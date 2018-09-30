@@ -4,8 +4,7 @@ layout: default
 
 Welcome to the RSS (Regression with Summary Statistics) wiki!
 
-This wiki hosts the documentation of RSS methods. It contains the
-following pages.
+This wiki hosts the following documentation pages of RSS methods.
 
 ## [Installation](Installation)
 
@@ -13,16 +12,16 @@ This page provides instructions for installing RSS software.
 
 ## [Functionalities](Functionalities)
 
-This page outlines functions and scripts associated with RSS methods and software.
+This page outlines functions and scripts associated with RSS methods.
 
 ## [Examples](Examples)
 
-This page lists examples (including input and output data) of using RSS methods and software.
+This page gives end-to-end examples of using RSS methods and software.
 
 ## [FAQ](FAQ)
 
-This page answers frequently ask questions about RSS methods and software.
+This page answers frequently ask questions (FAQs) about RSS methods and software.
 
 ## [News](News)
 
-This page reports progress updates on the development of RSS methods and software.
+This page lists progress updates related to RSS methods and software.
