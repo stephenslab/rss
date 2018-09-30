@@ -9,8 +9,6 @@
 *.txt.gz
 *.mat
 
-docs/_site
-
 local/
 
 src/lightspeed*
@@ -24,5 +22,4 @@ src/rss_bslmm_mwt.m
 
 examples/example*_plot.m
 
-src_vb/compute_pip.m
 
