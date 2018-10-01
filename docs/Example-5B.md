@@ -4,6 +4,7 @@
 [`example5_null.m`]: https://github.com/stephenslab/rss/blob/master/examples/example5/example5_null.m
 [`example5_null.sbatch`]: https://github.com/stephenslab/rss/blob/master/examples/example5/example5_null.sbatch
 [`example5_gsea.m`]: https://github.com/stephenslab/rss/blob/master/examples/example5/example5_gsea.m
+[`example5_gene.m`]: https://github.com/stephenslab/rss/blob/master/examples/example5/example5_gene.m
 [`ibd2015_sumstat.mat`]: https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/ibd2015_sumstat.mat
 [`ibd2015_sumstat_path2641.mat`]: https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/ibd2015_sumstat_path2641.mat
 [`ibd2015_gsea_seed_459_path2641_squarem.mat`]: https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/ibd2015_gsea_seed_459_path2641_squarem.mat
@@ -230,6 +231,19 @@ The third group consists of estimated variational lower bounds and Bayes factor.
 - `logw1`: variational lower bounds under enrichment models.
 - `log10bf`: log 10 enrichment Bayes factor.
 - `runtime`: computational time (unit: seconds).
+
+### Prioritizing pathway genes with [`example5_gene.m`][]
+
+```matlab
+>> whos Aseg
+  Name            Size                Bytes  Class     Attributes
+
+  Aseg      1081481x37            160000304  double    sparse
+
+>> unique(Aseg(:))
+ans =
+   (2,1)        1
+```
 
 ## More examples
 
