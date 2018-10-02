@@ -24,7 +24,9 @@ and a gene set named *IL23-mediated signaling events* (Pathway Commons 2, PID, 3
 
 The following figure provides a schematic overview of the method.
 
-<img src="images/rss_gsea.png" width="200" />
+<center>
+<img src="images/rss_gsea.png" width="750" />
+</center>
 
 As shown above, RSS fits two models for the enrichment and prioritization analysis.
 
