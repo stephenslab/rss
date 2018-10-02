@@ -1,3 +1,6 @@
+% Note that the working directory here is assumed to be `rss/examples/example5`.
+% Please modify the following code accordingly if a different directory is used.
+
 clear;
 
 % add codes to search path

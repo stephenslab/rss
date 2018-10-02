@@ -1,3 +1,6 @@
+% Note that the working directory here is assumed to be `rss/examples/example5`.
+% Please modify the following code accordingly if a different directory is used.
+
 % input data file: ibd2015_sumstat.mat
 % source: Liu, van Sommeren et al, 2015 (PUBMED: 26192919)
 
