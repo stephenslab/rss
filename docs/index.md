@@ -18,7 +18,7 @@ This page outlines functions and scripts associated with RSS methods.
 
 This page gives end-to-end examples of using RSS methods and software.
 
-## [FAQ](FAQ)
+## [FAQs](FAQ)
 
 This page answers frequently ask questions (FAQs) about RSS methods and software.
 
