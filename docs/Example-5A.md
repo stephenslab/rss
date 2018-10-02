@@ -5,7 +5,9 @@
 [Wellcome Trust Case Control Consortium, 2007]: https://www.ncbi.nlm.nih.gov/pubmed/17554300
 [null_wrapper_fixsb.m]: https://github.com/stephenslab/rss/blob/master/src_vb/null_wrapper_fixsb.m
 [gsea_wrapper_fixsb.m]: https://github.com/stephenslab/rss/blob/master/src_vb/gsea_wrapper_fixsb.m
-[Supplementary Figure 1]: (https://www.biorxiv.org/content/biorxiv/suppl/2018/07/16/160770.DC2/160770-3.pdf
+[Supplementary Figure 1]: https://www.biorxiv.org/content/biorxiv/suppl/2018/07/16/160770.DC2/160770-3.pdf
+[compute_pip.m]: https://github.com/stephenslab/rss/blob/master/src_vb/compute_pip.m 
+[Aseg_chr16.mat]: https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/Aseg_chr16.mat	 
 
 # Example 5: Enrichment and prioritization analysis of GWAS summary statistics using RSS (Part A).
 
@@ -44,12 +46,13 @@ Please modify [example5_simulated.m][] accordingly if a different directory is u
 
 ## Step-by-step illustration
 
-**Step 1**. Download the input data file [example5_simulated_data.mat][],
-which contains the GWAS summary statistics and LD matrix estimates,
-and save this file in the working directory.
-Please contact me if you have trouble accessing this file.
+### Step 1: Download input data
 
-The data file [example5_simulated_data.mat][] contains the following elements.
+Please download and save [example5_simulated_data.mat][] in the working directory.
+Please contact me (`xiangzhu[at]uchicago.edu`) if you have trouble accessing this file.
+
+The data file [example5_simulated_data.mat][] contains the following elements
+that will be used by RSS.
 
 ```matlab
 >> example_data = matfile('example5_simulated_data.mat');
@@ -72,7 +75,7 @@ example_data =
 - `snps`: 676 by 1 vector, indices of SNPs that are "inside" the target pathway
 
 Typically RSS only requires these four input variables for enrichment and prioritization analysis.
-To further reduce computation, RSS uses the matrix `SiRiS` instead of `R`:
+To further reduce computation, RSS uses the sparse matrix `SiRiS` instead of `R`:
 
 ```matlab
 p     = length(betahat);
@@ -81,7 +84,13 @@ SiRiS = sparse(repmat(Si,1,p) .* R .* repmat(Si',p,1));
 clear Si R;
 ```
 
-**Step 2**. Specify the grid for hyper-parameters.
+Note that `example5_simulated_data.mat` also contains ground truth
+about this simulated dataset: `{gamma, pve, thetatype}`.
+These variables are NOT used by RSS in any step of analysis,
+and are ONLY used to verify results in the end. 
+
+### Step 2: Specify a grid for hyper-parameters
+
 The total computational cost of RSS is proportional to the grid size,
 and thus please consider reducing the size of `theta0` and/or `theta`
 if you want to finish running [example5_simulated.m][] faster.
@@ -94,7 +103,8 @@ theta  = (1.5:0.05:2.5)';        % grid for the log-fold enrichment (base 10)
 sigb   = 1;                      % prior SD of genetic effects
 ```
 
-**Step 3**. Initialize the variational parameters.
+### Step 3: Initialize variational parameters
+
 As in [Zhu and Stephens (2018)][], here we use a simple random start to set
 initial values of variational parameters `{alpha,mu}` for the baseline model.
 
@@ -114,21 +124,23 @@ alpha0_rss = repmat(alpha0, [1 n0]);
 mu0_rss    = repmat(mu0, [1 n0]);
 ```
 
-**Step 4**. Fit the baseline model.
-Since we set `sigb=1` in Step 2, we use a wrapper of RSS [null_wrapper_fixsb.m][]
+### Step 4: Fit the baseline model
+
+Since we set `sigb=1` in Step 2, we use a wrapper function of RSS [null_wrapper_fixsb.m][]
 that fixes `sigb=1` for all elements in `theta0`.
-(In [Example 5 Part B](Example-5B) we will use a different wrapper that
-can give a different `sigb` value for each element in `theta0`.)
+(In [Example 5 Part B](Example-5B) we will use a different wrapper function
+that can give a different `sigb` value for each element in `theta0`.)
 
 ```matlab
 [b_logw,b_alpha,b_mu,b_s] = null_wrapper_fixsb('squarem',betahat,se,SiRiS,...
                                                sigb,theta0,alpha0_rss,mu0_rss);
 ```
 
-**Step 5**. Fit the enrichment model.
-Since we set `sigb=1` in Step 2, we use a wrapper [gsea_wrapper_fixsb.m][]
+### Step 5: Fit the enrichment model
+
+Since we set `sigb=1` in Step 2, we use a wrapper function [gsea_wrapper_fixsb.m][]
 that fixes the value of `sigb` for all elements in `theta0` and `theta`.
-(In [Example 5 Part B](Example-5B) we will use a different wrapper that
+(In [Example 5 Part B](Example-5B) we will use a different wrapper function that
 can give a different `sigb` value for each combination of `theta0` and `theta`.)
 
 ```matlab
@@ -140,11 +152,62 @@ Note that here we use the variational parameter estimates `{b_alpha,b_mu}`
 from the baseline model fitting (Step 4) to set initial values of
 variational parameters for the enrichment model (Step 5).
 
-**Step 6**. Save the analysis results.
+### Step 6: Perform gene prioritization analysis
+
+The output of baseline and enrichment model fitting can be
+further used to prioritize genes within an enriched gene set.
+We provide a wrapper function [compute_pip.m][] for prioritization analysis.
+
+```matlab
+% specify pre-defined genomic segments (genes)
+segs_file = 'Aseg_chr16.mat';
+
+% generate gene-level results under baseline model
+[b_p1,b_p2] = compute_pip(segs_file,b_logw,b_alpha);
+
+% generate gene-level results under enrichment model
+[e_p1,e_p2] = compute_pip(segs_file,e_logw_vec,e_alpha_mat);
+```
+
+Here `[b/e]_p_[1/2]` denotes the posterior probability of each locus containing
+at lease 1/2 trait-associated SNPs under the baseline/enrichment model.
+
+The locus information is available in the file [Aseg_chr16.mat][].
+Please download and save it in the working directory.
+Specifically, [Aseg_chr16.mat][] contains the following elements:
+
+```matlab
+>> load Aseg_chr16.mat
+>> whos
+  Name                Size              Bytes  Class     Attributes
+
+  Aseg            12758x878            391080  double    sparse
+  chr             12758x1              102064  double
+  gene_chr          878x1                7024  double
+  gene_id           878x1                7024  double
+  gene_start        878x1                7024  double
+  gene_stop         878x1                7024  double
+  pos             12758x1              102064  double
+
+>> unique(full(Aseg(:)))'
+ans =
+     0     1
+```
+
+As shown above, there are 12,758 SNPs and 878 genes
+(both based on NCBI Build 35) in this simulated dataset.
+Here we assign a SNP `j` to a gene `g` (i.e. `Aseg(j,g)==1`)
+if and only if SNP `j` is within 100 kb of transcribed region
+of gene `g` (i.e. `[gene_start-100e3 gene_stop+100e3]`).
+
+### Step 7: Save analysis results
+
 At the end of running [example5_simulated.m][], all analysis results are saved
 as `example5_simulated_results.mat` in the working directory.
 To help verify that your own results are as expected, we provide our result file
 [example5_simulated_results.mat][].
+(There may be some differences between two result files,
+especially when a smaller grid was used in Step 2.) 
 
 ```matlab
 >> load example5_simulated_results.mat
@@ -154,16 +217,22 @@ To help verify that your own results are as expected, we provide our result file
   b_alpha       12758x21                2143344  double
   b_logw           21x1                     168  double
   b_mu          12758x21                2143344  double
+  b_p1            878x1                    7024  double
+  b_p2            878x1                    7024  double
   b_s           12758x21                2143344  double
   e_alpha       12758x21x21            45010224  double
   e_logw           21x21                   3528  double
   e_mu          12758x21x21            45010224  double
+  e_p1            878x1                    7024  double
+  e_p2            878x1                    7024  double
   e_s           12758x21x21            45010224  double
   log10_bf          1x1                       8  double
   rss_time          1x1                       8  double
 ```
 
-There are three groups of output variables in the result file.
+### Step 8: Understand analysis results
+
+There are three groups of output variables in the result file above.
 
 The first group consists of estimated variational parameters
 `b_alpha` & `b_mu` & `b_s` under the baseline model,
