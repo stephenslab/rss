@@ -232,7 +232,7 @@ especially when a smaller grid was used in Step 2.)
 
 ### Step 8: Understand analysis results
 
-There are three groups of output variables in the result file above.
+There are four groups of output variables in the result file above.
 
 The first group consists of estimated variational parameters
 `b_alpha` & `b_mu` & `b_s` under the baseline model,
@@ -244,23 +244,79 @@ The second group consists of estimated variational parameters
 where `e_alpha(:,i,j)` & `e_mu(:,i,j)` & `e_s(:,i,j)` correspond to
 estimation under the hyper-parameter setting `[sigb, theta0(i), theta(j)]`.
 
-Note that contrasting `{b_alpha,b_mu}` with `{e_alpha,e_mu}` can further
-help prioritize genetic associations in light of inferred enrichments.
-Please see [Zhu and Stephens (2018)][] for more details.
-
-The third group consists of estimated variational lower bounds and Bayes factor.
-
-- `b_logw`: variational lower bounds under baseline models.
-- `e_logw`: variational lower bounds under enrichment models.
-- `log10_bf`: log 10 enrichment Bayes factor.
+The third group consists of estimated variational lower bounds under
+the baseline (`b_logw`) and enrichment (`e_logw`) model,
+and log 10 enrichment Bayes factor (`log10_bf`).
 
 Since this dataset is simulated from the enrichment model,
 RSS yields a large log 10 enrichment Bayes factor as expected:
 
 ```matlab
->> log10_bf
+>> fprintf('Log 10 enrichment Bayes factor: %.4f ...\n', log10_bf);
+Log 10 enrichment Bayes factor: 19.3335 ...
+```
 
-log10_bf =
+Further, by combining `*_logw` with `*_alpha`, we can estimate the
+number of SNPs with non-zero effect, and compare with the truth:
 
-   19.3335
+```matlab
+>> fprintf('Total number of SNPs with non-zero effect: %d ...\n', sum(example_data.gamma));
+Total number of SNPs with non-zero effect: 5 ...
+>>
+>> b_w   = exp(b_logw - max(b_logw(:)));
+>> b_w   = b_w / sum(b_w(:));
+>> b_ens = sum(b_alpha);
+>> b_ens = dot(b_ens(:), b_w(:));
+>>
+>> e_w   = exp(e_logw - max(e_logw(:)));
+>> e_w   = e_w / sum(e_w(:));
+>> e_ens = sum(e_alpha);
+>> e_ens = dot(e_ens(:), e_w(:));
+>>
+>> disp([sum(example_data.gamma) b_ens e_ens])
+    5.0000    5.0025    6.1924
+```
+
+The fourth group consists of gene prioritization results under the
+baseline (`b_p1` & `b_p2`) and enrichment model (`e_p1` & `e_p2`).
+Following [Zhu and Stephens (2018)][], here we define a gene as
+"trait-associated" (i.e. `gene_cau(j)==1`) if at least one SNP
+within 100 kb of the transcribed region of this gene has non-zero effect.
+
+```matlab
+>> disp([b_p1(1:10) e_p1(1:10) gene_cau(1:10)]);
+    0.0005    0.0002         0
+    0.0033    0.0013         0
+    0.0007    0.0244         0
+    0.0044    1.0000    1.0000
+    0.0146    0.2846    1.0000
+    0.0018    0.0007         0
+    0.0012    0.0230         0
+    0.0004    0.0167         0
+    0.0001    0.0009         0
+    1.0000    1.0000    1.0000
+```
+
+We can see that the enrichment model has higher power to identify
+trait-associated genes than the baseline model, since it exploits
+the underlying enrichment signal.
+
+```matlab
+>> disp([b_p1(gene_cau==1) e_p1(gene_cau==1)]);
+    0.0044    1.0000
+    0.0146    0.2846
+    1.0000    1.0000
+    1.0000    1.0000
+    0.6437    0.9949
+    0.6437    0.9949
+    0.0131    0.2308
+    0.0113    0.1893
+    0.6437    0.9949
+    0.6437    0.9949
+    1.0000    1.0000
+    0.6441    0.9949
+    0.9970    1.0000
+    0.9970    1.0000
+    0.2892    0.9947
+    0.9970    1.0000
 ```
