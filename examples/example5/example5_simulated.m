@@ -82,3 +82,44 @@ file_name = 'example5_simulated_results.mat';
 save(file_name,'log10_bf','e_logw','e_alpha','e_mu','e_s','e_p1','e_p2','b_logw','b_alpha','b_mu','b_s','b_p1','b_p2','rss_time');
 
 fprintf('Full analysis results are saved ...\n');
+
+% look at some global results
+
+fprintf('Log 10 enrichment Bayes factor: %.4f ...\n', log10_bf);
+
+fprintf('Total number of SNPs with non-zero effect: %d ...\n', sum(example_data.gamma));
+
+b_w   = exp(b_logw - max(b_logw(:)));
+b_w   = b_w / sum(b_w(:));
+b_ens = sum(b_alpha);
+b_ens = dot(b_ens(:), b_w(:));
+fprintf('Estimated number of SNPs with non-zero effect under baseline: %.4f ...\n', b_ens);
+
+e_w   = exp(e_logw - max(e_logw(:)));
+e_w   = e_w / sum(e_w(:));
+e_ens = sum(e_alpha);
+e_ens = dot(e_ens(:), e_w(:));
+fprintf('Estimated number of SNPs with non-zero effect under enrichment: %.4f ...\n', e_ens);
+
+% look at gene-level results
+
+gene_info  = matfile(segs_file);
+gene_start = gene_info.gene_start;
+gene_stop  = gene_info.gene_stop;
+
+% load SNP-level causal status
+snp_pos = gene_info.pos;
+snp_cau = example_data.gamma;
+
+d = 100e3;
+
+% annotate whether a gene is causal
+gene_cau = zeros(length(gene_start),1);
+
+for i=1:length(gene_start)
+  snp_index   = find(snp_pos > gene_start(i)-d & snp_pos < gene_stop(i)+d);
+  gene_cau(i) = max(snp_cau(snp_index));
+end
+
+disp([b_p1(1:10) e_p1(1:10) gene_cau(1:10)]);
+disp([b_p1(gene_cau==1) e_p1(gene_cau==1)]);
