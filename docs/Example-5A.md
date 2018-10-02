@@ -1,51 +1,55 @@
-[Zhu and Stephens (*bioRxiv*, 2017)]: https://doi.org/10.1101/160770
-[`example5_simulated.m`]: https://github.com/stephenslab/rss/blob/master/examples/example5/example5_simulated.m
-[`example5_simulated_data.mat`]: https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/example5_simulated_data.mat
-[`example5_simulated_results.mat`]: https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/example5_simulated_results.mat
-[Wellcome Trust Case Control Consortium, *Nature*, 2007]: https://www.ncbi.nlm.nih.gov/pubmed/17554300
-[`null_wrapper_fixsb.m`]: https://github.com/stephenslab/rss/blob/master/src_vb/null_wrapper_fixsb.m
-[`gsea_wrapper_fixsb.m`]: https://github.com/stephenslab/rss/blob/master/src_vb/gsea_wrapper_fixsb.m
+[Zhu and Stephens (2018)]: https://doi.org/10.1101/160770
+[example5_simulated.m]: https://github.com/stephenslab/rss/blob/master/examples/example5/example5_simulated.m
+[example5_simulated_data.mat]: https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/example5_simulated_data.mat
+[example5_simulated_results.mat]: https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/example5_simulated_results.mat
+[Wellcome Trust Case Control Consortium, 2007]: https://www.ncbi.nlm.nih.gov/pubmed/17554300
+[null_wrapper_fixsb.m]: https://github.com/stephenslab/rss/blob/master/src_vb/null_wrapper_fixsb.m
+[gsea_wrapper_fixsb.m]: https://github.com/stephenslab/rss/blob/master/src_vb/gsea_wrapper_fixsb.m
+[Supplementary Figure 1]: (https://www.biorxiv.org/content/biorxiv/suppl/2018/07/16/160770.DC2/160770-3.pdf
 
-# Example 5: Enrichment analysis of GWAS summary statistics using RSS (Part A).
+# Example 5: Enrichment and prioritization analysis of GWAS summary statistics using RSS (Part A).
 
 ## Overview
 
 This is Part A of [Example 5](Example-5),
-which illustrates how to perform enrichment analysis of
+which illustrates how to perform enrichment and prioritization analysis of
 GWAS summary statistics based on variational Bayes (VB) inference of RSS-BVSR model.
-This part describes an enrichment analysis of a synthetic dataset used in
-simulation studies of [Zhu and Stephens (*bioRxiv*, 2017)][].
-This part gives you a quick view of how RSS works in an enrichment analysis.
+This part describes an end-to-end analysis of a synthetic dataset used in
+simulation studies of [Zhu and Stephens (2018)][].
+This part gives users a quick view of how RSS works in enrichment and prioritization analysis.
 
 The input dataset here is simulated under the enrichment model of RSS,
 using real genotypes of 12,758 SNPs on chromosome 16 from 1458 individuals
-in the UK Blood Service Control Group ([Wellcome Trust Case Control Consortium, *Nature*, 2007][]).
-Please see the caption of
-[Supplementary Figure 1](https://www.biorxiv.org/content/biorxiv/suppl/2018/07/16/160770.DC2/160770-3.pdf)
-in [Zhu and Stephens (*bioRxiv*, 2017)][] for the simulation details. 
+in the UK Blood Service Control Group ([Wellcome Trust Case Control Consortium, 2007][]).
+Please see the caption of [Supplementary Figure 1][]
+in [Zhu and Stephens (2018)][] for the simulation details. 
 
-To reproduce results of Example 5 Part B,
-please use the script [`example5_simulated.m`][],
+To reproduce results of Example 5 Part A,
+please use the script [example5_simulated.m][],
 and follow the step-by-step guide below.
-Before running [`example5_simulated.m`][], please make sure the
-[VB subroutines](https://github.com/stephenslab/rss/tree/master/src_vb) of RSS are installed.
+Before running [example5_simulated.m][], please install the
+[VB subroutines](https://github.com/stephenslab/rss/tree/master/src_vb) of RSS.
 Please find installation instructions [here](RSS-via-VB).
 
 Once the software is installed and the input data is downloaded,
 one should be able to run this part by simply
-typing the following line in a `Matlab` console:
+typing the following line in a MATLAB console:
 
 ```matlab
 >> run example5_simulated.m
 ```
 
+Note that the working directory here is assumed to be `rss/examples/example5`.
+Please modify [example5_simulated.m][] accordingly if a different directory is used.
+
 ## Step-by-step illustration
 
-**Step 1**. Download the input data file [`example5_simulated_data.mat`][],
-which contains the GWAS summary statistics and LD matrix estimates.
+**Step 1**. Download the input data file [example5_simulated_data.mat][],
+which contains the GWAS summary statistics and LD matrix estimates,
+and save this file in the working directory.
 Please contact me if you have trouble accessing this file.
 
-The data file [`example5_simulated_data.mat`][] contains the following elements.
+The data file [example5_simulated_data.mat][] contains the following elements.
 
 ```matlab
 >> example_data = matfile('example5_simulated_data.mat');
@@ -67,7 +71,7 @@ example_data =
 - `se`: 12758 by 1 vector, standard errors of the single-SNP effect size estimates
 - `snps`: 676 by 1 vector, indices of SNPs that are "inside" the target pathway
 
-Typically RSS only requires these four input variables for an enrichment analysis.
+Typically RSS only requires these four input variables for enrichment and prioritization analysis.
 To further reduce computation, RSS uses the matrix `SiRiS` instead of `R`:
 
 ```matlab
@@ -80,7 +84,7 @@ clear Si R;
 **Step 2**. Specify the grid for hyper-parameters.
 The total computational cost of RSS is proportional to the grid size,
 and thus please consider reducing the size of `theta0` and/or `theta`
-if you want to finish running [`example5_simulated.m`][] faster.
+if you want to finish running [example5_simulated.m][] faster.
 (It takes 4 hours to complete the analysis on a single CPU using the grid below.)
 
 ```matlab
@@ -91,8 +95,8 @@ sigb   = 1;                      % prior SD of genetic effects
 ```
 
 **Step 3**. Initialize the variational parameters.
-As in [Zhu and Stephens (*bioRxiv*, 2017)][], here we use a simple random start
-to set initial values of variational parameters `{alpha,mu}` for baseline models.
+As in [Zhu and Stephens (2018)][], here we use a simple random start to set
+initial values of variational parameters `{alpha,mu}` for the baseline model.
 
 ```matlab
 % initialize the variational parameters
@@ -111,27 +115,36 @@ mu0_rss    = repmat(mu0, [1 n0]);
 ```
 
 **Step 4**. Fit the baseline model.
-Since we set `sigb=1` in Step 2, we use a wrapper [`null_wrapper_fixsb.m`][]
-that fixes the value of `sigb` for all elements in `theta0`.
+Since we set `sigb=1` in Step 2, we use a wrapper of RSS [null_wrapper_fixsb.m][]
+that fixes `sigb=1` for all elements in `theta0`.
+(In [Example 5 Part B](Example-5B) we will use a different wrapper that
+can give a different `sigb` value for each element in `theta0`.)
 
 ```matlab
-[b_logw,b_alpha,b_mu,b_s] = null_wrapper_fixsb('squarem',betahat,se,SiRiS,sigb,theta0,alpha0_rss,mu0_rss);
+[b_logw,b_alpha,b_mu,b_s] = null_wrapper_fixsb('squarem',betahat,se,SiRiS,...
+                                               sigb,theta0,alpha0_rss,mu0_rss);
 ```
 
 **Step 5**. Fit the enrichment model.
-Since we set `sigb=1` in Step 2, we use a wrapper [`gsea_wrapper_fixsb.m`][]
+Since we set `sigb=1` in Step 2, we use a wrapper [gsea_wrapper_fixsb.m][]
 that fixes the value of `sigb` for all elements in `theta0` and `theta`.
+(In [Example 5 Part B](Example-5B) we will use a different wrapper that
+can give a different `sigb` value for each combination of `theta0` and `theta`.)
 
 ```matlab
-[log10_bf,e_logw,e_alpha,e_mu,e_s] = gsea_wrapper_fixsb('squarem',betahat,se,SiRiS,snps,sigb,theta0,theta,b_logw,b_alpha,b_mu);
+[log10_bf,e_logw,e_alpha,e_mu,e_s] = gsea_wrapper_fixsb('squarem',betahat,se,SiRiS,snps,...
+                                                        sigb,theta0,theta,b_logw,b_alpha,b_mu);
 ```
 
-Note that here we use the variational parameter estimates
-from the baseline model fitting `{b_alpha,b_mu}` to set
-initial values of variational parameters for enrichment models.
+Note that here we use the variational parameter estimates `{b_alpha,b_mu}`
+from the baseline model fitting (Step 4) to set initial values of
+variational parameters for the enrichment model (Step 5).
 
 **Step 6**. Save the analysis results.
-The analysis results are saved as [`example5_simulated_results.mat`][].
+At the end of running [example5_simulated.m][], all analysis results are saved
+as `example5_simulated_results.mat` in the working directory.
+To help verify that your own results are as expected, we provide our result file
+[example5_simulated_results.mat][].
 
 ```matlab
 >> load example5_simulated_results.mat
@@ -164,7 +177,7 @@ estimation under the hyper-parameter setting `[sigb, theta0(i), theta(j)]`.
 
 Note that contrasting `{b_alpha,b_mu}` with `{e_alpha,e_mu}` can further
 help prioritize genetic associations in light of inferred enrichments.
-Please see [Zhu and Stephens (*bioRxiv*, 2017)][] for more details.
+Please see [Zhu and Stephens (2018)][] for more details.
 
 The third group consists of estimated variational lower bounds and Bayes factor.
 
