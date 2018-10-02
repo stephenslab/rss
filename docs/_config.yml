@@ -1,4 +1,4 @@
 title: Regression with Summary Statistics (RSS)
-description: MATLAB code for inferring multiple regression coefficients from marginal regression summary statistics.
+description: Inferring multiple regression coefficients from univariate regression summary statistics.
 theme: jekyll-theme-hacker
 show_downloads: true 
