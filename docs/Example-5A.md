@@ -262,17 +262,17 @@ number of SNPs with non-zero effect, and compare with the truth:
 ```matlab
 >> fprintf('Total number of SNPs with non-zero effect: %d ...\n', sum(example_data.gamma));
 Total number of SNPs with non-zero effect: 5 ...
->>
+
 >> b_w   = exp(b_logw - max(b_logw(:)));
 >> b_w   = b_w / sum(b_w(:));
 >> b_ens = sum(b_alpha);
 >> b_ens = dot(b_ens(:), b_w(:));
->>
+
 >> e_w   = exp(e_logw - max(e_logw(:)));
 >> e_w   = e_w / sum(e_w(:));
 >> e_ens = sum(e_alpha);
 >> e_ens = dot(e_ens(:), e_w(:));
->>
+
 >> disp([sum(example_data.gamma) b_ens e_ens])
     5.0000    5.0025    6.1924
 ```
