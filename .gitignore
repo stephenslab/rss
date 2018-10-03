@@ -22,4 +22,7 @@ src/rss_bslmm_mwt.m
 
 examples/example*_plot.m
 
+docs/Gemfile.lock
+docs/_site/
+
 
