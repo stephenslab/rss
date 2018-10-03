@@ -11,6 +11,7 @@ layout: default
 [Zhu and Stephens (2018)]: https://doi.org/10.1101/160770
 [ash_lrt_31traits.R]: https://github.com/stephenslab/rss/blob/master/misc/ash_lrt_31traits.R
 [Supplementary Figure 17]: https://www.biorxiv.org/content/biorxiv/suppl/2018/07/16/160770.DC2/160770-3.pdf
+[compute_pip.m]: https://github.com/stephenslab/rss/blob/master/src_vb/compute_pip.m  
 
 ## General information
 
@@ -32,9 +33,8 @@ scaled population recombination rate (`rho_ij`) using HapMap genetic map.
 
 #### Q: Most RSS analyses used phased haplotypes to estimate LD. Can I use unphased genotype data to compute this shrinkage estimator of LD?
 
-A: Yes. You can input an unphased genotype matrix as `Hpanel`
-in [get_corr.m][] and specify that `isgeno=true`.
-With `isgeno=true`, [get_corr.m][] will execute the following code chunk:
+A: Yes. You can feed [get_corr.m][] an unphased genotype matrix and specify that `isgeno=true`.
+With `isgeno=true` on, [get_corr.m][] will execute the following code chunk:
 
 ```matlab
 if isgeno
@@ -52,7 +52,7 @@ A: Yes. If you have MATLAB available, you can use [get_corr.m][].
 If you prefer open source language such as R, [Nick][] and I are working
 on an R package [LDshrink][] that can produce the banded LD matrix. 
 
-## Applications
+## RSS methods & applications
 
 #### Q: If I want to use RSS methods, how should I prepare for the input data?
 
@@ -64,9 +64,15 @@ you plan to use the MATLAB implementation of RSS methods.
 Please feel free to contact me (`xiangzhu[at]uchicago.edu`) if you have
 any trouble in creating the input `mat` files.
 
-#### Q: [Zhu and Stephens (2018)][] described a simple likelihood ratio calculation as a sanity check for the enrichment analysis based on RSS. Do you have software for this sanity check?
+#### Q: [Zhu and Stephens (2018)][] described a simple likelihood ratio calculation as a sanity check for the more sophisticated enrichment analysis based on RSS. Do you have software for this sanity check?
 
 A: Yes. I write a stand-alone script [ash_lrt_31traits.R][] for this sanity check.
 Please carefully read the instruction in this script.
 For more details of this sanity check, please see the caption of
 [Supplementary Figure 17][] in [Zhu and Stephens (2018)][].
+
+#### Q: [Zhu and Stephens (2018)][] described an integrated framework based on RSS with both enrichment and prioritization components, and we are only interested in the gene prioritization component. How do we perform the gene-level association test using RSS (something like Figure 3 in the paper)? 
+
+A: TBA.
+
+## Preprocessed data

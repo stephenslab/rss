@@ -30,9 +30,9 @@ The following figure provides a schematic overview of the method.
 
 As shown above, RSS fits two models for the enrichment and prioritization analysis.
 
-- Baseline model (M0): SNPs across the whole genome are equally
+1. Baseline model (M0): SNPs across the whole genome are equally
 likely to be associated with the phenotype of interest. 
-- Enrichment model (M1): SNPs "inside" a gene set are more likely
+2. Enrichment model (M1): SNPs "inside" a gene set are more likely
 (i.e. "enriched") to be associated with a target phenotype than remaining SNPs.
 
 If the gene set is truly enriched, then the observed GWAS data
