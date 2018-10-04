@@ -13,9 +13,9 @@ layout: default
 [ash_lrt_31traits.R]: https://github.com/stephenslab/rss/blob/master/misc/ash_lrt_31traits.R
 [Supplementary Figure 17]: https://www.biorxiv.org/content/biorxiv/suppl/2018/07/16/160770.DC2/160770-3.pdf
 [compute_pip.m]: https://github.com/stephenslab/rss/blob/master/src_vb/compute_pip.m  
-[zenodo-height2014]: xxx 
+[zenodo-height2014]: https://doi.org/10.5281/zenodo.1443565
 [zenodo-geneset]: https://zenodo.org/badge/latestdoi/55633948
-[`xiangzhu/rss-gsea`]: https://github.com/xiangzhu/rss-gsea/tree/master/data
+[xiangzhu/rss-gsea]: https://github.com/xiangzhu/rss-gsea/tree/master/data
 
 ## General information
 
@@ -75,16 +75,17 @@ on an R package [LDshrink][] that can produce the banded LD matrix.
 
 #### Q: [Zhu and Stephens (2017)][] reported a whole genome analysis of human adult height data based on RSS. I am wondering whether you can share this preprocessed height dataset.
 
-A: Yes. This preprocessed dataset is publicly available at <TBA>,
+A: Yes. This preprocessed dataset is publicly available at
+<https://doi.org/10.5281/zenodo.1443565>.
 and can be referenced in a journal's "Data availability" section
-as [![DOI](https://zenodo.org/badge/xxx.svg)][zenodo-height2014].
+as [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1443565.svg)][zenodo-height2014].
 For more information on this dataset, please see this [page](Height2014).
 
 #### Q: [Zhu and Stephens (2018)][] reported large-scale enrichment analyses of 4,026 gene sets across 31 complex human traits. Can you share these gene sets?
 
 A: Yes. All 4,026 pre-processed gene sets used in this study
 (including 3,913 biological pathways and 113 tissue-based gene sets)
-are freely available at [`xiangzhu/rss-gsea`][].
+are freely available at [xiangzhu/rss-gsea][].
 These gene sets can be referenced in a journal's "Data availability" section
 as [![DOI](https://zenodo.org/badge/55633948.svg)][zenodo-geneset].
 For more information on these gene sets, please see this

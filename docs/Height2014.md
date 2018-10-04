@@ -1,4 +1,4 @@
-[zenodo-height2014]: https://zenodo.org/badge/latestdoi/xxx
+[zenodo-height2014]: https://doi.org/10.5281/zenodo.1443565
 [Zhu and Stephens (2017)]: https://projecteuclid.org/euclid.aoas/1507168840
 [Wen and Stephens (2010)]: https://projecteuclid.org/euclid.aoas/1287409368 
 [get_corr.m]: https://github.com/stephenslab/rss/blob/master/misc/get_corr.m
@@ -17,9 +17,9 @@ created and analyzed in the following publication.
 
 > Zhu, Xiang; Stephens, Matthew. Bayesian large-scale multiple regression with summary statistics from genome-wide association studies. Ann. Appl. Stat. 11 (2017), no. 3, 1561--1592. doi:10.1214/17-AOAS1046. <https://projecteuclid.org/euclid.aoas/1507168840>
 
-This dataset is publicly available at <TBA>,
-and can be referenced in a journal's "Data availability" section
-as [![DOI](https://zenodo.org/badge/xxx.svg)][zenodo-height2014].
+This dataset is publicly available at <https://doi.org/10.5281/zenodo.1443565>,
+and can be referenced in a journal's "Data availability" section as
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1443565.svg)][zenodo-height2014]
 
 If you find this dataset useful in your research,
 please kindly cite the publication listed above, [Zhu and Stephens (2017)][].
