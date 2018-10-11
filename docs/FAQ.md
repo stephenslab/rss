@@ -50,6 +50,10 @@ gene-level association methods built on RSS, with input and output files include
 Since this example is based on a relatively small simulation,
 it is highly recommended to run the codes and see how the methods work.
 
+#### Q: Can I use the priortization component of [Zhu and Stephens (2018)][] as a generic gene-level associtation testing method, assuming that I do not have any gene set information available?
+
+A: Yes. When gene set information is not available, one can only fit a baseline model and obtain corresponding gene-level results. Indeed Figure 3 Panel of [Zhu and Stephens (2018)][] illustrate a possible use scenario like this.  
+
 ## Linkage disequilibrium (LD)
 
 #### Q: RSS uses the shrinkage estimator of LD in [Wen and Stephens (2010)][], the computation of which requires the "scaled population recombination rate" (`rho_ij`). How do I compute `rho_ij`?
