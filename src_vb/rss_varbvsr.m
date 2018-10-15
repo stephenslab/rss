@@ -79,11 +79,11 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
   
   % Compute a few useful quantities for the main loop.
   SiRiSr = full(SiRiS * (alpha .* mu));
-  q 	 = betahat ./ (se .^2);
+  q      = betahat ./ (se .^2);
 
   % Calculate the variance of the coefficients.
   se_square 	= se .* se;
-  sigb_square 	= sigb * sigb;
+  sigb_square 	= sigb .* sigb;
   s 		= (se_square .* sigb_square) ./ (se_square + sigb_square);
 
   % Initialize the fields of the structure info.
@@ -122,9 +122,9 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
       I = (p:-1:1);
     end
     [alpha, mu, SiRiSr] = rss_varbvsr_update(SiRiS, sigb, logodds, betahat, se, alpha, mu, SiRiSr, I);
-    r = alpha .* mu; 
 
     % Compute the lower bound to the marginal log-likelihood.
+    r   = alpha .* mu;
     lnZ = q'*r - 0.5*r'*SiRiSr - 0.5*(1./se_square)'*betavar(alpha, mu, s);
     lnZ = lnZ + intgamma(logodds, alpha) + intklbeta_rssbvsr(alpha, mu, s, sigb_square);
 
@@ -156,12 +156,10 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
       alpha = alpha0;
       mu    = mu0;
       lnZ   = lnZ0;
-      sigb  = sqrt(sigb_square);
       break
 
     elseif maxerr < tolerance
 
-      sigb = sqrt(sigb_square);
       if verbose
         fprintf('\n');
         fprintf('Convergence reached: maximum relative error %+0.2e\n',maxerr);
@@ -175,7 +173,6 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
     exetime = etime(clock, start_time);
     if exetime >= max_walltime
 
-      sigb  = sqrt(sigb_square);
       if verbose
         fprintf('\n');
         fprintf('Maximum wall time reached: %+0.2e seconds\n',exetime);
@@ -188,6 +185,6 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
   end
 
   % Save info as a structure array.
-  info = struct('iter',iter,'maxerr',maxerr,'sigb',sigb,'loglik',loglik);
+  info = struct('iter',iter,'maxerr',maxerr,'loglik',loglik);
   
 end
