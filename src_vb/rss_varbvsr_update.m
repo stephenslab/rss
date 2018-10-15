@@ -3,7 +3,7 @@ function [alpha, mu, SiRiSr] = rss_varbvsr_update(SiRiS, sigma_beta, logodds, be
 % INPUT:
 %	SiRiS: inv(S)*R*inv(S), double precision sparse matrix (CCS format), p by p
 %	sigma_beta: prior SDs of regression coefficients (if included), p by 1 or scalar
-%	logodds: prior log(prior PIP/(1-prior PIP)) of inclusion for each SNP, p by 1 or scalar
+%	logodds: log(prior PIP/(1-prior PIP)) of inclusion for each SNP, p by 1 or scalar
 %	betahat: effect size estimates under single-SNP model, p by 1
 %	se: standard errors of betahat, p by 1
 %	alpha0 and mu0: current values of variational parameters, both p by 1

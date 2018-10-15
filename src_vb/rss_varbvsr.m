@@ -1,26 +1,25 @@
 function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logodds, options)
-% USAGE: mean-field variational approximation of the RSS-BVSR model given the hyperparameters
+% USAGE: mean-field variational inference of RSS-BVSR model for a given set of hyperparameters
 % INPUT:
-%       betahat: the effect size estimates under single-SNP model, p by 1
+%       betahat: effect size estimates under single-SNP model, p by 1
 %       se: standard errors of betahat, p by 1
-%       SiRiS: inv(S)*R*inv(S), double precision sparse matrix (ccs format), p by p
-%       sigb: the prior SD of the regression coefficients (if included), scalar
-%       logodds: the prior log-odds (i.e. log(prior PIP/(1-prior PIP))) of inclusion for each SNP, p by 1 or scalar
+%       SiRiS: inv(S)*R*inv(S), double precision sparse matrix (CCS format), p by p
+%       sigb: prior SDs of regression coefficients (if included), p by 1 or scalar
+%       logodds: log(prior PIP/(1-prior PIP)) of inclusion for each SNP, p by 1 or scalar
 %       options: user-specified behaviour of the algorithm, structure
 %               - max_walltime: scalar, the maximum wall time (unit: seconds) for this program
 %               - tolerance: scalar, convergence tolerance
 %               - alpha & mu: p by 1 vectors, initial values of variational parameters
 %               - verbose: logical, print program progress if true
 % OUTPUT:
-%	lnZ: scalar, the variational lower bound of the marginal log likelihood (up to some constant)
+%	lnZ: scalar, variational lower bound of the marginal log likelihood (up to some constant)
 %	alpha: p by 1, variational estimates of the posterior inclusion probabilities 
-%	mu: p by 1, posterior means of the additive effects (given snp included)
-%	s: p by 1, posterior variances of the additive effects (given snp included)
+%	mu: p by 1, posterior means of the additive effects (if the SNP is included)
+%	s: p by 1, posterior variances of the additive effects (if the SNP is included)
 %	info: structure with following fields 
-%		- iter: integer, number of iterations
-%       	- maxerr: the maximum relative difference between the parameters at the last two iterations
-%		- sigb: scalar, the maximum likelihood estimate of sigma_beta
-%		- loglik: iter by 1, the variational lower bound at each iteration
+%		- iter: integer, number of iterations till convergence
+%       	- maxerr: maximum relative difference between the parameters at the last 2 iterations
+%		- loglik: iter by 1, variational lower bound at each iteration
 
   % Get the time when the program starts.
   start_time = clock;
