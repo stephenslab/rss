@@ -9,7 +9,7 @@
 // INPUT: betahat and se are the single-SNP effect estimate and its SE of one particular SNP
 //	  sigma_beta and logodds are the hyperparameters
 //	  SiRiS_snp is the corresponding column of SiRiS
-//	  SiRiSr is the vector inv(S)*R*inv(S)*r that will be updated to reflect the change to alpha and mu
+//	  SiRiSr is the vector inv(S)*R*inv(S)*r that will be updated in light of new alpha and mu
 //	  SiRiSr_snp is the corresponding entry of SiRiSr
 //	  alpha and mu are the variational parameters that will be updated 
 //	  p is the total number of SNPs
