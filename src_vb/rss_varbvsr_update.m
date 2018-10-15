@@ -1,17 +1,16 @@
 function [alpha, mu, SiRiSr] = rss_varbvsr_update(SiRiS, sigma_beta, logodds, betahat, se, alpha0, mu0, SiRiSr0, I)
-% USAGE: run a single iteration of mean-field variational approximation to fit RSS-BVSR model
+% USAGE: run a single full iteration of mean-field variational approximation to fit RSS-BVSR model
 % INPUT:
-%	SiRiS: inv(S)*R*inv(S), double precision sparse matrix (ccs format), p by p
-%	sigma_beta: the prior SD of the regression coefficients (if included), scalar
-%	logodds: the prior log-odds (i.e. log(prior PIP/(1-prior PIP))) of inclusion for each SNP, p by 1 or scalar
-%	betahat: the effect size estimates under single-SNP model, p by 1
+%	SiRiS: inv(S)*R*inv(S), double precision sparse matrix (CCS format), p by p
+%	sigma_beta: prior SDs of regression coefficients (if included), p by 1 or scalar
+%	logodds: prior log(prior PIP/(1-prior PIP)) of inclusion for each SNP, p by 1 or scalar
+%	betahat: effect size estimates under single-SNP model, p by 1
 %	se: standard errors of betahat, p by 1
-%	alpha0 and mu0: the current parameters of variational approximation, both p by 1
+%	alpha0 and mu0: current values of variational parameters, both p by 1
 %	SiRiSr0: inv(S)*R*inv(S)*r0, r0 = alpha0 .* mu0, p by 1
-%	I: the order in which the coordinates are updated; a vector of any length; 
-%	   each entry of I must be an integer between 1 and p
+%	I: the order in which coordinates (SNPs) are updated in this iteration, p by 1 
 % OUTPUT:
-%	alpha and mu: the updated parameters of variational approximation, p by 1
+%	alpha and mu: updated values of variational parameters, both p by 1
 %	SiRiSr: inv(S)*R*inv(S)*r, r0 = alpha .* mu, p by 1
 
   % Get the number of SNPs (p).
