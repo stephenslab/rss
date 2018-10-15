@@ -17,7 +17,7 @@ void mexFunction (int nlhs, mxArray* plhs[],
 
   // Get inputs.
   const SparseMatrix SiRiS      = getSparseMatrix(prhs[0]);
-  const double sigma_beta       = *mxGetPr(prhs[1]);
+  const DoubleVector sigma_beta = getDoubleVector(prhs[1]);
   const DoubleVector logodds    = getDoubleVector(prhs[2]);
   const DoubleVector betahat    = getDoubleVector(prhs[3]);
   const DoubleVector se         = getDoubleVector(prhs[4]);
@@ -41,12 +41,13 @@ void mexFunction (int nlhs, mxArray* plhs[],
   copyDoubleVector(mu0,mu);
   copyDoubleVector(SiRiSr0,SiRiSr);
 
-  // Store a single column of matrix inv(S)*R*inv(S).
+  // Allocate storage for a single column of matrix inv(S)*R*inv(S).
   double* SiRiS_snp = malloc(sizeof(double)*p);
 
   // Run coordinate ascent updates.
-  // Repeat for each coordinate ascent update.
   for (Index j = 0; j < m; j++) {
+
+    // Repeat for each coordinate ascent update.
     Index k = (Index) I.elems[j];
 
     // Copy the kth column of matrix inv(S)*R*inv(S).
@@ -56,7 +57,7 @@ void mexFunction (int nlhs, mxArray* plhs[],
     double SiRiSr_snp = SiRiSr.elems[k];
 
     // Perform the mean-field variational update.
-    rss_varbvsr_update(betahat.elems[k], se.elems[k], sigma_beta,
+    rss_varbvsr_update(betahat.elems[k], se.elems[k], sigma_beta.elems[k],
                        SiRiS_snp, SiRiSr.elems, SiRiSr_snp,
                        logodds.elems[k], alpha.elems+k, mu.elems+k, p);
   }
