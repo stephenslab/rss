@@ -47,6 +47,16 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
   % Get the number of variables (p).
   p = length(betahat);
 
+  % Set the hyper-parameters (sigb and logodds).
+  if isscalar(sigb)
+    disp('Prior SDs (sigb) of all SNPs are the same.');
+    sigb = repmat(sigb,p,1);
+  end
+  if isscalar(logodds)
+    disp('Prior log-odds (logodds) of all SNPs are the same.');
+    logodds = repmat(logodds,p,1);
+  end
+
   % SiRiS must be a sparse matrix.
   if ~issparse(SiRiS)
     SiRiS = sparse(double(SiRiS));
