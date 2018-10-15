@@ -12,19 +12,19 @@
 
 // MEX-file gateway routine. Note that varbvsupdate.m checks the
 // inputs, so we do not have to do it here.
-void mexFunction (int nlhs, mxArray* plhs[], 
-		  int nrhs, const mxArray* prhs[]) {
+void mexFunction (int nlhs, mxArray* plhs[],
+                  int nrhs, const mxArray* prhs[]) {
 
   // Get inputs.
-  const SparseMatrix SiRiS	= getSparseMatrix(prhs[0]);
-  const double       sigma_beta	= *mxGetPr(prhs[1]);
-  const DoubleVector logodds	= getDoubleVector(prhs[2]);
-  const DoubleVector betahat	= getDoubleVector(prhs[3]);
-  const DoubleVector se		= getDoubleVector(prhs[4]);
-  const DoubleVector alpha0	= getDoubleVector(prhs[5]);
-  const DoubleVector mu0	= getDoubleVector(prhs[6]);
-  const DoubleVector SiRiSr0	= getDoubleVector(prhs[7]);
-  const DoubleVector I		= getDoubleVector(prhs[8]);
+  const SparseMatrix SiRiS      = getSparseMatrix(prhs[0]);
+  const double sigma_beta       = *mxGetPr(prhs[1]);
+  const DoubleVector logodds    = getDoubleVector(prhs[2]);
+  const DoubleVector betahat    = getDoubleVector(prhs[3]);
+  const DoubleVector se         = getDoubleVector(prhs[4]);
+  const DoubleVector alpha0     = getDoubleVector(prhs[5]);
+  const DoubleVector mu0        = getDoubleVector(prhs[6]);
+  const DoubleVector SiRiSr0    = getDoubleVector(prhs[7]);
+  const DoubleVector I          = getDoubleVector(prhs[8]);
 
   // Get the number of SNPs (p) and coordinate ascent updates (m).
   const Size p = betahat.n;
@@ -56,9 +56,9 @@ void mexFunction (int nlhs, mxArray* plhs[],
     double SiRiSr_snp = SiRiSr.elems[k];
 
     // Perform the mean-field variational update.
-    rss_varbvsr_update(betahat.elems[k], se.elems[k], sigma_beta, 
-		       SiRiS_snp, SiRiSr.elems, SiRiSr_snp, 
-		       logodds.elems[k], alpha.elems+k, mu.elems+k, p);
+    rss_varbvsr_update(betahat.elems[k], se.elems[k], sigma_beta,
+                       SiRiS_snp, SiRiSr.elems, SiRiSr_snp,
+                       logodds.elems[k], alpha.elems+k, mu.elems+k, p);
   }
 
   // Free the dynamically allocated memory.
