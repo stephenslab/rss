@@ -26,12 +26,17 @@ function [alpha, mu, SiRiSr] = rss_varbvsr_update(SiRiS, sigma_beta, logodds, be
   end
 
   % Check inputs sigma_beta.
-  if ~isscalar(sigma_beta)
-    error('Input sigma_beta must be scalar.');
+  if isscalar(sigma_beta)
+    disp('Prior SDs (sigma_beta) of all SNPs are the same.');
+    sigma_beta = repmat(sigma_beta,p,1);
+  end
+  if length(sigma_beta) ~= p
+    error('Input sigma_beta must be scalar or a vector of length p.');
   end
 
   % Check input logodds.
   if isscalar(logodds)
+    disp('Prior log-odds (logodds) of all SNPs are the same.');
     logodds = repmat(logodds,p,1);
   end
   if length(logodds) ~= p
