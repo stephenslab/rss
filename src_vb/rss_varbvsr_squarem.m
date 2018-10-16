@@ -52,6 +52,16 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_squarem(betahat, se, SiRiS, sig
   % Get the number of variables (p).
   p = length(betahat);
 
+  % Set the hyper-parameters (sigb and logodds).
+  if isscalar(sigb)
+    disp('Prior SDs (sigb) of all SNPs are the same.');
+    sigb = repmat(sigb,p,1);
+  end
+  if isscalar(logodds)
+    disp('Prior log-odds (logodds) of all SNPs are the same.');
+    logodds = repmat(logodds,p,1);
+  end
+
   % SiRiS must be a sparse matrix.
   if ~issparse(SiRiS)
     SiRiS = sparse(double(SiRiS));
@@ -91,11 +101,11 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_squarem(betahat, se, SiRiS, sig
   
   % Compute a few useful quantities for the main loop.
   SiRiSr = full(SiRiS * (alpha .* mu));
-  q 	 = betahat ./ (se .^2);
+  q      = betahat ./ (se .^2);
 
   % Calculate the variance of the coefficients.
   se_square 	= se .* se;
-  sigb_square 	= sigb * sigb;
+  sigb_square 	= sigb .* sigb;
   s 		= (se_square .* sigb_square) ./ (se_square + sigb_square);
 
   % Initialize the fields of the structure info.
@@ -111,8 +121,8 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_squarem(betahat, se, SiRiS, sig
   loglik = [loglik; lnZ]; 
 
   if verbose
-    fprintf('       variational    max. incl max.       \n');
-    fprintf('iter   lower bound  change vars E[b] sigma2\n');
+    fprintf('       variational    max. incl max.\n');
+    fprintf('iter   lower bound  change vars E[b]\n');
   end
 
   % Repeat until convergence criterion is met.
@@ -210,8 +220,8 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_squarem(betahat, se, SiRiS, sig
     maxerr = max(err);
 
     if verbose
-      status = sprintf('%4d %+13.6e %0.1e %4d %0.2f %5.2f',...
-		       iter,lnZ,maxerr,round(sum(alpha)),max(abs(r)),sigb_square);
+      status = sprintf('%4d %+13.6e %0.1e %4d %0.2f',...
+		       iter,lnZ,maxerr,round(sum(alpha)),max(abs(r)));
       fprintf(status);
       fprintf(repmat('\b',1,length(status)));
     end
@@ -225,12 +235,10 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_squarem(betahat, se, SiRiS, sig
       alpha  = alpha0;
       mu     = mu0;
       lnZ    = lnZ0;
-      sigb   = sqrt(sigb_square);
       break
 
     elseif maxerr < tolerance
 
-      sigb = sqrt(sigb_square);
       if verbose
         fprintf('\n');
         fprintf('Convergence reached: maximum relative error %+0.2e\n',maxerr);
@@ -244,7 +252,6 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_squarem(betahat, se, SiRiS, sig
     exetime = etime(clock, start_time);
     if exetime >= max_walltime
 
-      sigb = sqrt(sigb_square);
       if verbose
         fprintf('\n');
         fprintf('Maximum wall time reached: %+0.2e seconds\n',exetime);
@@ -257,6 +264,6 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_squarem(betahat, se, SiRiS, sig
   end
 
   % Save info as a structure array.
-  info = struct('iter',iter,'maxerr',maxerr,'sigb',sigb,'loglik',loglik);
+  info = struct('iter',iter,'maxerr',maxerr,'loglik',loglik);
 
 end
