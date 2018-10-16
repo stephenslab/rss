@@ -109,8 +109,8 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
   loglik = [loglik; lnZ]; 
 
   if verbose
-    fprintf('       variational    max. incl max.       \n');
-    fprintf('iter   lower bound  change vars E[b] sigma2\n');
+    fprintf('       variational    max. incl max.\n');
+    fprintf('iter   lower bound  change vars E[b]\n');
   end
 
   % Repeat until convergence criterion is met.
@@ -152,8 +152,8 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
     maxerr = max(err);
 
     if verbose
-      status = sprintf('%4d %+13.6e %0.1e %4d %0.2f %5.2f',...
-                       iter,lnZ,maxerr,round(sum(alpha)),max(abs(r)),sigb_square);
+      status = sprintf('%4d %+13.6e %0.1e %4d %0.2f',...
+                       iter,lnZ,maxerr,round(sum(alpha)),max(abs(r)));
       fprintf(status);
       fprintf(repmat('\b',1,length(status)));
     end
