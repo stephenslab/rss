@@ -58,7 +58,8 @@ Please see [LICENSE](LICENSE) for more details.
 [[Supplementary Information](http://stephenslab.uchicago.edu/assets/papers/Zhu2017-supplement.pdf)] 
 
 - **RSS-E: Enrichment and prioritization analysis based on RSS likelihood** <br> Xiang Zhu and Matthew Stephens (2018).
-[Large-scale genome-wide enrichment analyses identify new trait-associated genes and pathways across 31 human phenotypes](https://www.nature.com/articles/s41467-018-06805-x). *Nature Communications* 9, 4361.
+[Large-scale genome-wide enrichment analyses identify new trait-associated genes and pathways across 31 human phenotypes](https://www.nature.com/articles/s41467-018-06805-x.pdf).
+[*Nature Communications* 9, 4361](https://www.nature.com/articles/s41467-018-06805-x).
 [[Supplementary Information](https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-018-06805-x/MediaObjects/41467_2018_6805_MOESM1_ESM.pdf)]
 [[Online Results](https://xiangzhu.github.io/rss-gsea/)]
 
