@@ -1,11 +1,11 @@
-[Zhu and Stephens (2018)]: https://doi.org/10.1101/160770
+[Zhu and Stephens (2018)]: https://www.nature.com/articles/s41467-018-06805-x
 [example5_simulated.m]: https://github.com/stephenslab/rss/blob/master/examples/example5/example5_simulated.m
 [example5_simulated_data.mat]: https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/example5_simulated_data.mat
 [example5_simulated_results.mat]: https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/example5_simulated_results.mat
 [Wellcome Trust Case Control Consortium, 2007]: https://www.ncbi.nlm.nih.gov/pubmed/17554300
 [null_wrapper_fixsb.m]: https://github.com/stephenslab/rss/blob/master/src_vb/null_wrapper_fixsb.m
 [gsea_wrapper_fixsb.m]: https://github.com/stephenslab/rss/blob/master/src_vb/gsea_wrapper_fixsb.m
-[Supplementary Figure 1]: https://www.biorxiv.org/content/biorxiv/suppl/2018/07/16/160770.DC2/160770-3.pdf
+[Supplementary Figure 1]: https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-018-06805-x/MediaObjects/41467_2018_6805_MOESM1_ESM.pdf
 [compute_pip.m]: https://github.com/stephenslab/rss/blob/master/src_vb/compute_pip.m 
 [Aseg_chr16.mat]: https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/Aseg_chr16.mat	 
 

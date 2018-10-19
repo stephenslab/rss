@@ -3,12 +3,12 @@
 # using GWAS summary statistics of 31 complex traits.
 # We developed this simple, fast calculation as a sanity
 # check for our Bayesian model-based enrichment method.
-# For more details, please refer to the following preprint:
+# For more details, please refer to the following article:
 #
-# Zhu and Stephens (2017), https://doi.org/10.1101/160770.
+# Zhu and Stephens (2018), https://www.nature.com/articles/s41467-018-06805-x.
 #
 # If you find this method and/or script useful for your
-# research work, please kindly cite the preprint above.
+# research work, please kindly cite the article above.
 #
 # Before using this script, you need to download two folders.
 # For people with access to Uchicago Midway, please find
@@ -138,7 +138,7 @@ compute_ash_lrt <- function(region_file, sumstat_file, baseline_file, window_siz
 }
 
 # Through the following for loop, we can obtain the enrichment
-# likelihood ratios of 31 complex traits analyzed in our preprint.
+# likelihood ratios of 31 complex traits analyzed in our article.
 
 sumstat_files <- list.files(path=gwas_sumstat, pattern="*.mat", full.names=TRUE)
 num_trait <- length(sumstat_files)

@@ -1,4 +1,4 @@
-[Zhu and Stephens (2018)]: https://doi.org/10.1101/160770
+[Zhu and Stephens (2018)]: https://www.nature.com/articles/s41467-018-06805-x
 [rss_varbvsr_bigmem_squarem.m]: https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_bigmem_squarem.m
 [example5]: https://github.com/stephenslab/rss/tree/master/examples/example5
 [example5_null.m]: https://github.com/stephenslab/rss/blob/master/examples/example5/example5_null.m
@@ -8,7 +8,7 @@
 [ibd2015_sumstat.mat]: https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/ibd2015_sumstat.mat
 [ibd2015_sumstat_path2641.mat]: https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/ibd2015_sumstat_path2641.mat
 [ibd2015_gsea_seed_459_path2641_squarem.mat]: https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/ibd2015_gsea_seed_459_path2641_squarem.mat
-[Supplementary Tables 6-7]: https://www.biorxiv.org/content/biorxiv/suppl/2018/07/16/160770.DC2/160770-2.pdf
+[Supplementary Tables 6-7]: https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-018-06805-x/MediaObjects/41467_2018_6805_MOESM1_ESM.pdf
 [ibd2015_path2641_genes.mat]: https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/ibd2015_path2641_genes.mat 
 [ibd2015_path2641_genes_results.mat]: https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/ibd2015_path2641_genes_results.mat
 

@@ -3,7 +3,7 @@ layout: default
 ---
 
 [Zhu and Stephens (2017)]: https://projecteuclid.org/euclid.aoas/1507168840
-[Zhu and Stephens (2018)]: https://doi.org/10.1101/160770 
+[Zhu and Stephens (2018)]: https://www.nature.com/articles/s41467-018-06805-x 
 
 We illustrate how to use RSS methods and software through the following examples.
 

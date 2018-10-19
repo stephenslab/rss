@@ -9,9 +9,9 @@ layout: default
 [rssr]: https://github.com/stephenslab/rssr
 [LDshrink]: https://github.com/stephenslab/LDshrink
 [Zhu and Stephens (2017)]: https://projecteuclid.org/euclid.aoas/1507168840 
-[Zhu and Stephens (2018)]: https://doi.org/10.1101/160770
+[Zhu and Stephens (2018)]: https://www.nature.com/articles/s41467-018-06805-x
 [ash_lrt_31traits.R]: https://github.com/stephenslab/rss/blob/master/misc/ash_lrt_31traits.R
-[Supplementary Figure 17]: https://www.biorxiv.org/content/biorxiv/suppl/2018/07/16/160770.DC2/160770-3.pdf
+[Supplementary Figure 17]: https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-018-06805-x/MediaObjects/41467_2018_6805_MOESM1_ESM.pdf
 [compute_pip.m]: https://github.com/stephenslab/rss/blob/master/src_vb/compute_pip.m  
 [zenodo-height2014]: https://doi.org/10.5281/zenodo.1443565
 [zenodo-geneset]: https://zenodo.org/badge/latestdoi/55633948
@@ -52,16 +52,16 @@ it is highly recommended to run the codes and see how the methods work.
 
 #### Q: Can I use the priortization component of [Zhu and Stephens (2018)][] as a generic gene-level associtation testing method, assuming that I do not have any gene set information available?
 
-A: Yes. When gene set information is not available, one can only fit a baseline model and obtain corresponding gene-level results. Indeed Figure 3 Panel of [Zhu and Stephens (2018)][] illustrate a possible use scenario like this.  
+A: Yes. When gene set information is not available, one can only fit a baseline model and obtain corresponding gene-level results. Indeed Figure 3 Panel A of [Zhu and Stephens (2018)][] illustrates a possible use scenario like this.  
 
 ## Linkage disequilibrium (LD)
 
-#### Q: RSS uses the shrinkage estimator of LD in [Wen and Stephens (2010)][], the computation of which requires the "scaled population recombination rate" (`rho_ij`). How do I compute `rho_ij`?
+#### Q: RSS uses the shrinkage estimator of LD in [Wen and Stephens (2010)][], the computation of which requires the "scaled population recombination rate" ($$\rho_{ij}$$). How do I compute $$\rho_{ij}$$?
 
-A: Details of calculating `rho_ij` are provided in these two great papers:
-[Li and Stephens (2003)][], [Wen and Stephens (2010)][].
+A: Details of calculating $$\rho_{ij}$$ are provided in these two great papers:
+[Li and Stephens (2003)][] and [Wen and Stephens (2010)][].
 I also write a short [tutorial](Recombination) to illustrate the calculation of
-scaled population recombination rate (`rho_ij`) using HapMap genetic map.
+scaled population recombination rate ($$\rho_{ij}$$) using HapMap genetic map.
 
 #### Q: Most published RSS analyses used phased haplotypes to estimate LD. Can I use unphased genotype data to compute this shrinkage estimator of LD?
 

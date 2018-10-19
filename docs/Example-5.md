@@ -1,4 +1,4 @@
-[Zhu and Stephens (2018)]: https://doi.org/10.1101/160770
+[Zhu and Stephens (2018)]: https://www.nature.com/articles/s41467-018-06805-x
 [Carbonetto and Stephens (2013)]: https://doi.org/10.1371/journal.pgen.1003770
 [example5]: https://github.com/stephenslab/rss/tree/master/examples/example5
 
@@ -30,9 +30,9 @@ The following figure provides a schematic overview of the method.
 
 As shown above, RSS fits two models for the enrichment and prioritization analysis.
 
-1. Baseline model (M0): SNPs across the whole genome are equally
+1. Baseline model ($$M_0$$): SNPs across the whole genome are equally
 likely to be associated with the phenotype of interest. 
-2. Enrichment model (M1): SNPs "inside" a gene set are more likely
+2. Enrichment model ($$M_1$$): SNPs "inside" a gene set are more likely
 (i.e. "enriched") to be associated with a target phenotype than remaining SNPs.
 
 If the gene set is truly enriched, then the observed GWAS data
@@ -41,10 +41,10 @@ that is, yielding a larger Bayes factor (BF).
 
 In addition to identifying enrichments, RSS also automatically prioritizes
 loci within an enriched set by comparing the posterior distributions of
-genetic effects (beta) under M0 and M1.
-Here we summarize the posterior of beta as P1,
+genetic effects (beta) under $$M_0$$ and $$M_1$$.
+Here we summarize the posterior of beta as $$P_1$$,
 the posterior probability that at least one SNP in a locus is trait-associated.
-Differences between P1 estimated under M0 and M1 reflect
+Differences between $$P_1$$ estimated under $$M_0$$ and $$M_1$$ reflect
 the influence of enrichment on genetic associations,
 which can help identify new trait-associated genes. 
 

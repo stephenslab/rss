@@ -1,12 +1,16 @@
 ## Progress Update
 
+### 10/19/2018
+
+The [article](https://www.nature.com/articles/s41467-018-06805-x) describing enrichment and prioritization analyses based on RSS likelihood was published in [*Nature Communications*](https://www.nature.com/articles/s41467-018-06805-x).
+
 ### 10/09/2018
 
 Xiang presented the enrichment and prioritization analyses of 31 human phenotypes and 4,026 gene sets based on RSS likelihood at the [MVP/ERIC/Assimes Group Meeting](https://www.vacsp.research.va.gov/CSP_Centers/Palo-Alto-ERIC-Genomics.asp), Palo Alto, CA. [[Slides]](http://web.stanford.edu/~xiangzhu/ASSIMES_20181009.pdf)
 
 ### 09/29/2018
 
-The [manuscript](https://doi.org/10.1101/160770) describing enrichment and prioritization analyses based on RSS likelihood was accepted by [*Nature Communications*](https://www.nature.com/ncomms/).
+The [manuscript](https://doi.org/10.1101/160770) describing enrichment and prioritization analyses based on RSS likelihood was accepted by [*Nature Communications*](https://www.nature.com/articles/s41467-018-06805-x).
 
 ### 07/16/2018
 
