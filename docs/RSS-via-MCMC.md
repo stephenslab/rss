@@ -1,13 +1,13 @@
-This page describes how to install the [`MATLAB` scripts](https://github.com/stephenslab/rss/tree/master/src) that implement the MCMC algorithms to fit the RSS models.
+This page describes how to install the [MATLAB scripts](https://github.com/stephenslab/rss/tree/master/src) that implement the MCMC algorithms to fit the RSS models.
 
-Step 1. Download the [repository](https://github.com/stephenslab/rss).
+Step 1. Download the [RSS repository](https://github.com/stephenslab/rss).
 ```
 wget https://github.com/stephenslab/rss/archive/master.zip
 unzip master.zip
 rm master.zip
 mv rss-master rss
 ```
-Step 2. Download and install the [`lightspeed`](http://research.microsoft.com/en-us/um/people/minka/software/lightspeed/) Matlab toolbox (author: Tom Minka).
+Step 2. Download and install the [lightspeed](http://research.microsoft.com/en-us/um/people/minka/software/lightspeed/) MATLAB toolbox (author: Tom Minka).
 ```
 cd rss/src
 wget http://ftp.research.microsoft.com/downloads/db1653f0-1308-4b45-b358-d8e1011385a0/lightspeed.zip
@@ -17,7 +17,7 @@ cd lightspeed/
 matlab -nodisplay < install_lightspeed.m
 ```
 
-Step 3. Download and install the [`lapack`](http://www.mathworks.com/matlabcentral/fileexchange/16777-lapack) Matlab package (author: Tim Toolan).
+Step 3. Download and install the [lapack](http://www.mathworks.com/matlabcentral/fileexchange/16777-lapack) MATLAB package (author: Tim Toolan).
 ```
 cd rss/src
 unzip lapack.zip
@@ -25,7 +25,7 @@ rm lapackhelp.m lapack.zip license.txt
 ```
 Notice that if an appropriate compiled version of `lapack.c` does not exist, the package will ask whether to build one.  
 
-Step 4. Download the [`progress`](http://www.mathworks.com/matlabcentral/fileexchange/8564-progress) Matlab package (author: Martinho Marta-Almeida).
+Step 4. Download the [progress](http://www.mathworks.com/matlabcentral/fileexchange/8564-progress) MATLAB package (author: Martinho Marta-Almeida).
 ```
 unzip progress.zip
 rm progress.zip license.txt 
