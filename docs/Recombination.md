@@ -2,11 +2,18 @@
 layout: default
 ---
 
+[Li and Stephens (2003)]: https://www.ncbi.nlm.nih.gov/pubmed/14704198
+
 ## Compute scaled population recombination rate
 
-The following example illustrates how to compute the "scaled population recombination rate" using HapMap genetic map.
+The following example illustrates how to compute the
+"scaled population recombination rate" $$\rho_{ij}$$
+between SNPs $$i$$ and $$j$$ using HapMap genetic map.
 
-We take six SNPs in chromosome 22 from HapMap CEU Phase 2 sample, and we get the effective diploid population size `Ne=11418` from [IMPUTE](https://mathgen.stats.ox.ac.uk/impute/impute_v1.html) software document.
+We take six SNPs in chromosome 22 from HapMap CEU Phase 2,
+with the genetic map shown below.
+We also get the effective diploid population size `Ne=11418`
+from [IMPUTE](https://mathgen.stats.ox.ac.uk/impute/impute_v1.html) software document.
 
 ```r
    position             COMBINED_rate(cM/Mb)                                Genetic_Map(cM)
@@ -18,15 +25,19 @@ We take six SNPs in chromosome 22 from HapMap CEU Phase 2 sample, and we get the
 6: 14434713             8.024772                                            0.02732511
 ```
 
-To compute recombination rates from any two SNPs, we use a formula from [Li and Stephens (2003)](https://www.ncbi.nlm.nih.gov/pubmed/14704198):
+To compute recombination rates from two SNPs,
+we use the following formula from [Li and Stephens (2003)][]:
 
-> rho = 4 * effective diploid population size * genetic distance
+> $$\rho$$ = 4 * effective diploid population size * genetic distance
 
-Eg. 1, for SNP 2 and 3: rho_23 = 4 * 11418 * (0.01847159-0.01029128)/100;
+For example,
 
-Eg. 2, for SNP 2 and 6: rho_26 = 4 * 11418 * (0.02732511-0.01029128)/100.
+- $$\rho_23$$ = 4 * 11418 * (0.01847159-0.01029128)/100;
+- $$\rho_26$$ = 4 * 11418 * (0.02732511-0.01029128)/100.
 
-Next, as a validation, we compare our calculations with the results provided by [`BLIMP`](http://stephenslab.uchicago.edu/software_pages/blimp/index.html) ([Wen and Stephens, 2010](https://www.ncbi.nlm.nih.gov/pubmed/21479081)).
+As a validation, we compare our calculations above with the results provided by
+[BLIMP](http://stephenslab.uchicago.edu/software_pages/blimp/index.html)
+([Wen and Stephens, 2010](https://www.ncbi.nlm.nih.gov/pubmed/21479081)).
 
 The file `rmb.ceu.ch22` lists recombination rate between all adjacent markers in the panel. 
 
@@ -42,20 +53,19 @@ map.index <- which(genetic.map.chr22$position %in% selected.pos)
 leg.index <- which(legend.ceu.chr22$position %in% selected.pos)
 
 # check the location is correct
-location.check = prod(genetic.map.chr22$position[map.index] == legend.ceu.chr22$position[leg.index])
+location.check <- prod(genetic.map.chr22$position[map.index] == legend.ceu.chr22$position[leg.index])
 if (location.check != 1) stop('locate the snps wrongly')
 
 # calculate the shrinking coefficient: exp(-rho_{ij}/(2*m)) for adjacent (i,j)
 # general formula: rho = 4 * effective population size * genetic distance
-# hapmap phase 2 ceu: effective population size (Ne) is 11418
-#                     haplotype size (m) is 120
+# hapmap phase 2 ceu: effective population size (Ne)=11418, haplotype size (m)=120
 num.snp <- length(map.index);
 ro.coef <- rep(0, num.snp);
-ro.coef[1] = 1;
+ro.coef[1] <- 1;
 map.selected <- genetic.map.chr22[map.index, ]
 rcb.selected <- map.selected[[3]]
 for (i in 2:num.snp){
-  ro.coef[i] = exp(-4*11418*(rcb.selected[i]/100-rcb.selected[i-1]/100)/120)
+  ro.coef[i] <- exp(-4*11418*(rcb.selected[i]/100-rcb.selected[i-1]/100)/120)
 }
 
 # compare the result with the one provided in BLIMP (Wen and Stephens, 2010)
