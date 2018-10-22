@@ -59,8 +59,8 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_parallel(betahat, se, SiRiS, si
   end
 
   % SiRiS must be a sparse matrix.
-  if ~issparse(SiRiS)
-    SiRiS = sparse(double(SiRiS));
+  if ~all(cellfun(@issparse,SiRiS))
+    error('SiRiS must be a cell array of sparse matrix.');
   end
 
   % Set initial estimates of variational parameters.
