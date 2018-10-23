@@ -1,5 +1,5 @@
 % NB: this script is written only for the environment of RCC midway clusters
-% modification maybe required if this script is used in other environments
+% modifications may be required if this script is used in other environments
 
 % copy the input data to /srv/scratch/local on midway partitions
 % this is to improve code performance when reading whole genome data
@@ -17,13 +17,13 @@ pause(n_time);
 % start the matlabpool with maximum available workers
 % control how many workers by setting ntasks in your sbatch script
 pc = parcluster('local');
-matlabpool(pc, getenv('SLURM_CPUS_ON_NODE')); %#ok<DPOOL>
+parpool(pc, str2num(getenv('SLURM_CPUS_ON_NODE')));
 
 % get the number of analyzed SNPs and the (max) sample size
 sumstat = matfile(sumstat_file);
 betahat = sumstat.betahat; 
-p 	= length(cell2mat(betahat));
-Nsnp 	= sample_size * ones(p, 1);
+p       = length(cell2mat(betahat));
+Nsnp    = sample_size * ones(p, 1);
 
 % check whether the input data are collected from unique SNPs
 chr = double(cell2mat(sumstat.chr));
@@ -33,7 +33,7 @@ pos = strread(num2str(pos'),'%s');
 snp = strcat({'chr'},chr,{':'},pos);
 
 if all(strcmp(sort(snp),unique(snp)))
-  disp('SANITY CHECK PASS: there are no duplicated SNPs ...');
+  disp('PASS SANITY CHECK: there are no duplicated SNPs ...');
 else
   error('ERROR: there exist duplicated SNPs ...');
 end
@@ -83,7 +83,7 @@ fprintf('The path of output: %s ...\n', output_path);
 fprintf('The value of theta0: %0.2f ...\n', theta0);
 fprintf('The value of h: %0.2f ...\n', h);
 
-% run the whole genome null analysis using rss-varbvsr
+% run the whole genome baseline analysis using rss-varbvsr
 tic;
 [logw, alpha, mu, s] = null_single(method, sumstat_file, Nsnp, h, theta0, alpha0, mu0);
 runtime = toc;

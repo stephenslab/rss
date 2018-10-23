@@ -1,19 +1,27 @@
 function [logw, alpha, mu, s] = null_single(method, file, Nsnp, h, log10odds, alpha, mu)
-% USAGE: perform the variational inference for the RSS-BVSR model under the null hypothesis
-%	 where the values of hyper-parameters are fixed (i.e. h and log10odds)
+% USAGE: perform the variational inference for the RSS-BVSR baseline model,
+%        where the values of hyper-parameters (h and log10odds) are fixed
 % INPUT: 
-%       method: the implementation of rss-varbvsr, character
-%       file: the path of mat file that contains cell arrays of betahat, se and SiRiS, string
-%       Nsnp: the sample size of each genetic variant, p by 1
-%       h: the fixed proportion of phenotypic variance explained by available genotypes, scalar
-%       log10odds: the (base 10) logarithm of the prior odds for inclusion, scalar
+%       method: the implementation of rss-varbvsr, string
+%       file: the mat file that contains cell arrays of betahat, se and SiRiS, string
+%       Nsnp: total sample size of each genetic variant, p by 1
+%       h: proportion of phenotypic variance explained by available genotypes, scalar
+%       log10odds: logarithm (base 10) of the prior odds for inclusion, scalar
 %       alpha: initial values of the posterior inclusion probabilities, p by 1
-%       mu: initial values of the expected additive effects (given snp included), p by 1
+%       mu: initial values of the expected additive effects (if the SNP is included), p by 1
 % OUTPUT:
-%       logw: the unnormalized log-importance weight for each combination of hyper-parameters
+%       logw: unnormalized log-importance weight for the given hyper-parameters
 %       alpha: variational estimates of the posterior inclusion probabilities, p by 1
-%       mu: posterior means of the additive effects (given snp included), p by 1
-%       s: posterior variances of the additive effects (given snp included), p by 1
+%       mu: posterior means of the additive effects (if the SNP is included), p by 1
+%       s: posterior variances of the additive effects (if the SNP is included), p by 1
+
+  % make sure that both hyper-parameters are scalar
+  if ~isscalar(h)
+    error('Hyper-parameter h must be scalar for null_single.m.');
+  end
+  if ~isscalar(log10odds)
+    error('Hyper-parameter log10odds must be scalar for null_single.m.');
+  end
 
   % load summary statistics from the mat file
   sumstat = matfile(file);
