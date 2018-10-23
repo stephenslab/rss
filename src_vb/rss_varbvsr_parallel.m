@@ -168,7 +168,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_parallel(betahat, se, SiRiS, si
  
     parfor c = 1:C
 
-      % Get the number of SNPs on Chr. c
+      % Get the number of SNPs on Chr. c.
       pchr = length(betahat{c,1});
 
       % All SNPs are included in the forward/backward updates.
