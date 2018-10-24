@@ -1,24 +1,35 @@
 function [logw1,alpha,mu,s] = gsea_single(method,file,se_all,Nsnp_all,h,theta0,theta,alpha,mu,logw0,alpha0,mu0)
-% USAGE: perform the variational inference for the RSS-BVSR model under the enrichment hypothesis where
-%	 the values of hyper-parameters are fixed (i.e. h, theta0 and theta); similar to null_single.m
+% USAGE: perform the variational inference for the RSS-BVSR enrichment model,
+%        where the values of hyper-parameters (h, theta0 and theta) are fixed
 % INPUT: 
-%       method: the implementation of rss-varbvsr, character
-%       file: the path of mat file that contains cell arrays of betahat, se and SiRiS, string
-%       se_all: standard errors for all SNPs in the genome, numsnp by 1
-%       Nsnp_all: sample sizes for all SNPs in the genome, numsnp by 1
-%       h: the fixed proportion of phenotypic variance explained by available genotypes, scalar
-%       theta0: the fixed (base 10) logarithm of the prior odds for inclusion, scalar
-%	theta: the fixed log-fold (base 10) enrichment parameter, scalar
-%       logw0: the log-importance weight for the given theta0 under null, scalar
-%       alpha0: the variational posterior inclusion probabilities under null, p by 1
-%       mu0: the variational posterior means of the additive effects (given snp included), p by 1
-%       alpha: the initial values of the posterior inclusion probabilities under erichment, p by 1 
-%       mu: the initial values of the expected additive effects (given snp included) under enrichment, p by 1
+%       method: the implementation of rss-varbvsr, string
+%       file: the mat file that contains cell arrays of betahat, se and SiRiS, string
+%       se_all: standard errors of betahat for all SNPs, numsnp by 1
+%       Nsnp_all: total sample sizes for all SNPs, numsnp by 1
+%       h: fixed proportion of phenotypic variance explained by available genotypes, scalar
+%       theta0: logarithm (base 10) of the prior odds for inclusion, scalar
+%       theta: log-fold (base 10) enrichment parameter, scalar
+%       logw0: log-importance weight for the given theta0 under the baseline model, scalar
+%       alpha0: the variational posterior inclusion probabilities under the baseline model, p by 1
+%       mu0: the variational posterior expected additive effects (if the SNP is included) under the baseline model, p by 1
+%       alpha: initial values of posterior inclusion probabilities under the erichment model, p by 1 
+%       mu: initial values of expected additive effects (if the SNP is included) under the enrichment model, p by 1
 % OUTPUT:
-%       logw1: the unnormalized log-importance weight for each combination of hyper-parameters
+%       logw1: unnormalized log-importance weight for the given hyper-parameters
 %       alpha: variational estimates of the posterior inclusion probabilities, p by 1
-%       mu: posterior means of the additive effects (given snp included), p by 1
-%       s: posterior variances of the additive effects (given snp included), p by 1
+%       mu: posterior means of the additive effects (if the SNP is included), p by 1
+%       s: posterior variances of the additive effects (if the SNP is included), p by 1
+
+  % make sure that all hyper-parameters are scalar
+  if ~isscalar(h)
+    error('Hyper-parameter h must be scalar for gsea_single.m.');
+  end
+  if ~isscalar(theta0)
+    error('Hyper-parameter theta0 must be scalar for gsea_single.m.');
+  end
+  if ~isscalar(theta)
+    error('Hyper-parameter theta must be scalar for gsea_single.m.');
+  end
 
   % load the indices of assigned SNPs from the mat file
   sumstat = matfile(file);
@@ -47,7 +58,7 @@ function [logw1,alpha,mu,s] = gsea_single(method,file,se_all,Nsnp_all,h,theta0,t
   logodds0 = log(10) * theta0;
   options  = struct('alpha',alpha0,'mu',mu0);
 
-  % run rss-varbvsr under the null hypothesis
+  % run rss-varbvsr under the baseline model
   % note: there is a duplicated calculation for the same (h, theta0)
   % but this issue does not exist for the wrapper versions (gsea_wrapper.m/gsea_bigmem_wrapper.m)
   F0 = rss_varbvsr_bigmem_wrapper(method,file,sigb0,logodds0,options);
@@ -64,7 +75,7 @@ function [logw1,alpha,mu,s] = gsea_single(method,file,se_all,Nsnp_all,h,theta0,t
   logodds1 = log(10) * (theta0 + theta);
   options  = struct('alpha',alpha,'mu',mu);
 
-  % run rss-varbvsr under the enrichment hypothesis
+  % run rss-varbvsr under the enrichment model
   [F1,alpha,mu,s] = rss_varbvsr_bigmem_wrapper(method,file,sigb1,logodds1,options);
 
   % compute the variational lower bound under the alternative; for an explanation

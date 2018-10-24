@@ -24,7 +24,7 @@ function [logw, alpha, mu, s] = null_wrapper_fixsb(method, betahat, se, SiRiS, s
 % outer loop computes importance weights for all combinations of the
 % hyperparameters.
 
-  % make sure that both hyper-parameters are scalar
+  % make sure that prior SD sigb is scalar
   if ~isscalar(sigb)
     error('Hyper-parameter sigb must be scalar for null_wrapper_fixsb.m.');
   end

@@ -1,25 +1,25 @@
 function [log10bf,logw1,alpha,mu,s] = gsea_wrapper_fixsb(method,betahat,se,SiRiS,snps,sigb,theta0,theta,logw0,alpha0,mu0)
-% USAGE: perform the full variational inference for the RSS-BVSR model under enrichment hypothesis
-%        enrichment hypothesis: the gene set is enriched for genotype-phenotype association
-%        here the prior variance of causal effects is fixed as sigb^2
+% USAGE: perform the full variational inference for the RSS-BVSR enrichment model
+%        enrichment model: the candidate gene set is enriched for genotype-phenotype association
+%        here the prior variance of causal effects is fixed as a scalar, sigb^2
 % INPUT:
-%       method: the implementation of rss-varbvsr, character 
-%       betahat: the effect size estimates under single-SNP model, p by 1 array or C by 1 cell array
+%       method: the implementation of rss-varbvsr, string
+%       betahat: effect size estimates under single-SNP model, p by 1 array or C by 1 cell array
 %       se: standard errors of betahat, p by 1 array or C by 1 cell array
-%       SiRiS: inv(S)*R*inv(S), double precision sparse matrix (ccs format), p by p array or C by 1 cell array
-%	snps: the genomic indices of SNPs that are assigned to the pathway
-%       sigb: the prior SD of the regression coefficients (if included), scalar
+%       SiRiS: inv(S)*R*inv(S), sparse matrix (CCS format), p by p array or C by 1 cell array
+%       snps: indices of SNPs on the genome that are assigned to the gene set
+%       sigb: prior SD of the regression coefficients (if included), scalar
 %       theta0: the grid of the genome-wide log-odds (base 10), n0 by 1
 %       theta: the grid of the enrichment (base 10), n1 by 1
-%	logw0: the log-importance weights for the grid of theta0 under null, n0 by 1
-%       alpha0: the variational posterior inclusion probabilities under null, p by n0
-%       mu0: the variational posterior means of the additive effects (given snp included), p by n0
+%       logw0: log-importance weights for the grid of theta0 under the baseline model, n0 by 1
+%       alpha0: the variational posterior inclusion probabilities under the baseline model, p by n0
+%       mu0: the variational posterior means of the additive effects (if the SNP is included) under the baseline model, p by n0
 % OUTPUT:
-%	log10bf: log 10 of gene set enrichment BF based on summary-level data, scalar
-%       logw1: the unnormalized log-importance weight for each combination of hyper-parameters, n0 by n1
+%       log10bf: log 10 of gene set enrichment Bayes factor (BF), scalar
+%       logw1: unnormalized log-importance weight for each combination of hyper-parameters, n0 by n1
 %       alpha: the variational posterior inclusion probabilities, p by n0 by n1
-%       mu: the variational posterior means of the additive effects (given snp included), p by n0 by n1
-%       s: the variational posterior variances of the additive effects (given snp included), p by n0 by n1
+%       mu: the variational posterior means of the additive effects (if the SNP is included), p by n0 by n1
+%       s: the variational posterior variances of the additive effects (if the SNP is included), p by n0 by n1
 
 % OVERVIEW:
 % This inference procedure involves an inner loop and an outer loop. The
@@ -27,6 +27,11 @@ function [log10bf,logw1,alpha,mu,s] = gsea_wrapper_fixsb(method,betahat,se,SiRiS
 % the variational lower bound given a setting of the hyperparameters. The
 % outer loop computes importance weights for all combinations of the
 % hyperparameters.
+
+  % make sure that prior SD sigb is scalar
+  if ~isscalar(sigb)
+    error('Hyper-parameter sigb must be scalar for gsea_wrapper_fixsb.m.');
+  end
 
   % Get the number of SNPs assigned to the enriched pathway (p), 
   % the number of settings of the genome-wide log-odds (n0),
@@ -75,23 +80,23 @@ function [log10bf,logw1,alpha,mu,s] = gsea_wrapper_fixsb(method,betahat,se,SiRiS
 end
 
 function [logw1,alpha,mu,s] = gsea_outerloop(method,betahat,se,SiRiS,snps,sigb,theta0,theta,alpha,mu)
-% USAGE: the outer loop of the variational inference for the RSS-BVSR model under enrichment
+% USAGE: the outer loop of the variational inference for the RSS-BVSR enrichment model
 % INPUT:
-%       method: the implementation of rss-varbvsr, character 
-%       betahat: the effect size estimates under single-SNP model, p by 1 array or C by 1 cell array
+%       method: the implementation of rss-varbvsr, string
+%       betahat: effect size estimates under single-SNP model, p by 1 array or C by 1 cell array
 %       se: standard errors of betahat, p by 1 array or C by 1 cell array
-%       SiRiS: inv(S)*R*inv(S), double precision sparse matrix (ccs format), p by p array or C by 1 cell array
-%       snps: the genomic indices of SNPs that are assigned to the pathway
-%       sigb: the prior SD of the regression coefficients (if included), scalar
+%       SiRiS: inv(S)*R*inv(S), sparse matrix (CCS format), p by p array or C by 1 cell array
+%       snps: indices of SNPs on the genome that are assigned to the gene set
+%       sigb: prior SD of the regression coefficients (if included), scalar
 %       theta0: the grid of the genome-wide log-odds (base 10), n0 by 1
 %       theta: the grid of the enrichment (base 10), n1 by 1
-%	alpha: initial values of the posterior inclusion probabilities, p by n0 by n1
-%	mu: initial values of the expected additive effects (given snp included), p by n0 by n1
+%       alpha: initial values of the posterior inclusion probabilities, p by n0 by n1
+%       mu: initial values of the expected additive effects (if the SNP is included), p by n0 by n1
 % OUTPUT:
-%       logw1: the unnormalized log-importance weight for each combination of hyper-parameters, n0 by n1
+%       logw1: unnormalized log-importance weight for each combination of hyper-parameters, n0 by n1
 %       alpha: the variational posterior inclusion probabilities, p by n0 by n1
-%       mu: the variational posterior means of the additive effects (given snp included), p by n0 by n1
-%       s: the variational posterior variances of the additive effects (given snp included), p by n0 by n1
+%       mu: the variational posterior means of the additive effects (if the SNP is included), p by n0 by n1
+%       s: the variational posterior variances of the additive effects (if the SNP is included), p by n0 by n1
 
   % Get the number of SNPs analyzed (p),
   % the number of settings of the genome-wide log-odds (n0),

@@ -17,7 +17,7 @@
 % set the fixed part
 sumstat  = matfile(allstat_path);
 se       = sumstat.se; 
-p 	 = length(cell2mat(se));
+p        = length(cell2mat(se));
 Nsnp_all = sample_size * ones(p, 1);
 se_all   = cell2mat(se);
 clear sumstat se p;
@@ -46,7 +46,7 @@ switch method
     % start the matlabpool with maximum available workers
     % control how many workers by setting ntasks in your sbatch script
     pc = parcluster('local');
-    matlabpool(pc, getenv('SLURM_CPUS_ON_NODE')); %#ok<DPOOL>
+    parpool(pc, str2num(getenv('SLURM_CPUS_ON_NODE')));
 end 
 
 % make sure that SNPs assigned to multiple genes are only included once

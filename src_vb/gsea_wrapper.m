@@ -1,28 +1,28 @@
 function [log10bf,logw1,alpha,mu,s] = gsea_wrapper(method,betahat,se,SiRiS,se_all,Nsnp_all,snps,h,theta0,theta,logw0,alpha0,mu0,alpha,mu)
-% USAGE: perform the full variational inference for the RSS-BVSR model under alternative hypothesis
-%        alternative hypothesis: the gene set is enriched for genotype-phenotype association
+% USAGE: perform the full variational inference for the RSS-BVSR baseline model
+%        enrichment model: the candidate gene set is enriched for genotype-phenotype association
 % INPUT:
-%       method: the implementation of rss-varbvsr, character 
-%       betahat: the effect size estimates under single-SNP model, p by 1 array or C by 1 cell array
+%       method: the implementation of rss-varbvsr, string 
+%       betahat: effect size estimates under single-SNP model, p by 1 array or C by 1 cell array
 %       se: standard errors of betahat, p by 1 array or C by 1 cell array
-%       SiRiS: inv(S)*R*inv(S), double precision sparse matrix (ccs format), p by p array or C by 1 cell array
-%	se_all: standard errors for all SNPs in the genome, numsnp by 1
-%	Nsnp_all: sample sizes for all SNPs in the genome, numsnp by 1
-%	snps: the genomic indices of SNPs that are assigned to the pathway, p by 1 
-%       h: the fixed proportion of phenotypic variance explained by available genotypes, nh by 1
+%       SiRiS: inv(S)*R*inv(S), sparse matrix (CCS format), p by p array or C by 1 cell array
+%       se_all: standard errors for all SNPs in the genome, numsnp by 1
+%       Nsnp_all: sample sizes for all SNPs in the genome, numsnp by 1
+%       snps: indices of SNPs on the genome that are assigned to the gene set, p by 1 
+%       h: the grid of proportion of phenotypic variance explained by available genotypes, nh by 1
 %       theta0: the grid of the genome-wide log-odds (base 10), n0 by 1
 %       theta: the grid of the enrichment (base 10), n1 by 1
-%       logw0: the log-importance weights for the grid of theta0 under null, n0 by nh
-%       alpha0: the variational posterior inclusion probabilities under null, p by n0 by nh
-%	mu0: the variational posterior means of the additive effects (given snp included), p by n0 by nh
-%       alpha: the initial values of the posterior inclusion probabilities under erichment, p by n0 by n1 by nh 
-%       mu: the initial values of the expected additive effects (given snp included) under enrichment, p by n0 by n1 by nh
+%       logw0: log-importance weights for the grid of theta0 under the baseline model, n0 by nh
+%       alpha0: variational posterior inclusion probabilities under the baseline model, p by n0 by nh
+%	mu0: variational posterior expected additive effects (if the SNP is included) under the baseline model, p by n0 by nh
+%       alpha: initial values of the posterior inclusion probabilities under the erichment model, p by n0 by n1 by nh 
+%       mu: initial values of the expected additive effects (if the SNP is included) under the enrichment model, p by n0 by n1 by nh
 % OUTPUT:
-%	log10bf: log 10 of gene set enrichment BF based on summary-level data, scalar
-%       logw1: the log-importance weights for the grid of (theta0,theta,h) under enrichment, n0 by n1 by nh
-%       alpha: the variational posterior inclusion probabilities under enrichment, p by n0 by n1 by nh
-%       mu: the variational posterior means of the additive effects under enrichment, p by n0 by n1 by nh
-%       s: the variational posterior variances of the additive effects under enrichment, p by n0 by n1 by nh
+%       log10bf: log 10 of gene set enrichment Bayes factor (BF), scalar
+%       logw1: log-importance weights under the enrichment model, n0 by n1 by nh
+%       alpha: the variational posterior inclusion probabilities under the enrichment model, p by n0 by n1 by nh
+%       mu: the variational posterior means of the additive effects (if the SNP is included) under the enrichment model, p by n0 by n1 by nh
+%       s: the variational posterior variances of the additive effects (if the SNP is included) under the enrichment model, p by n0 by n1 by nh
 
 % NOTE: 
 % To calculate the BF, we integrate over the hyperparameters using importance sampling under the
@@ -80,28 +80,28 @@ function [log10bf,logw1,alpha,mu,s] = gsea_wrapper(method,betahat,se,SiRiS,se_al
 end
 
 function [logw1,alpha,mu,s] = gsea_outerloop(method,betahat,se,SiRiS,se_all,Nsnp_all,snps,h,theta0,theta,alpha,mu,logw0,alpha0,mu0)
-% USAGE: the outer loop of the variational inference for the RSS-BVSR model under enrichment
+% USAGE: the outer loop of the variational inference for the RSS-BVSR enrichment model
 % INPUT:
 %       method: the implementation of rss-varbvsr, character 
-%       betahat: the effect size estimates under single-SNP model, p by 1 array or C by 1 cell array
+%       betahat: effect size estimates under single-SNP model, p by 1 array or C by 1 cell array
 %       se: standard errors of betahat, p by 1 array or C by 1 cell array
-%       SiRiS: inv(S)*R*inv(S), double precision sparse matrix (ccs format), p by p array or C by 1 cell array
+%       SiRiS: inv(S)*R*inv(S), sparse matrix (ccs format), p by p array or C by 1 cell array
 %       se_all: standard errors for all SNPs in the genome, numsnp by 1
 %       Nsnp_all: sample sizes for all SNPs in the genome, numsnp by 1
-%       snps: the genomic indices of SNPs that are assigned to the pathway, p by 1 
-%       h: the fixed proportion of phenotypic variance explained by available genotypes, nh by 1
-%       theta0: the grid of the genome-wide log-odds, n0 by 1
-%       theta: the grid of the enrichment, n1 by 1
-%       logw0: the log-importance weights for the grid of theta0 under null, n0 by nh
-%       alpha0: the variational posterior inclusion probabilities under null, p by n0 by nh
-%       mu0: the variational posterior means of the additive effects (given snp included), p by n0 by nh
-%       alpha: the initial values of the posterior inclusion probabilities under erichment, p by n0 by n1 by nh 
-%       mu: the initial values of the expected additive effects (given snp included) under enrichment, p by n0 by n1 by nh
+%       snps: indices of SNPs on the genome that are assigned to the gene set, p by 1 
+%       h: the grid of proportion of phenotypic variance explained by available genotypes, nh by 1
+%       theta0: the grid of the genome-wide log-odds (base 10), n0 by 1
+%       theta: the grid of the enrichment (base 10), n1 by 1
+%       logw0: log-importance weights for the grid of theta0 under the baseline model, n0 by nh
+%       alpha0: the variational posterior inclusion probabilities under the baseline model, p by n0 by nh
+%       mu0: the variational posterior means of the additive effects (if the SNP is included) under the baseline model, p by n0 by nh
+%       alpha: initial values of the posterior inclusion probabilities under the erichment model, p by n0 by n1 by nh 
+%       mu: initial values of the expected additive effects (if the SNP is included) under the enrichment model, p by n0 by n1 by nh
 % OUTPUT:
-%       logw1: the log-importance weights for the grid of (theta0,theta,h) under enrichment, n0 by n1 by nh
-%       alpha: the variational posterior inclusion probabilities under enrichment, p by n0 by n1 by nh
-%       mu: the variational posterior means of the additive effects under enrichment, p by n0 by n1 by nh
-%       s: the variational posterior variances of the additive effects under enrichment, p by n0 by n1 by nh
+%       logw1: log-importance weights under the enrichment model, n0 by n1 by nh
+%       alpha: the variational posterior inclusion probabilities under the enrichment model, p by n0 by n1 by nh
+%       mu: the variational posterior means of the additive effects under the enrichment model, p by n0 by n1 by nh
+%       s: the variational posterior variances of the additive effects under the enrichment model, p by n0 by n1 by nh
 
   % get the number of SNPs assigned to the enriched pathway (p)
   if iscell(betahat)
@@ -149,20 +149,20 @@ function [logw1,alpha,mu,s] = gsea_outerloop(method,betahat,se,SiRiS,se_all,Nsnp
         iter = iter + 1;
         fprintf('(%04d) theta0 = %+0.2f, theta = %0.2f, h = %0.2f \n',iter,theta0(i),theta(j),h(k));
 
-	% NOTE:
-	% Next compute the marginal log-likelihood under the alternative
-	% hypothesis only for SNPs in the pathway. Note that rss_varbvsr
-	% defines the log-odds ratio using the natural logarithm, so we
-	% need to multiply (theta0+theta) by log(10).
-	log10odds_gsea       = theta0(i) * ones(ng,1);  % genome-wide baseline
-	log10odds_gsea(snps) = theta0(i) + theta(j);    % enriched in the pathway
+        % NOTE:
+        % Next compute the marginal log-likelihood under the alternative
+        % hypothesis only for SNPs in the pathway. Note that rss_varbvsr
+        % defines the log-odds ratio using the natural logarithm, so we
+        % need to multiply (theta0+theta) by log(10).
+        log10odds_gsea       = theta0(i) * ones(ng,1);  % genome-wide baseline
+        log10odds_gsea(snps) = theta0(i) + theta(j);    % enriched in the pathway
 
-	sigb1    = calc_beta_sd(se_all, Nsnp_all, sigmoid10(log10odds_gsea), h(k));
-	logodds1 = log(10) * (theta0(i) + theta(j));
-	options  = struct('alpha',alpha(:,i,j,k),'mu',mu(:,i,j,k),'verbose',true);
+        sigb1    = calc_beta_sd(se_all, Nsnp_all, sigmoid10(log10odds_gsea), h(k));
+        logodds1 = log(10) * (theta0(i) + theta(j));
+        options  = struct('alpha',alpha(:,i,j,k),'mu',mu(:,i,j,k),'verbose',false);
 
-	% run rss-varbvsr under enrichment
-	[F1,alpha(:,i,j,k),mu(:,i,j,k),s(:,i,j,k)] = rss_varbvsr_wrapper(method,betahat,se,SiRiS,sigb1,logodds1,options);
+        % run rss-varbvsr under the enrichment model
+        [F1,alpha(:,i,j,k),mu(:,i,j,k),s(:,i,j,k)] = rss_varbvsr_wrapper(method,betahat,se,SiRiS,sigb1,logodds1,options);
 
         % NOTE:
         % Compute the importance weight under the alternative. The prior and
