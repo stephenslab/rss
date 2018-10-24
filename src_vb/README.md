@@ -1,1 +1,2 @@
-add related links here
+- Publication: https://doi.org/10.1038/s41467-018-06805-x
+- Online results: http://xiangzhu.github.io/rss-gsea
