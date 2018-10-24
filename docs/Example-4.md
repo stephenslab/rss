@@ -1,9 +1,9 @@
-[Carbonetto and Stephens (*Bayesian Anal.*, 2012)]: https://projecteuclid.org/euclid.ba/1339616726
-[Zhu and Stephens (*Ann. Appl. Stat.*, 2017)]: https://projecteuclid.org/euclid.aoas/1507168840
-[Zhu and Stephens (*bioRxiv*, 2017)]: https://doi.org/10.1101/160770
-[`enrich_datamaker.m`]: https://github.com/stephenslab/rss/blob/master/misc/enrich_datamaker.m
-[Supplementary Note]: https://www.biorxiv.org/content/biorxiv/suppl/2018/07/16/160770.DC2/160770-1.pdf
-[Supplementary Figure 1]: https://www.biorxiv.org/content/biorxiv/suppl/2018/07/16/160770.DC2/160770-3.pdf
+[Carbonetto and Stephens (2012)]: https://projecteuclid.org/euclid.ba/1339616726
+[Zhu and Stephens (2017)]: https://projecteuclid.org/euclid.aoas/1507168840
+[Zhu and Stephens (2018)]: https://www.nature.com/articles/s41467-018-06805-x
+[enrich_datamaker.m]: https://github.com/stephenslab/rss/blob/master/misc/enrich_datamaker.m
+[Supplementary Note]: https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-018-06805-x/MediaObjects/41467_2018_6805_MOESM1_ESM.pdf
+[Supplementary Figure 1]: https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-018-06805-x/MediaObjects/41467_2018_6805_MOESM1_ESM.pdf
 [example4.m]: https://github.com/stephenslab/rss/blob/master/examples/example4.m
 
 # Example 4: Fit RSS-BVSR via variational Bayes (VB) methods
@@ -12,36 +12,39 @@
 
 This example illustrates how to fit an RSS-BVSR model using
 variational Bayes (VB) approximation, and compares the results with
-previous work based on individual-level data, notably, [Carbonetto and Stephens (*Bayesian Anal.*, 2012)][].
-This example is closely related to Section "Connection with enrichment analysis of individual-level data" 
-of [Zhu and Stephens (*bioRxiv*, 2017)][].
+previous work based on individual-level data, notably, [Carbonetto and Stephens (2012)][].
+This example is closely related to Section "Connection with enrichment
+analysis of individual-level data" of [Zhu and Stephens (2018)][].
 
-Proposition 2.1 of [Zhu and Stephens (*Ann. Appl. Stat.*, 2017)][] gives conditions
+Proposition 2.1 of [Zhu and Stephens (2017)][] gives conditions
 under which regression likelihood based on individual-level
 data is equivalent to regression likelihood based on summary-level data.
 Under the same conditions, we can show that variational inferences
 based on individual-level data and summary-level data are also equivalent,
 in the sense that they have the same fix point iteration
 scheme and lower bound in variational approximations.
-See [Supplementary Note][] of [Zhu and Stephens (*bioRxiv*, 2017)][] for proofs.
-This example serves as an *in silico* sanity check for our theoretical work. 
+See [Supplementary Note][] of [Zhu and Stephens (2018)][] for proofs.
+This example serves as a sanity check for our theoretical work. 
 
 ## Details
 
-The GWAS individual-level and summary-level data are simulated by [`enrich_datamaker.m`][],
+The GWAS individual-level and summary-level data are simulated by [enrich_datamaker.m][],
 which contains an enrichment signal of a target gene set.
-Specifically, SNPs outside the target gene set are selected to be causal ones with probability `10^theta0`,
-whereas SNPs inside this gene set are selected with a higher probability `10^(theta0+theta)` (with `theta>0`).
-For more details, see [Supplementary Figure 1][] of [Zhu and Stephens (*bioRxiv*, 2017)][] 
+Specifically, SNPs outside the target gene set are selected
+to be causal ones with log10 odds ratio $$theta_0$$,
+whereas SNPs inside this gene set are selected with a higher
+log10 odds ratio $$theta_0+theta$$ (with $$theta>0$$).
+For more details, see [Supplementary Figure 1][] of [Zhu and Stephens (2018)][]. 
 
 Next, we feed the simulated individual-level and summary-level data to
-[`varbvs`](https://github.com/pcarbo/varbvs) and
-[`rss-varbvsr`](https://github.com/stephenslab/rss/tree/master/src_vb) respectively,
+[varbvs](https://github.com/pcarbo/varbvs) and
+[rss-varbvsr](https://github.com/stephenslab/rss/tree/master/src_vb) respectively,
 and then compare the VB output from these two methods.
 
-To reproduce results of Example 4, please please read the step-by-step guide below and use [example4.m][].
-Before running [example4.m][], please make sure the
-[VB subroutines](https://github.com/stephenslab/rss/tree/master/src_vb) of RSS are installed.
+To reproduce results of Example 4,
+please please read the step-by-step guide below and use [example4.m][].
+Before running [example4.m][], please first install the
+[VB subroutines](https://github.com/stephenslab/rss/tree/master/src_vb) of RSS
 Please find installation instructions [here](RSS-via-VB).
 
 ## Step-by-step illustration
@@ -50,10 +53,8 @@ Please find installation instructions [here](RSS-via-VB).
 the input data `genotype.mat` and `AH_chr16.mat` for the function `enrich_datamaker.m`.
 Please contact me if you have trouble accessing these files<sup>1</sup>.
 
-**Step 2**. Install the `MATLAB` implementation of [`varbvs`](https://github.com/pcarbo/varbvs).
-Please follow the instructions
-[here](https://github.com/pcarbo/varbvs/tree/master/varbvs-MATLAB#large-scale-bayesian-variable-selection-for-matlab).
-After the installation, add `varbvs` to the search path (see the example below).
+**Step 2**. Install the `MATLAB` implementation of [varbvs](https://github.com/pcarbo/varbvs).
+After the installation, add varbvs to the search path as follows.
 
 ```matlab
 addpath('/home/xiangzhu/varbvs-master/varbvs-MATLAB/');
@@ -62,14 +63,14 @@ addpath('/home/xiangzhu/varbvs-master/varbvs-MATLAB/');
 **Step 3**. Extract SNPs that inside the target gene set.
 
 This step is where we need the input data
-[`AH_chr16.mat`](https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example4/readme).
+[AH_chr16.mat](https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example4/readme).
 The index of SNPs inside the gene set is stored as `snps`.
 
 ```matlab
 AH    = matfile('AH_chr16.mat');
-H     = AH.H; % hypothesis matrix 3323x3160
-A     = AH.A; % annotation matrix 12758x3323
-paths = find(H(:,end)); % signal transduction (Biosystem, Reactome)
+H     = AH.H;                    % hypothesis matrix 3323x3160
+A     = AH.A;                    % annotation matrix 12758x3323
+paths = find(H(:,end));          % signal transduction (Biosystem, Reactome)
 snps  = find(sum(A(:,paths),2)); % index of variants inside the pathway
 ```
 
@@ -150,16 +151,19 @@ bf_b = exp(fit_gsea.logw - fit_null.logw);
 **Step 7**. Run `rss-varbvsr` on the single-SNP association summary statistics.
 
 Here we do not specify `se` and `R` as we actually do in our real data analyses.
-Instead, we set their values such that `rss-varbvsr` and `varbvs` are expected to produce the same output.
-(This is because we want to validate our mathematical proofs *in silico*.)
-Based on our proofs, we find that `rss-varbvsr` is equivalent to `varbvs` if and only if
+Instead, we set their values such that `rss-varbvsr`
+and `varbvs` are expected to produce the same output.
+(This is because we want to verify our mathematical proofs in silico.)
+Based on the proofs in [Zhu and Stephens (2018)][],
+we find that `rss-varbvsr` is equivalent to `varbvs` if and only if
 
 1. the variance of phenotype is the same as residual variance `sigma.^2`;
 2. the input LD matrix `R` is the same as the sample correlation matrix of cohort genotypes `X`.
 
-Interestingly, these two assumptions are exactly the same assumptions
-in Proposition 2.1 of [Zhu and Stephens (*Ann. Appl. Stat.*, 2017)][]
-that guarantees that the RSS likelihood is equivalent to the regression likelihood for individual-level data.
+Reassuringly, these two assumptions are exactly the same
+assumptions in Proposition 2.1 of [Zhu and Stephens (2017)][]
+that guarantees that the RSS likelihood is equivalent to
+the regression likelihood for individual-level data.
 
 These two assumptions are implemented as follows.
 
@@ -183,12 +187,10 @@ bf_r = exp(logw_er-logw_nr);
 
 **Step 8**. Compare VB output from `varbvs` and `rss-varbvsr`.
 
-Both `varbvs` and `rss-varbvsr` output an estimated posterior distribution of `beta`
-(the multiple regression coefficients, or, the multiple-SNP effect sizes).
+Both `varbvs` and `rss-varbvsr` output an estimated posterior distribution of
+$$\boldsymbol\beta$$ (multiple regression coefficients, or, multiple-SNP effect sizes).
 Specifically, both estimated distributions have the following analytic form
-(Equations 6-7 in [Carbonetto and Stephens (*Bayesian Anal.*, 2012)][]).
-
-![](images/varbvs_output.png)
+(Equations 6-7 in [Carbonetto and Stephens (2012)][]).
 
 Hence, it suffices to compare the estimated variational parameters `[alpha, mu, s]`,
 and the estimated Bayes factors based on the VB output.
@@ -233,12 +235,12 @@ What is the log-fold enrichment? 2
 What is the pve (between 0 and 1)? 0.3
 ``` 
 
-![](images/rss_example4_rep100.png)
+<img src="images/rss_example4_rep100.png" width="600">
 
 --------
 
 **Footnotes:**
 
 1. Currently these files are locked, since they contain individual-level genotypes
-from Wellcome Trust Case Control Consortium (WTCCC, https://www.wtccc.org.uk/).
+from Wellcome Trust Case Control Consortium (WTCCC, <https://www.wtccc.org.uk/>).
 You need to get permission from WTCCC before we can share these files with you.
