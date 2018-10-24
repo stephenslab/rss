@@ -1,5 +1,5 @@
-[Zhu and Stephens (*Ann. Appl. Stat.*, 2017)]: https://projecteuclid.org/euclid.aoas/1507168840
-[`example1.m`]: https://github.com/stephenslab/rss/blob/master/examples/example1.m
+[Zhu and Stephens (2017)]: https://projecteuclid.org/euclid.aoas/1507168840
+[example1.m]: https://github.com/stephenslab/rss/blob/master/examples/example1.m
 
 # Example 1: Fit RSS models via MCMC, and estimate SNP heritability (PVE).
 
@@ -7,29 +7,29 @@
 
 This example illustrates how to fit RSS models using MCMC
 algorithms. Three types of prior distributions are considered:
-BVSR in [Guan and Stephens (*Ann. Appl. Stat.*, 2011)](https://projecteuclid.org/euclid.aoas/1318514285),
-BSLMM in [Zhou, Carbonetto and Stephens (*PLoS Genet.*, 2013)](https://doi.org/10.1371/journal.pgen.1003264),
-and ASH in [Stephens (*Biostatistics*, 2017)](https://doi.org/10.1093/biostatistics/kxw041).
+BVSR in [Guan and Stephens (2011)](https://projecteuclid.org/euclid.aoas/1318514285),
+BSLMM in [Zhou, Carbonetto and Stephens (2013)](https://doi.org/10.1371/journal.pgen.1003264),
+and ASH in [Stephens (2017)](https://doi.org/10.1093/biostatistics/kxw041).
 The MCMC output is further used to estimate the SNP heritability.
-This example is closely related to Section 4.2 of [Zhu and Stephens (*Ann. Appl. Stat.*, 2017)][]. 
+This example is closely related to Section 4.2 of [Zhu and Stephens (2017)][]. 
 
 ## Details 
 The single-SNP summary-level data are computed from a simulated GWAS dataset.
-The GWAS data are simulated under the Scenario 2.1 in [Zhu and Stephens (*Ann. Appl. Stat.*, 2017)][].
+The GWAS data are simulated under the Scenario 2.1 in [Zhu and Stephens (2017)][].
 Specifically, 100 "causal" SNPs are randomly drawn from 12758 SNPs on chromosome 16,
-with effect sizes coming from standard normal N(0,1).
+with effect sizes coming from standard normal $${\cal N}(0,1)$$.
 Effect sizes of remaining SNPs are zero. The true PVE (SNP heritability) is 0.2.
 
-To reproduce results of Example 1, please read the step-by-step guide below and run [`example1.m`][].
-Before running [`example1.m`][], please make sure the
-[MCMC subroutines](https://github.com/stephenslab/rss/tree/master/src) are installed.
+To reproduce results of Example 1, please read the step-by-step guide below and run [example1.m][].
+Before running [example1.m][], please first install the
+[MCMC subroutines](https://github.com/stephenslab/rss/tree/master/src).
 Please find installation instructions [here](RSS-via-MCMC).
 
 ## Step-by-step illustration
 
 **Step 1**.
 Download the simulated single-SNP summary-level data
-[`example1.mat`](https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example1/).
+[example1.mat](https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example1/).
 Please contact me if you have trouble accessing this file.
 
 The data file `example1.mat` contains the following elements.
@@ -46,10 +46,12 @@ The other two quantities, `bwd` and `BR`, are only used in SNP heritability calc
 
 **Step 2**. Check the "small effects" model assumption.
 
-Using single-SNP summary data, we can compute squared sample correlation between phenotype and each SNP,
-and then check the "small effect" assumption by looking at these marginal squared correlation values
-(please see Table 1 of [Zhu and Stephens (*Ann. Appl. Stat.*, 2017)][] for more details).
-The following code illustrates the "small effect" check in [`example1.m`][]<sup>1</sup>.
+Using single-SNP summary data, we can compute squared
+sample correlation between phenotype and each SNP,
+and then check the "small effect" assumption by
+looking at these marginal squared correlation values
+(please see Table 1 of [Zhu and Stephens (2017)][] for more details).
+The following code illustrates the "small effect" check in [example1.m][]<sup>1</sup>.
 
 ```matlab            
 >> chatsqr = (betahat(:).^2) ./ (Nsnp(:).*(se(:).^2) + betahat(:).^2);
@@ -59,7 +61,7 @@ The following code illustrates the "small effect" check in [`example1.m`][]<sup>
 
 Since our data are generated from genotypes of a single chromosome,
 the simulated effect sizes per SNP are larger than would be expected in a typical GWAS
-(Table 1 [Zhu and Stephens (*Ann. Appl. Stat.*, 2017)][]).
+(see Table 1 [Zhu and Stephens (2017)][]).
 
 **Step 3**. Fit RSS-BVSR, RSS-BSLMM and RSS-ASH models via MCMC.
 
@@ -98,7 +100,7 @@ end
 ```
 
 Recall that the SNP heritability estimator (Equation 3.8 of
-[Zhu and Stephens (*Ann. Appl. Stat.*, 2017)][]) involves vector-matrix-vector product.
+[Zhu and Stephens (2017)][]) involves vector-matrix-vector product.
 To speed calculation, we exploit the banded structure of `R` and use the banded version
 of vector-matrix-vector product implemented in `lapack`.
 Hence, the banded storage `BR`, instead of the original form `R`, is used to calculate SNP heritability.
@@ -115,20 +117,22 @@ and the total computational time (including MCMC iterations and PVE calculations
 | RSS-BSLMM | 0.216 [0.136, 0.306] | 2.52 hours |
 | RSS-ASH   | 0.197 [0.114, 0.286] | 6.69 hours |
 
-The following histograms depict the posterior distributions of estimated SNP heritability under these three models.
+The following histograms show the posterior distributions
+of estimated SNP heritability under these three models.
+
 ![example1_pve](images/rss_example1_pve.png)
 
 ## More simulations
 
-Simulations in Section 4.2 of [Zhu and Stephens (*Ann. Appl. Stat.*, 2017)][]
+Simulations in Section 4.2 of [Zhu and Stephens (2017)][]
 are essentially "replications" of the example above.
 To facilitate reproducible research, we make the simulated datasets
-for Scenarios 2.1 and 2.2 in Section 4.2 of [Zhu and Stephens (*Ann. Appl. Stat.*, 2017)][]
-available ([`rss_example1_simulations.tar.gz`](https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example1/readme))<sup>2</sup>.
+for Scenarios 2.1 and 2.2 in Section 4.2 of [Zhu and Stephens (2017)][] available
+([rss_example1_simulations.tar.gz](https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example1/readme))<sup>2</sup>.
 
 Each simulated dataset contains three files: `genotype.txt`, `phenotype.txt` and `simulated_data.mat`.
 The files `genotype.txt` and `phenotype.txt` are the genotype and phenotype files for
-[`GEMMA`](https://github.com/xiangzhou/GEMMA).
+[GEMMA](https://github.com/xiangzhou/GEMMA).
 The file `simulated_data.mat` contains three cells.
 
 ```matlab
@@ -165,12 +169,12 @@ we obtain the following PVE estimation results.
 
 **Footnotes:**
 
-1. The function [`prctile`](http://www.mathworks.com/help/stats/prctile.html)
-used in [`example1.m`][] requires the [Statistics and Machine Learning Toolbox](http://www.mathworks.com/help/stats/index.html).
+1. The function [prctile](http://www.mathworks.com/help/stats/prctile.html)
+used in [example1.m][] requires the [Statistics and Machine Learning Toolbox](http://www.mathworks.com/help/stats/index.html).
 Please see this [commit](https://github.com/stephenslab/rss/pull/3/commits/566e149ed840a913bfef9c0d7bf82feb41d6735d)
 (courtesy of Dr. [Dr. Peter Carbonetto](https://pcarbo.github.io/))
 if this required toolbox is not available in your environment.
 
 2. Currently these files are locked, since they contain individual-level genotypes
-from Wellcome Trust Case Control Consortium (WTCCC, https://www.wtccc.org.uk/).
+from Wellcome Trust Case Control Consortium (WTCCC, <https://www.wtccc.org.uk/>).
 You need to get permission from WTCCC before we can share these files with you.  
