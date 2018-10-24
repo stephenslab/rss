@@ -21,16 +21,23 @@ the covariates are the genotypes typed at different genetic variants
 the response is the quantitative phenotype (e.g. height or blood lipid level),
 and the regression coefficients are the effects of each SNP on phenotype.
 Due to privacy and logistical issues, the individual-level data are often not easily available.
-In contrast, the GWAS summary statistics (from standard single-SNP analysis) are widely available in the public domain
+In contrast, the GWAS summary statistics (from standard single-SNP analysis)
+are widely available in the public domain
 (e.g. [GIANT](https://www.broadinstitute.org/collaboration/giant/index.php/GIANT_consortium_data_files)
 and [PGC](https://www.med.unc.edu/pgc/results-and-downloads/downloads)).
 Moreover, the correlation among covariates (genotypes of SNPs),
-known as [linkage disequilibrium](https://en.wikipedia.org/wiki/Linkage_disequilibrium), also can be obtained from public databases (e.g. the [1000 Genomes Project](http://www.1000genomes.org/home)). When the individual-level data are not available, can we perform "multiple-SNP" analysis using these public assets?
+known as [linkage disequilibrium](https://en.wikipedia.org/wiki/Linkage_disequilibrium),
+also can be obtained from public databases
+(e.g. the [1000 Genomes Project](http://www.1000genomes.org/home)).
+When the protected individual-level data are not available,
+can we perform "multiple-SNP" analysis using these public assets?
 
-Here we provide a generally-applicable framework for the multiple-SNP analyses using GWAS single-SNP summary data.
+Here we provide a generally-applicable framework for the
+multiple-SNP analyses using GWAS single-SNP summary data.
 Specifically, we introduce a “Regression with Summary Statistics” (RSS) likelihood,
 which relates the multiple regression coefficients to univariate regression results.
-We then combine the RSS likelihood with suitable priors to perform Bayesian inference for the regression coefficients.
+We then combine the RSS likelihood with suitable priors to
+perform Bayesian inference for the regression coefficients.
 
 ### License
 
@@ -52,16 +59,20 @@ Please see [LICENSE](LICENSE) for more details.
 
 ### Citation
 
-- **The Regression with Summary Statistics (RSS) likelihood** <br> Xiang Zhu and Matthew Stephens (2017).
+- **The Regression with Summary Statistics (RSS) likelihood** <br>
+Xiang Zhu and Matthew Stephens (2017).
 [Bayesian large-scale multiple regression with summary statistics from genome-wide association studies](http://stephenslab.uchicago.edu/assets/papers/Zhu2017.pdf).
 [*Annals of Applied Statistics* 11(3): 1561-1592](http://dx.doi.org/10.1214/17-AOAS1046).
 [[Supplementary Information](http://stephenslab.uchicago.edu/assets/papers/Zhu2017-supplement.pdf)] 
+[[Software](https://github.com/stephenslab/rss/tree/master/src)]
 
-- **RSS-E: Enrichment and prioritization analysis based on RSS likelihood** <br> Xiang Zhu and Matthew Stephens (2018).
+- **RSS-E: Enrichment and prioritization analysis based on RSS likelihood** <br>
+Xiang Zhu and Matthew Stephens (2018).
 [Large-scale genome-wide enrichment analyses identify new trait-associated genes and pathways across 31 human phenotypes](https://www.nature.com/articles/s41467-018-06805-x.pdf).
 [*Nature Communications* 9, 4361](https://www.nature.com/articles/s41467-018-06805-x).
 [[Supplementary Information](https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-018-06805-x/MediaObjects/41467_2018_6805_MOESM1_ESM.pdf)]
 [[Online Results](https://xiangzhu.github.io/rss-gsea/)]
+[[Software](https://github.com/stephenslab/rss/tree/master/src_vb)]
 
 - Inferring genetic architecture of complex human traits based on RSS likelihood <br> TBA
 - Fast heritability estimation based on RSS likelihood, with correction for confounding <br> TBA
