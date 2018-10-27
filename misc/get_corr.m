@@ -6,7 +6,7 @@ function [R, BR] = get_corr(m, Ne, cummap, Hpanel, cutoff, isgeno)
 %	cummap: cumulative genetic map in cM, numSNP by 1
 %	Hpanel: the (phased) haplotypes from a reference panel, numIND by numSNP
 %	cutoff: the hard threshold for small entries being zero, scalar 
-%       isgeno: true if Hpanel is an unphased genotype matrix, logical
+%	isgeno: true if Hpanel is an unphased genotype matrix, logical
 % OUTPUT:
 %	R: the estimated LD matrix, numSNP by numSNP, sparse matrix
 %	BR: the banded storage of R, dense matrix
