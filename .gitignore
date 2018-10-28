@@ -8,6 +8,7 @@
 *.txt
 *.txt.gz
 *.mat
+*.spelling
 
 local/
 
