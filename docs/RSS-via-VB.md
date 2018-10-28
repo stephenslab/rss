@@ -1,6 +1,5 @@
-This page describes how to install the
-[MATLAB scripts](https://github.com/stephenslab/rss/tree/master/src_vb)
-that implement the VB algorithms for RSS.
+This page shows how to install the Variational Bayes (VB) scripts in
+[rss/src_vb/](https://github.com/stephenslab/rss/tree/master/src_vb).
 
 Step 1. Download the RSS repository: <https://github.com/stephenslab/rss>.
 
@@ -36,7 +35,7 @@ If you have trouble installing these scripts,
 please open an [issue](https://github.com/stephenslab/rss/issues) and
 tell us the details of your compiling environment.
 
-### MEX files in MATLAB
+## MEX files in MATLAB
 
 The tricky part of this installation is to compile MEX files in MATLAB.
 

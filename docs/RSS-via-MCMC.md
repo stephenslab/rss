@@ -1,6 +1,7 @@
-This page describes how to install the [MATLAB scripts](https://github.com/stephenslab/rss/tree/master/src) that implement the MCMC algorithms to fit the RSS models.
+This page shows how to install the Monte Carlo Markov chain (MCMC) scripts
+in [rss/src/](https://github.com/stephenslab/rss/tree/master/src).
 
-Step 1. Download the [RSS repository](https://github.com/stephenslab/rss).
+Step 1. Download the RSS repository: <https://github.com/stephenslab/rss>.
 ```
 wget https://github.com/stephenslab/rss/archive/master.zip
 unzip master.zip
