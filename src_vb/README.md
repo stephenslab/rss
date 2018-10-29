@@ -1,2 +1,4 @@
 - Publication: https://doi.org/10.1038/s41467-018-06805-x
 - Online results: http://xiangzhu.github.io/rss-gsea
+- Pre-processed gene sets: https://github.com/xiangzhu/rss-gsea/tree/master/data
+- Gene set README: https://xiangzhu.github.io/rss-gsea/gene_set.html  
