@@ -15,7 +15,7 @@ genome-wide association study (GWAS) summary statistics and
 estimated linkage disequilibrium (LD) matrices, which were
 created and analyzed in the following publication.
 
-> Zhu, Xiang; Stephens, Matthew. Bayesian large-scale multiple regression with summary statistics from genome-wide association studies. Ann. Appl. Stat. 11 (2017), no. 3, 1561--1592. doi:10.1214/17-AOAS1046. <https://projecteuclid.org/euclid.aoas/1507168840>
+### Zhu, Xiang; Stephens, Matthew. Bayesian large-scale multiple regression with summary statistics from genome-wide association studies. Ann. Appl. Stat. 11 (2017), no. 3, 1561--1592. doi:10.1214/17-AOAS1046. <https://projecteuclid.org/euclid.aoas/1507168840>
 
 This dataset is publicly available at <https://doi.org/10.5281/zenodo.1443565>,
 and can be referenced in a journal's "Data availability" section as
