@@ -1,5 +1,7 @@
 # Regression with Summary Statistics (RSS)
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1473797.svg)](https://doi.org/10.5281/zenodo.1473797)
+
 ### Overview
 
 Multiple regression analyses often assume that the response and
