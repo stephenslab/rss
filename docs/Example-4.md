@@ -31,9 +31,9 @@ This example serves as a sanity check for our theoretical work.
 The GWAS individual-level and summary-level data are simulated by [enrich_datamaker.m][],
 which contains an enrichment signal of a target gene set.
 Specifically, SNPs outside the target gene set are selected
-to be causal ones with log10 odds ratio $$theta_0$$,
+to be causal ones with log10 odds ratio $$\theta_0$$,
 whereas SNPs inside this gene set are selected with a higher
-log10 odds ratio $$theta_0+theta$$ (with $$theta>0$$).
+log10 odds ratio $$\theta_0+\theta$$ ($$\theta>0$$).
 For more details, see [Supplementary Figure 1][] of [Zhu and Stephens (2018)][]. 
 
 Next, we feed the simulated individual-level and summary-level data to
@@ -235,7 +235,7 @@ What is the log-fold enrichment? 2
 What is the pve (between 0 and 1)? 0.3
 ``` 
 
-<img src="images/rss_example4_rep100.png" width="600">
+<img src="images/rss_example4_rep100.png" width="800">
 
 --------
 
