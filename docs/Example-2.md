@@ -14,21 +14,20 @@ This example is closely related to Section 4.1 of [Zhu and Stephens (2017)][].
 ## Details
 
 The single-SNP summary-level data are computed from a simulated GWAS dataset.
-The simulation scheme is described in Section 4.1 [Zhu and Stephens (*Ann. Appl. Stat.*, 2017)][].
+The simulation scheme is described in Section 4.1 [Zhu and Stephens (2017)][].
 Specifically, 10 "causal" SNPs are randomly drawn from 982 SNPs on chromosome 16,
 with effect sizes coming from standard normal $${\cal N}(0,1)$$.
 Effect sizes of remaining SNPs are zero. The true PVE (SNP heritability) is 0.2.
 
 Three types of LD estimates are considered:
 
-- cohort sample LD:<br>
-the sample correlation matrix using genotypes in the cohort (WTCCC UK Blood Service Control Group)
-- shrinkage panel sample LD:<br>
-the shrinkage correlation matrix
+- cohort sample LD: the sample correlation matrix using genotypes in the cohort (WTCCC UK Blood Service Control Group)
+
+- shrinkage panel sample LD: the shrinkage correlation matrix
 ([Wen and Stephens, 2010](https://www.ncbi.nlm.nih.gov/pubmed/21479081))
 using genotypes in the panel (WTCCC 1958 British Birth Cohort) 
-- panel sample LD:<br>
-the sample correlation matrix using genotypes in the panel (WTCCC 1958 British Birth Cohort) 
+
+- panel sample LD: the sample correlation matrix using genotypes in the panel (WTCCC 1958 British Birth Cohort) 
 
 To reproduce results of Example 2, please read the step-by-step guide below and run [example2.m][].
 Before running [example2.m][], please first install the
@@ -69,8 +68,7 @@ The data file `example2.mat` contains the following elements.
 
 The simulations in Section 4.1 of [Zhu and Stephens (2017)][]
 are essentially "replications" of the example above. To facilitate reproducible research,
-we make the simulated datasets in Section 4.1 available
-([rss_example2_data_*.tar.gz](https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example2/readme))<sup>1</sup>.
+we make the simulated datasets in Section 4.1 [available](https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example2/readme)<sup>1</sup>.
 
 Each simulated dataset contains three files:
 `genotype.txt`, `phenotype.txt` and `simulated_data.mat`.
@@ -94,15 +92,15 @@ we obtain the following results.
 
 ### True PVE = 0.2
 
-<img src="images/LD1.png" width="600">
+<img src="images/LD1.png" width="800">
 
 ### True PVE = 0.02
 
-<img src="images/LD2.png" width="600">
+<img src="images/LD2.png" width="800">
 
 ### True PVE = 0.002
 
-<img src="images/LD3.png" width="600">
+<img src="images/LD3.png" width="800">
 
 --------
 
