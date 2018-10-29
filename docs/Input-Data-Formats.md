@@ -3,41 +3,44 @@
 ## GWAS summary statistics
 
 This section is modified from Box 1 of
-[Winkler *et al.* (2014)](https://www.ncbi.nlm.nih.gov/pubmed/24762786).   
+[Winkler (2014)](https://www.ncbi.nlm.nih.gov/pubmed/24762786).   
 
 The following columns are **required** for any RSS analysis:
 
 - `snp`: identifier of genetic variant, character string such as `rs12498742`; 
-- `chr`: chromosome number of genetic variant, a character string from `chr1`, `chr2` ... `chr22`, `chrX`, `chrY`;
-- `pos`: physical position, in base pair, of genetic variant, an integer;
-- `a1`: allele associated with the trait (corresponding to the regression coefficient), a single upper case character `A`, `C`, `G` or `T`;
+- `chr`: chromosome number of genetic variant such as `chr1`,...,`chr22`, `chrX`, `chrY`;
+- `pos`: physical position, in base pair, of genetic variant;
+- `a1`: allele associated with the trait, a single upper case character `A`, `C`, `G` or `T`;
 - `a2`: the other (non-effect) allele, a single upper case character `A`, `C`, `G` or `T`;
-- `betahat`: estimated effect size of genetic variant under the single-marker model, numeric;
-- `se`: estimated standard error of `betahat`, numeric.    
+- `betahat`: estimated effect size of genetic variant under the single-marker model;
+- `se`: estimated standard error of `betahat`.    
 
 The following columns are optional, but they can be very helpful for sanity checks:
 
 - `strand`: strand on which the alleles are reported, a single character `-` or `+`;
-- `n`: number of individuals analyzed (a.k.a. sample size) for the genetic variant, an integer;
+- `n`: number of individuals analyzed (a.k.a. sample size) for the genetic variant;
 - `maf`: minor allele frequency, numeric between 0 and 1;
 - `p`: p-value of genetic variant association, numeric between 0 and 1;
 - `info`: other information about genetic variants.
 
-It is very **important** to make sure that `[a1, betahat, se]` are perfectly aligned. Here is a toy example.
+It is very **important** to make sure that `[a1, betahat, se]` are perfectly matched.
+Below is a toy example.
+Consider two SNPs (`rs1`, `rs2`) and four individuals (`i1`, `i2`, `i3`, `i4`):
 
-> Consider two SNPs (`rs1`, `rs2`) and four individuals (`i1`, `i2`, `i3`, `i4`):
-> ```
-> IND, i1, i2, i3, i4
-> rs1, AT, TT, AT, AA
-> rs2, CG, CC, GG, GC 
-> ```
-> If the effect alleles (`a1`) of these two SNPs are `A` and `G` respectively, then the genotype data of `rs1` are `X[, 1]=[1, 0, 1, 2]`, and the genotype data of `rs2` are `X[, 2]=[1, 0, 2, 1]`. Further, the single-SNP summary statistics of `rs1` and `rs2` are given by:
-> ```
-> (betahat[1], se[1]) <- single.SNP.model(y, X[, 1])
-> (betahat[2], se[2]) <- single.SNP.model(y, X[, 2])
-> ```
+```
+IND, i1, i2, i3, i4
+rs1, AT, TT, AT, AA
+rs2, CG, CC, GG, GC 
+```
 
-Finally, when providing `chr` and `pos` columns, please explicitly specify the [assembly releases and versions](https://genome.ucsc.edu/FAQ/FAQreleases.html) of human genome. If 1000 Genomes Project Phase 3 data are used to estimate LD, please provide `chr` and `pos` columns based on UCSC hg19/GRCh37.   
+If the effect alleles (`a1`) of these two SNPs are `A` and `G` respectively, then the genotype data of `rs1` are `X[, 1]=[1, 0, 1, 2]`, and the genotype data of `rs2` are `X[, 2]=[1, 0, 2, 1]`. Further, the single-SNP summary statistics of `rs1` and `rs2` are given by:
+
+```
+(betahat[1], se[1]) <- single.SNP.model(y, X[, 1])
+(betahat[2], se[2]) <- single.SNP.model(y, X[, 2])
+```
+
+Finally, when providing `chr` and `pos` columns, please explicitly specify the [assembly releases and versions](https://genome.ucsc.edu/FAQ/FAQreleases.html) of human genome. For example, if 1000 Genomes Project Phase 3 data are used to estimate LD, please ensure that `chr` and `pos` columns are based on UCSC hg19/GRCh37.   
 
 ## LD matrix estimates
 
@@ -45,7 +48,7 @@ All RSS methods to date also require the input of an estimated LD matrix.
 
 The LD estimates are often derived from the phased haplotype data from [1000 Genomes Project Phase 3 data](http://www.internationalgenome.org/data). Because the 1000 Genomes data are publicly available, the LD estimates only require the list of genetic variants, their physical positions and their effect alleles (i.e. `[snp, chr, pos, a1]` from the summary statistics file).
 
-If there are some internal genotype data that can be used to estimate LD matrix, please organize the genotype data in the same format as 1000 Genomes Phase 3 data:<br>[`ALL.chr${chrid}.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz`](ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/)<br>Again, make sure that the physical positions and effect alleles of the internal genotype data are consistent with `[chr, pos, a1]` provided in the GWAS summary statistics file.
+If there are some internal genotype data that can be used to estimate LD matrix, please organize the genotype data in the same VCF format as [1000 Genomes Phase 3 data](ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/). Again, make sure that the physical positions and effect alleles of the internal genotype data are consistent with `[chr, pos, a1]` provided in the GWAS summary statistics file.
 
 ## Genomic annotations
 
