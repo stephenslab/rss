@@ -12,7 +12,7 @@ between SNPs $$i$$ and $$j$$ using HapMap genetic map.
 
 We take six SNPs in chromosome 22 from HapMap CEU Phase 2,
 with the genetic map shown below.
-We also get the effective diploid population size `Ne=11418`
+We also get the effective diploid population size $$N_e=11418$$
 from [IMPUTE](https://mathgen.stats.ox.ac.uk/impute/impute_v1.html) software document.
 
 ```r
@@ -28,14 +28,16 @@ from [IMPUTE](https://mathgen.stats.ox.ac.uk/impute/impute_v1.html) software doc
 To compute recombination rates from two SNPs,
 we use the following formula from [Li and Stephens (2003)][]:
 
-> $$\rho$$ = 4 * effective diploid population size * genetic distance
+$$
+\rho = 4 \times \text{effective diploid population size} \times \text{genetic distance}.
+$$
 
 For example,
 
-- $$\rho_23$$ = 4 * 11418 * (0.01847159-0.01029128)/100;
-- $$\rho_26$$ = 4 * 11418 * (0.02732511-0.01029128)/100.
+- $$\rho_{23}$$ = 4 * 11418 * (0.01847159-0.01029128)/100;
+- $$\rho_{26}$$ = 4 * 11418 * (0.02732511-0.01029128)/100.
 
-As a validation, we compare our calculations above with the results provided by
+As a validation, we compare our calculations above with the results from
 [BLIMP](http://stephenslab.uchicago.edu/software_pages/blimp/index.html)
 ([Wen and Stephens, 2010](https://www.ncbi.nlm.nih.gov/pubmed/21479081)).
 
