@@ -10,10 +10,10 @@ This example illustrates how to perform enrichment and prioritization analysis o
 GWAS summary statistics based on variational Bayes (VB) inference of RSS-BVSR model.
 This example consists of:
 
-- [Part A](Example-5A): enrichment and prioritization analysis of
-a synthetic dataset used in simulation studies of [Zhu and Stephens (2018)][];
-- [Part B](Example-5B): enrichment and prioritization analysis of
-inflammatory bowel disease GWAS summary statistics
+- [Part A](Example-5A): analysis of a synthetic dataset used
+in simulation studies of [Zhu and Stephens (2018)][];
+
+- [Part B](Example-5B): analysis of inflammatory bowel disease GWAS summary statistics
 [(Liu et al, 2015)](https://www.ncbi.nlm.nih.gov/pubmed/26192919)
 and a gene set named *IL23-mediated signaling events* (Pathway Commons 2, PID, 37 genes).
 
@@ -32,6 +32,7 @@ As shown above, RSS fits two models for the enrichment and prioritization analys
 
 1. Baseline model ($$M_0$$): SNPs across the whole genome are equally
 likely to be associated with the phenotype of interest. 
+
 2. Enrichment model ($$M_1$$): SNPs "inside" a gene set are more likely
 (i.e. "enriched") to be associated with a target phenotype than remaining SNPs.
 
@@ -56,15 +57,9 @@ To perform similar analysis of GWAS individual-level data,
 please see <https://github.com/pcarbo/bmapathway>.
 
 To reproduce results of Example 5,
-please use scripts in the directory [example5][],
-and follow the step-by-step guide below.
-
-- Part A: <http://stephenslab.github.io/rss/Example-5A>
-- Part B: <http://stephenslab.github.io/rss/Example-5B>
-
-Before running either part, please make sure the
+please use scripts in the directory [example5][].
+Before running the scripts, please make sure the
 [VB subroutines](https://github.com/stephenslab/rss/tree/master/src_vb)
 of RSS are installed. Please find installation instructions [here](RSS-via-VB).
-
 It is advisable to go through the simulated example ([Part A](Example-5A))
 before diving into the real data example ([Part B](Example-5B)).

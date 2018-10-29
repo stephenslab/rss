@@ -231,7 +231,7 @@ The second group consists of estimated variational parameters
 where `alpha(:,i,j)` & `mu(:,i,j)` & `s(:,i,j)` correspond to
 estimation under the hyper-parameter setting `[h, theta0(i), theta(j)]`.
 Note that these variational parameter estimates can be further
-used to priortize genes within an enriched pathway; please see the next section.
+used to prioritize genes within an enriched pathway; please see the next section.
 
 The third group consists of estimated variational lower bounds under the
 baseline (`logw0`) and enrichment (`logw1`) model,
@@ -304,7 +304,7 @@ The results of prioritizing pathway genes are saved as [ibd2015_path2641_genes_r
 
 Similar to [Example 5 Part A](Example-5A),
 `[b/e]_p_[1/2]` denotes the posterior probability of each locus
-(gene with 100 kb windown) containing at lease 1/2
+(gene with 100 kb window) containing at lease 1/2
 trait-associated SNPs under the baseline/enrichment model.
 
 We can easily load the gene-level results in R as follows:
