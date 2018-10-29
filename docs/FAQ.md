@@ -7,7 +7,7 @@ layout: default
 [get_corr.m]: https://github.com/stephenslab/rss/blob/master/misc/get_corr.m
 [Nick]: https://github.com/CreRecombinase
 [rssr]: https://github.com/stephenslab/rssr
-[LDshrink]: https://github.com/stephenslab/LDshrink
+[ldshrink]: https://github.com/stephenslab/ldshrink
 [Zhu and Stephens (2017)]: https://projecteuclid.org/euclid.aoas/1507168840 
 [Zhu and Stephens (2018)]: https://www.nature.com/articles/s41467-018-06805-x
 [ash_lrt_31traits.R]: https://github.com/stephenslab/rss/blob/master/misc/ash_lrt_31traits.R
@@ -50,7 +50,7 @@ gene-level association methods built on RSS, with input and output files include
 Since this example is based on a relatively small simulation,
 it is highly recommended to run the codes and see how the methods work.
 
-#### Q: Can I use the priortization component of [Zhu and Stephens (2018)][] as a generic gene-level associtation testing method, assuming that I do not have any gene set information available?
+#### Q: Can I use the prioritization component of [Zhu and Stephens (2018)][] as a generic gene-level association testing method, assuming that I do not have any gene set information available?
 
 A: Yes. When gene set information is not available, one can only fit a baseline model and obtain corresponding gene-level results. Indeed Figure 3 Panel A of [Zhu and Stephens (2018)][] illustrates a possible use scenario like this.  
 
@@ -73,7 +73,7 @@ Please see Section 2.4 of [Wen and Stephens (2010)][] for more details.
 
 A: Yes. If you have MATLAB available, you can use [get_corr.m][].
 If you prefer open source language such as R, [Nick][] and I are working
-on an R package [LDshrink][] that can produce the banded LD matrix.
+on an R package [ldshrink][] that can produce the banded LD matrix.
 
 ## Preprocessed data
 
