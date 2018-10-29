@@ -5,7 +5,7 @@
 
 ## Overview
 
-This example illustrates the impact of two definitions of `se` on RSS.
+This example illustrates the impact of different definitions of standard error (`se`) on RSS.
 This example is closely related to Section 2.1 of [Zhu and Stephens (2017)][].
 
 The "simple" version of `se` is the standard error of single-SNP effect estimate,
@@ -15,23 +15,31 @@ The "rigorous" version of `se` is used in theoretical derivations of RSS
 and it requires some basic calculations based on commonly available summary data.
 
 Specifically, the "simple" version of `se` is given by
+
 $$
 \hat{\sigma}_j^2 = (n{\bf X}_j^\prime {\bf X}_j)^{-1} \cdot ({\bf y}-{\bf X}_j\hat{\beta}_j)^\prime ({\bf y}-{\bf X}_j\hat{\beta}_j),
 $$
+
 and the "rigorous" version is given by
+
 $$
 \hat{s}_j^2=(n{\bf X}_j^\prime {\bf X}_j)^{-1} \cdot ({\bf y}^\prime{\bf y}).
 $$
+
 The relation between these two versions is as follows
+
 $$
 \hat{s}_j^2=\hat{\sigma}_j^2 + n^{-1}\cdot \hat{\beta}_j^2.
 $$
 
-In practice, we find these two definitions differ negligibly, mainly because
+Note that $$\hat{s}_j^2\approx\hat{\sigma}_j^2$$ when $$n$$ is large
+and/or $$\hat{\beta}_j^2$$ is small.
 
-1. recent GWAS have large sample size (`Nsnp`) and small effect sizes (`betahat`);
-see Table 1 of [Zhu and Stephens (2017)][];
-2. published summary data are often rounded to two digits to
+In practice, we find these two definitions differ negligibly, mainly because
+i) recent GWAS have large sample size ($$n$$, `Nsnp`)
+and small effect sizes ($$\hat{\beta}_j$$, `betahat`)
+(Table 1 of [Zhu and Stephens (2017)][]);
+and ii) published summary data are often rounded to two digits to
 further limit the possibility of identifiability
 (e.g. [GIANT](http://portals.broadinstitute.org/collaboration/giant/index.php/GIANT_consortium_data_files#GIANT_consortium_2012-2015_GWAS_Metadata_is_Available_Here_for_Download)). 
 
@@ -86,7 +94,7 @@ We can look at the posterior means of `beta`,
 and posterior distributions of `h`, `log(pi)` and PVE
 based on `se_1` (blue) and `se_2` (orange).
 
-![](images/rss_example3_posterior.png)
+<img src="images/rss_example3_posterior.png" width="800">
 
 The PVE estimate (with 95% credible interval) is 0.1932, [0.1166, 0.2869] when using `se_1`,
 and it is 0.1896, [0.1162, 0.2765] when using `se_2`.
@@ -104,11 +112,11 @@ we obtain the following results, where
 
 ### PVE estimation
 
-![](images/twose_pve.png)
+<img src="images/twose_pve.png" width="800">
 
 ### Association detection
 
-![](images/twose_pip.png)
+<img src="images/twose_pip.png" width="800">
 
 --------
 
