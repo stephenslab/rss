@@ -151,19 +151,19 @@ we obtain the following PVE estimation results.
 
 ### Scenario 2.1 (sparse), True PVE = 0.2
 
-<img src="images/pve2sparse_1.png" width="600">
+<img src="images/pve2sparse_1.png" width="400">
 
 ### Scenario 2.1 (sparse), True PVE = 0.6
 
-<img src="images/pve2sparse_2.png" width="600">
+<img src="images/pve2sparse_2.png" width="400">
 
 ### Scenario 2.2 (polygenic), True PVE = 0.2
 
-<img src="images/pve2polygenic_1.png" width="600">
+<img src="images/pve2polygenic_1.png" width="400">
 
 ### Scenario 2.2 (polygenic), True PVE = 0.6 
 
-<img src="images/pve2polygenic_2.png" width="600">
+<img src="images/pve2polygenic_2.png" width="400">
 
 --------
 
