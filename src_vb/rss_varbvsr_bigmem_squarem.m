@@ -153,8 +153,8 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_bigmem_squarem(file, sigb, logo
   loglik = [loglik; lnZ]; 
 
   if verbose
-    fprintf('       variational    max. incl max.       \n');
-    fprintf('iter   lower bound  change vars E[b] sigma2\n');
+    fprintf('       variational    max. incl max.\n');
+    fprintf('iter   lower bound  change vars E[b]\n');
   end
 
   % Repeat until convergence criterion is met. 
