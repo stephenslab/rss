@@ -26,7 +26,7 @@ I am currently working on an R package [rssr][]
 with [Nick][] (Nicholas Knoblauch) in my spare time.
 Comments and suggestions are welcome!
 
-## RSS methods & applications
+## Statistical methods
 
 #### Q: If I want to use RSS methods, how should I prepare for the input data?
 
@@ -35,6 +35,17 @@ To help you prepare your own data for RSS-based analyses,
 I write a short [tutorial](Input-Data-Formats) about input data formats.
 Please note that you need to store your input data in MAT-files if
 you plan to use the MATLAB implementation of RSS methods.
+
+#### Q: The following distribution is frequently used in both [Zhu and Stephens (2018)][] and [Zhu and Stephens (2017)][]: $$\beta_j \sim \pi_j\cdot{\cal N}(0,\sigma_j^2) + (1-\pi_j)\cdot\delta_0$$. How do you simulate samples from this distribution?
+
+A: This is a mixture of a normal distribution $${\cal N}(0,\sigma_j^2)$$
+and a point mass at zero $$\delta_0$$.
+To simulate numbers from this mixture distribution,
+I first simulate a latent variable $$\gamma_j$$ from a Bernoulli
+distribution which takes the value 1 with probability $$\pi_j$$.
+If $$\gamma_j=1$$, I draw the value of $$\beta_j$$ from
+the normal distribution $${\cal N}(0,\sigma_j^2)$$.
+If $$\gamma_j=0$$, I set $$\beta_j=0$$.
 
 #### Q: [Zhu and Stephens (2018)][] described a simple likelihood ratio calculation as a sanity check for the more sophisticated enrichment analysis based on RSS. Do you have software for this sanity check?
 
@@ -52,7 +63,11 @@ it is highly recommended to run the codes and see how the methods work.
 
 #### Q: Can I use the prioritization component of [Zhu and Stephens (2018)][] as a generic gene-level association testing method, assuming that I do not have any gene set information available?
 
-A: Yes. When gene set information is not available, one can only fit a baseline model and obtain corresponding gene-level results. Indeed Figure 3 Panel A of [Zhu and Stephens (2018)][] illustrates a possible use scenario like this.  
+A: Yes. When gene set information is not available,
+one can only fit a baseline model ($M_0:\theta=0$)
+and obtain corresponding gene-level results.
+Indeed Figure 3 Panel A of [Zhu and Stephens (2018)][]
+illustrates a possible use scenario like this.  
 
 ## Linkage disequilibrium (LD)
 
