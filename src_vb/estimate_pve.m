@@ -135,12 +135,12 @@ function pve = compute_pve(beta, betahat, se, R, nsam)
 % USAGE: compute PVE for a given 'beta' value from summary-level data
 % INPUT:
 %	beta: regression coefficients drawn from the variational posterior, C by 1 cell array
-%       betahat: effect size estimates under single-SNP model, C by 1 cell array
-%       se: standard errors of betahat, C by 1 cell array
+%	betahat: effect size estimates under single-SNP model, C by 1 cell array
+%	se: standard errors of betahat, C by 1 cell array
 %	R: estimated LD matrices, C by 1 cell array
 %	nsam: sample size of each SNP, C by 1 cell array
 % OUTPUT:
-%       pve: PVE value for the given 'beta' value, scalar
+%	pve: PVE value for the given 'beta' value, scalar
 
   % preallocate output
   num_cell = length(beta);
