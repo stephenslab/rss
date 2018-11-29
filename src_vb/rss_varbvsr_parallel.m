@@ -12,6 +12,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_parallel(betahat, se, SiRiS, si
 %               - tolerance: scalar, convergence tolerance
 %               - alpha & mu: p by 1 vectors, initial values of variational parameters
 %               - verbose: logical, print program progress if true
+%               - elbo_tol: scalar, stop iteration when ELBO increase is below this value
 % OUTPUT:
 %       lnZ: scalar, variational lower bound of the marginal log likelihood (up to some constant)
 %       alpha: p by 1, variational estimates of the posterior inclusion probabilities 
@@ -44,6 +45,14 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_parallel(betahat, se, SiRiS, si
     tolerance = 1e-4;
   end
   fprintf('Tolerance for convergence in this program: %0.2e \n', tolerance);
+
+  % Optional: stop the variational updates when
+  % the increase in lower bound (ELBO) is small.
+  if isfield(options,'elbo_tol')
+    elbo_tol = double(options.elbo_tol);
+  else
+    elbo_tol = NaN;
+  end
 
   % Get the number of analyzed SNPs in the whole genome (p).
   p = length(cell2mat(betahat));
@@ -226,6 +235,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_parallel(betahat, se, SiRiS, si
       fprintf(repmat('\b',1,length(status)));
     end
 
+    % Terminate the for loop if ELBO decreases.
     if lnZ < lnZ0
 
       if verbose
@@ -237,6 +247,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_parallel(betahat, se, SiRiS, si
       lnZ   = lnZ0;
       break
 
+    % Terminate the for loop if variational parameters converge.
     elseif maxerr < tolerance
 
       alpha = cell2mat(alpha_cell);
@@ -244,6 +255,21 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_parallel(betahat, se, SiRiS, si
       if verbose
         fprintf('\n');
         fprintf('Convergence reached: maximum relative error %+0.2e\n',maxerr);
+        fprintf('The log variational lower bound of the last step increased by %+0.2e\n',lnZ-lnZ0);
+      end
+      break
+
+    end
+
+    % Optional: terminate the for loop if ELBO increases by a small value.
+    elbo_change = lnZ - lnZ0;
+    if ~isnan(elbo_tol) && elbo_change <= elbo_tol
+
+      alpha = cell2mat(alpha_cell);
+      mu    = cell2mat(mu_cell);
+      if verbose
+        fprintf('\n');
+        fprintf('Minimum ELBO increase reached: %+0.2e\n',elbo_change);
         fprintf('The log variational lower bound of the last step increased by %+0.2e\n',lnZ-lnZ0);
       end
       break
