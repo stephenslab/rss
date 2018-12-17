@@ -47,6 +47,10 @@ If $$\gamma_j=1$$, I draw the value of $$\beta_j$$ from
 the normal distribution $${\cal N}(0,\sigma_j^2)$$.
 If $$\gamma_j=0$$, I set $$\beta_j=0$$.
 
+#### Q: reduce time in 2017
+
+#### Q: reduce time in 2018
+
 #### Q: [Zhu and Stephens (2018)][] described a simple likelihood ratio calculation as a sanity check for the more sophisticated enrichment analysis based on RSS. Do you have software for this sanity check?
 
 A: Yes. I write a stand-alone script [ash_lrt_31traits.R][] for this sanity check.
