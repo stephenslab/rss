@@ -49,7 +49,11 @@ If $$\gamma_j=0$$, I set $$\beta_j=0$$.
 
 #### Q: reduce time in 2017
 
+A: shorten the length of MCMC chains.
+
 #### Q: reduce time in 2018
+
+A: relax the convergence threshold.
 
 #### Q: [Zhu and Stephens (2018)][] described a simple likelihood ratio calculation as a sanity check for the more sophisticated enrichment analysis based on RSS. Do you have software for this sanity check?
 
