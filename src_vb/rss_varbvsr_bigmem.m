@@ -244,10 +244,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_bigmem(file, sigb, logodds, opt
     % Terminate the for loop if ELBO decreases.
     if lnZ < lnZ0
 
-      if verbose
-        fprintf('\n');
-        fprintf('WARNING: the log variational lower bound decreased by %+0.2e\n',lnZ0-lnZ);
-      end
+      fprintf('\nWarning: log variational lower bound decreased by %+0.2e\n',lnZ0-lnZ);
       alpha = cell2mat(alpha0_cell);
       mu    = cell2mat(mu0_cell);
       lnZ   = lnZ0;
@@ -258,11 +255,8 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_bigmem(file, sigb, logodds, opt
 
       alpha = cell2mat(alpha_cell);
       mu    = cell2mat(mu_cell);
-      if verbose
-        fprintf('\n');
-        fprintf('Convergence reached: maximum relative error %+0.2e\n',maxerr);
-        fprintf('The log variational lower bound of the last step increased by %+0.2e\n',lnZ-lnZ0);
-      end
+      fprintf('\nConverged: maximum relative error %+0.2e\n',maxerr);
+      fprintf('Log variational lower bound of the last step increased by %+0.2e\n',lnZ-lnZ0);
       break
 
     end
@@ -273,11 +267,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_bigmem(file, sigb, logodds, opt
 
       alpha = cell2mat(alpha_cell);
       mu    = cell2mat(mu_cell);
-      if verbose
-        fprintf('\n');
-        fprintf('Minimum ELBO increase reached: %+0.2e\n',elbo_change);
-        fprintf('The log variational lower bound of the last step increased by %+0.2e\n',lnZ-lnZ0);
-      end
+      fprintf('\nConverged: log variational lower bound increased by %+0.2e\n',lnZ-lnZ0);
       break
 
     end
@@ -288,11 +278,8 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_bigmem(file, sigb, logodds, opt
 
       alpha = cell2mat(alpha_cell);
       mu    = cell2mat(mu_cell);
-      if verbose
-        fprintf('\n');
-        fprintf('Maximum wall time reached: %+0.2e seconds\n',exetime);
-        fprintf('The log variational lower bound of the last step increased by %+0.2e\n',lnZ-lnZ0);
-      end
+      fprintf('\nMaximum wall time reached: %+0.2e seconds\n',exetime);
+      fprintf('Log variational lower bound of the last step increased by %+0.2e\n',lnZ-lnZ0);
       break
 
     end
