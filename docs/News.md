@@ -1,5 +1,9 @@
 ## Progress Update
 
+### 01/10/2019
+
+The Research Computing Center at the University of Chicago wrote an [article](https://rcc.uchicago.edu/about-rcc/news-features/new-statistical-method-gives-second-life-gwas-data) on RSS likelihood and its application in enrichment-prioritization analyses.
+
 ### 10/19/2018
 
 The [article](https://www.nature.com/articles/s41467-018-06805-x) describing enrichment and prioritization analyses based on RSS likelihood was published in [*Nature Communications*](https://www.nature.com/articles/s41467-018-06805-x).
