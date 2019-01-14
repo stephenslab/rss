@@ -64,8 +64,8 @@ using a component-wise MCMC algorithm.
 
 Details of MCMC algorithms for [rss_bvsr.m][] and [rss_bslmm.m][] are
 available in Supplementary Appendix B of [Zhu and Stephens (2017)][]
-Details of [rss_ash.m][] are available
-[here](http://www.stat.uchicago.edu/~xiangzhu/rss_mcmc.pdf).
+Details of MCMC algorithms for [rss_ash.m][] are available in this
+[unpublished note](http://www.stat.uchicago.edu/~xiangzhu/rss_mcmc.pdf).
 Note that only [rss_bvsr.m][] and [rss_bslmm.m][] were used to
 generate results in [Zhu and Stephens (2017)][].   
 
