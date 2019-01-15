@@ -17,6 +17,7 @@ layout: default
 [rss_varbvsr_squarem.m]: https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_squarem.m
 [(Varadhan and Roland, 2008)]: https://doi.org/10.1111/j.1467-9469.2007.00585.x
 [rss_varbvsr_bigmem_squarem.m]: https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_bigmem_squarem.m
+[Parallel Computing Toolbox]: https://www.mathworks.com/help/distcomp/index.html
 
 # Markov chain Monte Carlo (MCMC)
 
@@ -96,11 +97,13 @@ accelerator [(Varadhan and Roland, 2008)][] added.
 
 ## [rss_varbvsr_parallel.m](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_parallel.m)
 
-This is a parallel implementation of [rss_varbvsr.m][].
+This is a parallel implementation of [rss_varbvsr.m][]
+based on MATLAB [Parallel Computing Toolbox][].
 
 ## [rss_varbvsr_pasquarem.m](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_pasquarem.m)
 
-This is a parallel implementation of [rss_varbvsr_squarem.m][].
+This is a parallel implementation of [rss_varbvsr_squarem.m][]
+based on MATLAB [Parallel Computing Toolbox][].
 
 ## [rss_varbvsr_bigmem.m](https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_bigmem.m)
 
