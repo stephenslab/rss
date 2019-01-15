@@ -66,7 +66,7 @@ using a component-wise MCMC algorithm.
 Details of MCMC algorithms for [rss_bvsr.m][] and [rss_bslmm.m][] are
 available in Supplementary Appendix B of [Zhu and Stephens (2017)][]
 Details of MCMC algorithms for [rss_ash.m][] are available in this
-[unpublished note](http://www.stat.uchicago.edu/~xiangzhu/rss_mcmc.pdf).
+[unpublished note](http://www.stat.uchicago.edu/~xiangzhu/rss_mcmc.pdf)<sup>1</sup>.
 Note that only [rss_bvsr.m][] and [rss_bslmm.m][] were used to
 generate results in [Zhu and Stephens (2017)][].   
 
@@ -191,3 +191,11 @@ Compute a simple likelihood ratio as a sanity check for the more
 complicated enrichment analysis method developed in [Zhu and Stephens (2018)][].
 This likelihood ratio calculation is based on an R package
 [ashr](https://cran.r-project.org/web/packages/ashr/index.html).
+
+--------
+
+**Footnotes:**
+
+1. There is a missing multiplier term $$\frac{\omega_k}{\omega_1}$$
+on the right-hand side of Equation 5.1 in this note (page 4).
+We thank Geyu Zhou from Yale University for pointing out this typo. 
