@@ -16,6 +16,8 @@ layout: default
 [zenodo-height2014]: https://doi.org/10.5281/zenodo.1443565
 [zenodo-geneset]: https://zenodo.org/badge/latestdoi/55633948
 [xiangzhu/rss-gsea]: https://github.com/xiangzhu/rss-gsea/tree/master/data
+[rss/src]: https://github.com/stephenslab/rss/tree/master/src
+[rss/src_vb]: https://github.com/stephenslab/rss/tree/master/src_vb
 
 ## General information
 
@@ -47,13 +49,23 @@ If $$\gamma_j=1$$, I draw the value of $$\beta_j$$ from
 the normal distribution $${\cal N}(0,\sigma_j^2)$$.
 If $$\gamma_j=0$$, I set $$\beta_j=0$$.
 
-#### Q: reduce time in 2017
+#### Q: How could I reduce the computational time of Markov chain Monte Carlo (MCMC) programs provided in [Zhu and Stephens (2017)][]?
 
-A: shorten the length of MCMC chains.
+A: You can reduce the time by shortening the length of MCMC chains, that is,
+setting a smaller value for `Ndraw` in the MCMC programs ([rss/src][]).
+However, please note that using short MCMC chains may yield
+inaccurate inference results for large-scale problems.
 
-#### Q: reduce time in 2018
+#### Q: How could I reduce the computational time of variational Bayes (VB) programs provided in [Zhu and Stephens (2018)][]?
 
-A: relax the convergence threshold.
+A: There are two options to reduce the time
+of running the VB programs ([rss/src_vb][]).
+First, you can set a time limit for the VB programs,
+that is, setting your own `options.max_walltime` value.
+Second, you can use a more relaxed convergence tolerance,
+that is, setting your own `options.tolerance` value.
+Similar to MCMC, please note that stopping VB iterations early
+may yield inaccurate inference results for large-scale problems. 
 
 #### Q: [Zhu and Stephens (2018)][] described a simple likelihood ratio calculation as a sanity check for the more sophisticated enrichment analysis based on RSS. Do you have software for this sanity check?
 
