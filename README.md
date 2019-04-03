@@ -63,15 +63,21 @@ Please see [LICENSE](LICENSE) for more details.
 
 - **The Regression with Summary Statistics (RSS) likelihood** <br>
 Xiang Zhu and Matthew Stephens (2017).
-[Bayesian large-scale multiple regression with summary statistics from genome-wide association studies](http://stephenslab.uchicago.edu/assets/papers/Zhu2017.pdf).
-[*Annals of Applied Statistics* 11(3): 1561-1592](http://dx.doi.org/10.1214/17-AOAS1046).
-[[Supplementary Information](http://stephenslab.uchicago.edu/assets/papers/Zhu2017-supplement.pdf)] 
+Bayesian large-scale multiple regression with summary statistics from genome-wide association studies.
+*Annals of Applied Statistics* 11(3): 1561-1592.
+[[Article PDF](http://stephenslab.uchicago.edu/assets/papers/Zhu2017.pdf)]
+[[Journal Page](http://dx.doi.org/10.1214/17-AOAS1046)]
+[[bioRxiv Page](https://doi.org/10.1101/042457)]
+[[Supplementary Information](http://stephenslab.uchicago.edu/assets/papers/Zhu2017-supplement.pdf)]
 [[Software](https://github.com/stephenslab/rss/tree/master/src)]
 
 - **RSS-E: Enrichment and prioritization analysis based on RSS likelihood** <br>
 Xiang Zhu and Matthew Stephens (2018).
-[Large-scale genome-wide enrichment analyses identify new trait-associated genes and pathways across 31 human phenotypes](https://www.nature.com/articles/s41467-018-06805-x.pdf).
-[*Nature Communications* 9, 4361](https://www.nature.com/articles/s41467-018-06805-x).
+Large-scale genome-wide enrichment analyses identify new trait-associated genes and pathways across 31 human phenotypes.
+*Nature Communications* 9, 4361.
+[[Article PDF](https://www.nature.com/articles/s41467-018-06805-x.pdf)]
+[[Journal Page](https://www.nature.com/articles/s41467-018-06805-x)]
+[[bioRxiv Page](https://doi.org/10.1101/160770)]
 [[Supplementary Information](https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-018-06805-x/MediaObjects/41467_2018_6805_MOESM1_ESM.pdf)]
 [[Online Results](https://xiangzhu.github.io/rss-gsea/)]
 [[Software](https://github.com/stephenslab/rss/tree/master/src_vb)]
