@@ -70,7 +70,7 @@ Xiang presented gene set enrichment analysis using RSS likelihood at the 2016 Am
 
 ### 08/23/2016
 
-[Dr. Stephen Hsu](https://vprgs.msu.edu/stephen-hsu-vice-president-research-and-graduate-studies) wrote a [blog](http://infoproc.blogspot.com/2016/08/bayesian-large-scale-multiple.html) about RSS likelihood.
+[Dr. Stephen Hsu](https://vp.research.msu.edu/people/hsu-stephen) wrote a [blog](http://infoproc.blogspot.com/2016/08/bayesian-large-scale-multiple.html) about RSS likelihood.
 
 ### 07/31/2016
 
