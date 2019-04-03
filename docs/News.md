@@ -1,5 +1,9 @@
 ## Progress Update
 
+### 03/27/2019
+
+The [article](https://www.nature.com/articles/s41467-018-06805-x) describing enrichment and prioritization analyses based on RSS likelihood was recommended in [F1000Prime](https://doi.org/10.3410/f.734261365.793558023) by F1000 Faculty Member [Jason Flannick](https://f1000.com/prime/thefaculty/member/499999771097550974).
+
 ### 01/10/2019
 
 The Research Computing Center at the University of Chicago wrote an [article](https://rcc.uchicago.edu/about-rcc/news-features/new-statistical-method-gives-second-life-gwas-data) on RSS likelihood and its application in enrichment-prioritization analyses.
