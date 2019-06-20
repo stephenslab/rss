@@ -44,7 +44,7 @@ that is, yielding a larger Bayes factor (BF).
 
 In addition to identifying enrichments, RSS also automatically prioritizes
 loci within an enriched set by comparing the posterior distributions of
-genetic effects ($$beta$$) under $$M_0$$ and $$M_1$$.
+genetic effects ($$\beta$$) under $$M_0$$ and $$M_1$$.
 Here we summarize the posterior of beta as $$P_1$$,
 the posterior probability that at least one SNP in a locus is trait-associated.
 Differences between $$P_1$$ estimated under $$M_0$$ and $$M_1$$ reflect
