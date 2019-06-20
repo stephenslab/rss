@@ -1,4 +1,5 @@
 [Zhu and Stephens (2018)]: https://www.nature.com/articles/s41467-018-06805-x
+[(Liu et al, 2015)]: https://www.ncbi.nlm.nih.gov/pubmed/26192919
 [Carbonetto and Stephens (2013)]: https://doi.org/10.1371/journal.pgen.1003770
 [example5]: https://github.com/stephenslab/rss/tree/master/examples/example5
 
@@ -13,9 +14,10 @@ This example consists of:
 - [Part A](Example-5A): analysis of a synthetic dataset used
 in simulation studies of [Zhu and Stephens (2018)][];
 
-- [Part B](Example-5B): analysis of inflammatory bowel disease GWAS summary statistics
-[(Liu et al, 2015)](https://www.ncbi.nlm.nih.gov/pubmed/26192919)
-and a gene set named *IL23-mediated signaling events* (Pathway Commons 2, PID, 37 genes).
+- [Part B](Example-5B): analysis of published inflammatory bowel disease
+GWAS summary statistics [(Liu et al, 2015)][]
+and a gene set named *IL23-mediated signaling events*
+(Pathway Commons 2, PID, 37 genes).
 
 [Part A](Example-5A) provides a quick view of how RSS works in enrichment and prioritization analysis.
 [Part B](Example-5B) illustrates the actual data analyses performed in [Zhu and Stephens (2018)][].
@@ -42,7 +44,7 @@ that is, yielding a larger Bayes factor (BF).
 
 In addition to identifying enrichments, RSS also automatically prioritizes
 loci within an enriched set by comparing the posterior distributions of
-genetic effects (beta) under $$M_0$$ and $$M_1$$.
+genetic effects ($$beta$$) under $$M_0$$ and $$M_1$$.
 Here we summarize the posterior of beta as $$P_1$$,
 the posterior probability that at least one SNP in a locus is trait-associated.
 Differences between $$P_1$$ estimated under $$M_0$$ and $$M_1$$ reflect
