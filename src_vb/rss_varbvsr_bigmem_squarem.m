@@ -425,12 +425,12 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_bigmem_squarem(file, sigb, logo
     end
 
     % Terminate the for loop after the given maximum wall time.
-    exetime = etime(clock, start_time);
-    if exetime >= max_walltime
+    exe_time = etime(clock, start_time);
+    if exe_time >= max_walltime
 
       alpha = cell2mat(alpha_cell);
       mu    = cell2mat(mu_cell);
-      fprintf('\nMaximum wall time reached: %+0.2e seconds\n',exetime);
+      fprintf('\nMaximum wall time reached: %+0.2e seconds\n',exe_time);
       fprintf('Log variational lower bound of the last step increased by %+0.2e\n',lnZ-lnZ0);
       break
 
