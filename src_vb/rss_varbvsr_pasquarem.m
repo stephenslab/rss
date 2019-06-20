@@ -426,7 +426,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_pasquarem(betahat, se, SiRiS, s
   end
 
   % Save info as a structure array.
-  info = struct('iter',iter,'maxerr',maxerr,'loglik',loglik);
+  info = struct('iter',iter,'maxerr',maxerr,'loglik',loglik,'exe_time',exe_time);
 
 end
 

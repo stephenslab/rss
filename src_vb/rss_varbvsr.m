@@ -212,6 +212,6 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
   end
 
   % Save info as a structure array.
-  info = struct('iter',iter,'maxerr',maxerr,'loglik',loglik);
+  info = struct('iter',iter,'maxerr',maxerr,'loglik',loglik,'exe_time',exe_time);
   
 end
