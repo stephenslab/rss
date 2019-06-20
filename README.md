@@ -82,8 +82,9 @@ Large-scale genome-wide enrichment analyses identify new trait-associated genes 
 [[Online Results](https://xiangzhu.github.io/rss-gsea/)]
 [[Software](https://github.com/stephenslab/rss/tree/master/src_vb)]
 
-- Inferring genetic architecture of complex human traits based on RSS likelihood <br> TBA
+- Genetic architecture inference of complex human traits based on RSS likelihood <br> TBA
 - Fast heritability estimation based on RSS likelihood, with correction for confounding <br> TBA
+- Integrated analysis of regulatory networks and complex human traits based on RSS likelihood <br> TBA
 
 ### Collaboration
 
