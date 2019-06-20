@@ -21,6 +21,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
 %		- iter: integer, number of iterations till convergence
 %       	- maxerr: maximum relative difference between the parameters at the last 2 iterations
 %		- loglik: iter by 1, variational lower bound at each iteration
+%		- exe_time: scalar, total execution time in seconds
 
   % Get the time when the program starts.
   start_time = clock;

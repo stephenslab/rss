@@ -18,9 +18,10 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_bigmem(file, sigb, logodds, opt
 %       mu: p by 1, posterior means of the additive effects (if the SNP is included)
 %       s: p by 1, posterior variances of the additive effects (if the SNP is included)
 %       info: structure with following fields 
-%               - iter: integer, number of iterations till convergence
-%               - maxerr: maximum relative difference between the parameters at the last 2 iterations
-%               - loglik: iter by 1, variational lower bound at each iteration
+%		- iter: integer, number of iterations till convergence
+%		- maxerr: maximum relative difference between the parameters at the last 2 iterations
+%		- loglik: iter by 1, variational lower bound at each iteration
+%		- exe_time: scalar, total execution time in seconds
 
   % Get the time when the program starts.
   start_time = clock;

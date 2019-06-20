@@ -23,6 +23,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_squarem(betahat, se, SiRiS, sig
 %		- iter: integer, number of iterations till convergence
 %       	- maxerr: maximum relative difference between the parameters at the last 2 iterations
 %		- loglik: iter by 1, variational lower bound at each iteration
+%		- exe_time: scalar, total execution time in seconds
 % NOTE:
 %       The pseudocode for SQUAREM is available at Table 1 of Varadhan and Roland (2008):
 %       https://doi.org/10.1111/j.1467-9469.2007.00585.x
