@@ -438,7 +438,13 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_bigmem_squarem(file, sigb, logo
     
   end
 
+  % Show total execution time in seconds.
+  if exe_time < max_walltime
+    fprintf('\nTotal execution time: %+0.2e seconds\n',exe_time);
+  end
+
   % Save info as a structure array.
   info = struct('iter',iter,'maxerr',maxerr,'loglik',loglik);
+
 end
 
