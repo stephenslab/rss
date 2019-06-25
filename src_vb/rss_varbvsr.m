@@ -151,6 +151,9 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
     % Record the variational lower bound at each iteration.
     loglik = [loglik; lnZ]; %#ok<AGROW>
 
+    % Obtain time elapsed between the first and current iterations.
+    exe_time = etime(clock, start_time);
+
     % Print the status of the algorithm and check the convergence criterion.
     % Convergence is reached when the maximum relative difference between
     % the parameters at two successive iterations is less than the specified
@@ -196,7 +199,6 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
     end
 
     % Terminate the for loop after the given maximum wall time.
-    exe_time = etime(clock, start_time);
     if exe_time >= max_walltime
 
       fprintf('\nMaximum wall time reached: %+0.2e seconds\n',exe_time);

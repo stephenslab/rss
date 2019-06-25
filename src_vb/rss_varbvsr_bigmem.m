@@ -230,6 +230,9 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_bigmem(file, sigb, logodds, opt
     % Record the variational lower bound at each iteration.
     loglik = [loglik; lnZ]; %#ok<AGROW>
 
+    % Obtain time elapsed between the first and current iterations.
+    exe_time = etime(clock, start_time);
+
     % Print the status of the algorithm and check the convergence criterion.
     % Convergence is reached when the maximum relative difference between
     % the parameters at two successive iterations is less than the specified
@@ -274,7 +277,6 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_bigmem(file, sigb, logodds, opt
     end
 
     % Terminate the for loop after the given maximum wall time.
-    exe_time = etime(clock, start_time);
     if exe_time >= max_walltime
 
       alpha = cell2mat(alpha_cell);
