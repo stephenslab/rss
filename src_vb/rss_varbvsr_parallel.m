@@ -37,6 +37,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_parallel(betahat, se, SiRiS, si
   else
     max_walltime = (1*24+11)*3600; % 1 day 11 hours
   end
+  fprintf('Wall time limit of this program: %0.2e seconds\n', max_walltime);
 
   % Set tolerance for convergence, which is reached when the maximum relative distance
   % between successive updates of the variational parameters is less than this quantity.
