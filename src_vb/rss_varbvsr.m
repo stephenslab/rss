@@ -175,7 +175,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
     % Terminate the for loop if ELBO decreases.
     if lnZ < lnZ0
 
-      fprintf('\nWarning: log variational lower bound decreased by %+0.2e\n',lnZ0-lnZ);
+      fprintf('\nWarning: log variational lower bound decreased by %0.2e\n',lnZ0-lnZ);
       alpha = alpha0;
       mu    = mu0;
       lnZ   = lnZ0;
@@ -184,8 +184,8 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
     % Terminate the for loop if variational parameters converge.
     elseif maxerr < tolerance
 
-      fprintf('\nConverged: maximum relative error %+0.2e\n',maxerr);
-      fprintf('Log variational lower bound of the last step increased by %+0.2e\n',lnZ-lnZ0);
+      fprintf('\nConverged: maximum relative error %0.2e\n',maxerr);
+      fprintf('Log variational lower bound of the last step increased by %0.2e\n',lnZ-lnZ0);
       break
 
     end
@@ -194,7 +194,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
     elbo_change = lnZ - lnZ0;
     if ~isnan(elbo_tol) && elbo_change <= elbo_tol
 
-      fprintf('\nConverged: log variational lower bound increased by %+0.2e\n',lnZ-lnZ0);
+      fprintf('\nConverged: log variational lower bound increased by %0.2e\n',lnZ-lnZ0);
       break
 
     end
@@ -202,8 +202,8 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
     % Terminate the for loop after the given maximum wall time.
     if exe_time >= max_walltime
 
-      fprintf('\nMaximum wall time reached: %+0.2e seconds\n',exe_time);
-      fprintf('Log variational lower bound of the last step increased by %+0.2e\n',lnZ-lnZ0);
+      fprintf('\nMaximum wall time reached: %0.2e seconds\n',exe_time);
+      fprintf('Log variational lower bound of the last step increased by %0.2e\n',lnZ-lnZ0);
       break
 
     end
@@ -212,7 +212,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
 
   % Show total execution time in seconds.
   if exe_time < max_walltime
-    fprintf('\nTotal execution time: %+0.2e seconds\n',exe_time);
+    fprintf('\nTotal execution time: %0.2e seconds\n',exe_time);
   end
 
   % Save info as a structure array.

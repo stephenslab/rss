@@ -243,7 +243,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_parallel(betahat, se, SiRiS, si
     % Terminate the for loop if ELBO decreases.
     if lnZ < lnZ0
 
-      fprintf('\nWarning: the log variational lower bound decreased by %+0.2e\n',lnZ0-lnZ);
+      fprintf('\nWarning: the log variational lower bound decreased by %0.2e\n',lnZ0-lnZ);
       alpha = cell2mat(alpha0_cell);
       mu    = cell2mat(mu0_cell);
       lnZ   = lnZ0;
@@ -254,8 +254,8 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_parallel(betahat, se, SiRiS, si
 
       alpha = cell2mat(alpha_cell);
       mu    = cell2mat(mu_cell);
-      fprintf('\nConverged: maximum relative error %+0.2e\n',maxerr);
-      fprintf('Log variational lower bound of the last step increased by %+0.2e\n',lnZ-lnZ0);
+      fprintf('\nConverged: maximum relative error %0.2e\n',maxerr);
+      fprintf('Log variational lower bound of the last step increased by %0.2e\n',lnZ-lnZ0);
       break
 
     end
@@ -266,7 +266,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_parallel(betahat, se, SiRiS, si
 
       alpha = cell2mat(alpha_cell);
       mu    = cell2mat(mu_cell);
-      fprintf('\nConverged: log variational lower bound increased by %+0.2e\n',lnZ-lnZ0);
+      fprintf('\nConverged: log variational lower bound increased by %0.2e\n',lnZ-lnZ0);
       break
 
     end
@@ -276,8 +276,8 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_parallel(betahat, se, SiRiS, si
 
       alpha = cell2mat(alpha_cell);
       mu    = cell2mat(mu_cell);
-      fprintf('\nMaximum wall time reached: %+0.2e seconds\n',exe_time);
-      fprintf('Log variational lower bound of the last step increased by %+0.2e\n',lnZ-lnZ0);
+      fprintf('\nMaximum wall time reached: %0.2e seconds\n',exe_time);
+      fprintf('Log variational lower bound of the last step increased by %0.2e\n',lnZ-lnZ0);
       break
 
     end
@@ -286,7 +286,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_parallel(betahat, se, SiRiS, si
 
   % Show total execution time in seconds.
   if exe_time < max_walltime
-    fprintf('\nTotal execution time: %+0.2e seconds\n',exe_time);
+    fprintf('\nTotal execution time: %0.2e seconds\n',exe_time);
   end
 
   % Save info as a structure array.
