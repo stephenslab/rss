@@ -243,7 +243,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_parallel(betahat, se, SiRiS, si
     % Terminate the for loop if ELBO decreases.
     if lnZ < lnZ0
 
-      fprintf('\nWarning: the log variational lower bound decreased by %0.2e\n',lnZ0-lnZ);
+      fprintf('\nWarning: log variational lower bound decreased by %0.2e\n',lnZ0-lnZ);
       alpha = cell2mat(alpha0_cell);
       mu    = cell2mat(mu0_cell);
       lnZ   = lnZ0;
