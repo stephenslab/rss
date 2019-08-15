@@ -36,7 +36,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
   else
     max_walltime = (1*24+11)*3600; % 1 day 11 hours
   end
-  fprintf('Wall time limit of this program: %0.2e seconds\n', max_walltime);
+  fprintf('Wall time limit of this program: %0.2e seconds\n',max_walltime);
 
   % Set tolerance for convergence, which is reached when the maximum relative distance
   % between successive updates of the variational parameters is less than this quantity.
@@ -45,7 +45,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
   else
     tolerance = 1e-4;
   end
-  fprintf('Tolerance for convergence in this program: %0.2e \n', tolerance);
+  fprintf('Tolerance for convergence in this program: %0.2e\n',tolerance);
 
   % Optional: stop the variational updates when
   % the increase in lower bound (ELBO) is small.
@@ -115,7 +115,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
   r   = alpha .* mu;
   lnZ = q'*r - 0.5*r'*SiRiSr - 0.5*(1./se_square)'*betavar(alpha, mu, s);
   lnZ = lnZ + intgamma(logodds, alpha) + intklbeta_rssbvsr(alpha, mu, s, sigb_square);
-  fprintf('Calculate the variational lower bound based on the initial values: %+13.6e ...\n', lnZ);
+  fprintf('Initial variational lower bound: %13.6e\n',lnZ);
   
   loglik = [loglik; lnZ]; 
 
@@ -210,9 +210,12 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr(betahat, se, SiRiS, sigb, logod
 
   end
 
+  % Show final variational lower bound. 
+  fprintf('Final variational lower bound: %13.6e\n',lnZ);
+
   % Show total execution time in seconds.
   if exe_time < max_walltime
-    fprintf('\nTotal execution time: %0.2e seconds\n',exe_time);
+    fprintf('Total execution time: %0.2e seconds\n',exe_time);
   end
 
   % Save info as a structure array.
