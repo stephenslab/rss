@@ -41,7 +41,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_bigmem_squarem(file, sigb, logo
   else
     max_walltime = (1*24+11)*3600; % 1 day 11 hours
   end
-  fprintf('Wall time limit of this program: %0.2e seconds\n', max_walltime);
+  fprintf('Wall time limit of this program: %0.2e seconds\n',max_walltime);
 
   % Set tolerance for convergence, which is reached when the maximum relative distance
   % between successive updates of the variational parameters is less than this quantity.
@@ -50,7 +50,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_bigmem_squarem(file, sigb, logo
   else
     tolerance = 1e-4;
   end
-  fprintf('Tolerance for convergence in this program: %0.2e \n', tolerance);
+  fprintf('Tolerance for convergence in this program: %0.2e\n',tolerance);
  
   % Optional: stop the variational updates when
   % the increase in lower bound (ELBO) is small.
@@ -159,7 +159,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_bigmem_squarem(file, sigb, logo
     lnZ_cell(c) = lnZ_cell(c) + intklbeta_rssbvsr(alpha_cell{c,1},mu_cell{c,1},s_cell{c,1},sigbsquare_cell{c,1});
   end
   lnZ = sum(lnZ_cell);
-  fprintf('Calculate the variational lower bound based on the initial values: %+13.6e ...\n', lnZ);
+  fprintf('Initial variational lower bound: %13.6e\n',lnZ);
 
   loglik = [loglik; lnZ]; 
 
@@ -442,9 +442,12 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_bigmem_squarem(file, sigb, logo
     
   end
 
+  % Show final variational lower bound.
+  fprintf('Final variational lower bound: %13.6e\n',lnZ);
+
   % Show total execution time in seconds.
   if exe_time < max_walltime
-    fprintf('\nTotal execution time: %0.2e seconds\n',exe_time);
+    fprintf('Total execution time: %0.2e seconds\n',exe_time);
   end
 
   % Save info as a structure array.
