@@ -127,7 +127,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_squarem(betahat, se, SiRiS, sig
   r   = alpha .* mu;
   lnZ = q'*r - 0.5*r'*SiRiSr - 0.5*(1./se_square)'*betavar(alpha, mu, s);
   lnZ = lnZ + intgamma(logodds, alpha) + intklbeta_rssbvsr(alpha, mu, s, sigb_square);
-  fprintf('Initial variational lower bound: %13.6e\n',lnZ);
+  fprintf('Initial log variational lower bound: %13.6e\n',lnZ);
  
   loglik = [loglik; lnZ]; 
 
@@ -279,7 +279,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_squarem(betahat, se, SiRiS, sig
   end
 
   % Show final variational lower bound. 
-  fprintf('Final variational lower bound: %13.6e\n',lnZ);
+  fprintf('Final log variational lower bound: %13.6e\n',lnZ);
 
   % Show total execution time in seconds.
   if exe_time < max_walltime

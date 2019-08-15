@@ -159,7 +159,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_bigmem_squarem(file, sigb, logo
     lnZ_cell(c) = lnZ_cell(c) + intklbeta_rssbvsr(alpha_cell{c,1},mu_cell{c,1},s_cell{c,1},sigbsquare_cell{c,1});
   end
   lnZ = sum(lnZ_cell);
-  fprintf('Initial variational lower bound: %13.6e\n',lnZ);
+  fprintf('Initial log variational lower bound: %13.6e\n',lnZ);
 
   loglik = [loglik; lnZ]; 
 
@@ -443,7 +443,7 @@ function [lnZ, alpha, mu, s, info] = rss_varbvsr_bigmem_squarem(file, sigb, logo
   end
 
   % Show final variational lower bound.
-  fprintf('Final variational lower bound: %13.6e\n',lnZ);
+  fprintf('Final log variational lower bound: %13.6e\n',lnZ);
 
   % Show total execution time in seconds.
   if exe_time < max_walltime
