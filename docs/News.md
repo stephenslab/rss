@@ -1,5 +1,7 @@
 ## Progress Update
 
+Shorten terms: RSS-E, RSS-NET etc
+
 rss-net talk link: <http://web.stanford.edu/~xiangzhu/rnt.pdf>
 
 ### 01/23/2020
