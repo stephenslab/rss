@@ -1,5 +1,7 @@
 ## Progress Update
 
+rss-net talk link: <http://web.stanford.edu/~xiangzhu/rnt.pdf>
+
 ### 01/23/2020
 
 Add PSU visit: <https://science.psu.edu/stat/colloquia/sp20/xiang-zhu>
