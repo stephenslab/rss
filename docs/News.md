@@ -1,5 +1,9 @@
 ## Progress Update
 
+### 01/23/2020
+
+Add PSU visit: <https://science.psu.edu/stat/colloquia/sp20/xiang-zhu>
+
 ### 01/15/2020
 
 Add UPenn visit: < https://statistics.wharton.upenn.edu/research/seminars-conferences/complex-trait-genetics-through-the-lens-of-regulatory-networks/>
