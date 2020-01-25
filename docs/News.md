@@ -1,60 +1,62 @@
 ## Progress Update
 
-Shorten terms: RSS-E, RSS-NET etc
+[RSS-NET]: xx
+[RSS-E]: https://doi.org/10.1038/s41467-018-06805-x
+[RSS likelihood]: https://doi.org/10.1214/17-aoas1046
 
-rss-net talk link: <http://web.stanford.edu/~xiangzhu/rnt.pdf>
+[rnt]: http://web.stanford.edu/~xiangzhu/rnt.pdf 
 
 ### 01/23/2020
 
-Add PSU visit: <https://science.psu.edu/stat/colloquia/sp20/xiang-zhu>
+Xiang presented [RSS-NET][] at the Department of Statistics, Pennsylvania State University, University Park, PA. [[Abstract]](https://science.psu.edu/stat/colloquia/sp20/xiang-zhu) [[Slides]][rnt]
 
 ### 01/15/2020
 
-Add UPenn visit: < https://statistics.wharton.upenn.edu/research/seminars-conferences/complex-trait-genetics-through-the-lens-of-regulatory-networks/>
+Xiang presented [RSS-NET][] at the Statistics Department, Wharton School, University of Pennsylvania, Philadelphia, PA. [[Abstract]](https://statistics.wharton.upenn.edu/research/seminars-conferences/complex-trait-genetics-through-the-lens-of-regulatory-networks/) [[Slides]][rnt]
 
 ### 03/27/2019
 
-The [article](https://www.nature.com/articles/s41467-018-06805-x) describing enrichment and prioritization analyses based on RSS likelihood was recommended in [F1000Prime](https://doi.org/10.3410/f.734261365.793558023) by F1000 Faculty Member [Jason Flannick](https://f1000.com/prime/thefaculty/member/499999771097550974).
+[RSS-E][] was recommended in [F1000Prime](https://doi.org/10.3410/f.734261365.793558023) by F1000 Faculty Member [Jason Flannick](https://f1000.com/prime/thefaculty/member/499999771097550974).
 
 ### 01/10/2019
 
-The Research Computing Center at the University of Chicago wrote an [article](https://rcc.uchicago.edu/about-rcc/news-features/new-statistical-method-gives-second-life-gwas-data) on RSS likelihood and its application in enrichment-prioritization analyses.
+The Research Computing Center at the University of Chicago wrote an [article](https://rcc.uchicago.edu/about-rcc/news-features/new-statistical-method-gives-second-life-gwas-data) on [RSS likelihood][] and [RSS-E][].
 
 ### 10/19/2018
 
-The [article](https://www.nature.com/articles/s41467-018-06805-x) describing enrichment and prioritization analyses based on RSS likelihood was published in [*Nature Communications*](https://www.nature.com/articles/s41467-018-06805-x).
+[RSS-E][] was published in [*Nature Communications*](https://www.nature.com/articles/s41467-018-06805-x).
 
 ### 10/09/2018
 
-Xiang presented the enrichment and prioritization analyses of 31 human phenotypes and 4,026 gene sets based on RSS likelihood at the [MVP/ERIC/Assimes Group Meeting](https://www.vacsp.research.va.gov/CSP_Centers/Palo-Alto-ERIC-Genomics.asp), Palo Alto, CA. [[Slides]](http://web.stanford.edu/~xiangzhu/ASSIMES_20181009.pdf)
+Xiang presented [RSS-E][] at the [MVP/ERIC/Assimes Group Meeting](https://www.vacsp.research.va.gov/CSP_Centers/Palo-Alto-ERIC-Genomics.asp), Palo Alto, CA. [[Slides]](http://web.stanford.edu/~xiangzhu/ASSIMES_20181009.pdf)
 
 ### 09/29/2018
 
-The [manuscript](https://doi.org/10.1101/160770) describing enrichment and prioritization analyses based on RSS likelihood was accepted by [*Nature Communications*](https://www.nature.com/articles/s41467-018-06805-x).
+[RSS-E][] was accepted by [*Nature Communications*](https://www.nature.com/articles/s41467-018-06805-x).
 
 ### 07/16/2018
 
-The [manuscript](https://doi.org/10.1101/160770) describing enrichment and prioritization analyses based on RSS likelihood was ranked as the Best Biorxiv Papers Today in Genomics by [Assert](http://assert.pub/). 
+[RSS-E][] was ranked as the Best Biorxiv Papers Today in Genomics by [Assert](http://assert.pub/). 
 
 ### 10/19/2017
 
-Xiang presented the enrichment analysis of 31 human phenotypes and 4,026 gene sets using RSS likelihood at the 2017 American Society of Human Genetics Annual Meeting ([ASHG2017](http://www.ashg.org/2017meeting/)), Orlando, FL.
+Xiang presented [RSS-E][] at the [2017 American Society of Human Genetics Annual Meeting](http://www.ashg.org/2017meeting/), Orlando, FL.
 
 ### 10/05/2017
 
-The [article](http://stephenslab.uchicago.edu/assets/papers/Zhu2017.pdf) describing RSS likelihood was published in [*Annals of Applied Statistics*](http://dx.doi.org/10.1214/17-AOAS1046).
+[RSS likelihood][] was published in [*Annals of Applied Statistics*](http://dx.doi.org/10.1214/17-AOAS1046).
 
 ### 08/03/2017
 
-Xiang presented the enrichment analysis of 31 human phenotypes and 4,026 gene sets using RSS likelihood at the 2017 Joint Statistical Meetings ([JSM2017](https://ww2.amstat.org/meetings/jsm/2017)), Baltimore, MD. This work won an [American Statistical Association](http://www.amstat.org/) student paper award. [[Slides]](http://www.stat.uchicago.edu/~xiangzhu/JSM_20170803.pdf) [[Abstract]](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=322545)
+Xiang presented [RSS-E][] at the [2017 Joint Statistical Meetings](https://ww2.amstat.org/meetings/jsm/2017), Baltimore, MD. This work won an [American Statistical Association](http://www.amstat.org/) student paper award. [[Slides]](http://www.stat.uchicago.edu/~xiangzhu/JSM_20170803.pdf) [[Abstract]](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=322545)
 
 ### 07/07/2017
 
-Xiang posted a manuscript describing the enrichment analysis of 31 human phenotypes and 4,026 gene sets using RSS likelihood on [bioRxiv](https://doi.org/10.1101/160770).
+Xiang posted [RSS-E][] on [bioRxiv](https://doi.org/10.1101/160770).
 
 ### 06/30/2017
 
-Xiang presented RSS likelihood and its applications in human complex trait genetics at Dissertation Presentation and Defense, Department of Statistics, University of Chicago. [[Slides]](http://www.stat.uchicago.edu/~xiangzhu/THESIS_20170630.html) [[Abstract]](https://galton.uchicago.edu/students/seminars/2016-2017/zhu_xiang063017.pdf)
+Xiang presented RSS likelihood and its applications in human complex trait genetics at Dissertation Presentation and Defense, Department of Statistics, University of Chicago, Chicago, IL. [[Slides]](http://www.stat.uchicago.edu/~xiangzhu/THESIS_20170630.html) [[Abstract]](https://galton.uchicago.edu/students/seminars/2016-2017/zhu_xiang063017.pdf)
 
 ### 06/28/2017
 
