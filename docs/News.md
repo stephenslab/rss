@@ -60,7 +60,7 @@ Xiang presented RSS likelihood and its applications in human complex trait genet
 
 ### 06/28/2017
 
-Xiang presented the enrichment analysis of 31 human phenotypes and 4,026 gene sets using RSS likelihood at the 2017 ICSA Applied Statistics Symposium ([ICSA 2017](http://bioinfo.stats.northwestern.edu/~icsa/)), Chicago, IL. [[Slides]](http://www.stat.uchicago.edu/~xiangzhu/ICSA_20170628.pdf)
+Xiang presented [RSS-E][] at the [2017 ICSA Applied Statistics Symposium](http://bioinfo.stats.northwestern.edu/~icsa/), Chicago, IL. [[Slides]](http://www.stat.uchicago.edu/~xiangzhu/ICSA_20170628.pdf)
 
 ### 05/02/2017
 
