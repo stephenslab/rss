@@ -56,7 +56,7 @@ Xiang posted [RSS-E][] on [bioRxiv](https://doi.org/10.1101/160770).
 
 ### 06/30/2017
 
-Xiang presented [RSS likelihood][] and its applications in human complex trait genetics at Dissertation Presentation and Defense, Department of Statistics, University of Chicago, Chicago, IL. [[Slides]](http://www.stat.uchicago.edu/~xiangzhu/THESIS_20170630.html) [[Abstract]](https://galton.uchicago.edu/students/seminars/2016-2017/zhu_xiang063017.pdf)
+Xiang presented [RSS likelihood][] and [RSS-E][] at Dissertation Presentation and Defense, Department of Statistics, University of Chicago, Chicago, IL. [[Slides]](http://www.stat.uchicago.edu/~xiangzhu/THESIS_20170630.html) [[Abstract]](https://galton.uchicago.edu/students/seminars/2016-2017/zhu_xiang063017.pdf)
 
 ### 06/28/2017
 
@@ -80,7 +80,7 @@ Xiang presented [RSS-E][] at the Department of Human Genetics, University of Chi
 
 ### 12/02/2016
 
-Xiang presented [RSS likelihood][] during a tutorial of statistical genetics at the 2016 Novembre-He-Stephens Group Meeting, University of Chicago, Chicago, IL. [[Slides]](http://www.stat.uchicago.edu/~xiangzhu/gwas_tutorial)
+Xiang presented [RSS likelihood][] during a GWAS tutorial at the 2016 Novembre-He-Stephens Group Meeting, University of Chicago, Chicago, IL. [[Slides]](http://www.stat.uchicago.edu/~xiangzhu/gwas_tutorial)
 
 ### 10/20/2016
 
