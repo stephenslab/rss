@@ -6,6 +6,10 @@
 
 [rnt]: http://web.stanford.edu/~xiangzhu/rnt.pdf 
 
+### 02/10/2020
+
+Xiang presented [RSS-NET][] at the Department of Biostatistics and Bioinformatics, Rollins School of Public Health, Emory University, Atlanta, GA. [[Slides]][rnt]
+
 ### 01/23/2020
 
 Xiang presented [RSS-NET][] at the Department of Statistics, Pennsylvania State University, University Park, PA. [[Abstract]](https://science.psu.edu/stat/colloquia/sp20/xiang-zhu) [[Slides]][rnt]
