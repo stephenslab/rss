@@ -1,14 +1,14 @@
 ## Progress Update
 
-[RSS-NET]: bioRxivlink
+[RSS-NET]: http://web.stanford.edu/~xiangzhu/rnt.pdf
 [RSS-E]: https://doi.org/10.1038/s41467-018-06805-x
 [RSS likelihood]: https://doi.org/10.1214/17-aoas1046
 
 [rnt]: http://web.stanford.edu/~xiangzhu/rnt.pdf
 
-### xx/xx/2020
+<!-- ### xx/xx/2020
 
-Xiang posted [RSS-NET][] on [bioRxiv](). 
+Xiang posted [RSS-NET][] on [bioRxiv](). -->
 
 ### 02/10/2020
 
