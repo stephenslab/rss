@@ -43,14 +43,7 @@ perform Bayesian inference for the regression coefficients.
 
 ### License
 
-Distributed under the terms of the GNU General Public License
-as published by the Free Software Foundation, either version 3 of the License,
-or (at your option) any later version.
-
-The repository is distributed in the hope that it will be useful,
-but **without any warranty**; without even the implied warranty of
-**merchantability** or **fitness for a particular purpose**.
-Please see [LICENSE](LICENSE) for more details.
+The repository is licensed under the [MIT License](LICENSE).
 
 ### Support
 
@@ -63,7 +56,8 @@ Please see [LICENSE](LICENSE) for more details.
 
 - **The Regression with Summary Statistics (RSS) likelihood** <br>
 Xiang Zhu and Matthew Stephens (2017).
-Bayesian large-scale multiple regression with summary statistics from genome-wide association studies.
+Bayesian large-scale multiple regression with
+summary statistics from genome-wide association studies.
 *Annals of Applied Statistics* 11(3): 1561-1592.
 [[Article PDF](http://stephenslab.uchicago.edu/assets/papers/Zhu2017.pdf)]
 [[Journal Page](http://dx.doi.org/10.1214/17-AOAS1046)]
@@ -73,7 +67,8 @@ Bayesian large-scale multiple regression with summary statistics from genome-wid
 
 - **RSS-E: Enrichment and prioritization analysis based on RSS likelihood** <br>
 Xiang Zhu and Matthew Stephens (2018).
-Large-scale genome-wide enrichment analyses identify new trait-associated genes and pathways across 31 human phenotypes.
+Large-scale genome-wide enrichment analyses identify new
+trait-associated genes and pathways across 31 human phenotypes.
 *Nature Communications* 9, 4361.
 [[Article PDF](https://www.nature.com/articles/s41467-018-06805-x.pdf)]
 [[Journal Page](https://www.nature.com/articles/s41467-018-06805-x)]
@@ -82,9 +77,18 @@ Large-scale genome-wide enrichment analyses identify new trait-associated genes 
 [[Online Results](https://xiangzhu.github.io/rss-gsea/)]
 [[Software](https://github.com/stephenslab/rss/tree/master/src_vb)]
 
+- **RSS-NET: Integrated analysis of regulatory networks based on RSS likelihood** <br>
+Xiang Zhu, Zhana Duren, Wing Hung Wong (2020).
+Modeling regulatory network topology improves
+genome-wide analyses of complex human traits.
+*bioRxiv*.
+[[bioRxiv Page](https://doi.org/10.1101/2020.03.13.990010)]
+[[Supplementary Information](https://www.biorxiv.org/content/biorxiv/early/2020/03/14/2020.03.13.990010/DC1/embed/media-1.pdf)]
+[[Online Results](https://xiangzhu.github.io/rss-peca/)]
+[[Software](https://github.com/SUwonglab/rss-net)]
+
 - Genetic architecture inference of complex human traits based on RSS likelihood <br> TBA
 - Fast heritability estimation based on RSS likelihood, with correction for confounding <br> TBA
-- Integrated analysis of regulatory networks and complex human traits based on RSS likelihood <br> TBA
 
 ### Collaboration
 
