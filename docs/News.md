@@ -6,6 +6,12 @@
 
 [rnt]: http://web.stanford.edu/~xiangzhu/rnt.pdf
 
+### 04/28/2020
+
+Xiang presented [RSS-NET][] at the Department of Statistics,
+Stanford University, Stanford, CA. [[Slides]][rnt]
+[[Abstract]](https://statistics.stanford.edu/events/complex-trait-genetics-through-lens-regulatory-networks)
+
 ### 03/14/2020
  
 Xiang posted [RSS-NET][] on [bioRxiv](https://doi.org/10.1101/2020.03.13.990010).
