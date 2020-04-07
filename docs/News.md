@@ -6,6 +6,12 @@
 
 [rnt]: http://web.stanford.edu/~xiangzhu/rnt.pdf
 
+### 08/05/2020
+
+Xiang presented [RSS-NET][] at the
+[2020 JSM](https://ww2.amstat.org/meetings/jsm/2020/), Philadelphia, PA. [[Slides]][rnt]
+[[Abstract]](https://ww2.amstat.org/meetings/jsm/2020/onlineprogram/AbstractDetails.cfm?abstractid=313507)
+
 ### 04/28/2020
 
 Xiang presented [RSS-NET][] at the Department of Statistics,
