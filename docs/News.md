@@ -4,7 +4,7 @@
 [RSS-E]: https://doi.org/10.1038/s41467-018-06805-x
 [RSS likelihood]: https://doi.org/10.1214/17-aoas1046
 
-[rnt]: http://web.stanford.edu/~xiangzhu/rnt.pdf
+[rnt]: https://web.stanford.edu/~xiangzhu/rnt.pdf
 
 ### 08/05/2020
 
@@ -62,7 +62,7 @@ on [RSS likelihood][] and [RSS-E][].
 
 Xiang presented [RSS-E][] at the
 [MVP/ERIC/Assimes Group Meeting](https://www.vacsp.research.va.gov/CSP_Centers/Palo-Alto-ERIC-Genomics.asp), Palo Alto, CA.
-[[Slides]](http://web.stanford.edu/~xiangzhu/ASSIMES_20181009.pdf)
+[[Slides]](https://web.stanford.edu/~xiangzhu/ASSIMES_20181009.pdf)
 
 ### 09/29/2018
 
@@ -72,24 +72,24 @@ Xiang presented [RSS-E][] at the
 ### 07/16/2018
 
 [RSS-E][] was ranked as the Best BioRxiv Papers
-Today in Genomics by [Assert](http://assert.pub/). 
+Today in Genomics by [Assert](https://assert.pub/). 
 
 ### 10/19/2017
 
 Xiang presented [RSS-E][] at the
-[2017 ASHG](http://www.ashg.org/2017meeting/), Orlando, FL.
+[2017 ASHG](https://www.ashg.org/2017meeting/), Orlando, FL.
 
 ### 10/05/2017
 
 [RSS likelihood][] was published in
-[*Annals of Applied Statistics*](http://dx.doi.org/10.1214/17-AOAS1046).
+[*Annals of Applied Statistics*](https://dx.doi.org/10.1214/17-AOAS1046).
 
 ### 08/03/2017
 
 Xiang presented [RSS-E][] at the
 [2017 JSM](https://ww2.amstat.org/meetings/jsm/2017), Baltimore, MD.
-This work won an [American Statistical Association](http://www.amstat.org/) student paper award.
-[[Slides]](http://www.stat.uchicago.edu/~xiangzhu/JSM_20170803.pdf)
+This work won an [American Statistical Association](https://www.amstat.org/) student paper award.
+[[Slides]](https://www.stat.uchicago.edu/~xiangzhu/JSM_20170803.pdf)
 [[Abstract]](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=322545)
 
 ### 07/07/2017
@@ -100,18 +100,18 @@ Xiang posted [RSS-E][] on [bioRxiv](https://doi.org/10.1101/160770).
 
 Xiang presented [RSS likelihood][] and [RSS-E][] at Dissertation Presentation and Defense,
 Department of Statistics, University of Chicago, Chicago, IL.
-[[Slides]](http://www.stat.uchicago.edu/~xiangzhu/THESIS_20170630.html)
+[[Slides]](https://www.stat.uchicago.edu/~xiangzhu/THESIS_20170630.html)
 [[Abstract]](https://galton.uchicago.edu/students/seminars/2016-2017/zhu_xiang063017.pdf)
 
 ### 06/28/2017
 
 Xiang presented [RSS-E][] at the
-[2017 ICSA Applied Statistics Symposium](http://bioinfo.stats.northwestern.edu/~icsa/), Chicago, IL.
-[[Slides]](http://www.stat.uchicago.edu/~xiangzhu/ICSA_20170628.pdf)
+[2017 ICSA Applied Statistics Symposium](https://bioinfo.stats.northwestern.edu/~icsa/), Chicago, IL.
+[[Slides]](https://www.stat.uchicago.edu/~xiangzhu/ICSA_20170628.pdf)
 
 ### 05/02/2017
 
-Xiang presented [RSS-E][] at the [Mind Bytes 2017](http://mindbytes.uchicago.edu/),
+Xiang presented [RSS-E][] at the [Mind Bytes 2017](https://mindbytes.uchicago.edu/),
 University of Chicago, Chicago, IL. This work won the Mind Bytes Award for Big-Data Research.
 [[Poster]](https://mindbytes.uchicago.edu/2017/posters/04242017110702_posterzhu042417.pdf)
 [[Abstract]](https://mindbytes.uchicago.edu/2017/callforposters.php)
@@ -119,44 +119,44 @@ University of Chicago, Chicago, IL. This work won the Mind Bytes Award for Big-D
 ### 04/04/2017
 
 [RSS likelihood][] was accepted by
-[*Annals of Applied Statistics*](http://dx.doi.org/10.1214/17-AOAS1046).
+[*Annals of Applied Statistics*](https://dx.doi.org/10.1214/17-AOAS1046).
 
 ### 02/22/2017
 
 Xiang presented [RSS likelihood][] at the Department of Statistics,
 Stanford University, Stanford, CA.
-[[Slides]](http://www.stat.uchicago.edu/~xiangzhu/STANFORD_20170222.html)
+[[Slides]](https://www.stat.uchicago.edu/~xiangzhu/STANFORD_20170222.html)
 [[Abstract]](https://statistics.stanford.edu/sites/default/files/Feb22-2017.pdf)
 
 ### 01/11/2017
 
 Xiang presented [RSS-E][] at the Department of Human Genetics,
 University of Chicago, Chicago, IL.
-[[Slides]](http://www.stat.uchicago.edu/~xiangzhu/WIP_20170111.html)
+[[Slides]](https://www.stat.uchicago.edu/~xiangzhu/WIP_20170111.html)
 
 ### 12/02/2016
 
 Xiang presented [RSS likelihood][] during a GWAS tutorial
 at the 2016 NHS Group Meeting, University of Chicago, Chicago, IL.
-[[Slides]](http://www.stat.uchicago.edu/~xiangzhu/gwas_tutorial)
+[[Slides]](https://www.stat.uchicago.edu/~xiangzhu/gwas_tutorial)
 
 ### 10/20/2016
 
 Xiang presented [RSS-E][] at the
-[2016 ASHG](http://www.ashg.org/2016meeting/), Vancouver, BC, Canada.
-[[Poster]](http://www.stat.uchicago.edu/~xiangzhu/ASHG_2016.pdf)
+[2016 ASHG](https://www.ashg.org/2016meeting/), Vancouver, BC, Canada.
+[[Poster]](https://www.stat.uchicago.edu/~xiangzhu/ASHG_2016.pdf)
 [[Abstract]](https://ep70.eventpilot.us/web/page.php?page=IntHtml&project=ASHG16&id=160120613)
 
 ### 08/23/2016
 
 [Dr. Stephen Hsu](https://vp.research.msu.edu/people/hsu-stephen) wrote a
-[blog](http://infoproc.blogspot.com/2016/08/bayesian-large-scale-multiple.html) about [RSS likelihood][].
+[blog](https://infoproc.blogspot.com/2016/08/bayesian-large-scale-multiple.html) about [RSS likelihood][].
 
 ### 07/31/2016
 
 Xiang presented [RSS likelihood][] at the
 [2016 JSM](https://ww2.amstat.org/meetings/jsm/2016/), Chicago, IL.
-[[Slides]](http://www.stat.uchicago.edu/~xiangzhu/JSM_20160731.pdf)
+[[Slides]](https://www.stat.uchicago.edu/~xiangzhu/JSM_20160731.pdf)
 [[Abstract]](https://ww2.amstat.org/meetings/jsm/2016/onlineprogram/AbstractDetails.cfm?abstractid=320123)
 
 ### 03/04/2016
@@ -166,7 +166,7 @@ Xiang posted [RSS likelihood][] on [bioRxiv](https://doi.org/10.1101/042457).
 ### 03/04/2016
 
 Xiang presented [RSS-E][] at the 2016 NHS Group Meeting, University of Chicago, Chicago, IL.
-[[Slides]](http://www.stat.uchicago.edu/~xiangzhu/NHS_20160304.pdf)
+[[Slides]](https://www.stat.uchicago.edu/~xiangzhu/NHS_20160304.pdf)
 
 ### 11/11/2015
 
@@ -176,27 +176,27 @@ Department of Statistics, University of Chicago, Chicago, IL.
 
 ### 10/27/2015
 
-Xiang presented [RSS-E][] at the [Mind Bytes 2015](http://mindbytes.uchicago.edu/),
+Xiang presented [RSS-E][] at the [Mind Bytes 2015](https://mindbytes.uchicago.edu/),
 University of Chicago, Chicago, IL.
-[[Poster]](http://mindbytes.uchicago.edu/2015/posters/RCC_2015.pdf)
-[[Abstract]](http://mindbytes.uchicago.edu/gallery_2015.php)
+[[Poster]](https://mindbytes.uchicago.edu/2015/posters/RCC_2015.pdf)
+[[Abstract]](https://mindbytes.uchicago.edu/gallery_2015.php)
 
 ### 10/15/2015
 
 Xiang presented [RSS-E][] at the
 [2015 ProbGen](https://meetings.cshl.edu/meetings.aspx?meet=probgen&year=15),
 Cold Spring Harbor Laboratory, Cold Spring Harbor, NY.
-[[Poster]](http://www.stat.uchicago.edu/~xiangzhu/CSHL_2015.pdf)
+[[Poster]](https://www.stat.uchicago.edu/~xiangzhu/CSHL_2015.pdf)
 
 ### 10/09/2015
 
 Xiang presented [RSS likelihood][] at the
-[2015 ASHG](http://www.ashg.org/2015meeting/), Baltimore, MD.
-[[Poster]](http://www.stat.uchicago.edu/~xiangzhu/ASHG_2015.pdf)
+[2015 ASHG](https://www.ashg.org/2015meeting/), Baltimore, MD.
+[[Poster]](https://www.stat.uchicago.edu/~xiangzhu/ASHG_2015.pdf)
 [[Abstract]](https://ep70.eventpilotadmin.com/web/page.php?page=IntHtml&project=ASHG15&id=150120723) 
 
 ### 02/27/2015
 
 Xiang presented [RSS likelihood][] at the 2015 NHS Group Meeting,
 University of Chicago, Chicago, IL.
-[[Slides]](http://www.stat.uchicago.edu/~xiangzhu/NHS_20150227.html)
+[[Slides]](https://www.stat.uchicago.edu/~xiangzhu/NHS_20150227.html)
