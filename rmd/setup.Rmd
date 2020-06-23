@@ -1,0 +1,39 @@
+---
+title: "Installation"
+author: Xiang Zhu
+output:
+  workflowr::wflow_html:
+    toc: false
+editor_options:
+  chunk_output_type: console
+---
+
+Below are instructions for installing RSS software.
+In a standard computing environment with internet connection,
+the installation time is typically less than 10 minutes.
+
+## [RSS based on MCMC](setup_mcmc.html)
+
+[This page](setup_mcmc.html) shows how to install the
+[Monte Carlo Markov chain (MCMC)](https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo)
+scripts in [`rss/src/`](https://github.com/stephenslab/rss/tree/master/src).
+
+These MCMC scripts have been tested in the following environments:
+
+- version 8.4.0.150421 (R2014b) of MATLAB for 64-bit Linux
+- version 8.2.0.701 (R2013b) of MATLAB for 64-bit Linux
+- version 8.1.0.604 (R2013a) of MATLAB for 64-bit Linux
+
+## [RSS based on VB](setup_vb.html)
+
+[This page]((setup_vb.html)) shows how to install the
+[Variational Bayes (VB)](https://en.wikipedia.org/wiki/Variational_Bayesian_methods)
+scripts in [`rss/src_vb/`](https://github.com/stephenslab/rss/tree/master/src_vb).
+
+These VB scripts have been tested in the following environments:
+
+- version 9.3.0.713579 (R2017b) of MATLAB for 64-bit Linux 
+- version 8.4.0.150421 (R2014b) of MATLAB for 64-bit Linux
+- version 8.2.0.701 (R2013b) of MATLAB for 64-bit Linux
+- version 8.1.0.604 (R2013a) of MATLAB for 64-bit Linux
+
