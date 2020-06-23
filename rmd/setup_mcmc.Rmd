@@ -6,7 +6,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-[This page](setup_mcmc.html) shows how to install the
+This page shows how to install the
 [Monte Carlo Markov chain (MCMC)](https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo)
 scripts in [`rss/src/`](https://github.com/stephenslab/rss/tree/master/src).
 In a standard computing environment with internet connection,
