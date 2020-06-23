@@ -26,7 +26,7 @@ These MCMC scripts have been tested in the following environments:
 
 ## [RSS based on VB](setup_vb.html)
 
-[This page]((setup_vb.html)) shows how to install the
+[This page](setup_vb.html) shows how to install the
 [Variational Bayes (VB)](https://en.wikipedia.org/wiki/Variational_Bayesian_methods)
 scripts in [`rss/src_vb/`](https://github.com/stephenslab/rss/tree/master/src_vb).
 
