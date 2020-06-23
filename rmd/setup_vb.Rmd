@@ -1,9 +1,7 @@
 ---
 title: "VB Installation"
 author: Xiang Zhu
-output:
-  workflowr::wflow_html:
-    toc: false
+output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
 ---
