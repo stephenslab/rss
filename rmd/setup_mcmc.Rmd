@@ -110,8 +110,8 @@ extensively tested in the following environments.
 
 - version 8.1.0.604 (R2013a) of MATLAB for 64-bit Linux
 
-If you have any trouble installing RSS-NET,
-please open an [issue](https://github.com/SUwonglab/rss-net/issues)
+If you have any trouble installing RSS MCMC codes,
+please open an [issue](https://github.com/stephenslab/rss/issues)
 or email me (`xiangzhu[at]uchicago[and/or]stanford.edu`).
 To help me better understand your problems,
 please provide details of your computing environment.
