@@ -5,13 +5,24 @@ navbar:
   left:
   - text: Home
     href: index.html
-  - text: About
-    href: about.html
+  - text: Setup
+    href: setup.html
+  - text: Functions
+    href: function.html
+  - text: Examples
+    href: example.html
+  - text: FAQ
+    href: faq.html
+  - text: News
+    href: news.html
   - text: License
     href: license.html
+  right:
+  - icon: fa-github
+    href: https://github.com/stephenslab/rss
 output:
   workflowr::wflow_html:
     toc: yes
     toc_float: yes
-    theme: cosmo
-    highlight: textmate
+    theme: flatly
+    highlight: pygments
