@@ -1,0 +1,116 @@
+---
+title: "VB Installation"
+author: Xiang Zhu
+output:
+  workflowr::wflow_html:
+    toc: false
+editor_options:
+  chunk_output_type: console
+---
+
+This page shows how to install the
+[Variational Bayes (VB)](https://en.wikipedia.org/wiki/Variational_Bayesian_methods)
+scripts in [`rss/src_vb/`](https://github.com/stephenslab/rss/tree/master/src_vb).
+In a standard computing environment with internet connection,
+the installation time is typically less than 10 minutes.
+
+[`git`]: https://git-scm.com/downloads
+[`rss`]: https://github.com/stephenslab/rss
+[`rss/src_vb/install.m`]: https://github.com/stephenslab/rss/blob/master/src_vb/install.m
+
+## Step-by-step guide
+
+### 0. Install [`git`][] (optional)
+
+To simplify Step 1 below, you may consider
+installing [`git`][] in your computing environment
+(if it is not available there).
+Please see this [excellent tutorial](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+on installing [`git`][].
+
+Please note that RSS software does not depend on [`git`][].
+You can complete Step 1 without installing [`git`][].
+
+### 1. Clone [`rss`][] repository
+
+With [`git`][] installed, you can easily clone
+[`rss`][] by running the following command in Terminal.
+
+```zsh
+git clone git@github.com:stephenslab/rss.git
+```
+
+Without [`git`][], you can manually download [`rss`][] as follows.
+
+```zsh
+wget https://github.com/stephenslab/rss/archive/master.zip
+unzip master.zip
+rm master.zip
+mv rss-master rss
+```
+
+### 2. Compile [mex](https://www.mathworks.com/help/matlab/ref/mex.html) file
+
+Go to `rss/src_vb` and open MATLAB.
+
+```zsh
+cd rss/src_vb
+matlab -nodesktop
+```
+
+Run [`rss/src_vb/install.m`][] in MATLAB. You may get the following output.
+
+```matlab
+>> run install.m
+Building with 'gcc'.
+MEX completed successfully.
+Compilation of MEX files is complete.
+```
+
+After successfully running [`rss/src_vb/install.m`][],
+you will find a file `rss_varbvsr_update_matlab.mexa64` (in Linux)
+in the directory `rss/src_vb`, which is the workhorse for variational Bayes computations.
+
+## Computing environment
+
+Please note that RSS VB codes have only been
+extensively tested in the following environments.
+
+- version 9.3.0.713579 (R2017b) of MATLAB for 64-bit Linux
+
+- version 8.4.0.150421 (R2014b) of MATLAB for 64-bit Linux
+
+- version 8.2.0.701 (R2013b) of MATLAB for 64-bit Linux
+
+- version 8.1.0.604 (R2013a) of MATLAB for 64-bit Linux
+
+If you have any trouble installing RSS VB codes,
+please open an [issue](https://github.com/stephenslab/rss/issues)
+or email me (`xiangzhu[at]uchicago[and/or]stanford.edu`).
+To help me better understand your problems,
+please provide details of your computing environment.
+
+## MEX files
+
+The most tricky part of this installation
+is probably compiling MEX files in MATLAB (Step 2).
+
+Before running [`rss/src_vb/install.m`][],
+please make sure that you have the compiler
+compatible with your version of MATLAB,
+and that you can compile the MEX files in
+the tutorials given on the MathWorks website.
+
+In addition, please ensure that you compile and run
+the scripts in the same version of MATLAB.
+For example, if you have compiled MEX files
+using MATLAB Release R2017b, please use the compiled output
+`rss_varbvsr_update_matlab.mexa64` only in MATLAB R2017b.
+
+For more information on MEX, please see:
+
+- <http://www.mathworks.com/help/matlab/write-cc-mex-files.html>
+
+- <http://www.mathworks.com/help/matlab/matlab_external/introducing-mex-files.html>
+
+- <http://www.mathworks.com/support/sysreq/previous_releases.html>
