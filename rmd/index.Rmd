@@ -1,6 +1,6 @@
 ---
-title: "Home"
-site: workflowr::wflow_site
+title: "Regression with Summary Statistics (RSS) wiki"
+author: Xiang Zhu
 output:
   workflowr::wflow_html:
     toc: false
@@ -8,4 +8,38 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+Welcome to Regression with Summary Statistics (RSS) wiki!
+
+This wiki hosts the following documentation pages of RSS software.
+If you have any question or suggestion about RSS,
+please feel free to create a new [issue](https://github.com/stephenslab/rss/issues)
+and/or send an email to `xiangzhu[at]uchicago[and/or]stanford.edu`.
+
+## <img src="https://static.thenounproject.com/png/2218944-200.png" width="48"/> [Installation](setup.html)
+
+This page provides instructions for installing RSS software.
+
+## <img src="https://static.thenounproject.com/png/2342347-200.png" width="48"/> [Functions](function.html) 
+
+This page outlines functions and scripts associated with RSS methods.
+
+## <img src="https://static.thenounproject.com/png/2019098-200.png" width="48"/> [Examples](example.html)
+
+This page gives end-to-end examples of using RSS methods and software.
+
+## <img src="https://static.thenounproject.com/png/3408080-200.png" width="48"/> [FAQs](faq.html)
+
+This page answers frequently ask questions (FAQs) about RSS methods and software.
+
+## <img src="https://static.thenounproject.com/png/689848-200.png" width="48"/> [News](news.html)
+
+This page lists progress updates related to RSS methods and software.
+
+--------
+
+<small>
+Icons used in this wiki are credited to the
+[Noun Project](https://thenounproject.com/).
+This wiki is created using
+[workflowr](https://github.com/jdblischak/workflowr).
+</small>
