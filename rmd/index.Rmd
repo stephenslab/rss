@@ -6,6 +6,7 @@ output:
     toc: false
 editor_options:
   chunk_output_type: console
+site: workflowr::wflow_site  
 ---
 
 Welcome to Regression with Summary Statistics (RSS) wiki!
