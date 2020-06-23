@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Xiang Zhu" />
+
+
+<title>Compute Scaled Population Recombination Rate</title>
+
+<script src="site_libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">rss</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="setup.html">Setup</a>
+</li>
+<li>
+  <a href="function.html">Functions</a>
+</li>
+<li>
+  <a href="example.html">Examples</a>
+</li>
+<li>
+  <a href="faq.html">FAQ</a>
+</li>
+<li>
+  <a href="news.html">News</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/stephenslab/rss">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Compute Scaled Population Recombination Rate</h1>
+<h4 class="author">Xiang Zhu</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2020-06-23
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>rss/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20200623code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20200623)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20200623code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20200623)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree7ba0e4f1127ae401c625d1bd2a4fdc0c4d7b7a10targetblank7ba0e4fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/rss/tree/7ba0e4f1127ae401c625d1bd2a4fdc0c4d7b7a10" target="_blank">7ba0e4f</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree7ba0e4f1127ae401c625d1bd2a4fdc0c4d7b7a10targetblank7ba0e4fa" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/rss/tree/7ba0e4f1127ae401c625d1bd2a4fdc0c4d7b7a10" target="_blank">7ba0e4f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rproj.user/
+    Ignored:    .spelling
+    Ignored:    examples/example5/.Rhistory
+    Ignored:    examples/example5/Aseg_chr16.mat
+    Ignored:    examples/example5/example5_simulated_data.mat
+    Ignored:    examples/example5/example5_simulated_results.mat
+    Ignored:    examples/example5/ibd2015_path2641_genes_results.mat
+
+Untracked files:
+    Untracked:  docs_old/
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>rmd/recombination.Rmd</code>) and HTML (<code>docs/recombination.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/rss/blob/7ba0e4f1127ae401c625d1bd2a4fdc0c4d7b7a10/rmd/recombination.Rmd" target="_blank">7ba0e4f</a>
+</td>
+<td>
+Xiang Zhu
+</td>
+<td>
+2020-06-23
+</td>
+<td>
+wflow_publish(“rmd/recombination.Rmd”)
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<p>The following example illustrates how to compute the “scaled population recombination rate” <span class="math inline">\(\rho_{ij}\)</span> between SNPs <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> using HapMap genetic map.</p>
+<p>We take six SNPs in chromosome 22 from HapMap CEU Phase 2, with the genetic map shown below. We also get the effective diploid population size <span class="math inline">\(N_e=11418\)</span> from <a href="https://mathgen.stats.ox.ac.uk/impute/impute_v1.html"><code>IMPUTE</code></a> software document.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>   position             <span class="kw">COMBINED_rate</span>(cM<span class="op">/</span>Mb)                                <span class="kw">Genetic_Map</span>(cM)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="dv">1</span><span class="op">:</span><span class="st"> </span><span class="dv">14431347</span>             <span class="fl">8.096992</span>                                            <span class="fl">0.00000000</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="dv">2</span><span class="op">:</span><span class="st"> </span><span class="dv">14432618</span>             <span class="fl">8.131520</span>                                            <span class="fl">0.01029128</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="dv">3</span><span class="op">:</span><span class="st"> </span><span class="dv">14433624</span>             <span class="fl">8.131967</span>                                            <span class="fl">0.01847159</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="dv">4</span><span class="op">:</span><span class="st"> </span><span class="dv">14433659</span>             <span class="fl">8.132625</span>                                            <span class="fl">0.01875620</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="dv">5</span><span class="op">:</span><span class="st"> </span><span class="dv">14433758</span>             <span class="fl">8.129606</span>                                            <span class="fl">0.01956133</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="dv">6</span><span class="op">:</span><span class="st"> </span><span class="dv">14434713</span>             <span class="fl">8.024772</span>                                            <span class="fl">0.02732511</span></span></code></pre></div>
+<p>To compute recombination rates from two SNPs, we use the following formula from <a href="https://www.ncbi.nlm.nih.gov/pubmed/14704198">Li and Stephens (2003)</a>:</p>
+<p><span class="math display">\[
+\rho = 4 \times \text{effective diploid population size} \times \text{genetic distance}.
+\]</span></p>
+<p>For example,</p>
+<ul>
+<li><span class="math inline">\(\rho_{23}\)</span> = 4 <span class="math inline">\(\times\)</span> 11418 <span class="math inline">\(\times\)</span> (0.01847159-0.01029128)/100;</li>
+<li><span class="math inline">\(\rho_{26}\)</span> = 4 <span class="math inline">\(\times\)</span> 11418 <span class="math inline">\(\times\)</span> (0.02732511-0.01029128)/100.</li>
+</ul>
+<p>As a validation, we compare our calculations above with the results from <a href="http://stephenslab.uchicago.edu/software_pages/blimp/index.html"><code>BLIMP</code></a> (<a href="https://www.ncbi.nlm.nih.gov/pubmed/21479081">Wen and Stephens, 2010</a>).</p>
+<p>The file <code>rmb.ceu.ch22</code> lists recombination rate between all adjacent markers in the panel.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(data.table)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>genetic.map.chr22 &lt;-<span class="st"> </span>data.table<span class="op">::</span><span class="kw">fread</span>(<span class="st">&quot;genetic_map_chr22.txt&quot;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>legend.ceu.chr22 &lt;-<span class="st"> </span>data.table<span class="op">::</span><span class="kw">fread</span>(<span class="st">&quot;legend.ceu.ch22&quot;</span>, <span class="dt">header =</span> T)</span>
+<span id="cb2-4"><a href="#cb2-4"></a>rmb.ceu.chr22 &lt;-<span class="st"> </span>data.table<span class="op">::</span><span class="kw">fread</span>(<span class="st">&quot;rmb.ceu.ch22&quot;</span>)</span>
+<span id="cb2-5"><a href="#cb2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co"># locate all the snps specified by the legend file</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>selected.pos &lt;-<span class="st"> </span><span class="kw">intersect</span>(genetic.map.chr22<span class="op">$</span>position, legend.ceu.chr22<span class="op">$</span>position)</span>
+<span id="cb2-8"><a href="#cb2-8"></a>map.index &lt;-<span class="st"> </span><span class="kw">which</span>(genetic.map.chr22<span class="op">$</span>position <span class="op">%in%</span><span class="st"> </span>selected.pos)</span>
+<span id="cb2-9"><a href="#cb2-9"></a>leg.index &lt;-<span class="st"> </span><span class="kw">which</span>(legend.ceu.chr22<span class="op">$</span>position <span class="op">%in%</span><span class="st"> </span>selected.pos)</span>
+<span id="cb2-10"><a href="#cb2-10"></a></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co"># check the location is correct</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>location.check &lt;-<span class="st"> </span><span class="kw">prod</span>(genetic.map.chr22<span class="op">$</span>position[map.index] <span class="op">==</span><span class="st"> </span>legend.ceu.chr22<span class="op">$</span>position[leg.index])</span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="cf">if</span> (location.check <span class="op">!=</span><span class="st"> </span><span class="dv">1</span>) <span class="kw">stop</span>(<span class="st">&#39;locate the snps wrongly&#39;</span>)</span>
+<span id="cb2-14"><a href="#cb2-14"></a></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="co"># calculate the shrinking coefficient: exp(-rho_{ij}/(2*m)) for adjacent (i,j)</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="co"># general formula: rho = 4 * effective population size * genetic distance</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="co"># hapmap phase 2 ceu: effective population size (Ne)=11418, haplotype size (m)=120</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a>num.snp &lt;-<span class="st"> </span><span class="kw">length</span>(map.index);</span>
+<span id="cb2-19"><a href="#cb2-19"></a>ro.coef &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, num.snp);</span>
+<span id="cb2-20"><a href="#cb2-20"></a>ro.coef[<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">1</span>;</span>
+<span id="cb2-21"><a href="#cb2-21"></a>map.selected &lt;-<span class="st"> </span>genetic.map.chr22[map.index, ]</span>
+<span id="cb2-22"><a href="#cb2-22"></a>rcb.selected &lt;-<span class="st"> </span>map.selected[[<span class="dv">3</span>]]</span>
+<span id="cb2-23"><a href="#cb2-23"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>num.snp){</span>
+<span id="cb2-24"><a href="#cb2-24"></a>  ro.coef[i] &lt;-<span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span><span class="dv">4</span><span class="op">*</span><span class="dv">11418</span><span class="op">*</span>(rcb.selected[i]<span class="op">/</span><span class="dv">100</span><span class="op">-</span>rcb.selected[i<span class="dv">-1</span>]<span class="op">/</span><span class="dv">100</span>)<span class="op">/</span><span class="dv">120</span>)</span>
+<span id="cb2-25"><a href="#cb2-25"></a>}</span>
+<span id="cb2-26"><a href="#cb2-26"></a></span>
+<span id="cb2-27"><a href="#cb2-27"></a><span class="co"># compare the result with the one provided in BLIMP (Wen and Stephens, 2010)</span></span>
+<span id="cb2-28"><a href="#cb2-28"></a><span class="co"># make sure rss compute rho in the same way as BLIMP</span></span>
+<span id="cb2-29"><a href="#cb2-29"></a>results &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow=</span>num.snp, <span class="dt">ncol=</span><span class="dv">2</span>)</span>
+<span id="cb2-30"><a href="#cb2-30"></a>results[, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">unlist</span>(rmb.ceu.chr22)</span>
+<span id="cb2-31"><a href="#cb2-31"></a>results[, <span class="dv">2</span>] &lt;-<span class="st"> </span>ro.coef</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">head</span>(results)</span>
+<span id="cb3-2"><a href="#cb3-2"></a>          [,<span class="dv">1</span>]      [,<span class="dv">2</span>]</span>
+<span id="cb3-3"><a href="#cb3-3"></a>[<span class="dv">1</span>,] <span class="fl">1.0000000</span> <span class="fl">1.0000000</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>[<span class="dv">2</span>,] <span class="fl">0.9615886</span> <span class="fl">0.9615886</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>[<span class="dv">3</span>,] <span class="fl">0.9693454</span> <span class="fl">0.9693454</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>[<span class="dv">4</span>,] <span class="fl">0.9989173</span> <span class="fl">0.9989173</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>[<span class="dv">5</span>,] <span class="fl">0.9969404</span> <span class="fl">0.9969404</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>[<span class="dv">6</span>,] <span class="fl">0.9708834</span> <span class="fl">0.9708834</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">tail</span>(results)</span>
+<span id="cb3-11"><a href="#cb3-11"></a>              [,<span class="dv">1</span>]      [,<span class="dv">2</span>]</span>
+<span id="cb3-12"><a href="#cb3-12"></a>[<span class="dv">34021</span>,] <span class="fl">0.9963701</span> <span class="fl">0.9963701</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>[<span class="dv">34022</span>,] <span class="fl">0.9909937</span> <span class="fl">0.9909937</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>[<span class="dv">34023</span>,] <span class="fl">0.9986032</span> <span class="fl">0.9986032</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a>[<span class="dv">34024</span>,] <span class="fl">0.9879030</span> <span class="fl">0.9879030</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a>[<span class="dv">34025</span>,] <span class="fl">0.9962124</span> <span class="fl">0.9962124</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a>[<span class="dv">34026</span>,] <span class="fl">0.9847357</span> <span class="fl">0.9847357</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a></span>
+<span id="cb3-19"><a href="#cb3-19"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">max</span>(<span class="kw">abs</span>(results[,<span class="dv">1</span>]<span class="op">-</span>results[, <span class="dv">2</span>]))</span>
+<span id="cb3-20"><a href="#cb3-20"></a>[<span class="dv">1</span>] <span class="fl">4.999806e-08</span></span></code></pre></div>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>devtools<span class="op">::</span><span class="kw">session_info</span>()</span></code></pre></div>
+<pre><code>─ Session info ───────────────────────────────────────────────────────────────
+ setting  value                       
+ version  R version 4.0.1 (2020-06-06)
+ os       macOS Catalina 10.15.5      
+ system   x86_64, darwin17.0          
+ ui       X11                         
+ language (EN)                        
+ collate  en_US.UTF-8                 
+ ctype    en_US.UTF-8                 
+ tz       America/Los_Angeles         
+ date     2020-06-23                  
+
+─ Packages ───────────────────────────────────────────────────────────────────
+ package     * version date       lib source        
+ assertthat    0.2.1   2019-03-21 [1] CRAN (R 4.0.0)
+ backports     1.1.8   2020-06-17 [1] CRAN (R 4.0.0)
+ callr         3.4.3   2020-03-28 [1] CRAN (R 4.0.0)
+ cli           2.0.2   2020-02-28 [1] CRAN (R 4.0.0)
+ crayon        1.3.4   2017-09-16 [1] CRAN (R 4.0.0)
+ desc          1.2.0   2018-05-01 [1] CRAN (R 4.0.0)
+ devtools      2.3.0   2020-04-10 [1] CRAN (R 4.0.0)
+ digest        0.6.25  2020-02-23 [1] CRAN (R 4.0.0)
+ ellipsis      0.3.1   2020-05-15 [1] CRAN (R 4.0.0)
+ evaluate      0.14    2019-05-28 [1] CRAN (R 4.0.0)
+ fansi         0.4.1   2020-01-08 [1] CRAN (R 4.0.0)
+ fs            1.4.1   2020-04-04 [1] CRAN (R 4.0.0)
+ git2r         0.27.1  2020-05-03 [1] CRAN (R 4.0.0)
+ glue          1.4.1   2020-05-13 [1] CRAN (R 4.0.0)
+ htmltools     0.5.0   2020-06-16 [1] CRAN (R 4.0.0)
+ httpuv        1.5.4   2020-06-06 [1] CRAN (R 4.0.0)
+ knitr         1.29    2020-06-23 [1] CRAN (R 4.0.0)
+ later         1.1.0.1 2020-06-05 [1] CRAN (R 4.0.0)
+ magrittr      1.5     2014-11-22 [1] CRAN (R 4.0.0)
+ memoise       1.1.0   2017-04-21 [1] CRAN (R 4.0.0)
+ pkgbuild      1.0.8   2020-05-07 [1] CRAN (R 4.0.0)
+ pkgload       1.1.0   2020-05-29 [1] CRAN (R 4.0.0)
+ prettyunits   1.1.1   2020-01-24 [1] CRAN (R 4.0.0)
+ processx      3.4.2   2020-02-09 [1] CRAN (R 4.0.0)
+ promises      1.1.1   2020-06-09 [1] CRAN (R 4.0.0)
+ ps            1.3.3   2020-05-08 [1] CRAN (R 4.0.0)
+ R6            2.4.1   2019-11-12 [1] CRAN (R 4.0.0)
+ Rcpp          1.0.4.6 2020-04-09 [1] CRAN (R 4.0.0)
+ remotes       2.1.1   2020-02-15 [1] CRAN (R 4.0.0)
+ rlang         0.4.6   2020-05-02 [1] CRAN (R 4.0.0)
+ rmarkdown     2.3     2020-06-18 [1] CRAN (R 4.0.0)
+ rprojroot     1.3-2   2018-01-03 [1] CRAN (R 4.0.0)
+ sessioninfo   1.1.1   2018-11-05 [1] CRAN (R 4.0.0)
+ stringi       1.4.6   2020-02-17 [1] CRAN (R 4.0.0)
+ stringr       1.4.0   2019-02-10 [1] CRAN (R 4.0.0)
+ testthat      2.3.2   2020-03-02 [1] CRAN (R 4.0.0)
+ usethis       1.6.1   2020-04-29 [1] CRAN (R 4.0.0)
+ whisker       0.4     2019-08-28 [1] CRAN (R 4.0.0)
+ withr         2.2.0   2020-04-20 [1] CRAN (R 4.0.0)
+ workflowr   * 1.6.2   2020-04-30 [1] CRAN (R 4.0.0)
+ xfun          0.15    2020-06-21 [1] CRAN (R 4.0.0)
+ yaml          2.2.1   2020-02-01 [1] CRAN (R 4.0.0)
+
+[1] /Library/Frameworks/R.framework/Versions/4.0/Resources/library</code></pre>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
