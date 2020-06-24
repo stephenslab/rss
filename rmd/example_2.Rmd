@@ -1,5 +1,5 @@
 ---
-title: "Example 2: RSS-BVSR with various LD matrices"
+title: "Example 2: RSS-BVSR with Various LD Matrices"
 author: Xiang Zhu
 output: workflowr::wflow_html
 editor_options:
