@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Xiang Zhu" />
+
+
+<title>Example 3: RSS-BVSR with Various SE Vectors</title>
+
+<script src="site_libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">rss</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="setup.html">Setup</a>
+</li>
+<li>
+  <a href="function.html">Functions</a>
+</li>
+<li>
+  <a href="example.html">Examples</a>
+</li>
+<li>
+  <a href="faq.html">FAQ</a>
+</li>
+<li>
+  <a href="news.html">News</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/stephenslab/rss">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Example 3: RSS-BVSR with Various SE Vectors</h1>
+<h4 class="author">Xiang Zhu</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2020-06-23
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>rss/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree88d0b753d8c81d8ce072d2af44c70140fe99baa1targetblank88d0b75a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/rss/tree/88d0b753d8c81d8ce072d2af44c70140fe99baa1" target="_blank">88d0b75</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree88d0b753d8c81d8ce072d2af44c70140fe99baa1targetblank88d0b75a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/rss/tree/88d0b753d8c81d8ce072d2af44c70140fe99baa1" target="_blank">88d0b75</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rproj.user/
+    Ignored:    .spelling
+    Ignored:    examples/example5/.Rhistory
+    Ignored:    examples/example5/Aseg_chr16.mat
+    Ignored:    examples/example5/example5_simulated_data.mat
+    Ignored:    examples/example5/example5_simulated_results.mat
+    Ignored:    examples/example5/ibd2015_path2641_genes_results.mat
+
+Untracked files:
+    Untracked:  docs_old/
+    Untracked:  rmd/example_4.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>rmd/example_3.Rmd</code>) and HTML (<code>docs/example_3.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/rss/blob/88d0b753d8c81d8ce072d2af44c70140fe99baa1/rmd/example_3.Rmd" target="_blank">88d0b75</a>
+</td>
+<td>
+Xiang Zhu
+</td>
+<td>
+2020-06-23
+</td>
+<td>
+wflow_publish(“rmd/example_3.Rmd”)
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<p>This example illustrates the impact of different definitions of standard error (<code>se</code>) on RSS. This example is closely related to Section 2.1 of <a href="https://projecteuclid.org/euclid.aoas/1507168840">Zhu and Stephens (2017)</a>.</p>
+<p>The “simple” version of <code>se</code> is the standard error of single-SNP effect estimate, which is often directly provided in GWAS summary statistics database. The “rigorous” version of <code>se</code> is used in theoretical derivations of RSS (see Section 2.4 of <a href="https://projecteuclid.org/euclid.aoas/1507168840">Zhu and Stephens (2017)</a>), and it requires some basic calculations based on commonly available summary data.</p>
+<p>Specifically, the “simple” version of <code>se</code> is given by</p>
+<p><span class="math display">\[
+\hat{\sigma}_j^2 = (n{\bf X}_j^\prime {\bf X}_j)^{-1} \cdot ({\bf y}-{\bf X}_j\hat{\beta}_j)^\prime ({\bf y}-{\bf X}_j\hat{\beta}_j),
+\]</span></p>
+<p>and the “rigorous” version is given by</p>
+<p><span class="math display">\[
+\hat{s}_j^2=(n{\bf X}_j^\prime {\bf X}_j)^{-1} \cdot ({\bf y}^\prime{\bf y}).
+\]</span></p>
+<p>The relation between these two versions is as follows</p>
+<p><span class="math display">\[
+\hat{s}_j^2=\hat{\sigma}_j^2 + n^{-1}\cdot \hat{\beta}_j^2.
+\]</span></p>
+<p>Note that <span class="math inline">\(\hat{s}_j^2\approx\hat{\sigma}_j^2\)</span> when <span class="math inline">\(n\)</span> is large and/or <span class="math inline">\(\hat{\beta}_j^2\)</span> is small.</p>
+<p>In practice, we find these two definitions differ negligibly, mainly because i) recent GWAS have large sample size (<span class="math inline">\(n\)</span>, <code>Nsnp</code>) and small effect sizes (<span class="math inline">\(\hat{\beta}_j\)</span>, <code>betahat</code>) (Table 1 of <a href="https://projecteuclid.org/euclid.aoas/1507168840">Zhu and Stephens (2017)</a>); and ii) published summary data are often rounded to two digits to further limit the possibility of identifiability (e.g. <a href="http://portals.broadinstitute.org/collaboration/giant/index.php/GIANT_consortium_data_files#GIANT_consortium_2012-2015_GWAS_Metadata_is_Available_Here_for_Download">GIANT</a>).</p>
+<p>Hence, we speculate that using these two definitions of <code>se</code> exchangeably would not produce severely different results in practice. Below we verify this speculation by simulations.</p>
+<p>Here we use the same dataset in <a href="example_1.html">Example 1</a>. Please contact me if you have trouble downloading the dataset <a href="https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example1/example1.mat"><code>example1.mat</code></a>.</p>
+<p>To reproduce results of Example 3, please read the step-by-step guide below and run <a href="https://github.com/stephenslab/rss/blob/master/examples/example3.m"><code>example3.m</code></a>. Before running <a href="https://github.com/stephenslab/rss/blob/master/examples/example3.m"><code>example3.m</code></a>, please first install the <a href="https://github.com/stephenslab/rss/tree/master/src">MCMC subroutines of RSS</a>. Please find installation instructions <a href="setup_mcmc.html">here</a>.</p>
+</div>
+<div id="step-by-step-illustration" class="section level2">
+<h2>Step-by-step illustration</h2>
+<p><strong>Step 1</strong>. Define two types of <code>se</code>.</p>
+<p>We let <code>se_1</code> and <code>se_2</code> denote the “simple” and “rigorous” version respectively.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1"></a><span class="va">se_1</span> <span class="op">=</span> <span class="va">se</span><span class="op">;</span>                                      <span class="co">% the simple version</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="va">se_2</span> <span class="op">=</span> <span class="va">sqrt</span>((<span class="va">betahat</span><span class="op">.^</span><span class="fl">2</span>) <span class="op">./</span> <span class="va">Nsnp</span> <span class="op">+</span> <span class="va">se</span><span class="op">.^</span><span class="fl">2</span>)<span class="op">;</span>      <span class="co">% the rigorous version </span></span></code></pre></div>
+<p>Before running MCMC, we first look at the difference between these two versions of <code>se</code>. Below is the five-number summary<sup>1</sup> of the absolute difference between <code>se_1</code> and <code>se_2</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1"></a><span class="op">&gt;&gt;</span> <span class="va">abs_diff</span> <span class="op">=</span> <span class="va">abs</span>(<span class="va">se_1</span> <span class="op">-</span> <span class="va">se_2</span>)<span class="op">;</span>  </span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="op">&gt;&gt;</span> <span class="va">disp</span>(<span class="va">prctile</span>(<span class="va">log10</span>(<span class="va">abs_diff</span>)<span class="op">,</span> <span class="fl">0</span><span class="op">:</span><span class="fl">25</span><span class="op">:</span><span class="fl">100</span>))<span class="op">;</span> <span class="co">% require stat toolbox</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="op">-</span><span class="fl">12.0442</span>   <span class="op">-</span><span class="fl">4.6448</span>   <span class="op">-</span><span class="fl">3.9987</span>   <span class="op">-</span><span class="fl">3.4803</span>   <span class="op">-</span><span class="fl">1.3246</span></span></code></pre></div>
+<p>To make this example as “hard” as possible for RSS, we do not round <code>se_1</code> and <code>se_2</code> to 2 significant digits.</p>
+<p><strong>Step 2</strong>. Fit RSS-BVSR using two versions of <code>se</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1"></a>[<span class="va">betasam_1</span><span class="op">,</span> <span class="va">gammasam_1</span><span class="op">,</span> <span class="va">hsam_1</span><span class="op">,</span> <span class="va">logpisam_1</span><span class="op">,</span> <span class="va">Naccept_1</span>] <span class="op">=</span> <span class="va">rss_bvsr</span>(<span class="va">betahat</span><span class="op">,</span> <span class="va">se_1</span><span class="op">,</span> <span class="va">R</span><span class="op">,</span> <span class="va">Nsnp</span><span class="op">,</span> <span class="va">Ndraw</span><span class="op">,</span> <span class="va">Nburn</span><span class="op">,</span> <span class="va">Nthin</span>)<span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>[<span class="va">betasam_2</span><span class="op">,</span> <span class="va">gammasam_2</span><span class="op">,</span> <span class="va">hsam_2</span><span class="op">,</span> <span class="va">logpisam_2</span><span class="op">,</span> <span class="va">Naccept_2</span>] <span class="op">=</span> <span class="va">rss_bvsr</span>(<span class="va">betahat</span><span class="op">,</span> <span class="va">se_2</span><span class="op">,</span> <span class="va">R</span><span class="op">,</span> <span class="va">Nsnp</span><span class="op">,</span> <span class="va">Ndraw</span><span class="op">,</span> <span class="va">Nburn</span><span class="op">,</span> <span class="va">Nthin</span>)<span class="op">;</span></span></code></pre></div>
+<p><strong>Step 3</strong>. Compare the posterior output.</p>
+<p>We can look at the posterior means of <code>beta</code>, and posterior distributions of <code>h</code>, <code>log(pi)</code> and PVE based on <code>se_1</code> (blue) and <code>se_2</code> (orange).</p>
+<center>
+<img src="images/rss_example3_posterior.png" width="600">
+</center>
+<p>The PVE estimate (with 95% credible interval) is 0.1932, [0.1166, 0.2869] when using <code>se_1</code>, and it is 0.1896, [0.1162, 0.2765] when using <code>se_2</code>.</p>
+</div>
+<div id="more-simulations" class="section level2">
+<h2>More simulations</h2>
+<p>The simulations in Section 2.3 of <a href="https://projecteuclid.org/euclid.aoas/1507168840">Zhu and Stephens (2017)</a> are essentially “replications” of the example above. To facilitate reproducible research, we make the simulated datasets available (<a href="https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example1/readme"><code>rss_example1_simulations.tar.gz</code></a>)<sup>2</sup>.</p>
+<p>After applying RSS methods to these simulated data, we obtain the following results, where <code>sigma_hat</code> corresponds to <code>se_1</code>, and <code>s_hat</code> corresponds to <code>se_2</code>.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">PVE estimation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><img src="images/twose_pve.png" width="600"></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Association detection</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><img src="images/twose_pip.png" width="780"></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>Footnotes:</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>The function <a href="http://www.mathworks.com/help/stats/prctile.html"><code>prctile</code></a> used here requires the <a href="http://www.mathworks.com/help/stats/index.html">Statistics and Machine Learning Toolbox</a>. Please see this <a href="https://github.com/stephenslab/rss/pull/3/commits/566e149ed840a913bfef9c0d7bf82feb41d6735d">commit</a> (courtesy of <a href="https://pcarbo.github.io/">Dr. Peter Carbonetto</a>) if this required toolbox is not available in your environment.</p></li>
+<li><p>Currently these files are locked, since they contain individual-level genotypes from Wellcome Trust Case Control Consortium (WTCCC, <a href="https://www.wtccc.org.uk/" class="uri">https://www.wtccc.org.uk/</a>). You need to get permission from WTCCC before we can share these files with you.</p></li>
+</ol>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
