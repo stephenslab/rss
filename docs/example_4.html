@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Xiang Zhu" />
+
+
+<title>RSS-BVSR Fitting via Variational Bayes Methods</title>
+
+<script src="site_libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">rss</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="setup.html">Setup</a>
+</li>
+<li>
+  <a href="function.html">Functions</a>
+</li>
+<li>
+  <a href="example.html">Examples</a>
+</li>
+<li>
+  <a href="faq.html">FAQ</a>
+</li>
+<li>
+  <a href="news.html">News</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/stephenslab/rss">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">RSS-BVSR Fitting via Variational Bayes Methods</h1>
+<h4 class="author">Xiang Zhu</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2020-06-24
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>rss/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstreedb16ef7cac212e506c106c7fe05fb21febec42datargetblankdb16ef7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/rss/tree/db16ef7cac212e506c106c7fe05fb21febec42da" target="_blank">db16ef7</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstreedb16ef7cac212e506c106c7fe05fb21febec42datargetblankdb16ef7a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/rss/tree/db16ef7cac212e506c106c7fe05fb21febec42da" target="_blank">db16ef7</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rproj.user/
+    Ignored:    .spelling
+    Ignored:    examples/example5/.Rhistory
+    Ignored:    examples/example5/Aseg_chr16.mat
+    Ignored:    examples/example5/example5_simulated_data.mat
+    Ignored:    examples/example5/example5_simulated_results.mat
+    Ignored:    examples/example5/ibd2015_path2641_genes_results.mat
+
+Untracked files:
+    Untracked:  docs_old/
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>rmd/example_4.Rmd</code>) and HTML (<code>docs/example_4.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/rss/blob/db16ef7cac212e506c106c7fe05fb21febec42da/rmd/example_4.Rmd" target="_blank">db16ef7</a>
+</td>
+<td>
+Xiang Zhu
+</td>
+<td>
+2020-06-24
+</td>
+<td>
+wflow_publish(“rmd/example_4.Rmd”)
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<p>This example illustrates how to fit an RSS-BVSR model using variational Bayes (VB) approximation, and compares the results with previous work based on individual-level data, notably, <a href="https://projecteuclid.org/euclid.ba/1339616726">Carbonetto and Stephens (2012)</a>. This example is closely related to Section “Connection with enrichment analysis of individual-level data” of <a href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and Stephens (2018)</a>.</p>
+<p>Proposition 2.1 of <a href="https://projecteuclid.org/euclid.aoas/1507168840">Zhu and Stephens (2017)</a> gives conditions under which regression likelihood based on individual-level data is equivalent to regression likelihood based on summary-level data. Under the same conditions, we can show that variational inferences based on individual-level data and summary-level data are also equivalent, in the sense that they have the same fix point iteration scheme and lower bound in variational approximations. See <a href="https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-018-06805-x/MediaObjects/41467_2018_6805_MOESM1_ESM.pdf">Supplementary Note</a> of <a href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and Stephens (2018)</a> for proofs. This example serves as a sanity check for our theoretical work.</p>
+<p>The GWAS individual-level and summary-level data are simulated by <a href="https://github.com/stephenslab/rss/blob/master/misc/enrich_datamaker.m"><code>enrich_datamaker.m</code></a>, which contains an enrichment signal of a target gene set. Specifically, SNPs outside the target gene set are selected to be causal ones with log10 odds ratio <span class="math inline">\(\theta_0\)</span>, whereas SNPs inside this gene set are selected with a higher log10 odds ratio <span class="math inline">\(\theta_0+\theta\)</span> (<span class="math inline">\(\theta&gt;0\)</span>). For more details, see <a href="https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-018-06805-x/MediaObjects/41467_2018_6805_MOESM1_ESM.pdf">Supplementary Figure 1</a> of <a href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and Stephens (2018)</a>.</p>
+<p>Next, we feed the simulated individual-level and summary-level data to <a href="https://github.com/pcarbo/varbvs"><code>varbvs</code></a> and <a href="https://github.com/stephenslab/rss/tree/master/src_vb"><code>rss-varbvsr</code></a> respectively, and then compare the VB output from these two methods.</p>
+<p>To reproduce results of Example 4, please please read the step-by-step guide below and use <a href="https://github.com/stephenslab/rss/blob/master/examples/example4.m"><code>example4.m</code></a>. Before running <a href="https://github.com/stephenslab/rss/blob/master/examples/example4.m"><code>example4.m</code></a>, please first install the <a href="https://github.com/stephenslab/rss/tree/master/src_vb">VB subroutines</a> of RSS Please find installation instructions <a href="setup_vb.html">here</a>.</p>
+</div>
+<div id="step-by-step-illustration" class="section level2">
+<h2>Step-by-step illustration</h2>
+<p><strong>Step 1</strong>. <a href="https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example4/readme">Download</a> the input data <code>genotype.mat</code> and <code>AH_chr16.mat</code> for the function <code>enrich_datamaker.m</code>. Please contact me if you have trouble accessing these files<sup>1</sup>.</p>
+<p><strong>Step 2</strong>. Install the MATLAB implementation of <a href="https://github.com/pcarbo/varbvs"><code>varbvs</code></a>. After the installation, add varbvs to the search path as follows.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1"></a><span class="va">addpath</span>(<span class="ss">&#39;/home/xiangzhu/varbvs-master/varbvs-MATLAB/&#39;</span>)<span class="op">;</span></span></code></pre></div>
+<p><strong>Step 3</strong>. Extract SNPs that inside the target gene set.</p>
+<p>This step is where we need the input data <a href="https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example4/readme"><code>AH_chr16.mat</code></a>. The index of SNPs inside the gene set is stored as <code>snps</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1"></a><span class="va">AH</span>    <span class="op">=</span> <span class="va">matfile</span>(<span class="ss">&#39;AH_chr16.mat&#39;</span>)<span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="va">H</span>     <span class="op">=</span> <span class="va">AH</span>.<span class="va">H</span><span class="op">;</span>                    <span class="co">% hypothesis matrix 3323x3160</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="va">A</span>     <span class="op">=</span> <span class="va">AH</span>.<span class="va">A</span><span class="op">;</span>                    <span class="co">% annotation matrix 12758x3323</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="va">paths</span> <span class="op">=</span> <span class="va">find</span>(<span class="va">H</span>(<span class="op">:,</span><span class="kw">end</span>))<span class="op">;</span>          <span class="co">% signal transduction (Biosystem, Reactome)</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="va">snps</span>  <span class="op">=</span> <span class="va">find</span>(<span class="va">sum</span>(<span class="va">A</span>(<span class="op">:,</span><span class="va">paths</span>)<span class="op">,</span><span class="fl">2</span>))<span class="op">;</span> <span class="co">% index of variants inside the pathway</span></span></code></pre></div>
+<p><strong>Step 4</strong>. Simulate the enrichment dataset.</p>
+<p>In addition to <code>genotype.mat</code> and <code>AH_chr16.mat</code>, four more input variables are required in order to run <code>example4.m</code>. You can provide them through keyboard.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">% set the number of replications</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="va">prompt</span> <span class="op">=</span> <span class="ss">&#39;What is the number of replications? &#39;</span><span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="va">Nrep</span>   <span class="op">=</span> <span class="va">input</span>(<span class="va">prompt</span>)<span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">% set the genome-wide log-odds </span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="va">prompt1</span> <span class="op">=</span> <span class="ss">&#39;What is the genome-wide log-odds? &#39;</span><span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="va">theta0</span>  <span class="op">=</span> <span class="va">input</span>(<span class="va">prompt1</span>)<span class="op">;</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="co">% set the log-fold enrichment</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="va">prompt2</span> <span class="op">=</span> <span class="ss">&#39;What is the log-fold enrichment? &#39;</span><span class="op">;</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="va">theta</span>   <span class="op">=</span> <span class="va">input</span>(<span class="va">prompt2</span>)<span class="op">;</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co">% set the true pve</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="va">prompt3</span> <span class="op">=</span> <span class="ss">&#39;What is the pve (between 0 and 1)? &#39;</span><span class="op">;</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="va">pve</span> <span class="op">=</span> <span class="va">input</span>(<span class="va">prompt3</span>)<span class="op">;</span></span></code></pre></div>
+<p>With this in place, the data generation is all set.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">for</span> <span class="va">i</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">Nrep</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="va">myseed</span> <span class="op">=</span> <span class="fl">617</span> <span class="op">+</span> <span class="va">i</span><span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="co">% generate data under enrichment hypothesis</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>  [<span class="va">true_para</span><span class="op">,</span><span class="va">individual_data</span><span class="op">,</span><span class="va">summary_data</span>] <span class="op">=</span> <span class="va">enrich_datamaker</span>(<span class="va">C</span><span class="op">,</span><span class="va">thetatype</span><span class="op">,</span><span class="va">pve</span><span class="op">,</span><span class="va">myseed</span><span class="op">,</span><span class="va">snps</span>)<span class="op">;</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>  </span>
+<span id="cb4-7"><a href="#cb4-7"></a>  <span class="op">...</span> <span class="op">...</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="kw">end</span></span></code></pre></div>
+<p><strong>Step 5</strong>. Ensure that <code>varbvs</code> and <code>rss-varbvsr</code> run in an almost identical environment.</p>
+<p>We fix all the hyper-parameters as their true values, and give the same parameter initialization.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">% fix all hyper-parameters as their true values</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="va">sigma</span>   <span class="op">=</span> <span class="va">true_para</span>{<span class="fl">4</span>}<span class="op">^</span><span class="fl">2</span><span class="op">;</span>       <span class="co">% the true residual variance</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="va">sa</span>      <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="va">sigma</span><span class="op">;</span>              <span class="co">% sa*sigma being the true prior variance of causal effects</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="va">sigb</span>    <span class="op">=</span> <span class="fl">1</span><span class="op">;</span>                    <span class="co">% the true prior SD of causal effects </span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="va">theta0</span>  <span class="op">=</span> <span class="va">thetatype</span>(<span class="fl">1</span>)<span class="op">;</span>         <span class="co">% the true genome-wide log-odds (base 10)</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="va">theta</span>   <span class="op">=</span> <span class="va">thetatype</span>(<span class="fl">2</span>)<span class="op">;</span>         <span class="co">% the true log-fold enrichment (base 10)</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="co">% initialize the variational parameters</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="va">rng</span>(<span class="va">myseed</span><span class="op">,</span> <span class="ss">&#39;twister&#39;</span>)<span class="op">;</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="va">alpha0</span> <span class="op">=</span> <span class="va">rand</span>(<span class="va">p</span><span class="op">,</span><span class="fl">1</span>)<span class="op">;</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="va">alpha0</span> <span class="op">=</span> <span class="va">alpha0</span> <span class="op">./</span> <span class="va">sum</span>(<span class="va">alpha0</span>)<span class="op">;</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="va">rng</span>(<span class="va">myseed</span><span class="op">+</span><span class="fl">1</span><span class="op">,</span> <span class="ss">&#39;twister&#39;</span>)<span class="op">;</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="va">mu0</span> <span class="op">=</span> <span class="va">randn</span>(<span class="va">p</span><span class="op">,</span><span class="fl">1</span>)<span class="op">;</span></span></code></pre></div>
+<p><strong>Step 6</strong>. Run <code>varbvs</code> on the individual-level genotypes and phenotypes.</p>
+<p>The VB analysis involves two steps: first fitting the baseline model assuming no enrichment; second fitting the enrichment model assuming the gene set is enriched. We then calculate a Bayes factor (ratio of marginal likelihoods) for these two models, and use it to test whether the gene set is enriched for genetic associations.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb6-1"><a href="#cb6-1"></a><span class="va">fit_null</span> <span class="op">=</span> <span class="va">varbvs</span>(<span class="va">X</span><span class="op">,</span>[]<span class="op">,</span><span class="va">y</span><span class="op">,</span>[]<span class="op">,</span><span class="ss">&#39;gaussian&#39;</span><span class="op">,</span><span class="va">options_n</span>)<span class="op">;</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="va">fit_gsea</span> <span class="op">=</span> <span class="va">varbvs</span>(<span class="va">X</span><span class="op">,</span>[]<span class="op">,</span><span class="va">y</span><span class="op">,</span>[]<span class="op">,</span><span class="ss">&#39;gaussian&#39;</span><span class="op">,</span><span class="va">options_e</span>)<span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="va">bf_b</span> <span class="op">=</span> <span class="va">exp</span>(<span class="va">fit_gsea</span>.<span class="va">logw</span> <span class="op">-</span> <span class="va">fit_null</span>.<span class="va">logw</span>)<span class="op">;</span></span></code></pre></div>
+<p><strong>Step 7</strong>. Run <code>rss-varbvsr</code> on the single-SNP association summary statistics.</p>
+<p>Here we do not specify <code>se</code> and <code>R</code> as we actually do in our real data analyses. Instead, we set their values such that <code>rss-varbvsr</code> and <code>varbvs</code> are expected to produce the same output. (This is because we want to verify our mathematical proofs in silico.) Based on the proofs in <a href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and Stephens (2018)</a>, we find that <code>rss-varbvsr</code> is equivalent to <code>varbvs</code> if and only if</p>
+<ol style="list-style-type: decimal">
+<li>the variance of phenotype is the same as residual variance <code>sigma.^2</code>;</li>
+<li>the input LD matrix <code>R</code> is the same as the sample correlation matrix of cohort genotypes <code>X</code>.</li>
+</ol>
+<p>Reassuringly, these two assumptions are exactly the same assumptions in Proposition 2.1 of <a href="https://projecteuclid.org/euclid.aoas/1507168840">Zhu and Stephens (2017)</a> that guarantees that the RSS likelihood is equivalent to the regression likelihood for individual-level data.</p>
+<p>These two assumptions are implemented as follows.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">% set the summary-level data for a perfect match b/t rss-varbvsr and varbvs</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="va">betahat</span> <span class="op">=</span> <span class="va">summary_data</span>{<span class="fl">1</span>}<span class="op">;</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="va">se</span>      <span class="op">=</span> <span class="va">sqrt</span>(<span class="va">sigma</span> <span class="op">./</span> <span class="va">diag</span>(<span class="va">X</span><span class="op">&#39;*</span><span class="va">X</span>))<span class="op">;</span>          <span class="co">% condition 1 for perfect matching</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="va">Si</span>      <span class="op">=</span> <span class="fl">1</span> <span class="op">./</span> <span class="va">se</span>(<span class="op">:</span>)<span class="op">;</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="va">R</span>       <span class="op">=</span> <span class="va">corrcoef</span>(<span class="va">X</span>)<span class="op">;</span>                        <span class="co">% condition 2 for perfect matching</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="va">SiRiS</span>   <span class="op">=</span> <span class="va">sparse</span>(<span class="va">repmat</span>(<span class="va">Si</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="va">p</span>) <span class="op">.*</span> <span class="va">R</span> <span class="op">.*</span> <span class="va">repmat</span>(<span class="va">Si</span><span class="op">&#39;,</span> <span class="va">p</span><span class="op">,</span> <span class="fl">1</span>))<span class="op">;</span></span></code></pre></div>
+<p>Now we perform the VB analysis of summary data via <code>rss-varbvsr</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb8-1"><a href="#cb8-1"></a>[<span class="va">logw_nr</span><span class="op">,</span><span class="va">alpha_nr</span><span class="op">,</span><span class="va">mu_nr</span><span class="op">,</span><span class="va">s_nr</span>] <span class="op">=</span> <span class="va">rss_varbvsr</span>(<span class="va">betahat</span><span class="op">,</span><span class="va">se</span><span class="op">,</span><span class="va">SiRiS</span><span class="op">,</span><span class="va">sigb</span><span class="op">,</span><span class="va">logodds_n</span><span class="op">,</span><span class="va">options</span>)<span class="op">;</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>[<span class="va">logw_er</span><span class="op">,</span><span class="va">alpha_er</span><span class="op">,</span><span class="va">mu_er</span><span class="op">,</span><span class="va">s_er</span>] <span class="op">=</span> <span class="va">rss_varbvsr</span>(<span class="va">betahat</span><span class="op">,</span><span class="va">se</span><span class="op">,</span><span class="va">SiRiS</span><span class="op">,</span><span class="va">sigb</span><span class="op">,</span><span class="va">logodds_e</span><span class="op">,</span><span class="va">options</span>)<span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="va">bf_r</span> <span class="op">=</span> <span class="va">exp</span>(<span class="va">logw_er</span><span class="op">-</span><span class="va">logw_nr</span>)<span class="op">;</span></span></code></pre></div>
+<p><strong>Step 8</strong>. Compare VB output from <code>varbvs</code> and <code>rss-varbvsr</code>.</p>
+<p>Both <code>varbvs</code> and <code>rss-varbvsr</code> output an estimated posterior distribution of <span class="math inline">\(\boldsymbol\beta\)</span> (multiple regression coefficients, or, multiple-SNP effect sizes). Specifically, both estimated distributions have the following analytic form (Equations 6-7 in <a href="https://projecteuclid.org/euclid.ba/1339616726">Carbonetto and Stephens (2012)</a>).</p>
+<p>Hence, it suffices to compare the estimated variational parameters <code>[alpha, mu, s]</code>, and the estimated Bayes factors based on the VB output. Below is the result when I only run <code>example4.m</code> with one replication.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb9-1"><a href="#cb9-1"></a><span class="op">&gt;&gt;</span> <span class="va">run</span> <span class="va">example4</span>.<span class="va">m</span>                           </span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="va">What</span> <span class="va">is</span> <span class="va">the</span> <span class="va">number</span> <span class="va">of</span> <span class="va">replications</span>? <span class="fl">1</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="va">What</span> <span class="va">is</span> <span class="va">the</span> <span class="va">genome</span><span class="op">-</span><span class="va">wide</span> <span class="va">log</span><span class="op">-</span><span class="va">odds</span>? <span class="op">-</span><span class="fl">4</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="va">What</span> <span class="va">is</span> <span class="va">the</span> <span class="va">log</span><span class="op">-</span><span class="va">fold</span> <span class="va">enrichment</span>? <span class="fl">2</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="va">What</span> <span class="va">is</span> <span class="va">the</span> <span class="va">pve</span> (<span class="va">between</span> <span class="fl">0</span> <span class="va">and</span> <span class="fl">1</span>)? <span class="fl">0.3</span></span></code></pre></div>
+<p>The log10 maximum absolute differences of <code>[alpha, mu, s]</code> between <code>varbvs</code> and <code>rss-varbvsr</code>, under the baseline model:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb10-1"><a href="#cb10-1"></a><span class="op">&gt;&gt;</span> <span class="va">disp</span>(<span class="va">log10</span>([<span class="va">alpha_n_diff</span> <span class="va">mu_n_diff</span> <span class="va">s_n_diff</span>]))</span>
+<span id="cb10-2"><a href="#cb10-2"></a>   <span class="op">-</span><span class="fl">4.7084</span>   <span class="op">-</span><span class="fl">4.5409</span>   <span class="op">-</span><span class="fl">7.6421</span></span></code></pre></div>
+<p>The log10 maximum absolute differences of <code>[alpha, mu, s]</code> between <code>varbvs</code> and <code>rss-varbvsr</code>, under the enrichment model:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb11-1"><a href="#cb11-1"></a><span class="op">&gt;&gt;</span> <span class="va">disp</span>(<span class="va">log10</span>([<span class="va">alpha_e_diff</span> <span class="va">mu_e_diff</span> <span class="va">s_e_diff</span>]))</span>
+<span id="cb11-2"><a href="#cb11-2"></a>   <span class="op">-</span><span class="fl">3.9865</span>   <span class="op">-</span><span class="fl">4.0157</span>   <span class="op">-</span><span class="fl">7.6421</span></span></code></pre></div>
+<p>The log10 Bayes factors estimated from <code>varbvs</code> and <code>rss-varbvsr</code> are 4.0193 and 4.0193 respectively, and the log10 relative difference between them is -6.8345.</p>
+</div>
+<div id="more-simulations" class="section level2">
+<h2>More simulations</h2>
+<p>To see how <code>example4.m</code> behave on average, we need run more replications. Below are the results from 100 replications.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb12-1"><a href="#cb12-1"></a><span class="op">&gt;&gt;</span> <span class="va">run</span> <span class="va">example4</span>.<span class="va">m</span>                           </span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="va">What</span> <span class="va">is</span> <span class="va">the</span> <span class="va">number</span> <span class="va">of</span> <span class="va">replications</span>? <span class="fl">100</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="va">What</span> <span class="va">is</span> <span class="va">the</span> <span class="va">genome</span><span class="op">-</span><span class="va">wide</span> <span class="va">log</span><span class="op">-</span><span class="va">odds</span>? <span class="op">-</span><span class="fl">4</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="va">What</span> <span class="va">is</span> <span class="va">the</span> <span class="va">log</span><span class="op">-</span><span class="va">fold</span> <span class="va">enrichment</span>? <span class="fl">2</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="va">What</span> <span class="va">is</span> <span class="va">the</span> <span class="va">pve</span> (<span class="va">between</span> <span class="fl">0</span> <span class="va">and</span> <span class="fl">1</span>)? <span class="fl">0.3</span></span></code></pre></div>
+<center>
+<img src="images/rss_example4_rep100.png" width="600">
+</center>
+<hr />
+<p><strong>Footnotes:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Currently these files are locked, since they contain individual-level genotypes from Wellcome Trust Case Control Consortium (WTCCC, <a href="https://www.wtccc.org.uk/" class="uri">https://www.wtccc.org.uk/</a>). You need to get permission from WTCCC before we can share these files with you.</li>
+</ol>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
