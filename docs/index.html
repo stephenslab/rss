@@ -287,9 +287,6 @@ $(document).ready(function () {
 <li>
   <a href="news.html">News</a>
 </li>
-<li>
-  <a href="license.html">License</a>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -333,7 +330,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-06-23
+<strong>Last updated:</strong> 2020-06-24
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -364,16 +361,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree69a52b8e6be0d0780bc498f335c801f73030ee54targetblank69a52b8a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/rss/tree/69a52b8e6be0d0780bc498f335c801f73030ee54" target="_blank">69a52b8</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree1e806afd56f7e541f351cd53e2a8cbf4b1af63aatargetblank1e806afa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/rss/tree/1e806afd56f7e541f351cd53e2a8cbf4b1af63aa" target="_blank">1e806af</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree69a52b8e6be0d0780bc498f335c801f73030ee54targetblank69a52b8a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree1e806afd56f7e541f351cd53e2a8cbf4b1af63aatargetblank1e806afa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/rss/tree/69a52b8e6be0d0780bc498f335c801f73030ee54" target="_blank">69a52b8</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/rss/tree/1e806afd56f7e541f351cd53e2a8cbf4b1af63aa" target="_blank">1e806af</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -390,6 +387,9 @@ Ignored files:
 
 Untracked files:
     Untracked:  docs_old/
+
+Unstaged changes:
+    Modified:   rmd/_site.yml
 
 </code></pre>
 <p>
@@ -428,6 +428,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/rss/blob/1e806afd56f7e541f351cd53e2a8cbf4b1af63aa/rmd/index.Rmd" target="_blank">1e806af</a>
+</td>
+<td>
+Xiang Zhu
+</td>
+<td>
+2020-06-24
+</td>
+<td>
+wflow_publish("rmd/*.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/rss/79718818873d9a5f55f2cbf03a814ee59e18312c/docs/index.html" target="_blank">7971881</a>
+</td>
+<td>
+Xiang Zhu
+</td>
+<td>
+2020-06-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -504,7 +538,6 @@ rename workflowr dir
 </div>
 </div>
 <p>Welcome to Regression with Summary Statistics (RSS) wiki!</p>
-<p>This wiki hosts the following documentation pages of RSS software. If you have any question or suggestion about RSS, please feel free to create a new <a href="https://github.com/stephenslab/rss/issues">issue</a> and/or send an email to <code>xiangzhu[at]uchicago[and/or]stanford.edu</code>.</p>
 <div id="installation" class="section level2">
 <h2><img src="https://static.thenounproject.com/png/2218944-200.png" width="48"/> <a href="setup.html">Installation</a></h2>
 <p>This page provides instructions for installing RSS software.</p>
@@ -524,6 +557,18 @@ rename workflowr dir
 <div id="news" class="section level2">
 <h2><img src="https://static.thenounproject.com/png/689848-200.png" width="48"/> <a href="news.html">News</a></h2>
 <p>This page lists progress updates related to RSS methods and software.</p>
+</div>
+<div id="citation" class="section level2">
+<h2><img src="https://static.thenounproject.com/png/920642-200.png" width="48"/> Citation</h2>
+<p>RSS is a suite of statistical methods introduced in the following publications:</p>
+<ol style="list-style-type: decimal">
+<li><p>Xiang Zhu and Matthew Stephens (2017). Bayesian large-scale multiple regression with summary statistics from genome-wide association studies. <em>Annals of Applied Statistics</em> 11(3): 1561-1592. [<a href="http://stephenslab.uchicago.edu/assets/papers/Zhu2017.pdf">PDF</a>] [<a href="http://dx.doi.org/10.1214/17-AOAS1046">Journal</a>] [<a href="https://doi.org/10.1101/042457">bioRxiv</a>]</p></li>
+<li><p>Xiang Zhu and Matthew Stephens (2018). Large-scale genome-wide enrichment analyses identify new trait-associated genes and pathways across 31 human phenotypes. <em>Nature Communications</em> 9, 4361. [<a href="https://www.nature.com/articles/s41467-018-06805-x.pdf">PDF</a>] [<a href="https://www.nature.com/articles/s41467-018-06805-x">Journal</a>] [<a href="https://doi.org/10.1101/160770">bioRxiv</a>]</p></li>
+</ol>
+</div>
+<div id="contact" class="section level2">
+<h2><img src="https://static.thenounproject.com/png/223469-200.png" width="48"/> Contact</h2>
+<p>If you have any question or suggestion, please feel free to create a new <a href="https://github.com/stephenslab/rss/issues">issue</a> and/or send an email to <a href="https://github.com/xiangzhu">xiangzhu[at]uchicago[and/or]stanford.edu</a>.</p>
 <hr />
 <p><small> Icons used in this wiki are credited to the <a href="https://thenounproject.com/">Noun Project</a>. This wiki is created using <a href="https://github.com/jdblischak/workflowr">workflowr</a>. </small></p>
 </div>
