@@ -77,22 +77,25 @@ function SigHat = shrink_cov(m, Ne, cummap, Hpanel, cutoff, isgeno, negcm)
   theta = (1/nmsum) / (2*m + 1/nmsum);
 	
   % S is obtained from Sigma_panel by shrinking off-diagonal entries toward 0
+  % see Equation 2.7 of Wen and Stephens (2010)
   
   % Scenario 1: Hpanel is a phased haplotype matrix
   S = cov(Hpanel);
 
   % Scenario 2: Hpanel is an unphased genotype matrix
+  % see Section 2.4 for justification of "0.5"
   if isgeno
     disp('Hpanel is an unphased genotype matrix.');
     S = 0.5*S;
   end
 
+  % obtain the upper triangular portion of S 
   S = triu(S);
 
-  % compute the values on and above the 1st diagonal
+  % compute shrinkage factors on and above the 1st diagonal
   numSNP = size(S,1);
 
-  for i = 1:numSNP
+  for i = 1:(numSNP-1)
     for j = (i+1):numSNP
 
       % compute genetic distance between SNPs i and j
