@@ -11,11 +11,6 @@ site: workflowr::wflow_site
 
 Welcome to Regression with Summary Statistics (RSS) wiki!
 
-This wiki hosts the following documentation pages of RSS software.
-If you have any question or suggestion about RSS,
-please feel free to create a new [issue](https://github.com/stephenslab/rss/issues)
-and/or send an email to `xiangzhu[at]uchicago[and/or]stanford.edu`.
-
 ## <img src="https://static.thenounproject.com/png/2218944-200.png" width="48"/> [Installation](setup.html)
 
 This page provides instructions for installing RSS software.
@@ -35,6 +30,34 @@ This page answers frequently ask questions (FAQs) about RSS methods and software
 ## <img src="https://static.thenounproject.com/png/689848-200.png" width="48"/> [News](news.html)
 
 This page lists progress updates related to RSS methods and software.
+
+## <img src="https://static.thenounproject.com/png/920642-200.png" width="48"/> Citation
+
+RSS is a suite of statistical methods introduced in the following publications:
+
+1. Xiang Zhu and Matthew Stephens (2017).
+Bayesian large-scale multiple regression with
+summary statistics from genome-wide association studies.
+*Annals of Applied Statistics* 11(3): 1561-1592.
+[[PDF](http://stephenslab.uchicago.edu/assets/papers/Zhu2017.pdf)]
+[[Journal](http://dx.doi.org/10.1214/17-AOAS1046)]
+[[bioRxiv](https://doi.org/10.1101/042457)]
+
+2. Xiang Zhu and Matthew Stephens (2018).
+Large-scale genome-wide enrichment analyses identify new
+trait-associated genes and pathways across 31 human phenotypes.
+*Nature Communications* 9, 4361.
+[[PDF](https://www.nature.com/articles/s41467-018-06805-x.pdf)]
+[[Journal](https://www.nature.com/articles/s41467-018-06805-x)]
+[[bioRxiv](https://doi.org/10.1101/160770)]
+
+## <img src="https://static.thenounproject.com/png/223469-200.png" width="48"/> Contact
+
+If you have any question or suggestion,
+please feel free to create a new
+[issue](https://github.com/stephenslab/rss/issues)
+and/or send an email to
+[xiangzhu[at]uchicago[and/or]stanford.edu](https://github.com/xiangzhu).
 
 --------
 
