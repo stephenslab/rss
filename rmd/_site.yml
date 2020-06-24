@@ -15,8 +15,6 @@ navbar:
     href: faq.html
   - text: News
     href: news.html
-  - text: License
-    href: license.html
   right:
   - icon: fa-github
     href: https://github.com/stephenslab/rss
