@@ -1,16 +1,17 @@
 function [R, BR] = get_corr(m, Ne, cummap, Hpanel, cutoff, isgeno, negcm)
 % USAGE: compute LD matrix using the shrinkage estimator in Wen and Stephens (2010)
+% SOURCE: https://pubmed.ncbi.nlm.nih.gov/21479081
 % INPUT:
-%	m: the number of individuals in the reference panel, integer
-%	Ne: the effective population size (diploid), integer
+%	m: number of individuals in the reference panel, integer
+%	Ne: effective population size (diploid), integer
 %	cummap: cumulative genetic map in cM, numSNP by 1
-%	Hpanel: the (phased) haplotypes from a reference panel, numIND by numSNP
-%	cutoff: the hard threshold for small entries being zero, scalar 
-%	isgeno: true if Hpanel is an unphased genotype matrix, logical
-%	negcm: true if there is negative genetic distance, logical
+%	Hpanel: phased haplotypes or unphased genotypes from a reference panel, numIND by numSNP
+%	cutoff: hard threshold that forces small entries to zero, scalar 
+%	isgeno: TRUE if Hpanel is an unphased genotype matrix, logical
+%	negcm: TRUE if there is negative genetic distance, logical
 % OUTPUT:
-%	R: the estimated LD matrix, numSNP by numSNP, sparse matrix
-%	BR: the banded storage of R, dense matrix
+%	R: estimated LD matrix, numSNP by numSNP, sparse matrix
+%	BR: banded storage of R, dense matrix
 
   % decide whether Hpanel is haplotype or genotype
   if ~exist('isgeno', 'var')
@@ -35,7 +36,7 @@ function [R, BR] = get_corr(m, Ne, cummap, Hpanel, cutoff, isgeno, negcm)
   end
 
   % compute the shrinkage estimator of covariance matrix
-  disp('Compute Wen-Stephens shrinkage LD estimator ...'); 
+  disp('Compute Wen and Stephens shrinkage LD estimator ...'); 
   SigHat = shrink_cov(m, Ne, cummap, Hpanel, cutoff, isgeno, negcm);
 
   % convert covariance to correlation
@@ -54,6 +55,7 @@ function [R, BR] = get_corr(m, Ne, cummap, Hpanel, cutoff, isgeno, negcm)
 
   % store R as a sparse matrix
   R = sparse(R);
+
 end
 
 function SigHat = shrink_cov(m, Ne, cummap, Hpanel, cutoff, isgeno, negcm)
@@ -63,13 +65,14 @@ function SigHat = shrink_cov(m, Ne, cummap, Hpanel, cutoff, isgeno, negcm)
 %	Ne: effective population size (diploid), integer
 %	cummap: cumulative genetic map in cM, numSNP by 1
 %	Hpanel: phased haplotypes or unphased genotypes in a reference panel, numIND by numSNP
-%	cutoff: hard threshold for small entries being zero, scalar
-%	isgeno: true if Hpanel is an unphased genotype matrix, logical
-%	negcm: true if there is negative genetic distance, logical 
+%	cutoff: hard threshold that forces small entries to zero, scalar
+%	isgeno: TRUE if Hpanel is an unphased genotype matrix, logical
+%	negcm: TRUE if there is negative genetic distance, logical 
 % OUTPUT:
 %	SigHat: estimated covariance matrix of haplotype, numSNP by numSNP
 
-  % theta is related to mutation
+  % theta is related to mutation suggested by Li and Stephens (2003) 
+  % see Equation 2.8 of Wen and Stephens (2010)
   nmsum = sum(1 ./ (1:(2*m-1)));
   theta = (1/nmsum) / (2*m + 1/nmsum);
 	
@@ -106,10 +109,11 @@ function SigHat = shrink_cov(m, Ne, cummap, Hpanel, cutoff, isgeno, negcm)
       end
 
       % compute scaled population recombination rate
-      % see https://stephenslab.github.io/rss/Recombination
+      % see https://stephenslab.github.io/rss/recombination.html
       rho = 4 * Ne * genetic_dist / 100;
 
       % compute the shrinkage factor based on recombination rate
+      % see Equation 2.7 of Wen and Stephens (2010)
       shrinkage = exp(-rho/(2*m));
 
       % apply hard thresholding to obtain sparse and banded estimator
@@ -118,6 +122,7 @@ function SigHat = shrink_cov(m, Ne, cummap, Hpanel, cutoff, isgeno, negcm)
       end
 
       % shrink the sample covariance in the reference panel
+      % see Equation 2.7 of Wen and Stephens (2010)
       S(i,j) = shrinkage * S(i,j);
 
     end
@@ -126,7 +131,8 @@ function SigHat = shrink_cov(m, Ne, cummap, Hpanel, cutoff, isgeno, negcm)
   % copy the upper half (NO diagonal) to the lower half
   S = S + triu(S,1)';
 	
-  % SigHat is derived from Li and Stephens model (2003)
+  % SigHat is derived from Li and Stephens (2003)
+  % see Equation 2.6 of Wen and Stephens (2010)
   SigHat = (1-theta)^2 * S + 0.5*theta * (1-0.5*theta) * eye(numSNP);
 
 end
