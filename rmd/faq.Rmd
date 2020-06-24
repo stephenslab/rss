@@ -9,8 +9,8 @@ editor_options:
 [Wen and Stephens (2010)]: https://www.ncbi.nlm.nih.gov/pubmed/21479081
 [Li and Stephens (2003)]: https://www.ncbi.nlm.nih.gov/pubmed/14704198
 [`get_corr.m`]: https://github.com/stephenslab/rss/blob/master/misc/get_corr.m
+[`get_corr.R`]: https://github.com/stephenslab/rss/blob/master/misc/get_corr.R
 [`mvnloo.m`]: https://github.com/stephenslab/rss/blob/master/misc/mvnloo.m
-[Nick]: https://github.com/CreRecombinase
 [`rssr`]: https://github.com/stephenslab/rssr
 [`ldshrink`]: https://github.com/stephenslab/ldshrink
 [Zhu and Stephens (2017)]: https://www.ncbi.nlm.nih.gov/pubmed/29399241 
@@ -108,8 +108,9 @@ Please see Section 2.4 of [Wen and Stephens (2010)][] for more details.
 > Q: I know of [Wen and Stephens (2010)][], but I'm not interested in imputation. Do you have software that just computes the banded covariance or LD matrix?
 
 A: Yes. If you have MATLAB available, you can use [`get_corr.m`][].
-If you prefer open source language such as `R`, [Nick][] and I are working
-on an `R` package [`ldshrink`][] that can produce the banded LD matrix.
+If you prefer R, you can use [`get_corr.R`][].
+I am also working on an R package [`ldshrink`][] that can
+produce the banded LD matrix in my (very limited) spare time.
 
 ## Data
 
@@ -144,6 +145,5 @@ For more information on these gene sets, please see
 > Q: RSS is cool, but it is implemented in MATLAB, which is a proprietary programming language. It would be nice if RSS methods could be made to work with some open source language so that everyone can run it freely.
 
 A: To further improve the accessibility of RSS methods,
-I am currently working on an R package [`rssr`][]
-with [Nick][] (Nicholas Knoblauch) in my spare time.
+I am currently working on an R package [`rssr`][] in my (very limited) spare time.
 Comments and suggestions are welcome!   
