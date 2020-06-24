@@ -1,5 +1,5 @@
 ---
-title: "RSS-BVSR Fitting via Variational Bayes Methods"
+title: "Example 4: RSS-BVSR Fitting via Variational Bayes Methods"
 author: Xiang Zhu
 output: workflowr::wflow_html
 editor_options:
