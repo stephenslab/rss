@@ -11,7 +11,7 @@ navbar:
     href: function.html
   - text: Examples
     href: example.html
-  - text: FAQ
+  - text: FAQs
     href: faq.html
   - text: News
     href: news.html
@@ -24,3 +24,4 @@ output:
     toc_float: yes
     theme: flatly
     highlight: pygments
+    anchor_sections: false
