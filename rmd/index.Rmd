@@ -33,8 +33,7 @@ This page lists progress updates related to RSS methods and software.
 
 ## <img src="https://static.thenounproject.com/png/223469-200.png" width="48"/> Contact
 
-If you have any question or suggestion,
-please feel free to create a new
+Please feel free to create a new
 [issue](https://github.com/stephenslab/rss/issues)
 and/or send an email to
 [xiangzhu[at]psu.edu](https://github.com/xiangzhu).
