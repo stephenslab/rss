@@ -34,7 +34,7 @@ Please find installation instructions [here](setup_mcmc.html).
 
 **Step 1**.
 Download the simulated single-SNP summary-level data
-[`example1.mat`](https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example1/).
+[`example1.mat`](https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example1/example1.mat).
 Please contact me if you have trouble accessing this file.
 
 The data file `example1.mat` contains the following elements.
