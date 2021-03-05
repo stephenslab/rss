@@ -25,13 +25,12 @@ editor_options:
 [`rss/src`]: https://github.com/stephenslab/rss/tree/master/src
 [`rss/src_vb`]: https://github.com/stephenslab/rss/tree/master/src_vb
 
-If you have any question or suggestion about RSS,
-please feel free to create a new [issue](https://github.com/stephenslab/rss/issues)
-and/or send an email to `xiangzhu[at]uchicago[and/or]stanford.edu`.
+Please feel free to create a new [issue](https://github.com/stephenslab/rss/issues)
+and/or send an email to [`xiangzhu[at]psu.edu`](https://github.com/xiangzhu).
 
 ## Statistics
 
-> Q: The following distribution is frequently used in both [Zhu and Stephens (2018)][] and [Zhu and Stephens (2017)][]: $\beta_j \sim \pi_j\cdot{\cal N}(0,\sigma_j^2) + (1-\pi_j)\cdot\delta_0$. How do you simulate samples from this distribution?
+> Q: The following distribution is frequently used in RSS methods: $\beta_j \sim \pi_j\cdot{\cal N}(0,\sigma_j^2) + (1-\pi_j)\cdot\delta_0$. How do you simulate samples from this distribution?
 
 A: This is a mixture of a normal distribution ${\cal N}(0,\sigma_j^2)$
 and a point mass at zero $\delta_0$.
@@ -142,7 +141,7 @@ For more information on these gene sets, please see
 
 ## Software
 
-> Q: RSS is cool, but it is implemented in MATLAB, which is a proprietary programming language. It would be nice if RSS methods could be made to work with some open source language so that everyone can run it freely.
+> Q: RSS is cool, but it is implemented in MATLAB, which is a proprietary programming language. Can RSS methods be made to work with some open source language?
 
 A: To further improve the accessibility of RSS methods,
 I am currently working on an R package [`rssr`][] in my (very limited) spare time.
