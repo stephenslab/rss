@@ -6,30 +6,38 @@ editor_options:
   chunk_output_type: console
 ---
 
+[`import_1000g_vcf.sh`]: https://github.com/stephenslab/rss/blob/master/misc/import_1000g_vcf.sh 
+[`get_corr.m`]: https://github.com/stephenslab/rss/blob/master/misc/get_corr.m
+[`get_corr.R`]: https://github.com/stephenslab/rss/blob/master/misc/get_corr.R
+
+All RSS methods to date require the input of GWAS summary statistics
+and ancestry-matching LD estimates. Some RSS methods further require
+the input of genomic annotations.
+
 ## GWAS summary statistics
 
 This section is modified from Box 1 of
-[Winkler (2014)](https://www.ncbi.nlm.nih.gov/pubmed/24762786).   
+[Winkler (2014)](https://doi.org/10.1038/nprot.2014.071).   
 
 The following columns are **required** for any RSS analysis:
 
 - `snp`: identifier of genetic variant, character string such as `rs12498742`; 
-- `chr`: chromosome number of genetic variant such as `chr1`,...,`chr22`, `chrX`, `chrY`;
+- `chr`: autosome number of genetic variant such as `chr1`,...,`chr22`;
 - `pos`: physical position, in base pair, of genetic variant;
-- `a1`: allele associated with the trait, a single upper case character `A`, `C`, `G` or `T`;
+- `a1`: effect allele, a single upper case character `A`, `C`, `G` or `T`;
 - `a2`: the other (non-effect) allele, a single upper case character `A`, `C`, `G` or `T`;
 - `betahat`: estimated effect size of genetic variant under the single-marker model;
 - `se`: estimated standard error of `betahat`.    
 
-The following columns are optional, but they can be very helpful for sanity checks:
+The following columns are optional, but they can be helpful for sanity checks:
 
 - `strand`: strand on which the alleles are reported, a single character `-` or `+`;
-- `n`: number of individuals analyzed (a.k.a. sample size) for the genetic variant;
+- `n`: number of individuals analyzed (i.e., sample size) for the genetic variant;
 - `maf`: minor allele frequency, numeric between 0 and 1;
 - `p`: p-value of genetic variant association, numeric between 0 and 1;
-- `info`: other information about genetic variants.
+- `info`: other information (e.g., imputation quality) about genetic variants.
 
-It is very **important** to make sure that `[a1, betahat, se]` are perfectly matched.
+It is crucial to make sure that `[a1, betahat, se]` are consistently defined.
 Below is a toy example.
 Consider two SNPs (`rs1`, `rs2`) and four individuals (`i1`, `i2`, `i3`, `i4`):
 
@@ -39,26 +47,46 @@ rs1, AT, TT, AT, AA
 rs2, CG, CC, GG, GC 
 ```
 
-If the effect alleles (`a1`) of these two SNPs are `A` and `G` respectively, then the genotype data of `rs1` are `X[, 1]=[1, 0, 1, 2]`, and the genotype data of `rs2` are `X[, 2]=[1, 0, 2, 1]`. Further, the single-SNP summary statistics of `rs1` and `rs2` are given by:
+If the effect alleles (`a1`) of these two SNPs are `A` and `G` respectively,
+then the genotype data of `rs1` are `X[, 1]=[1, 0, 1, 2]` and
+the genotype data of `rs2` are `X[, 2]=[1, 0, 2, 1]`. Further,
+the single-SNP summary statistics of `rs1` and `rs2` are generated as follows.
 
 ```r
 (betahat[1], se[1]) <- single.SNP.model(y, X[, 1])
 (betahat[2], se[2]) <- single.SNP.model(y, X[, 2])
 ```
 
-Finally, when providing `chr` and `pos` columns, please explicitly specify the [assembly releases and versions](https://genome.ucsc.edu/FAQ/FAQreleases.html) of human genome. For example, if 1000 Genomes Project Phase 3 data are used to estimate LD, please ensure that `chr` and `pos` columns are based on UCSC hg19/GRCh37.   
+Finally, when providing `chr` and `pos` columns, please confirm the
+[assembly releases and versions](https://genome.ucsc.edu/FAQ/FAQreleases.html)
+of human genome. For example, if 1000 Genomes Project Phase 3 data are used to
+generate ancestry-matching LD estimates,
+then `chr` and `pos` columns should be based on UCSC hg19/GRCh37.   
 
-## LD matrix estimates
+## LD estimates
 
-All RSS methods to date also require the input of an estimated LD matrix.
+The ancestry-matching LD estimates are often derived from the phased haplotype
+data from [1000 Genomes Project Phase 3 data](http://www.internationalgenome.org/data).
+Because the 1000 Genomes data are publicly available, the LD estimates only
+require the list of genetic variants, their physical positions and effect alleles
+(i.e. `[snp, chr, pos, a1]` from the summary statistics file).
 
-The LD estimates are often derived from the phased haplotype data from [1000 Genomes Project Phase 3 data](http://www.internationalgenome.org/data). Because the 1000 Genomes data are publicly available, the LD estimates only require the list of genetic variants, their physical positions and their effect alleles (i.e. `[snp, chr, pos, a1]` from the summary statistics file).
+The script [`import_1000g_vcf.sh`][] illustrates how to extract phased haplotypes
+of select genetic variants from 1000 Genomes Phase 3 VCF format data and save
+them in IMPUTE reference-panel format `*.impute.hap`.
 
-If there are some internal genotype data that can be used to estimate LD matrix, please organize the genotype data in the same VCF format as [1000 Genomes Phase 3 data](ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/). Again, make sure that the physical positions and effect alleles of the internal genotype data are consistent with `[chr, pos, a1]` provided in the GWAS summary statistics file.
+The scripts [`get_corr.m`][] and [`get_corr.R`][] illustrate how to compute LD
+estimates in MATLAB and R respectively.
+
+If there are some internal genotype data that can be used to estimate LD matrix,
+you can first organize the genotype data in the same VCF format as
+[1000 Genomes Phase 3 data](ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/),
+and then reuse my scripts above. Again, please make sure that the physical positions
+and effect alleles of the internal genotype data are consistent with
+`[chr, pos, a1]` provided in the GWAS summary statistics file.
 
 ## Genomic annotations
 
-Annotation data are only required if you want to use RSS for enrichment analyses.
 The most statistician-friendly format of genomic annotation data might look like this:
 
 ```r
@@ -72,7 +100,8 @@ The most statistician-friendly format of genomic annotation data might look like
  rs7  chr6 89331    1    0    0
 ```
 
-where `ann1`, `ann2` and `ann3` are three types of annotations, `1` indicates that SNP is annotated and `0` otherwise.
+where `ann1`, `ann2` and `ann3` are three types of annotations,
+`1` indicates that SNP is annotated and `0` otherwise.
 
 Alternatively, a list of annotated SNPs can be saved as a separate file. For example:
 
@@ -93,7 +122,9 @@ Alternatively, a list of annotated SNPs can be saved as a separate file. For exa
  rs4 chr4 99620
  rs7 chr6 89331
 ```
-Sometimes the annotations are based on genes or genomic regions (e.g. biological pathways). For these annotations, it is easier to provide a list of annotated regions:
+Sometimes the annotations are based on genes (e.g., biological pathways)
+or genomic regions (e.g., regulatory elements). For these region-based annotations,
+it is easier to provide a list of annotated regions as follows:
 
 ```r
  ensembl_gene_id chromosome_name start_position end_position
@@ -105,5 +136,6 @@ Sometimes the annotations are based on genes or genomic regions (e.g. biological
  ENSG00000085265               9      137801431    137809809
 ```
 
-For all these annotation files, please make sure that the physical positions (`[snp, chr, pos]` or `[chromosome_name, start_position, end_position]`) are **consistent** with `[snp, chr, pos]` in the summary statistics file.                   
-
+Similar to LD estimates, please make sure that the physical positions
+(`[snp, chr, pos]` or `[chromosome_name, start_position, end_position]`)
+in the annotation file are **consistent** with `[snp, chr, pos]` in the summary statistics file.
