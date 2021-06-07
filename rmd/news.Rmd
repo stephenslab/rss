@@ -8,9 +8,16 @@ editor_options:
   chunk_output_type: console
 ---
 
-[RSS-NET]: https://doi.org/10.1101/2020.03.13.990010 
+[RSS-NET]: https://doi.org/10.1038/s41467-021-22588-0 
 [RSS-E]: https://doi.org/10.1038/s41467-018-06805-x
 [RSS likelihood]: https://doi.org/10.1214/17-aoas1046
+
+- 06/29/2021: Xiang presented [RSS-NET][] at the 2021 Virtual ISBA World Meeting. 
+
+- 05/14/2021: [RSS-NET][] was published in *Nature Communications*.
+
+- 05/07/2021: Xiang presented [RSS-NET][] at the 2021 NHS Group Meeting,
+University of Chicago, Chicago, IL.
 
 - 04/15/2021: Xiang presented [RSS-NET][] at the Division of Biostatistics and
 Bioinformatics, Department of Public Health Sciences,
@@ -53,9 +60,6 @@ on [RSS likelihood][] and [RSS-E][].
 Stanford University, Stanford, CA.
 
 - 09/29/2018: [RSS-E][] was accepted by *Nature Communications*.
-
-- 07/16/2018: [RSS-E][] was ranked as the Best BioRxiv Papers
-Today in Genomics by [Assert](https://assert.pub/). 
 
 - 10/19/2017: Xiang presented [RSS-E][] at the 2017 ASHG, Orlando, FL.
 
