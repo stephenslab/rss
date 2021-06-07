@@ -8,8 +8,9 @@ editor_options:
   chunk_output_type: console
 ---
 
-[Zhu and Stephens (2017)]: https://projecteuclid.org/euclid.aoas/1507168840
-[Zhu and Stephens (2018)]: https://www.nature.com/articles/s41467-018-06805-x 
+[Zhu and Stephens (2017)]: https://dx.doi.org/10.1214/17-AOAS1046
+[Zhu and Stephens (2018)]: https://doi.org/10.1038/s41467-018-06805-x
+[Zhu et al (2021)]: https://doi.org/10.1038/s41467-021-22588-0
 
 We illustrate how to use RSS methods and software through the following examples.
 
@@ -46,22 +47,43 @@ previous work based on individual-level data
 This example is closely related to the section entitled
 "Connection with enrichment analysis of individual-level data" of [Zhu and Stephens (2018)][].
 
-### Example 5: Enrichment and prioritization analysis based on RSS.
+### Example 5: Enrichment and prioritization analysis based on RSS-E.
 
-[Example 5](example_5.html) illustrates how to perform enrichment and prioritization analysis
-of GWAS summary statistics based on VB inference of RSS-BVSR model.
-This example consists of two parts:
+[Example 5](example_5.html) illustrates how to perform
+enrichment and prioritization analysis of GWAS summary statistics
+based on RSS-E. This example consists of two parts:
 
 #### [Example 5, Part A](example_5a.html)
 
 This part shows enrichment and prioritization analysis of a synthetic dataset
 used in simulation studies of [Zhu and Stephens (2018)][].
-Part A gives users a quick view of how RSS works in enrichment and prioritization analysis.
+Part A gives users a quick view of how RSS-E works in enrichment and prioritization analysis.
 
 #### [Example 5, Part B](example_5b.html)
 
 This part shows an end-to-end enrichment and prioritization analysis of
 inflammatory bowel disease GWAS summary statistics
 [(Liu et al, 2015)](https://www.ncbi.nlm.nih.gov/pubmed/26192919)
-and a gene set named "IL23-mediated signaling events" (Pathway Commons 2, PID, 37 genes).
+and a gene set named "IL23-mediated signaling events" (Pathway Commons 2, PID, 37 genes) based on RSS-E.
 Part B illustrates the actual data analyses performed in [Zhu and Stephens (2018)][].
+
+### Example 6: Enrichment and prioritization analysis based on RSS-NET.
+
+[Example 6](https://suwonglab.github.io/rss-net/) illustrates
+how to perform enrichment and prioritization analysis of GWAS
+summary statistics based on RSS-NET. This example consists of two parts:
+
+#### [Example 6, Part A](https://suwonglab.github.io/rss-net/wtccc_bcell.html)
+
+This part shows enrichment and prioritization analysis of two synthetic datasets
+used in simulation studies of [Zhu et al (2021)][].
+Part A gives users a quick view of how RSS-NET works in enrichment and prioritization analysis.
+
+#### [Example 6, Part B](https://suwonglab.github.io/rss-net/ibd2015_nkcell.html)
+
+This part shows an end-to-end enrichment and prioritization analysis of
+inflammatory bowel disease GWAS summary statistics
+[(Liu et al, 2015)](https://www.ncbi.nlm.nih.gov/pubmed/26192919)
+and a gene regulatory network for natural killer cells
+[(ENCODE Project Consortium, 2012)](https://pubmed.ncbi.nlm.nih.gov/22955616) based on RSS-NET.
+Part B illustrates the actual data analyses performed in [Zhu et al (2021)][].
