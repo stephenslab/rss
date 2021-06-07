@@ -23,6 +23,9 @@ University of Chicago, Chicago, IL.
 Bioinformatics, Department of Public Health Sciences,
 Penn State College of Medicine, Hershey, PA.
 
+- 04/14/2021: Xiang presented [RSS-NET][] at the 2021 Virtual CSHL
+Probabilistic Modeling in Genomics Meeting. 
+
 - 03/03/2021: [RSS-NET][] was accepted by *Nature Communications*.
 
 - 11/04/2020: Xiang presented [RSS-NET][] at the 2020 Virtual CSHL
