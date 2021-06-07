@@ -50,7 +50,7 @@ The repository is licensed under the [MIT License](LICENSE).
 1. Get started from some short [tutorials](http://stephenslab.github.io/rss).
 2. Refer to [FAQ](https://stephenslab.github.io/rss/faq.html) for answers to some common questions.
 3. Create a new [issue](https://github.com/stephenslab/rss/issues) to report bugs and/or request features.
-4. Send an email to `xiangzhu[at]uchicago[and/or]stanford.edu`.
+4. Send an email to `xiangzhu[at]psu.edu`.
 
 ### Citation
 
@@ -71,32 +71,36 @@ Large-scale genome-wide enrichment analyses identify new
 trait-associated genes and pathways across 31 human phenotypes.
 *Nature Communications* 9, 4361.
 [[Article PDF](https://www.nature.com/articles/s41467-018-06805-x.pdf)]
-[[Journal Page](https://www.nature.com/articles/s41467-018-06805-x)]
+[[Journal Page](https://doi.org/10.1038/s41467-018-06805-x)]
 [[bioRxiv Page](https://doi.org/10.1101/160770)]
 [[Supplementary Information](https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-018-06805-x/MediaObjects/41467_2018_6805_MOESM1_ESM.pdf)]
 [[Online Results](https://xiangzhu.github.io/rss-gsea/)]
 [[Software](https://github.com/stephenslab/rss/tree/master/src_vb)]
 
 - **RSS-NET: Integrated analysis of regulatory networks based on RSS likelihood** <br>
-Xiang Zhu, Zhana Duren, Wing Hung Wong (2020).
+Xiang Zhu, Zhana Duren and Wing Hung Wong (2021).
 Modeling regulatory network topology improves
 genome-wide analyses of complex human traits.
-*bioRxiv*.
+*Nature Communications* 12, 2851.
+[[Article PDF](https://www.nature.com/articles/s41467-021-22588-0.pdf)]
+[[Journal Page](https://doi.org/10.1038/s41467-021-22588-0)]
 [[bioRxiv Page](https://doi.org/10.1101/2020.03.13.990010)]
-[[Supplementary Information](https://www.biorxiv.org/content/biorxiv/early/2020/03/14/2020.03.13.990010/DC1/embed/media-1.pdf)]
-[[Online Results](https://xiangzhu.github.io/rss-peca/)]
+[[Supplementary Information](https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-021-22588-0/MediaObjects/41467_2021_22588_MOESM1_ESM.pdf)]
+[[Online Results](https://xiangzhu.github.io/rss-net-results/)]
 [[Software](https://github.com/SUwonglab/rss-net)]
 
-- Genetic architecture inference of complex human traits based on RSS likelihood <br> TBA
-- Fast heritability estimation based on RSS likelihood, with correction for confounding <br> TBA
+- Genetic architecture inference of complex traits based on RSS likelihood <br> TBA
+- Simple and robust heritability estimation based on RSS likelihood <br> TBA
+- Cross-population genetic analysis of complex traits based on RSS likelihood <br> TBA 
 
 ### Collaboration
 
-In this project, we have derived a [likelihood function](http://dx.doi.org/10.1214/17-AOAS1046)
+Here we have developed a [likelihood function](http://dx.doi.org/10.1214/17-AOAS1046)
 of multiple regression coefficients based on univariate regression summary data,
 which opens the door to a wide range of statistical machinery for inference.
 Using this likelihood, we have implemented Bayesian methods to estimate SNP heritability,
-detect genetic association, perform gene set enrichment analysis, infer genetic architecture, etc.
+detect genetic association, assess gene set or network enrichment,
+prioritize trait-associated genes and infer genetic architecture.
 Please check our [progress updates](https://stephenslab.github.io/rss/news.html) regularly. 
 
 If you have specific applications that use GWAS summary data as input,
