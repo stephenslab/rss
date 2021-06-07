@@ -111,6 +111,6 @@ please feel free to contact us. We are glad to help!
 
 [Xiang Zhu](https://github.com/xiangzhu) <br>
 [Matthew Stephens Lab](http://stephenslab.uchicago.edu) <br>
-[Department of Statistics](https://galton.uchicago.edu) <br>
+[Department of Statistics](https://stat.uchicago.edu) <br>
 [University of Chicago](https://www.uchicago.edu) <br>
 
