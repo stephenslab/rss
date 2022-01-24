@@ -202,4 +202,7 @@ This likelihood ratio calculation is based on an `R` package
 
 1. There is a missing multiplier term ${\omega_k}/{\omega_1}$
 on the right-hand side of Equation 5.1 in this note (page 4).
-We thank Geyu Zhou from Yale University for pointing out this typo. 
+However, this missing term was correctly reflected in the source codes
+of [`rss_ash.m`][], in particular, Lines 80-81 of
+[`update_bz.m`](https://github.com/stephenslab/rss/blob/master/src/update_bz.m).
+We thank Geyu Zhou <geyu.zhou@yale.edu> for pointing out this typo on 01/14/2019. 
