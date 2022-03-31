@@ -20,7 +20,7 @@ was published in *Proceedings of the National Academy of Sciences*.
 
 - 05/14/2021: [RSS-NET][] was published in *Nature Communications*.
 
-- 05/07/2021: Xiang presented [RSS-NET][] at the 2021 NHS Group Meeting,
+- 05/07/2021: Xiang presented [RSS-NET][] at the Program in Computational Biology Seminar,
 University of Chicago, Chicago, IL.
 
 - 04/15/2021: Xiang presented [RSS-NET][] at the Division of Biostatistics and
@@ -96,7 +96,7 @@ the Department of Statistics, Stanford University, Stanford, CA.
 University of Chicago, Chicago, IL.
 
 - 12/02/2016: Xiang presented [RSS likelihood][] as part of a GWAS tutorial
-at the 2016 NHS Group Meeting, University of Chicago, Chicago, IL.
+at the Program in Computational Biology Seminar, University of Chicago, Chicago, IL.
 
 - 10/20/2016: Xiang presented [RSS-E][] at the 2016 ASHG, Vancouver, BC, Canada.
 
@@ -108,7 +108,7 @@ about [RSS likelihood][].
 
 - 03/04/2016: Xiang posted [RSS likelihood][] on *bioRxiv*. 
 
-- 03/04/2016: Xiang presented [RSS-E][] at the 2016 NHS Group Meeting,
+- 03/04/2016: Xiang presented [RSS-E][] at the Program in Computational Biology Seminar,
 University of Chicago, Chicago, IL.
 
 - 11/11/2015: Xiang presented [RSS likelihood][] at the Dissertation Proposal
@@ -124,5 +124,5 @@ Cold Spring Harbor Laboratory, Cold Spring Harbor, NY.
 
 - 05/05/2015: Xiang received the inaugural [David Wallace Award for Applied Statistics](https://stat.uchicago.edu/academics/graduate-programs/graduate-student-resources/academic-life/student-awards/#collapse22) for the work on [RSS likelihood][]. 
 
-- 02/27/2015: Xiang presented [RSS likelihood][] at the 2015 NHS Group Meeting,
+- 02/27/2015: Xiang presented [RSS likelihood][] at the Program in Computational Biology Seminar,
 University of Chicago, Chicago, IL.
