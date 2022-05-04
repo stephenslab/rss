@@ -12,6 +12,9 @@ editor_options:
 [RSS-E]: https://doi.org/10.1038/s41467-018-06805-x
 [RSS likelihood]: https://doi.org/10.1214/17-aoas1046
 
+- 05/02/2022: Xiang presented [RSS-NET][] at the Department of Statistics, 
+University of Missouri, Columbia, MO.
+
 - 01/04/2022: Xiang extended [RSS-NET][] to analyze regulatory networks derived
 from H3K27ac HiChIP experiments. This [extension](https://doi.org/10.1073/pnas.2115601119)
 was published in *Proceedings of the National Academy of Sciences*. 
