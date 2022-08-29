@@ -12,6 +12,27 @@ editor_options:
 [RSS-E]: https://doi.org/10.1038/s41467-018-06805-x
 [RSS likelihood]: https://doi.org/10.1214/17-aoas1046
 
+- 08/19/2022: Xiang extended [RSS-NET][] to analyze
+[sequence-conserved enhancer-like elements](https://github.com/SUwonglab/m2h-aele).
+This [extension](https://doi.org/10.1101/2022.08.19.504589) was published in *bioRxiv*.
+
+- 08/04/2022: Xiang applied [RSS-NET][] to identify relevant tissues and cell types for
+five lipid traits based on the latest [GWAS results from GLGC](https://doi.org/10.1038/s41586-021-04064-3).
+This [application](https://doi.org/10.1016/j.ajhg.2022.06.012) was published in *American Journal of Human Genetics*.
+
+- 08/01/2022: Xiang applied [RSS-E][] to prioritize pathways and genes for coronary artery disease
+based on the latest [GWAS results from MVP](https://doi.org/10.1038/s41591-022-01891-3).
+This [application](https://doi.org/10.1038/s41591-022-01891-3) was published in *Nature Medicine*.
+
+- 05/18/2022: Xiang received the [Penn State Consortium on Substance Use and Addiction](https://csua.ssri.psu.edu/)
+Seed Grant as the Lead PI to incorporate single-cell genomics and multi-ancestry GWAS into the [RSS likelihood][] framework,
+with a special focus on genetics of substance use traits in diverse human populations.
+
+- 03/30/2022: Xiang received the [Penn State Institute for Computational and Data Sciences](https://www.icds.psu.edu/)
+Seed Grant as the Lead PI to incorporate single-cell genomics and multi-ancestry GWAS into the [RSS likelihood][] framework,
+with a special focus on genetics of cardiometabolic diseases in diverse human populations.
+*Penn State Today* published a [press release](https://www.psu.edu/news/institute-computational-and-data-sciences/story/seed-grants-fund-projects-tackle-huge-scientific/).
+
 - 05/02/2022: Xiang presented [RSS-NET][] at the Department of Statistics, 
 University of Missouri, Columbia, MO.
 
