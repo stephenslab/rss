@@ -14,7 +14,7 @@ editor_options:
 
 - 08/19/2022: Xiang extended [RSS-NET][] to analyze
 [sequence-conserved enhancer-like elements](https://github.com/SUwonglab/m2h-aele).
-This [extension](https://doi.org/10.1101/2022.08.19.504589) was published in *bioRxiv*.
+This [extension](https://doi.org/10.1101/2022.08.19.504589) was posted on *bioRxiv*.
 
 - 08/04/2022: Xiang applied [RSS-NET][] to identify relevant tissues and cell types for
 five lipid traits based on the latest [GWAS results from GLGC](https://doi.org/10.1038/s41586-021-04064-3).
