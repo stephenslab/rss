@@ -14,8 +14,8 @@
 
 <title>Progress Update</title>
 
-<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.15/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -61,6 +61,7 @@ div.section {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -81,6 +82,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -138,11 +142,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -233,7 +241,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -285,7 +293,9 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -294,7 +304,9 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -303,17 +315,27 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-01-24
+<strong>Last updated:</strong> 2022-08-29
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
 </p>
 <p>
-<strong>Knit directory:</strong> <code>rss/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>rss/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -322,31 +344,54 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstreef3d289f3520fa94e0b3c13606d3948e16e5e9491targetblankf3d289fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/rss/tree/f3d289f3520fa94e0b3c13606d3948e16e5e9491" target="_blank">f3d289f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree6cba980434ee021180f058dbf47b3d6047af57e7targetblank6cba980a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/stephenslab/rss/tree/6cba980434ee021180f058dbf47b3d6047af57e7" target="_blank">6cba980</a>
+</a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstreef3d289f3520fa94e0b3c13606d3948e16e5e9491targetblankf3d289fa" class="panel-collapse collapse">
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree6cba980434ee021180f058dbf47b3d6047af57e7targetblank6cba980a"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/rss/tree/f3d289f3520fa94e0b3c13606d3948e16e5e9491" target="_blank">f3d289f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version
+<a href="https://github.com/stephenslab/rss/tree/6cba980434ee021180f058dbf47b3d6047af57e7" target="_blank">6cba980</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
 Ignored files:
@@ -355,7 +400,9 @@ Ignored files:
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -366,7 +413,11 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>rmd/news.Rmd</code>) and HTML (<code>docs/news.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>rmd/news.Rmd</code>) and HTML
+(<code>docs/news.html</code>) files. If you’ve configured a remote Git
+repository (see <code>?wflow_git_remote</code>), click on the hyperlinks
+in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -390,6 +441,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/rss/blob/6cba980434ee021180f058dbf47b3d6047af57e7/rmd/news.Rmd" target="_blank">6cba980</a>
+</td>
+<td>
+Xiang Zhu
+</td>
+<td>
+2022-08-29
+</td>
+<td>
+update news
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/rss/blob/6c18e124ee502e1568b638fa7e379751441403f8/rmd/news.Rmd" target="_blank">6c18e12</a>
+</td>
+<td>
+Xiang Zhu
+</td>
+<td>
+2022-05-05
+</td>
+<td>
+update news
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/rss/blob/4696557222df9ab077c5bc3870888454a4b68c77/rmd/news.Rmd" target="_blank">4696557</a>
+</td>
+<td>
+Xiang Zhu
+</td>
+<td>
+2022-03-31
+</td>
+<td>
+rename nhs to pcb
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/rss/8d749ff3f02ec68bca37b6ce505e5dbe31e148bb/docs/news.html" target="_blank">8d749ff</a>
+</td>
+<td>
+Xiang Zhu
+</td>
+<td>
+2022-01-24
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -602,47 +721,197 @@ wflow_publish("rmd/news.Rmd")
 </div>
 </div>
 <ul>
-<li><p>01/04/2022: Xiang extended <a href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> to analyze regulatory networks derived from H3K27ac HiChIP experiments. This <a href="https://doi.org/10.1073/pnas.2115601119">extension</a> was published in <em>Proceedings of the National Academy of Sciences</em>.</p></li>
-<li><p>06/29/2021: Xiang presented <a href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> at the 2021 Virtual ISBA World Meeting.</p></li>
-<li><p>05/14/2021: <a href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> was published in <em>Nature Communications</em>.</p></li>
-<li><p>05/07/2021: Xiang presented <a href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> at the 2021 NHS Group Meeting, University of Chicago, Chicago, IL.</p></li>
-<li><p>04/15/2021: Xiang presented <a href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> at the Division of Biostatistics and Bioinformatics, Department of Public Health Sciences, Penn State College of Medicine, Hershey, PA.</p></li>
-<li><p>04/14/2021: Xiang presented <a href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> at the 2021 Virtual CSHL Probabilistic Modeling in Genomics Meeting.</p></li>
-<li><p>03/03/2021: <a href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> was accepted by <em>Nature Communications</em>.</p></li>
-<li><p>11/04/2020: Xiang presented <a href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> at the 2020 Virtual CSHL Biological Data Science Meeting.</p></li>
-<li><p>08/05/2020: Xiang presented <a href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> at the 2020 Virtual JSM.</p></li>
-<li><p>04/28/2020: Xiang presented <a href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> at the Department of Statistics, Stanford University, Stanford, CA.</p></li>
-<li><p>03/14/2020: Xiang posted <a href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> on <em>bioRxiv</em>.</p></li>
-<li><p>02/10/2020: Xiang presented <a href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> at the Department of Biostatistics and Bioinformatics, Rollins School of Public Health, Emory University, Atlanta, GA.</p></li>
-<li><p>01/23/2020: Xiang presented <a href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> at the Department of Statistics and Huck Institutes of the Life Sciences, Pennsylvania State University, University Park, PA.</p></li>
-<li><p>01/15/2020: Xiang presented <a href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> at the Department of Statistics, Wharton School, University of Pennsylvania, Philadelphia, PA.</p></li>
-<li><p>03/27/2019: <a href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> was recommended in <a href="https://doi.org/10.3410/f.734261365.793558023">F1000Prime</a> by F1000 Faculty Member <a href="https://f1000.com/prime/thefaculty/member/499999771097550974">Jason Flannick</a>.</p></li>
-<li><p>01/10/2019: The Research Computing Center at University of Chicago wrote an <a href="https://rcc.uchicago.edu/about-rcc/news-features/new-statistical-method-gives-second-life-gwas-data">article</a> on <a href="https://doi.org/10.1214/17-aoas1046">RSS likelihood</a> and <a href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a>.</p></li>
-<li><p>10/19/2018: <a href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> was published in <em>Nature Communications</em>.</p></li>
-<li><p>10/09/2018: Xiang presented <a href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> at the MVP/ERIC/Assimes Group Meeting, Stanford University, Stanford, CA.</p></li>
-<li><p>09/29/2018: <a href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> was accepted by <em>Nature Communications</em>.</p></li>
-<li><p>10/19/2017: Xiang presented <a href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> at the 2017 ASHG, Orlando, FL.</p></li>
-<li><p>10/05/2017: <a href="https://doi.org/10.1214/17-aoas1046">RSS likelihood</a> was published in <em>Annals of Applied Statistics</em>.</p></li>
-<li><p>08/03/2017: Xiang presented <a href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> at the 2017 JSM, Baltimore, MD. This work won an <a href="https://stat.uchicago.edu/academics/graduate-programs/graduate-student-resources/academic-life/student-awards/#collapse13">American Statistical Association Student Paper Award</a>.</p></li>
-<li><p>07/07/2017: Xiang posted <a href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> on <em>bioRxiv</em>.</p></li>
-<li><p>06/30/2017: Xiang presented <a href="https://doi.org/10.1214/17-aoas1046">RSS likelihood</a> and <a href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> at Dissertation Presentation and Defense, Department of Statistics, University of Chicago, Chicago, IL.</p></li>
-<li><p>06/28/2017: Xiang presented <a href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> at the 2017 ICSA Applied Statistics Symposium, Chicago, IL.</p></li>
-<li><p>05/02/2017: Xiang presented <a href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> at the Mind Bytes 2017, University of Chicago, Chicago, IL. This work won the <a href="https://mindbytes.uchicago.edu/2017/callforposters.php#tab8">Mind Bytes Award for Big-Data Research</a>.</p></li>
-<li><p>04/04/2017: <a href="https://doi.org/10.1214/17-aoas1046">RSS likelihood</a> was accepted by <em>Annals of Applied Statistics</em>.</p></li>
-<li><p>02/22/2017: Xiang presented <a href="https://doi.org/10.1214/17-aoas1046">RSS likelihood</a> at the Department of Statistics, Stanford University, Stanford, CA.</p></li>
-<li><p>01/11/2017: Xiang presented <a href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> at the Department of Human Genetics, University of Chicago, Chicago, IL.</p></li>
-<li><p>12/02/2016: Xiang presented <a href="https://doi.org/10.1214/17-aoas1046">RSS likelihood</a> as part of a GWAS tutorial at the 2016 NHS Group Meeting, University of Chicago, Chicago, IL.</p></li>
-<li><p>10/20/2016: Xiang presented <a href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> at the 2016 ASHG, Vancouver, BC, Canada.</p></li>
-<li><p>08/23/2016: <a href="https://pa.msu.edu/profile/hsu/">Stephen Hsu</a> wrote a <a href="https://infoproc.blogspot.com/2016/08/bayesian-large-scale-multiple.html">blog</a> about <a href="https://doi.org/10.1214/17-aoas1046">RSS likelihood</a>.</p></li>
-<li><p>07/31/2016: Xiang presented <a href="https://doi.org/10.1214/17-aoas1046">RSS likelihood</a> at the 2016 JSM, Chicago, IL.</p></li>
-<li><p>03/04/2016: Xiang posted <a href="https://doi.org/10.1214/17-aoas1046">RSS likelihood</a> on <em>bioRxiv</em>.</p></li>
-<li><p>03/04/2016: Xiang presented <a href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> at the 2016 NHS Group Meeting, University of Chicago, Chicago, IL.</p></li>
-<li><p>11/11/2015: Xiang presented <a href="https://doi.org/10.1214/17-aoas1046">RSS likelihood</a> at the Dissertation Proposal Presentation, Department of Statistics, University of Chicago, Chicago, IL.</p></li>
-<li><p>10/27/2015: Xiang presented <a href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> at the Mind Bytes 2015, University of Chicago, Chicago, IL.</p></li>
-<li><p>10/15/2015: Xiang presented <a href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> at the 2015 ProbGen, Cold Spring Harbor Laboratory, Cold Spring Harbor, NY.</p></li>
-<li><p>10/09/2015: Xiang presented <a href="https://doi.org/10.1214/17-aoas1046">RSS likelihood</a> at the 2015 ASHG, Baltimore, MD.</p></li>
-<li><p>05/05/2015: Xiang received the inaugural <a href="https://stat.uchicago.edu/academics/graduate-programs/graduate-student-resources/academic-life/student-awards/#collapse22">David Wallace Award for Applied Statistics</a> for the work on <a href="https://doi.org/10.1214/17-aoas1046">RSS likelihood</a>.</p></li>
-<li><p>02/27/2015: Xiang presented <a href="https://doi.org/10.1214/17-aoas1046">RSS likelihood</a> at the 2015 NHS Group Meeting, University of Chicago, Chicago, IL.</p></li>
+<li><p>08/19/2022: Xiang extended <a
+href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> to analyze
+<a href="https://github.com/SUwonglab/m2h-aele">sequence-conserved
+enhancer-like elements</a>. This <a
+href="https://doi.org/10.1101/2022.08.19.504589">extension</a> was
+published in <em>bioRxiv</em>.</p></li>
+<li><p>08/04/2022: Xiang applied <a
+href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> to
+identify relevant tissues and cell types for five lipid traits based on
+the latest <a href="https://doi.org/10.1038/s41586-021-04064-3">GWAS
+results from GLGC</a>. This <a
+href="https://doi.org/10.1016/j.ajhg.2022.06.012">application</a> was
+published in <em>American Journal of Human Genetics</em>.</p></li>
+<li><p>08/01/2022: Xiang applied <a
+href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> to
+prioritize pathways and genes for coronary artery disease based on the
+latest <a href="https://doi.org/10.1038/s41591-022-01891-3">GWAS results
+from MVP</a>. This <a
+href="https://doi.org/10.1038/s41591-022-01891-3">application</a> was
+published in <em>Nature Medicine</em>.</p></li>
+<li><p>05/18/2022: Xiang received the <a
+href="https://csua.ssri.psu.edu/">Penn State Consortium on Substance Use
+and Addiction</a> Seed Grant as the Lead PI to incorporate single-cell
+genomics and multi-ancestry GWAS into the <a
+href="https://doi.org/10.1214/17-aoas1046">RSS likelihood</a> framework,
+with a special focus on genetics of substance use traits in diverse
+human populations.</p></li>
+<li><p>03/30/2022: Xiang received the <a
+href="https://www.icds.psu.edu/">Penn State Institute for Computational
+and Data Sciences</a> Seed Grant as the Lead PI to incorporate
+single-cell genomics and multi-ancestry GWAS into the <a
+href="https://doi.org/10.1214/17-aoas1046">RSS likelihood</a> framework,
+with a special focus on genetics of cardiometabolic diseases in diverse
+human populations. <em>Penn State Today</em> published a <a
+href="https://www.psu.edu/news/institute-computational-and-data-sciences/story/seed-grants-fund-projects-tackle-huge-scientific/">press
+release</a>.</p></li>
+<li><p>05/02/2022: Xiang presented <a
+href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> at the
+Department of Statistics, University of Missouri, Columbia, MO.</p></li>
+<li><p>01/04/2022: Xiang extended <a
+href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> to analyze
+regulatory networks derived from H3K27ac HiChIP experiments. This <a
+href="https://doi.org/10.1073/pnas.2115601119">extension</a> was
+published in <em>Proceedings of the National Academy of
+Sciences</em>.</p></li>
+<li><p>06/29/2021: Xiang presented <a
+href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> at the
+2021 Virtual ISBA World Meeting.</p></li>
+<li><p>05/14/2021: <a
+href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> was
+published in <em>Nature Communications</em>.</p></li>
+<li><p>05/07/2021: Xiang presented <a
+href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> at the
+Program in Computational Biology Seminar, University of Chicago,
+Chicago, IL.</p></li>
+<li><p>04/15/2021: Xiang presented <a
+href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> at the
+Division of Biostatistics and Bioinformatics, Department of Public
+Health Sciences, Penn State College of Medicine, Hershey, PA.</p></li>
+<li><p>04/14/2021: Xiang presented <a
+href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> at the
+2021 Virtual CSHL Probabilistic Modeling in Genomics Meeting.</p></li>
+<li><p>03/03/2021: <a
+href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> was
+accepted by <em>Nature Communications</em>.</p></li>
+<li><p>11/04/2020: Xiang presented <a
+href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> at the
+2020 Virtual CSHL Biological Data Science Meeting.</p></li>
+<li><p>08/05/2020: Xiang presented <a
+href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> at the
+2020 Virtual JSM.</p></li>
+<li><p>04/28/2020: Xiang presented <a
+href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> at the
+Department of Statistics, Stanford University, Stanford, CA.</p></li>
+<li><p>03/14/2020: Xiang posted <a
+href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> on
+<em>bioRxiv</em>.</p></li>
+<li><p>02/10/2020: Xiang presented <a
+href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> at the
+Department of Biostatistics and Bioinformatics, Rollins School of Public
+Health, Emory University, Atlanta, GA.</p></li>
+<li><p>01/23/2020: Xiang presented <a
+href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> at the
+Department of Statistics and Huck Institutes of the Life Sciences,
+Pennsylvania State University, University Park, PA.</p></li>
+<li><p>01/15/2020: Xiang presented <a
+href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> at the
+Department of Statistics, Wharton School, University of Pennsylvania,
+Philadelphia, PA.</p></li>
+<li><p>03/27/2019: <a
+href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> was
+recommended in <a
+href="https://doi.org/10.3410/f.734261365.793558023">F1000Prime</a> by
+F1000 Faculty Member <a
+href="https://f1000.com/prime/thefaculty/member/499999771097550974">Jason
+Flannick</a>.</p></li>
+<li><p>01/10/2019: The Research Computing Center at University of
+Chicago wrote an <a
+href="https://rcc.uchicago.edu/about-rcc/news-features/new-statistical-method-gives-second-life-gwas-data">article</a>
+on <a href="https://doi.org/10.1214/17-aoas1046">RSS likelihood</a> and
+<a href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a>.</p></li>
+<li><p>10/19/2018: <a
+href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> was
+published in <em>Nature Communications</em>.</p></li>
+<li><p>10/09/2018: Xiang presented <a
+href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> at the
+MVP/ERIC/Assimes Group Meeting, Stanford University, Stanford,
+CA.</p></li>
+<li><p>09/29/2018: <a
+href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> was accepted
+by <em>Nature Communications</em>.</p></li>
+<li><p>10/19/2017: Xiang presented <a
+href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> at the 2017
+ASHG, Orlando, FL.</p></li>
+<li><p>10/05/2017: <a href="https://doi.org/10.1214/17-aoas1046">RSS
+likelihood</a> was published in <em>Annals of Applied
+Statistics</em>.</p></li>
+<li><p>08/03/2017: Xiang presented <a
+href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> at the 2017
+JSM, Baltimore, MD. This work won an <a
+href="https://stat.uchicago.edu/academics/graduate-programs/graduate-student-resources/academic-life/student-awards/#collapse13">American
+Statistical Association Student Paper Award</a>.</p></li>
+<li><p>07/07/2017: Xiang posted <a
+href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> on
+<em>bioRxiv</em>.</p></li>
+<li><p>06/30/2017: Xiang presented <a
+href="https://doi.org/10.1214/17-aoas1046">RSS likelihood</a> and <a
+href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> at
+Dissertation Presentation and Defense, Department of Statistics,
+University of Chicago, Chicago, IL.</p></li>
+<li><p>06/28/2017: Xiang presented <a
+href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> at the 2017
+ICSA Applied Statistics Symposium, Chicago, IL.</p></li>
+<li><p>05/02/2017: Xiang presented <a
+href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> at the Mind
+Bytes 2017, University of Chicago, Chicago, IL. This work won the <a
+href="https://mindbytes.uchicago.edu/2017/callforposters.php#tab8">Mind
+Bytes Award for Big-Data Research</a>.</p></li>
+<li><p>04/04/2017: <a href="https://doi.org/10.1214/17-aoas1046">RSS
+likelihood</a> was accepted by <em>Annals of Applied
+Statistics</em>.</p></li>
+<li><p>02/22/2017: Xiang presented <a
+href="https://doi.org/10.1214/17-aoas1046">RSS likelihood</a> at the
+Department of Statistics, Stanford University, Stanford, CA.</p></li>
+<li><p>01/11/2017: Xiang presented <a
+href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> at the
+Department of Human Genetics, University of Chicago, Chicago,
+IL.</p></li>
+<li><p>12/02/2016: Xiang presented <a
+href="https://doi.org/10.1214/17-aoas1046">RSS likelihood</a> as part of
+a GWAS tutorial at the Program in Computational Biology Seminar,
+University of Chicago, Chicago, IL.</p></li>
+<li><p>10/20/2016: Xiang presented <a
+href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> at the 2016
+ASHG, Vancouver, BC, Canada.</p></li>
+<li><p>08/23/2016: <a href="https://pa.msu.edu/profile/hsu/">Stephen
+Hsu</a> wrote a <a
+href="https://infoproc.blogspot.com/2016/08/bayesian-large-scale-multiple.html">blog</a>
+about <a href="https://doi.org/10.1214/17-aoas1046">RSS
+likelihood</a>.</p></li>
+<li><p>07/31/2016: Xiang presented <a
+href="https://doi.org/10.1214/17-aoas1046">RSS likelihood</a> at the
+2016 JSM, Chicago, IL.</p></li>
+<li><p>03/04/2016: Xiang posted <a
+href="https://doi.org/10.1214/17-aoas1046">RSS likelihood</a> on
+<em>bioRxiv</em>.</p></li>
+<li><p>03/04/2016: Xiang presented <a
+href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> at the
+Program in Computational Biology Seminar, University of Chicago,
+Chicago, IL.</p></li>
+<li><p>11/11/2015: Xiang presented <a
+href="https://doi.org/10.1214/17-aoas1046">RSS likelihood</a> at the
+Dissertation Proposal Presentation, Department of Statistics, University
+of Chicago, Chicago, IL.</p></li>
+<li><p>10/27/2015: Xiang presented <a
+href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> at the Mind
+Bytes 2015, University of Chicago, Chicago, IL.</p></li>
+<li><p>10/15/2015: Xiang presented <a
+href="https://doi.org/10.1038/s41467-018-06805-x">RSS-E</a> at the 2015
+ProbGen, Cold Spring Harbor Laboratory, Cold Spring Harbor, NY.</p></li>
+<li><p>10/09/2015: Xiang presented <a
+href="https://doi.org/10.1214/17-aoas1046">RSS likelihood</a> at the
+2015 ASHG, Baltimore, MD.</p></li>
+<li><p>05/05/2015: Xiang received the inaugural <a
+href="https://stat.uchicago.edu/academics/graduate-programs/graduate-student-resources/academic-life/student-awards/#collapse22">David
+Wallace Award for Applied Statistics</a> for the work on <a
+href="https://doi.org/10.1214/17-aoas1046">RSS likelihood</a>.</p></li>
+<li><p>02/27/2015: Xiang presented <a
+href="https://doi.org/10.1214/17-aoas1046">RSS likelihood</a> at the
+Program in Computational Biology Seminar, University of Chicago,
+Chicago, IL.</p></li>
 </ul>
 
 
