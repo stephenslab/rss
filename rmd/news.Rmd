@@ -28,13 +28,13 @@ This [application](https://doi.org/10.1038/s41591-022-01891-3) was published in 
 Seed Grant as the Lead PI to incorporate single-cell genomics and multi-ancestry GWAS into the [RSS likelihood][] framework,
 with a special focus on genetics of substance use traits in diverse human populations.
 
+- 05/02/2022: Xiang presented [RSS-NET][] at the Department of Statistics, 
+University of Missouri, Columbia, MO.
+
 - 03/30/2022: Xiang received the [Penn State Institute for Computational and Data Sciences](https://www.icds.psu.edu/)
 Seed Grant as the Lead PI to incorporate single-cell genomics and multi-ancestry GWAS into the [RSS likelihood][] framework,
 with a special focus on genetics of cardiometabolic diseases in diverse human populations.
 *Penn State Today* published a [press release](https://www.psu.edu/news/institute-computational-and-data-sciences/story/seed-grants-fund-projects-tackle-huge-scientific/).
-
-- 05/02/2022: Xiang presented [RSS-NET][] at the Department of Statistics, 
-University of Missouri, Columbia, MO.
 
 - 01/04/2022: Xiang extended [RSS-NET][] to analyze regulatory networks derived
 from H3K27ac HiChIP experiments. This [extension](https://doi.org/10.1073/pnas.2115601119)
