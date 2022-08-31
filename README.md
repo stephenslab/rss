@@ -50,7 +50,7 @@ The repository is licensed under the [MIT License](LICENSE).
 1. Get started from some short [tutorials](http://stephenslab.github.io/rss).
 2. Refer to [FAQ](https://stephenslab.github.io/rss/faq.html) for answers to some common questions.
 3. Create a new [issue](https://github.com/stephenslab/rss/issues) to report bugs and/or request features.
-4. Send an email to `xiangzhu[at]psu.edu`.
+4. Send an email to `xiangzhu[at]psu[dot]edu`.
 
 ### Citation
 
