@@ -12,6 +12,9 @@ editor_options:
 [RSS-E]: https://doi.org/10.1038/s41467-018-06805-x
 [RSS likelihood]: https://doi.org/10.1214/17-aoas1046
 
+- 09/14/2022: Xiang presented the [RSS likelihood][] and its various applications in human genetics
+at the Department of Statistics, University of Nebraska-Lincoln, Lincoln, NE.
+
 - 08/19/2022: Xiang extended [RSS-NET][] to analyze
 [sequence-conserved enhancer-like elements](https://github.com/SUwonglab/m2h-aele).
 This [extension](https://doi.org/10.1101/2022.08.19.504589) was posted on *bioRxiv*.
