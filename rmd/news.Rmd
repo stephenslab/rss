@@ -14,7 +14,7 @@ editor_options:
 
 - 12/18/2022: Xiang presented [RSS-NET][] and its extensions to analyze
 [H3K27ac HiChIP networks](https://doi.org/10.1073/pnas.2115601119) and
-[sequence-conserved enhancer-like elements] (https://doi.org/10.1101/2022.08.19.504589)
+[sequence-conserved enhancer-like elements](https://doi.org/10.1101/2022.08.19.504589)
 at the 2022 CMStatistics, London, UK.
 
 - 09/14/2022: Xiang presented the [RSS likelihood][] and its various applications in human genetics
