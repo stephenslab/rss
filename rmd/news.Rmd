@@ -12,6 +12,15 @@ editor_options:
 [RSS-E]: https://doi.org/10.1038/s41467-018-06805-x
 [RSS likelihood]: https://doi.org/10.1214/17-aoas1046
 
+- 03/01/2023: Xiang presented the extension of [RSS-NET][] to analyze
+[sequence-conserved enhancer-like elements](https://doi.org/10.1101/2022.08.19.504589)
+at the Center for Computational Biology and Bioinformatics,
+Pennsylvania State University, University Park, PA.
+
+- 02/03/2023: Xiang's recent work on the genetics of cardiovascular health in diverse human populations
+and the ongoing effort to extend RSS methods to multi-ancestry GWAS were featured as the
+[Editor's Picks in *Penn State Today*](https://www.psu.edu/news/eberly-college-science/story/improving-heart-health-diversifying-genetic-data/).
+
 - 12/18/2022: Xiang presented [RSS-NET][] and its extensions to analyze
 [H3K27ac HiChIP networks](https://doi.org/10.1073/pnas.2115601119) and
 [sequence-conserved enhancer-like elements](https://doi.org/10.1101/2022.08.19.504589)
@@ -32,7 +41,7 @@ This [application](https://doi.org/10.1016/j.ajhg.2022.06.012) was published in 
 based on the latest [GWAS results from MVP](https://doi.org/10.1038/s41591-022-01891-3).
 This [application](https://doi.org/10.1038/s41591-022-01891-3) was published in *Nature Medicine*.
 
-- 05/18/2022: Xiang received the [Penn State Consortium on Substance Use and Addiction](https://csua.ssri.psu.edu/)
+- 05/18/2022: Xiang received the [Penn State Social Science Research Institute Consortium on Substance Use and Addiction](https://csua.ssri.psu.edu/)
 Seed Grant as the Lead PI to incorporate single-cell genomics and multi-ancestry GWAS into the [RSS likelihood][] framework,
 with a special focus on genetics of substance use traits in diverse human populations.
 
