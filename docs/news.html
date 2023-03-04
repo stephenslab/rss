@@ -14,7 +14,7 @@
 
 <title>Progress Update</title>
 
-<script src="site_libs/header-attrs-2.15/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -179,8 +179,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -188,16 +188,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -315,7 +308,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-12-18
+<strong>Last updated:</strong> 2023-03-04
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -362,15 +355,15 @@ results.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree8dbbf80e6c8a9db281f496f10e9cc32979e51d5atargetblank8dbbf80a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstreee5b8432e92e5c6887fe9cd3ecc51977e58d7bf67targetblanke5b8432a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/stephenslab/rss/tree/8dbbf80e6c8a9db281f496f10e9cc32979e51d5a" target="_blank">8dbbf80</a>
+<a href="https://github.com/stephenslab/rss/tree/e5b8432e92e5c6887fe9cd3ecc51977e58d7bf67" target="_blank">e5b8432</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree8dbbf80e6c8a9db281f496f10e9cc32979e51d5atargetblank8dbbf80a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstreee5b8432e92e5c6887fe9cd3ecc51977e58d7bf67targetblanke5b8432a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -380,7 +373,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/stephenslab/rss/tree/8dbbf80e6c8a9db281f496f10e9cc32979e51d5a" target="_blank">8dbbf80</a>.
+<a href="https://github.com/stephenslab/rss/tree/e5b8432e92e5c6887fe9cd3ecc51977e58d7bf67" target="_blank">e5b8432</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -441,6 +434,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/rss/blob/e5b8432e92e5c6887fe9cd3ecc51977e58d7bf67/rmd/news.Rmd" target="_blank">e5b8432</a>
+</td>
+<td>
+Xiang Zhu
+</td>
+<td>
+2023-03-04
+</td>
+<td>
+wflow_publish("rmd/news.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/rss/025448f55a6127dc4ac5bbceb33118c8e81307a3/docs/news.html" target="_blank">025448f</a>
+</td>
+<td>
+Xiang Zhu
+</td>
+<td>
+2022-12-18
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -891,6 +918,17 @@ wflow_publish("rmd/news.Rmd")
 </div>
 </div>
 <ul>
+<li><p>03/01/2023: Xiang presented the extension of <a
+href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> to analyze
+<a href="https://doi.org/10.1101/2022.08.19.504589">sequence-conserved
+enhancer-like elements</a> at the Center for Computational Biology and
+Bioinformatics, Pennsylvania State University, University Park,
+PA.</p></li>
+<li><p>02/03/2023: Xiang’s recent work on the genetics of cardiovascular
+health in diverse human populations and the ongoing effort to extend RSS
+methods to multi-ancestry GWAS were featured as the <a
+href="https://www.psu.edu/news/eberly-college-science/story/improving-heart-health-diversifying-genetic-data/">Editor’s
+Picks in <em>Penn State Today</em></a>.</p></li>
 <li><p>12/18/2022: Xiang presented <a
 href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> and its
 extensions to analyze <a
@@ -924,12 +962,12 @@ from MVP</a>. This <a
 href="https://doi.org/10.1038/s41591-022-01891-3">application</a> was
 published in <em>Nature Medicine</em>.</p></li>
 <li><p>05/18/2022: Xiang received the <a
-href="https://csua.ssri.psu.edu/">Penn State Consortium on Substance Use
-and Addiction</a> Seed Grant as the Lead PI to incorporate single-cell
-genomics and multi-ancestry GWAS into the <a
-href="https://doi.org/10.1214/17-aoas1046">RSS likelihood</a> framework,
-with a special focus on genetics of substance use traits in diverse
-human populations.</p></li>
+href="https://csua.ssri.psu.edu/">Penn State Social Science Research
+Institute Consortium on Substance Use and Addiction</a> Seed Grant as
+the Lead PI to incorporate single-cell genomics and multi-ancestry GWAS
+into the <a href="https://doi.org/10.1214/17-aoas1046">RSS
+likelihood</a> framework, with a special focus on genetics of substance
+use traits in diverse human populations.</p></li>
 <li><p>05/02/2022: Xiang presented <a
 href="https://doi.org/10.1038/s41467-021-22588-0">RSS-NET</a> at the
 Department of Statistics, University of Missouri, Columbia, MO.</p></li>
