@@ -8,12 +8,30 @@ editor_options:
   chunk_output_type: console
 ---
 
+[sequence-conserved enhancer-like elements]: https://doi.org/10.1101/2022.08.19.504589
 [RSS-NET]: https://doi.org/10.1038/s41467-021-22588-0 
 [RSS-E]: https://doi.org/10.1038/s41467-018-06805-x
 [RSS likelihood]: https://doi.org/10.1214/17-aoas1046
 
+- 05/12/2023: Xiang presented the [RSS likelihood][] and its various applications in human genetics
+at the Department of Biostatistics and Epidemiology, University of Massachusetts, Amherst, MA.
+
+- 04/28/2023: Xiang presented the extension of [RSS-NET][] to analyze
+[sequence-conserved enhancer-like elements][]
+at the Program in Computational Biology, University of Chicago, Chicago, IL.
+
+- 04/26/2023: Xiang presented the [RSS likelihood][] and its various applications in human genetics
+at the Department of Mathematics, Statistics and Computer Science, University of Illinois at Chicago, Chicago, IL.
+
+- 04/20/2023: Xiang presented the [RSS likelihood][] and its various applications in human genetics
+at the Department of Statistics, University of Florida, Gainesville, FL.
+
+- 04/14/2023: Xiang presented the extension of [RSS-NET][] to analyze
+[sequence-conserved enhancer-like elements][]
+at the Department of Biostatistics, University of Florida, Gainesville, FL.
+
 - 03/01/2023: Xiang presented the extension of [RSS-NET][] to analyze
-[sequence-conserved enhancer-like elements](https://doi.org/10.1101/2022.08.19.504589)
+[sequence-conserved enhancer-like elements][]
 at the Center for Computational Biology and Bioinformatics,
 Pennsylvania State University, University Park, PA.
 
@@ -23,15 +41,14 @@ and the ongoing effort to extend RSS methods to multi-ancestry GWAS were feature
 
 - 12/18/2022: Xiang presented [RSS-NET][] and its extensions to analyze
 [H3K27ac HiChIP networks](https://doi.org/10.1073/pnas.2115601119) and
-[sequence-conserved enhancer-like elements](https://doi.org/10.1101/2022.08.19.504589)
+[sequence-conserved enhancer-like elements]
 at the 2022 CMStatistics, London, UK.
 
 - 09/14/2022: Xiang presented the [RSS likelihood][] and its various applications in human genetics
 at the Department of Statistics, University of Nebraska-Lincoln, Lincoln, NE.
 
 - 08/19/2022: Xiang extended [RSS-NET][] to analyze
-[sequence-conserved enhancer-like elements](https://github.com/SUwonglab/m2h-aele).
-This [extension](https://doi.org/10.1101/2022.08.19.504589) was posted on *bioRxiv*.
+[sequence-conserved enhancer-like elements][], which was posted on *bioRxiv*.
 
 - 08/04/2022: Xiang applied [RSS-NET][] to identify relevant tissues and cell types for
 five lipid traits based on the latest [GWAS results from GLGC](https://doi.org/10.1038/s41586-021-04064-3).
@@ -61,7 +78,7 @@ was published in *Proceedings of the National Academy of Sciences*.
 
 - 05/14/2021: [RSS-NET][] was published in *Nature Communications*.
 
-- 05/07/2021: Xiang presented [RSS-NET][] at the Program in Computational Biology Seminar,
+- 05/07/2021: Xiang presented [RSS-NET][] at the Program in Computational Biology,
 University of Chicago, Chicago, IL.
 
 - 04/15/2021: Xiang presented [RSS-NET][] at the Division of Biostatistics and
@@ -137,7 +154,7 @@ the Department of Statistics, Stanford University, Stanford, CA.
 University of Chicago, Chicago, IL.
 
 - 12/02/2016: Xiang presented [RSS likelihood][] as part of a GWAS tutorial
-at the Program in Computational Biology Seminar, University of Chicago, Chicago, IL.
+at the Program in Computational Biology, University of Chicago, Chicago, IL.
 
 - 10/20/2016: Xiang presented [RSS-E][] at the 2016 ASHG, Vancouver, BC, Canada.
 
@@ -149,7 +166,7 @@ about [RSS likelihood][].
 
 - 03/04/2016: Xiang posted [RSS likelihood][] on *bioRxiv*. 
 
-- 03/04/2016: Xiang presented [RSS-E][] at the Program in Computational Biology Seminar,
+- 03/04/2016: Xiang presented [RSS-E][] at the Program in Computational Biology,
 University of Chicago, Chicago, IL.
 
 - 11/11/2015: Xiang presented [RSS likelihood][] at the Dissertation Proposal
@@ -165,5 +182,5 @@ Cold Spring Harbor Laboratory, Cold Spring Harbor, NY.
 
 - 05/05/2015: Xiang received the inaugural [David Wallace Award for Applied Statistics](https://stat.uchicago.edu/academics/graduate-programs/graduate-student-resources/academic-life/student-awards/#collapse22) for the work on [RSS likelihood][]. 
 
-- 02/27/2015: Xiang presented [RSS likelihood][] at the Program in Computational Biology Seminar,
+- 02/27/2015: Xiang presented [RSS likelihood][] at the Program in Computational Biology,
 University of Chicago, Chicago, IL.
