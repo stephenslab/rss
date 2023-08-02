@@ -16,6 +16,7 @@ editor_options:
 - 07/31/2023: Xiang received the [Penn State Clinical and Translational Science Institute](http://ctsi.psu.edu/)
 Bridges to Translation Pilot Grant as the Lead PI to incorporate single-cell genomics and multi-ancestry GWAS
 into the [RSS likelihood][] framework, with a special focus on genetics of substance use in diverse human populations.
+*Penn State Today* published a [press release](https://www.psu.edu/news/clinical-and-translational-science-institute/story/penn-state-ctsi-announces-seven-bridges/).
 
 - 05/12/2023: Xiang presented the [RSS likelihood][] and its various applications in human genetics
 at the Department of Biostatistics and Epidemiology, University of Massachusetts, Amherst, MA.
