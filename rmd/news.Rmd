@@ -13,6 +13,10 @@ editor_options:
 [RSS-E]: https://doi.org/10.1038/s41467-018-06805-x
 [RSS likelihood]: https://doi.org/10.1214/17-aoas1046
 
+- 07/31/2023: Xiang received the [Penn State Clinical and Translational Science Institute](http://ctsi.psu.edu/)
+Bridges to Translation Pilot Grant as the Lead PI to incorporate single-cell genomics and multi-ancestry GWAS
+into the [RSS likelihood][] framework, with a special focus on genetics of substance use in diverse human populations.
+
 - 05/12/2023: Xiang presented the [RSS likelihood][] and its various applications in human genetics
 at the Department of Biostatistics and Epidemiology, University of Massachusetts, Amherst, MA.
 
@@ -60,7 +64,7 @@ This [application](https://doi.org/10.1038/s41591-022-01891-3) was published in 
 
 - 05/18/2022: Xiang received the [Penn State Social Science Research Institute Consortium on Substance Use and Addiction](https://csua.ssri.psu.edu/)
 Seed Grant as the Lead PI to incorporate single-cell genomics and multi-ancestry GWAS into the [RSS likelihood][] framework,
-with a special focus on genetics of substance use traits in diverse human populations.
+with a special focus on genetics of tobacco and alcohol use in diverse human populations.
 
 - 05/02/2022: Xiang presented [RSS-NET][] at the Department of Statistics, 
 University of Missouri, Columbia, MO.
