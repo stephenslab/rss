@@ -40,10 +40,21 @@ Please find installation instructions [here](setup_mcmc.html).
 
 ## Step-by-step illustration
 
-**Step 1**.
-Download the simulated single-SNP summary-level data and LD estimates
-[`example2.mat`](https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example2/example2.mat).
-Please contact me if you have trouble accessing these files.
+**Step 1**. Download data files.
+
+All data files required to run this example are freely available at Zenodo
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12636406.svg)](https://doi.org/10.5281/zenodo.12636406).
+Please contact me if you have trouble accessing this file.
+After a complete download, you should see the following files.
+
+```{r, eval=FALSE, engine='zsh'}
+$ tree ./
+./
+├── example2.mat
+└── readme
+
+0 directories, 2 files
+```
 
 The data file `example2.mat` contains the following elements.
 
@@ -71,8 +82,8 @@ The data file `example2.mat` contains the following elements.
 ## More simulations
 
 The simulations in Section 4.1 of [Zhu and Stephens (2017)][]
-are essentially "replications" of the example above. To facilitate reproducible research,
-we make the simulated datasets in Section 4.1 [available](https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example2/readme)<sup>1</sup>.
+are essentially "replications" of the example above.
+The simulated datasets in Section 4.1 are available as `rss_example2_data_{1/2/3}.tar.gz`<sup>1</sup>.
 
 Each simulated dataset contains three files:
 `genotype.txt`, `phenotype.txt` and `simulated_data.mat`.
