@@ -32,10 +32,24 @@ Please find installation instructions [here](setup_mcmc.html).
 
 ## Step-by-step illustration
 
-**Step 1**.
-Download the simulated single-SNP summary-level data
-[`example1.mat`](https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example1/example1.mat).
+**Step 1**. Download data files.
+
+All data files required to run this example are freely available at Zenodo
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12636265.svg)](https://doi.org/10.5281/zenodo.12636265).
 Please contact me if you have trouble accessing this file.
+After a complete download, you should see the following files.
+
+```{r, eval=FALSE, engine='zsh'}
+$ tree ./
+./
+├── example1.mat
+├── example1_rssash.mat
+├── example1_rssbslmm.mat
+├── example1_rssbvsr.mat
+└── readme
+
+0 directories, 5 files
+```
 
 The data file `example1.mat` contains the following elements.
 
@@ -133,9 +147,7 @@ of estimated SNP heritability under these three models.
 
 Simulations in Section 4.2 of [Zhu and Stephens (2017)][]
 are essentially "replications" of the example above.
-To facilitate reproducible research, we make the simulated datasets
-for Scenarios 2.1 and 2.2 in Section 4.2 of [Zhu and Stephens (2017)][] available
-([`rss_example1_simulations.tar.gz`](https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example1/readme))<sup>2</sup>.
+The simulated datasets for Scenarios 2.1 and 2.2 in Section 4.2 of [Zhu and Stephens (2017)][] are available as `rss_example1_simulations.tar.gz`<sup>2</sup>.
 
 Each simulated dataset contains three files: `genotype.txt`, `phenotype.txt` and `simulated_data.mat`.
 The files `genotype.txt` and `phenotype.txt` are the genotype and phenotype files for
