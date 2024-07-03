@@ -14,22 +14,30 @@
 
 <title>Example 5: Enrichment and prioritization analysis of GWAS summary statistics using RSS (Part A)</title>
 
-<script src="site_libs/header-attrs-2.3/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
 
-<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
 <style type="text/css">
 div.section {
@@ -39,12 +47,30 @@ div.section {
 
 
 
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
-<style type="text/css">code{white-space: pre;}</style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -79,7 +105,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -92,7 +118,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -113,13 +139,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -127,39 +160,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 
 
@@ -169,10 +172,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -189,40 +188,16 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -250,7 +225,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -262,7 +237,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -272,11 +247,28 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.parent().addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -288,13 +280,12 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -302,16 +293,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -414,7 +398,7 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
+<div class="row">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
@@ -428,7 +412,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -450,7 +434,7 @@ div.tocify {
   <a href="example.html">Examples</a>
 </li>
 <li>
-  <a href="faq.html">FAQ</a>
+  <a href="faq.html">FAQs</a>
 </li>
 <li>
   <a href="news.html">News</a>
@@ -459,7 +443,7 @@ div.tocify {
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/stephenslab/rss">
-    <span class="fa fa-github"></span>
+    <span class="fab fa-github"></span>
      
   </a>
 </li>
@@ -468,11 +452,12 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
-<h1 class="title toc-ignore">Example 5: Enrichment and prioritization analysis of GWAS summary statistics using RSS (Part A)</h1>
+<h1 class="title toc-ignore">Example 5: Enrichment and prioritization
+analysis of GWAS summary statistics using RSS (Part A)</h1>
 <h4 class="author">Xiang Zhu</h4>
 
 </div>
@@ -480,7 +465,9 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -489,7 +476,9 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -498,17 +487,27 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-06-24
+<strong>Last updated:</strong> 2024-07-03
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
 </p>
 <p>
-<strong>Knit directory:</strong> <code>rss/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>rss/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -517,51 +516,149 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree1e806afd56f7e541f351cd53e2a8cbf4b1af63aatargetblank1e806afa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/rss/tree/1e806afd56f7e541f351cd53e2a8cbf4b1af63aa" target="_blank">1e806af</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree1e806afd56f7e541f351cd53e2a8cbf4b1af63aatargetblank1e806afa" class="panel-collapse collapse">
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20200623code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20200623)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20200623code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20200623)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree990f276a345ea2f5117d77f10a6895ef127f5a96targetblank990f276a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/stephenslab/rss/tree/990f276a345ea2f5117d77f10a6895ef127f5a96" target="_blank">990f276</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree990f276a345ea2f5117d77f10a6895ef127f5a96targetblank990f276a"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/rss/tree/1e806afd56f7e541f351cd53e2a8cbf4b1af63aa" target="_blank">1e806af</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version
+<a href="https://github.com/stephenslab/rss/tree/990f276a345ea2f5117d77f10a6895ef127f5a96" target="_blank">990f276</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    .spelling
-    Ignored:    examples/example5/.Rhistory
-    Ignored:    examples/example5/Aseg_chr16.mat
-    Ignored:    examples/example5/example5_simulated_data.mat
-    Ignored:    examples/example5/example5_simulated_results.mat
-    Ignored:    examples/example5/ibd2015_path2641_genes_results.mat
-
-Untracked files:
-    Untracked:  docs_old/
-
-Unstaged changes:
-    Modified:   rmd/_site.yml
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -572,7 +669,12 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>rmd/example_5a.Rmd</code>) and HTML (<code>docs/example_5a.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>rmd/example_5a.Rmd</code>) and HTML
+(<code>docs/example_5a.html</code>) files. If you’ve configured a remote
+Git repository (see <code>?wflow_git_remote</code>), click on the
+hyperlinks in the table below to view the files as they were in that
+past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -596,6 +698,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/rss/blob/990f276a345ea2f5117d77f10a6895ef127f5a96/rmd/example_5a.Rmd" target="_blank">990f276</a>
+</td>
+<td>
+Xiang Zhu
+</td>
+<td>
+2024-07-03
+</td>
+<td>
+wflow_publish("rmd/example_5a.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/rss/bab3f582716fec43ec1d9285b4aff4484afb6075/docs/example_5a.html" target="_blank">bab3f58</a>
+</td>
+<td>
+Xiang Zhu
+</td>
+<td>
+2020-06-24
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -627,7 +763,7 @@ Xiang Zhu
 2020-06-24
 </td>
 <td>
-wflow_publish(“rmd/example_5a.Rmd”)
+wflow_publish("rmd/example_5a.Rmd")
 </td>
 </tr>
 </tbody>
@@ -639,196 +775,433 @@ wflow_publish(“rmd/example_5a.Rmd”)
 </div>
 <div id="overview" class="section level2">
 <h2>Overview</h2>
-<p>This is Part A of <a href="example_5.html">Example 5</a>, which illustrates how to perform enrichment and prioritization analysis of GWAS summary statistics based on variational Bayes (VB) inference of RSS-BVSR model. This part describes an end-to-end analysis of a synthetic dataset used in simulation studies of <a href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and Stephens (2018)</a>. This part gives users a quick view of how RSS works in enrichment and prioritization analysis.</p>
-<p>The input dataset here is simulated under the enrichment model of RSS, using real genotypes of 12,758 SNPs on chromosome 16 from 1458 individuals in the UK Blood Service Control Group (<a href="https://www.ncbi.nlm.nih.gov/pubmed/17554300">Wellcome Trust Case Control Consortium, 2007</a>). Please see the caption of <a href="https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-018-06805-x/MediaObjects/41467_2018_6805_MOESM1_ESM.pdf">Supplementary Figure 1</a> in <a href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and Stephens (2018)</a> for the simulation details.</p>
-<p>To reproduce results of Example 5 Part A, please use the script <a href="https://github.com/stephenslab/rss/blob/master/examples/example5/example5_simulated.m"><code>example5_simulated.m</code></a>, and follow the step-by-step guide below. Before running <a href="https://github.com/stephenslab/rss/blob/master/examples/example5/example5_simulated.m"><code>example5_simulated.m</code></a>, please install the <a href="https://github.com/stephenslab/rss/tree/master/src_vb">VB subroutines</a> of RSS. Please find installation instructions <a href="setup_vb.html">here</a>.</p>
-<p>Once the software is installed and the input data is downloaded, one should be able to run this part by simply typing the following line in a MATLAB console:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1"></a><span class="op">&gt;&gt;</span> <span class="va">run</span> <span class="va">example5_simulated</span>.<span class="va">m</span></span></code></pre></div>
-<p>Note that the working directory here is assumed to be <code>rss/examples/example5</code>. Please modify <a href="https://github.com/stephenslab/rss/blob/master/examples/example5/example5_simulated.m"><code>example5_simulated.m</code></a> accordingly if a different directory is used.</p>
+<p>This is Part A of <a href="example_5.html">Example 5</a>, which
+illustrates how to perform enrichment and prioritization analysis of
+GWAS summary statistics based on variational Bayes (VB) inference of
+RSS-BVSR model. This part describes an end-to-end analysis of a
+synthetic dataset used in simulation studies of <a
+href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and
+Stephens (2018)</a>. This part gives users a quick view of how RSS works
+in enrichment and prioritization analysis.</p>
+<p>The input dataset here is simulated under the enrichment model of
+RSS, using real genotypes of 12,758 SNPs on chromosome 16 from 1458
+individuals in the UK Blood Service Control Group (<a
+href="https://www.ncbi.nlm.nih.gov/pubmed/17554300">Wellcome Trust Case
+Control Consortium, 2007</a>). Please see the caption of <a
+href="https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-018-06805-x/MediaObjects/41467_2018_6805_MOESM1_ESM.pdf">Supplementary
+Figure 1</a> in <a
+href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and
+Stephens (2018)</a> for the simulation details.</p>
+<p>To reproduce results of Example 5 Part A, please use the script <a
+href="https://github.com/stephenslab/rss/blob/master/examples/example5/example5_simulated.m"><code>example5_simulated.m</code></a>,
+and follow the step-by-step guide below. Before running <a
+href="https://github.com/stephenslab/rss/blob/master/examples/example5/example5_simulated.m"><code>example5_simulated.m</code></a>,
+please install the <a
+href="https://github.com/stephenslab/rss/tree/master/src_vb">VB
+subroutines</a> of RSS. Please find installation instructions <a
+href="setup_vb.html">here</a>.</p>
+<p>Once the software is installed and the input data is downloaded, one
+should be able to run this part by simply typing the following line in a
+MATLAB console:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">run</span> <span class="va">example5_simulated</span>.<span class="va">m</span></span></code></pre></div>
+<p>Note that the working directory here is assumed to be
+<code>rss/examples/example5</code>. Please modify <a
+href="https://github.com/stephenslab/rss/blob/master/examples/example5/example5_simulated.m"><code>example5_simulated.m</code></a>
+accordingly if a different directory is used.</p>
 </div>
 <div id="step-by-step-illustration" class="section level2">
 <h2>Step-by-step illustration</h2>
 <div id="step-1-download-input-data" class="section level3">
 <h3>Step 1: Download input data</h3>
-<p>Please download and save <a href="https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/example5_simulated_data.mat"><code>example5_simulated_data.mat</code></a> in the working directory. Please contact me (<code>xiangzhu[at]uchicago.edu</code>) if you have trouble accessing this file.</p>
-<p>The data file <a href="https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/example5_simulated_data.mat"><code>example5_simulated_data.mat</code></a> contains the following elements that will be used by RSS.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1"></a><span class="op">&gt;&gt;</span> <span class="va">example_data</span> <span class="op">=</span> <span class="va">matfile</span>(<span class="ss">&#39;example5_simulated_data.mat&#39;</span>)<span class="op">;</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="op">&gt;&gt;</span> <span class="va">example_data</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="va">example_data</span> <span class="op">=</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>  <span class="va">matlab</span>.<span class="va">io</span>.<span class="va">MatFile</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>  <span class="va">Properties</span><span class="op">:</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a>      <span class="va">Properties</span>.<span class="va">Source</span><span class="op">:</span> <span class="ss">&#39;example5_simulated_data.mat&#39;</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a>    <span class="va">Properties</span>.<span class="va">Writable</span><span class="op">:</span> <span class="va">false</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a>                      <span class="va">R</span><span class="op">:</span> [<span class="fl">12758</span><span class="va">x12758</span> <span class="va">double</span>]</span>
-<span id="cb2-10"><a href="#cb2-10"></a>                <span class="va">betahat</span><span class="op">:</span> [<span class="fl">12758</span><span class="va">x1</span>     <span class="va">double</span>]</span>
-<span id="cb2-11"><a href="#cb2-11"></a>                     <span class="va">se</span><span class="op">:</span> [<span class="fl">12758</span><span class="va">x1</span>     <span class="va">double</span>]</span>
-<span id="cb2-12"><a href="#cb2-12"></a>                   <span class="va">snps</span><span class="op">:</span> [<span class="fl">676</span><span class="va">x1</span>       <span class="va">double</span>]</span></code></pre></div>
+<p>All data files required to run this example are freely available at
+Zenodo <a href="https://doi.org/10.5281/zenodo.12636416"><img
+src="https://zenodo.org/badge/DOI/10.5281/zenodo.12636416.svg"
+alt="DOI" /></a>. Please contact me if you have trouble accessing this
+file. After a complete download, you should see the following files.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode zsh"><code class="sourceCode zsh"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">$</span> tree ./</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="ex">./</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="ex">├──</span> Aseg_chr16.mat</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="ex">├──</span> example5_simulated_data.mat</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="ex">├──</span> example5_simulated_results.mat</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="ex">├──</span> ibd2015_gsea_seed_459_path2641_squarem.mat</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="ex">├──</span> ibd2015_null_h_30_theta0_285_seed_459_squarem_step1.mat</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="ex">├──</span> ibd2015_null_h_30_theta0_288_seed_459_squarem_step1.mat</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="ex">├──</span> ibd2015_null_h_30_theta0_290_seed_459_squarem_step1.mat</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="ex">├──</span> ibd2015_path2641_genes.mat</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="ex">├──</span> ibd2015_path2641_genes_results.mat</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="ex">├──</span> ibd2015_sumstat.mat</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="ex">└──</span> ibd2015_sumstat_path2641.mat</span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="ex">0</span> directories, 11 files</span></code></pre></div>
+<p>The data file <a
+href="https://zenodo.org/doi/10.5281/zenodo.12636415"><code>example5_simulated_data.mat</code></a>
+contains the following elements that will be used by RSS.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">example_data</span> <span class="op">=</span> <span class="va">matfile</span>(<span class="ss">&#39;example5_simulated_data.mat&#39;</span>)<span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">example_data</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="va">example_data</span> <span class="op">=</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  <span class="va">matlab</span>.<span class="va">io</span>.<span class="va">MatFile</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>  <span class="va">Properties</span><span class="op">:</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>      <span class="va">Properties</span>.<span class="va">Source</span><span class="op">:</span> <span class="ss">&#39;example5_simulated_data.mat&#39;</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>    <span class="va">Properties</span>.<span class="va">Writable</span><span class="op">:</span> <span class="va">false</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>                      <span class="va">R</span><span class="op">:</span> [<span class="fl">12758</span><span class="va">x12758</span> <span class="va">double</span>]</span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>                <span class="va">betahat</span><span class="op">:</span> [<span class="fl">12758</span><span class="va">x1</span>     <span class="va">double</span>]</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>                     <span class="va">se</span><span class="op">:</span> [<span class="fl">12758</span><span class="va">x1</span>     <span class="va">double</span>]</span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>                   <span class="va">snps</span><span class="op">:</span> [<span class="fl">676</span><span class="va">x1</span>       <span class="va">double</span>]</span></code></pre></div>
 <ul>
-<li><code>R</code>: 12758 by 12758 matrix, LD matrix estimated from a reference panel</li>
-<li><code>betahat</code>: 12758 by 1 vector, single-SNP effect size estimate for each SNP</li>
-<li><code>se</code>: 12758 by 1 vector, standard errors of the single-SNP effect size estimates</li>
-<li><code>snps</code>: 676 by 1 vector, indices of SNPs that are “inside” the target pathway</li>
+<li><code>R</code>: 12758 by 12758 matrix, LD matrix estimated from a
+reference panel</li>
+<li><code>betahat</code>: 12758 by 1 vector, single-SNP effect size
+estimate for each SNP</li>
+<li><code>se</code>: 12758 by 1 vector, standard errors of the
+single-SNP effect size estimates</li>
+<li><code>snps</code>: 676 by 1 vector, indices of SNPs that are
+“inside” the target pathway</li>
 </ul>
-<p>Typically RSS only requires these four input variables for enrichment and prioritization analysis. To further reduce computation, RSS uses the sparse matrix <code>SiRiS</code> instead of <code>R</code>:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1"></a><span class="va">p</span>     <span class="op">=</span> <span class="va">length</span>(<span class="va">betahat</span>)<span class="op">;</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="va">Si</span>    <span class="op">=</span> <span class="fl">1</span> <span class="op">./</span> <span class="va">se</span>(<span class="op">:</span>)<span class="op">;</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="va">SiRiS</span> <span class="op">=</span> <span class="va">sparse</span>(<span class="va">repmat</span>(<span class="va">Si</span><span class="op">,</span><span class="fl">1</span><span class="op">,</span><span class="va">p</span>) <span class="op">.*</span> <span class="va">R</span> <span class="op">.*</span> <span class="va">repmat</span>(<span class="va">Si</span><span class="op">&#39;,</span><span class="va">p</span><span class="op">,</span><span class="fl">1</span>))<span class="op">;</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="va">clear</span> <span class="va">Si</span> <span class="va">R</span><span class="op">;</span></span></code></pre></div>
-<p>Note that <code>example5_simulated_data.mat</code> also contains ground truth about this simulated dataset: <code>{gamma, pve, thetatype}</code>. These variables are NOT used by RSS in any step of analysis, and are ONLY used to verify results in the end.</p>
+<p>Typically RSS only requires these four input variables for enrichment
+and prioritization analysis. To further reduce computation, RSS uses the
+sparse matrix <code>SiRiS</code> instead of <code>R</code>:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="va">p</span>     <span class="op">=</span> <span class="va">length</span>(<span class="va">betahat</span>)<span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="va">Si</span>    <span class="op">=</span> <span class="fl">1</span> <span class="op">./</span> <span class="va">se</span>(<span class="op">:</span>)<span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="va">SiRiS</span> <span class="op">=</span> <span class="va">sparse</span>(<span class="va">repmat</span>(<span class="va">Si</span><span class="op">,</span><span class="fl">1</span><span class="op">,</span><span class="va">p</span>) <span class="op">.*</span> <span class="va">R</span> <span class="op">.*</span> <span class="va">repmat</span>(<span class="va">Si</span><span class="op">&#39;,</span><span class="va">p</span><span class="op">,</span><span class="fl">1</span>))<span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="va">clear</span> <span class="va">Si</span> <span class="va">R</span><span class="op">;</span></span></code></pre></div>
+<p>Note that <code>example5_simulated_data.mat</code> also contains
+ground truth about this simulated dataset:
+<code>{gamma, pve, thetatype}</code>. These variables are NOT used by
+RSS in any step of analysis, and are ONLY used to verify results in the
+end.</p>
 </div>
-<div id="step-2-specify-a-grid-for-hyper-parameters" class="section level3">
+<div id="step-2-specify-a-grid-for-hyper-parameters"
+class="section level3">
 <h3>Step 2: Specify a grid for hyper-parameters</h3>
-<p>The total computational cost of RSS is proportional to the grid size, and thus please consider reducing the size of <code>theta0</code> and/or <code>theta</code> if you want to finish running <a href="https://github.com/stephenslab/rss/blob/master/examples/example5/example5_simulated.m"><code>example5_simulated.m</code></a> faster. (It takes 4 hours to complete the analysis on a single CPU using the grid below.)</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">% specify hyper-parameters</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="va">theta0</span> <span class="op">=</span> (<span class="op">-</span><span class="fl">4.5</span><span class="op">:</span><span class="fl">0.05</span><span class="op">:-</span><span class="fl">3.5</span>)<span class="op">&#39;;</span>      <span class="co">% grid for the genome-wide log-odds (base 10)</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="va">theta</span>  <span class="op">=</span> (<span class="fl">1.5</span><span class="op">:</span><span class="fl">0.05</span><span class="op">:</span><span class="fl">2.5</span>)<span class="op">&#39;;</span>        <span class="co">% grid for the log-fold enrichment (base 10)</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="va">sigb</span>   <span class="op">=</span> <span class="fl">1</span><span class="op">;</span>                      <span class="co">% prior SD of genetic effects</span></span></code></pre></div>
+<p>The total computational cost of RSS is proportional to the grid size,
+and thus please consider reducing the size of <code>theta0</code> and/or
+<code>theta</code> if you want to finish running <a
+href="https://github.com/stephenslab/rss/blob/master/examples/example5/example5_simulated.m"><code>example5_simulated.m</code></a>
+faster. (It takes 4 hours to complete the analysis on a single CPU using
+the grid below.)</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co">% specify hyper-parameters</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="va">theta0</span> <span class="op">=</span> (<span class="op">-</span><span class="fl">4.5</span><span class="op">:</span><span class="fl">0.05</span><span class="op">:-</span><span class="fl">3.5</span>)<span class="op">&#39;;</span>      <span class="co">% grid for the genome-wide log-odds (base 10)</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="va">theta</span>  <span class="op">=</span> (<span class="fl">1.5</span><span class="op">:</span><span class="fl">0.05</span><span class="op">:</span><span class="fl">2.5</span>)<span class="op">&#39;;</span>        <span class="co">% grid for the log-fold enrichment (base 10)</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="va">sigb</span>   <span class="op">=</span> <span class="fl">1</span><span class="op">;</span>                      <span class="co">% prior SD of genetic effects</span></span></code></pre></div>
 </div>
-<div id="step-3-initialize-variational-parameters" class="section level3">
+<div id="step-3-initialize-variational-parameters"
+class="section level3">
 <h3>Step 3: Initialize variational parameters</h3>
-<p>As in <a href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and Stephens (2018)</a>, here we use a simple random start to set initial values of variational parameters <code>{alpha,mu}</code> for the baseline model.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">% initialize the variational parameters</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="va">myseed</span> <span class="op">=</span> <span class="fl">200</span><span class="op">;</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="va">rng</span>(<span class="va">myseed</span><span class="op">,</span> <span class="ss">&#39;twister&#39;</span>)<span class="op">;</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="va">alpha0</span> <span class="op">=</span> <span class="va">rand</span>(<span class="va">p</span><span class="op">,</span><span class="fl">1</span>)<span class="op">;</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="va">alpha0</span> <span class="op">=</span> <span class="va">alpha0</span> <span class="op">./</span> <span class="va">sum</span>(<span class="va">alpha0</span>)<span class="op">;</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="va">rng</span>(<span class="va">myseed</span><span class="op">+</span><span class="fl">1</span><span class="op">,</span> <span class="ss">&#39;twister&#39;</span>)<span class="op">;</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="va">mu0</span> <span class="op">=</span> <span class="va">randn</span>(<span class="va">p</span><span class="op">,</span><span class="fl">1</span>)<span class="op">;</span></span>
-<span id="cb5-10"><a href="#cb5-10"></a></span>
-<span id="cb5-11"><a href="#cb5-11"></a><span class="va">n0</span>         <span class="op">=</span> <span class="va">length</span>(<span class="va">theta0</span>)<span class="op">;</span></span>
-<span id="cb5-12"><a href="#cb5-12"></a><span class="va">alpha0_rss</span> <span class="op">=</span> <span class="va">repmat</span>(<span class="va">alpha0</span><span class="op">,</span> [<span class="fl">1</span> <span class="va">n0</span>])<span class="op">;</span></span>
-<span id="cb5-13"><a href="#cb5-13"></a><span class="va">mu0_rss</span>    <span class="op">=</span> <span class="va">repmat</span>(<span class="va">mu0</span><span class="op">,</span> [<span class="fl">1</span> <span class="va">n0</span>])<span class="op">;</span></span></code></pre></div>
+<p>As in <a
+href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and
+Stephens (2018)</a>, here we use a simple random start to set initial
+values of variational parameters <code>{alpha,mu}</code> for the
+baseline model.</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co">% initialize the variational parameters</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="va">myseed</span> <span class="op">=</span> <span class="fl">200</span><span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="va">rng</span>(<span class="va">myseed</span><span class="op">,</span> <span class="ss">&#39;twister&#39;</span>)<span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="va">alpha0</span> <span class="op">=</span> <span class="va">rand</span>(<span class="va">p</span><span class="op">,</span><span class="fl">1</span>)<span class="op">;</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="va">alpha0</span> <span class="op">=</span> <span class="va">alpha0</span> <span class="op">./</span> <span class="va">sum</span>(<span class="va">alpha0</span>)<span class="op">;</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="va">rng</span>(<span class="va">myseed</span><span class="op">+</span><span class="fl">1</span><span class="op">,</span> <span class="ss">&#39;twister&#39;</span>)<span class="op">;</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="va">mu0</span> <span class="op">=</span> <span class="va">randn</span>(<span class="va">p</span><span class="op">,</span><span class="fl">1</span>)<span class="op">;</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="va">n0</span>         <span class="op">=</span> <span class="va">length</span>(<span class="va">theta0</span>)<span class="op">;</span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="va">alpha0_rss</span> <span class="op">=</span> <span class="va">repmat</span>(<span class="va">alpha0</span><span class="op">,</span> [<span class="fl">1</span> <span class="va">n0</span>])<span class="op">;</span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="va">mu0_rss</span>    <span class="op">=</span> <span class="va">repmat</span>(<span class="va">mu0</span><span class="op">,</span> [<span class="fl">1</span> <span class="va">n0</span>])<span class="op">;</span></span></code></pre></div>
 </div>
 <div id="step-4-fit-the-baseline-model" class="section level3">
 <h3>Step 4: Fit the baseline model</h3>
-<p>Since we set <code>sigb=1</code> in Step 2, we use a wrapper function of RSS <a href="https://github.com/stephenslab/rss/blob/master/src_vb/null_wrapper_fixsb.m"><code>null_wrapper_fixsb.m</code></a> that fixes <code>sigb=1</code> for all elements in <code>theta0</code>. (In <a href="example_5b.html">Example 5 Part B</a> we will use a different wrapper function that can give a different <code>sigb</code> value for each element in <code>theta0</code>.)</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb6-1"><a href="#cb6-1"></a>[<span class="va">b_logw</span><span class="op">,</span><span class="va">b_alpha</span><span class="op">,</span><span class="va">b_mu</span><span class="op">,</span><span class="va">b_s</span>] <span class="op">=</span> <span class="va">null_wrapper_fixsb</span>(<span class="ss">&#39;squarem&#39;</span><span class="op">,</span><span class="va">betahat</span><span class="op">,</span><span class="va">se</span><span class="op">,</span><span class="va">SiRiS</span><span class="op">,...</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>                                               <span class="va">sigb</span><span class="op">,</span><span class="va">theta0</span><span class="op">,</span><span class="va">alpha0_rss</span><span class="op">,</span><span class="va">mu0_rss</span>)<span class="op">;</span></span></code></pre></div>
+<p>Since we set <code>sigb=1</code> in Step 2, we use a wrapper function
+of RSS <a
+href="https://github.com/stephenslab/rss/blob/master/src_vb/null_wrapper_fixsb.m"><code>null_wrapper_fixsb.m</code></a>
+that fixes <code>sigb=1</code> for all elements in <code>theta0</code>.
+(In <a href="example_5b.html">Example 5 Part B</a> we will use a
+different wrapper function that can give a different <code>sigb</code>
+value for each element in <code>theta0</code>.)</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>[<span class="va">b_logw</span><span class="op">,</span><span class="va">b_alpha</span><span class="op">,</span><span class="va">b_mu</span><span class="op">,</span><span class="va">b_s</span>] <span class="op">=</span> <span class="va">null_wrapper_fixsb</span>(<span class="ss">&#39;squarem&#39;</span><span class="op">,</span><span class="va">betahat</span><span class="op">,</span><span class="va">se</span><span class="op">,</span><span class="va">SiRiS</span><span class="op">,...</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>                                               <span class="va">sigb</span><span class="op">,</span><span class="va">theta0</span><span class="op">,</span><span class="va">alpha0_rss</span><span class="op">,</span><span class="va">mu0_rss</span>)<span class="op">;</span></span></code></pre></div>
 </div>
 <div id="step-5-fit-the-enrichment-model" class="section level3">
 <h3>Step 5: Fit the enrichment model</h3>
-<p>Since we set <code>sigb=1</code> in Step 2, we use a wrapper function <a href="https://github.com/stephenslab/rss/blob/master/src_vb/gsea_wrapper_fixsb.m"><code>gsea_wrapper_fixsb.m</code></a> that fixes the value of <code>sigb</code> for all elements in <code>theta0</code> and <code>theta</code>. (In <a href="example_5b.html">Example 5 Part B</a> we will use a different wrapper function that can give a different <code>sigb</code> value for each combination of <code>theta0</code> and <code>theta</code>.)</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb7-1"><a href="#cb7-1"></a>[<span class="va">log10_bf</span><span class="op">,</span><span class="va">e_logw</span><span class="op">,</span><span class="va">e_alpha</span><span class="op">,</span><span class="va">e_mu</span><span class="op">,</span><span class="va">e_s</span>] <span class="op">=</span> <span class="va">gsea_wrapper_fixsb</span>(<span class="ss">&#39;squarem&#39;</span><span class="op">,</span><span class="va">betahat</span><span class="op">,</span><span class="va">se</span><span class="op">,</span><span class="va">SiRiS</span><span class="op">,</span><span class="va">snps</span><span class="op">,...</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>                                                        <span class="va">sigb</span><span class="op">,</span><span class="va">theta0</span><span class="op">,</span><span class="va">theta</span><span class="op">,</span><span class="va">b_logw</span><span class="op">,</span><span class="va">b_alpha</span><span class="op">,</span><span class="va">b_mu</span>)<span class="op">;</span></span></code></pre></div>
-<p>Note that here we use the variational parameter estimates <code>{b_alpha,b_mu}</code> from the baseline model fitting (Step 4) to set initial values of variational parameters for the enrichment model (Step 5).</p>
+<p>Since we set <code>sigb=1</code> in Step 2, we use a wrapper function
+<a
+href="https://github.com/stephenslab/rss/blob/master/src_vb/gsea_wrapper_fixsb.m"><code>gsea_wrapper_fixsb.m</code></a>
+that fixes the value of <code>sigb</code> for all elements in
+<code>theta0</code> and <code>theta</code>. (In <a
+href="example_5b.html">Example 5 Part B</a> we will use a different
+wrapper function that can give a different <code>sigb</code> value for
+each combination of <code>theta0</code> and <code>theta</code>.)</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>[<span class="va">log10_bf</span><span class="op">,</span><span class="va">e_logw</span><span class="op">,</span><span class="va">e_alpha</span><span class="op">,</span><span class="va">e_mu</span><span class="op">,</span><span class="va">e_s</span>] <span class="op">=</span> <span class="va">gsea_wrapper_fixsb</span>(<span class="ss">&#39;squarem&#39;</span><span class="op">,</span><span class="va">betahat</span><span class="op">,</span><span class="va">se</span><span class="op">,</span><span class="va">SiRiS</span><span class="op">,</span><span class="va">snps</span><span class="op">,...</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>                                                        <span class="va">sigb</span><span class="op">,</span><span class="va">theta0</span><span class="op">,</span><span class="va">theta</span><span class="op">,</span><span class="va">b_logw</span><span class="op">,</span><span class="va">b_alpha</span><span class="op">,</span><span class="va">b_mu</span>)<span class="op">;</span></span></code></pre></div>
+<p>Note that here we use the variational parameter estimates
+<code>{b_alpha,b_mu}</code> from the baseline model fitting (Step 4) to
+set initial values of variational parameters for the enrichment model
+(Step 5).</p>
 </div>
-<div id="step-6-perform-gene-prioritization-analysis" class="section level3">
+<div id="step-6-perform-gene-prioritization-analysis"
+class="section level3">
 <h3>Step 6: Perform gene prioritization analysis</h3>
-<p>The output of baseline and enrichment model fitting can be further used to prioritize genes within an enriched gene set. We provide a wrapper function <a href="https://github.com/stephenslab/rss/blob/master/src_vb/compute_pip.m"><code>compute_pip.m</code></a> for prioritization analysis.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">% specify pre-defined genomic segments (genes)</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="va">segs_file</span> <span class="op">=</span> <span class="ss">&#39;Aseg_chr16.mat&#39;</span><span class="op">;</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="co">% generate gene-level results under baseline model</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a>[<span class="va">b_p1</span><span class="op">,</span><span class="va">b_p2</span>] <span class="op">=</span> <span class="va">compute_pip</span>(<span class="va">segs_file</span><span class="op">,</span><span class="va">b_logw</span><span class="op">,</span><span class="va">b_alpha</span>)<span class="op">;</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a></span>
-<span id="cb8-7"><a href="#cb8-7"></a><span class="co">% generate gene-level results under enrichment model</span></span>
-<span id="cb8-8"><a href="#cb8-8"></a>[<span class="va">e_p1</span><span class="op">,</span><span class="va">e_p2</span>] <span class="op">=</span> <span class="va">compute_pip</span>(<span class="va">segs_file</span><span class="op">,</span><span class="va">e_logw_vec</span><span class="op">,</span><span class="va">e_alpha_mat</span>)<span class="op">;</span></span></code></pre></div>
-<p>Here <code>[b/e]_p_[1/2]</code> denotes the posterior probability of each locus containing at lease 1/2 trait-associated SNPs under the baseline/enrichment model.</p>
-<p>The locus information is available in the file <a href="https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/Aseg_chr16.mat"><code>Aseg_chr16.mat</code></a>. Please download and save it in the working directory. Specifically, <a href="https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/Aseg_chr16.mat"><code>Aseg_chr16.mat</code></a> contains the following elements:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb9-1"><a href="#cb9-1"></a><span class="op">&gt;&gt;</span> <span class="va">load</span> <span class="va">Aseg_chr16</span>.<span class="va">mat</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="op">&gt;&gt;</span> <span class="va">whos</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a>  <span class="va">Name</span>                <span class="va">Size</span>              <span class="va">Bytes</span>  <span class="va">Class</span>     <span class="va">Attributes</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a></span>
-<span id="cb9-5"><a href="#cb9-5"></a>  <span class="va">Aseg</span>            <span class="fl">12758</span><span class="va">x878</span>            <span class="fl">391080</span>  <span class="va">double</span>    <span class="va">sparse</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a>  <span class="va">chr</span>             <span class="fl">12758</span><span class="va">x1</span>              <span class="fl">102064</span>  <span class="va">double</span></span>
-<span id="cb9-7"><a href="#cb9-7"></a>  <span class="va">gene_chr</span>          <span class="fl">878</span><span class="va">x1</span>                <span class="fl">7024</span>  <span class="va">double</span></span>
-<span id="cb9-8"><a href="#cb9-8"></a>  <span class="va">gene_id</span>           <span class="fl">878</span><span class="va">x1</span>                <span class="fl">7024</span>  <span class="va">double</span></span>
-<span id="cb9-9"><a href="#cb9-9"></a>  <span class="va">gene_start</span>        <span class="fl">878</span><span class="va">x1</span>                <span class="fl">7024</span>  <span class="va">double</span></span>
-<span id="cb9-10"><a href="#cb9-10"></a>  <span class="va">gene_stop</span>         <span class="fl">878</span><span class="va">x1</span>                <span class="fl">7024</span>  <span class="va">double</span></span>
-<span id="cb9-11"><a href="#cb9-11"></a>  <span class="va">pos</span>             <span class="fl">12758</span><span class="va">x1</span>              <span class="fl">102064</span>  <span class="va">double</span></span>
-<span id="cb9-12"><a href="#cb9-12"></a></span>
-<span id="cb9-13"><a href="#cb9-13"></a><span class="op">&gt;&gt;</span> <span class="va">unique</span>(<span class="va">full</span>(<span class="va">Aseg</span>(<span class="op">:</span>)))<span class="op">&#39;</span></span>
-<span id="cb9-14"><a href="#cb9-14"></a><span class="va">ans</span> <span class="op">=</span></span>
-<span id="cb9-15"><a href="#cb9-15"></a>     <span class="fl">0</span>     <span class="fl">1</span></span></code></pre></div>
-<p>As shown above, there are 12,758 SNPs and 878 genes (both based on NCBI Build 35) in this simulated dataset. Here we assign a SNP <code>j</code> to a gene <code>g</code> (i.e. <code>Aseg(j,g)==1</code>) if and only if SNP <code>j</code> is within 100 kb of transcribed region of gene <code>g</code> (i.e. <code>[gene_start-100e3 gene_stop+100e3]</code>).</p>
+<p>The output of baseline and enrichment model fitting can be further
+used to prioritize genes within an enriched gene set. We provide a
+wrapper function <a
+href="https://github.com/stephenslab/rss/blob/master/src_vb/compute_pip.m"><code>compute_pip.m</code></a>
+for prioritization analysis.</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co">% specify pre-defined genomic segments (genes)</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="va">segs_file</span> <span class="op">=</span> <span class="ss">&#39;Aseg_chr16.mat&#39;</span><span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">% generate gene-level results under baseline model</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>[<span class="va">b_p1</span><span class="op">,</span><span class="va">b_p2</span>] <span class="op">=</span> <span class="va">compute_pip</span>(<span class="va">segs_file</span><span class="op">,</span><span class="va">b_logw</span><span class="op">,</span><span class="va">b_alpha</span>)<span class="op">;</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co">% generate gene-level results under enrichment model</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>[<span class="va">e_p1</span><span class="op">,</span><span class="va">e_p2</span>] <span class="op">=</span> <span class="va">compute_pip</span>(<span class="va">segs_file</span><span class="op">,</span><span class="va">e_logw_vec</span><span class="op">,</span><span class="va">e_alpha_mat</span>)<span class="op">;</span></span></code></pre></div>
+<p>Here <code>[b/e]_p_[1/2]</code> denotes the posterior probability of
+each locus containing at lease 1/2 trait-associated SNPs under the
+baseline/enrichment model.</p>
+<p>The locus information is available in the file <a
+href="https://zenodo.org/doi/10.5281/zenodo.12636415"><code>Aseg_chr16.mat</code></a>.
+Please download and save it in the working directory. Specifically, <a
+href="https://zenodo.org/doi/10.5281/zenodo.12636415"><code>Aseg_chr16.mat</code></a>
+contains the following elements:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">load</span> <span class="va">Aseg_chr16</span>.<span class="va">mat</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">whos</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>  <span class="va">Name</span>                <span class="va">Size</span>              <span class="va">Bytes</span>  <span class="va">Class</span>     <span class="va">Attributes</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>  <span class="va">Aseg</span>            <span class="fl">12758</span><span class="va">x878</span>            <span class="fl">391080</span>  <span class="va">double</span>    <span class="va">sparse</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>  <span class="va">chr</span>             <span class="fl">12758</span><span class="va">x1</span>              <span class="fl">102064</span>  <span class="va">double</span></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>  <span class="va">gene_chr</span>          <span class="fl">878</span><span class="va">x1</span>                <span class="fl">7024</span>  <span class="va">double</span></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>  <span class="va">gene_id</span>           <span class="fl">878</span><span class="va">x1</span>                <span class="fl">7024</span>  <span class="va">double</span></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>  <span class="va">gene_start</span>        <span class="fl">878</span><span class="va">x1</span>                <span class="fl">7024</span>  <span class="va">double</span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>  <span class="va">gene_stop</span>         <span class="fl">878</span><span class="va">x1</span>                <span class="fl">7024</span>  <span class="va">double</span></span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a>  <span class="va">pos</span>             <span class="fl">12758</span><span class="va">x1</span>              <span class="fl">102064</span>  <span class="va">double</span></span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">unique</span>(<span class="va">full</span>(<span class="va">Aseg</span>(<span class="op">:</span>)))<span class="op">&#39;</span></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="va">ans</span> <span class="op">=</span></span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a>     <span class="fl">0</span>     <span class="fl">1</span></span></code></pre></div>
+<p>As shown above, there are 12,758 SNPs and 878 genes (both based on
+NCBI Build 35) in this simulated dataset. Here we assign a SNP
+<code>j</code> to a gene <code>g</code> (i.e. <code>Aseg(j,g)==1</code>)
+if and only if SNP <code>j</code> is within 100 kb of transcribed region
+of gene <code>g</code>
+(i.e. <code>[gene_start-100e3 gene_stop+100e3]</code>).</p>
 </div>
 <div id="step-7-save-analysis-results" class="section level3">
 <h3>Step 7: Save analysis results</h3>
-<p>At the end of running <a href="https://github.com/stephenslab/rss/blob/master/examples/example5/example5_simulated.m"><code>example5_simulated.m</code></a>, all analysis results are saved as <code>example5_simulated_results.mat</code> in the working directory. To help verify that your own results are as expected, we provide our result file <a href="https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/example5_simulated_results.mat"><code>example5_simulated_results.mat</code></a>. (There may be some differences between two result files, especially when a smaller grid was used in Step 2.)</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb10-1"><a href="#cb10-1"></a><span class="op">&gt;&gt;</span> <span class="va">load</span> <span class="va">example5_simulated_results</span>.<span class="va">mat</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="op">&gt;&gt;</span> <span class="va">whos</span></span>
-<span id="cb10-3"><a href="#cb10-3"></a>  <span class="va">Name</span>              <span class="va">Size</span>                  <span class="va">Bytes</span>  <span class="va">Class</span>     <span class="va">Attributes</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a></span>
-<span id="cb10-5"><a href="#cb10-5"></a>  <span class="va">b_alpha</span>       <span class="fl">12758</span><span class="va">x21</span>                <span class="fl">2143344</span>  <span class="va">double</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a>  <span class="va">b_logw</span>           <span class="fl">21</span><span class="va">x1</span>                     <span class="fl">168</span>  <span class="va">double</span></span>
-<span id="cb10-7"><a href="#cb10-7"></a>  <span class="va">b_mu</span>          <span class="fl">12758</span><span class="va">x21</span>                <span class="fl">2143344</span>  <span class="va">double</span></span>
-<span id="cb10-8"><a href="#cb10-8"></a>  <span class="va">b_p1</span>            <span class="fl">878</span><span class="va">x1</span>                    <span class="fl">7024</span>  <span class="va">double</span></span>
-<span id="cb10-9"><a href="#cb10-9"></a>  <span class="va">b_p2</span>            <span class="fl">878</span><span class="va">x1</span>                    <span class="fl">7024</span>  <span class="va">double</span></span>
-<span id="cb10-10"><a href="#cb10-10"></a>  <span class="va">b_s</span>           <span class="fl">12758</span><span class="va">x21</span>                <span class="fl">2143344</span>  <span class="va">double</span></span>
-<span id="cb10-11"><a href="#cb10-11"></a>  <span class="va">e_alpha</span>       <span class="fl">12758</span><span class="va">x21x21</span>            <span class="fl">45010224</span>  <span class="va">double</span></span>
-<span id="cb10-12"><a href="#cb10-12"></a>  <span class="va">e_logw</span>           <span class="fl">21</span><span class="va">x21</span>                   <span class="fl">3528</span>  <span class="va">double</span></span>
-<span id="cb10-13"><a href="#cb10-13"></a>  <span class="va">e_mu</span>          <span class="fl">12758</span><span class="va">x21x21</span>            <span class="fl">45010224</span>  <span class="va">double</span></span>
-<span id="cb10-14"><a href="#cb10-14"></a>  <span class="va">e_p1</span>            <span class="fl">878</span><span class="va">x1</span>                    <span class="fl">7024</span>  <span class="va">double</span></span>
-<span id="cb10-15"><a href="#cb10-15"></a>  <span class="va">e_p2</span>            <span class="fl">878</span><span class="va">x1</span>                    <span class="fl">7024</span>  <span class="va">double</span></span>
-<span id="cb10-16"><a href="#cb10-16"></a>  <span class="va">e_s</span>           <span class="fl">12758</span><span class="va">x21x21</span>            <span class="fl">45010224</span>  <span class="va">double</span></span>
-<span id="cb10-17"><a href="#cb10-17"></a>  <span class="va">log10_bf</span>          <span class="fl">1</span><span class="va">x1</span>                       <span class="fl">8</span>  <span class="va">double</span></span>
-<span id="cb10-18"><a href="#cb10-18"></a>  <span class="va">rss_time</span>          <span class="fl">1</span><span class="va">x1</span>                       <span class="fl">8</span>  <span class="va">double</span></span></code></pre></div>
+<p>At the end of running <a
+href="https://github.com/stephenslab/rss/blob/master/examples/example5/example5_simulated.m"><code>example5_simulated.m</code></a>,
+all analysis results are saved as
+<code>example5_simulated_results.mat</code> in the working directory. To
+help verify that your own results are as expected, we provide our result
+file <a
+href="https://zenodo.org/doi/10.5281/zenodo.12636415"><code>example5_simulated_results.mat</code></a>.
+(There may be some differences between two result files, especially when
+a smaller grid was used in Step 2.)</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">load</span> <span class="va">example5_simulated_results</span>.<span class="va">mat</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">whos</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>  <span class="va">Name</span>              <span class="va">Size</span>                  <span class="va">Bytes</span>  <span class="va">Class</span>     <span class="va">Attributes</span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>  <span class="va">b_alpha</span>       <span class="fl">12758</span><span class="va">x21</span>                <span class="fl">2143344</span>  <span class="va">double</span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>  <span class="va">b_logw</span>           <span class="fl">21</span><span class="va">x1</span>                     <span class="fl">168</span>  <span class="va">double</span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>  <span class="va">b_mu</span>          <span class="fl">12758</span><span class="va">x21</span>                <span class="fl">2143344</span>  <span class="va">double</span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>  <span class="va">b_p1</span>            <span class="fl">878</span><span class="va">x1</span>                    <span class="fl">7024</span>  <span class="va">double</span></span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>  <span class="va">b_p2</span>            <span class="fl">878</span><span class="va">x1</span>                    <span class="fl">7024</span>  <span class="va">double</span></span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a>  <span class="va">b_s</span>           <span class="fl">12758</span><span class="va">x21</span>                <span class="fl">2143344</span>  <span class="va">double</span></span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a>  <span class="va">e_alpha</span>       <span class="fl">12758</span><span class="va">x21x21</span>            <span class="fl">45010224</span>  <span class="va">double</span></span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a>  <span class="va">e_logw</span>           <span class="fl">21</span><span class="va">x21</span>                   <span class="fl">3528</span>  <span class="va">double</span></span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a>  <span class="va">e_mu</span>          <span class="fl">12758</span><span class="va">x21x21</span>            <span class="fl">45010224</span>  <span class="va">double</span></span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a>  <span class="va">e_p1</span>            <span class="fl">878</span><span class="va">x1</span>                    <span class="fl">7024</span>  <span class="va">double</span></span>
+<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a>  <span class="va">e_p2</span>            <span class="fl">878</span><span class="va">x1</span>                    <span class="fl">7024</span>  <span class="va">double</span></span>
+<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a>  <span class="va">e_s</span>           <span class="fl">12758</span><span class="va">x21x21</span>            <span class="fl">45010224</span>  <span class="va">double</span></span>
+<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a>  <span class="va">log10_bf</span>          <span class="fl">1</span><span class="va">x1</span>                       <span class="fl">8</span>  <span class="va">double</span></span>
+<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a>  <span class="va">rss_time</span>          <span class="fl">1</span><span class="va">x1</span>                       <span class="fl">8</span>  <span class="va">double</span></span></code></pre></div>
 </div>
 <div id="step-8-understand-analysis-results" class="section level3">
 <h3>Step 8: Understand analysis results</h3>
-<p>There are four groups of output variables in the result file above.</p>
-<p>The first group consists of estimated variational parameters <code>b_alpha</code> &amp; <code>b_mu</code> &amp; <code>b_s</code> under the baseline model, where <code>b_alpha(:,i)</code> &amp; <code>b_mu(:,i)</code> &amp; <code>b_s(:,i)</code> correspond to estimation under the hyper-parameter setting <code>[sigb, theta0(i)]</code>.</p>
-<p>The second group consists of estimated variational parameters <code>e_alpha</code> &amp; <code>e_mu</code> &amp; <code>e_s</code> under the enrichment model, where <code>e_alpha(:,i,j)</code> &amp; <code>e_mu(:,i,j)</code> &amp; <code>e_s(:,i,j)</code> correspond to estimation under the hyper-parameter setting <code>[sigb, theta0(i), theta(j)]</code>.</p>
-<p>The third group consists of estimated variational lower bounds under the baseline (<code>b_logw</code>) and enrichment (<code>e_logw</code>) model, and log 10 enrichment Bayes factor (<code>log10_bf</code>).</p>
-<p>Since this dataset is simulated from the enrichment model, RSS yields a large log 10 enrichment Bayes factor as expected:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb11-1"><a href="#cb11-1"></a><span class="op">&gt;&gt;</span> <span class="va">fprintf</span>(<span class="ss">&#39;Log 10 enrichment Bayes factor: %.4f ...\n&#39;</span><span class="op">,</span> <span class="va">log10_bf</span>)<span class="op">;</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="va">Log</span> <span class="fl">10</span> <span class="va">enrichment</span> <span class="va">Bayes</span> <span class="va">factor</span><span class="op">:</span> <span class="fl">19.3335</span> <span class="op">...</span></span></code></pre></div>
-<p>Further, by combining <code>*_logw</code> with <code>*_alpha</code>, we can estimate the number of SNPs with non-zero effect, and compare with the truth:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb12-1"><a href="#cb12-1"></a><span class="op">&gt;&gt;</span> <span class="va">fprintf</span>(<span class="ss">&#39;Total number of SNPs with non-zero effect: %d ...\n&#39;</span><span class="op">,</span> <span class="va">sum</span>(<span class="va">example_data</span>.<span class="va">gamma</span>))<span class="op">;</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="va">Total</span> <span class="va">number</span> <span class="va">of</span> <span class="va">SNPs</span> <span class="va">with</span> <span class="va">non</span><span class="op">-</span><span class="va">zero</span> <span class="va">effect</span><span class="op">:</span> <span class="fl">5</span> <span class="op">...</span></span>
-<span id="cb12-3"><a href="#cb12-3"></a></span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="op">&gt;&gt;</span> <span class="va">b_w</span>   <span class="op">=</span> <span class="va">exp</span>(<span class="va">b_logw</span> <span class="op">-</span> <span class="va">max</span>(<span class="va">b_logw</span>(<span class="op">:</span>)))<span class="op">;</span></span>
-<span id="cb12-5"><a href="#cb12-5"></a><span class="op">&gt;&gt;</span> <span class="va">b_w</span>   <span class="op">=</span> <span class="va">b_w</span> <span class="op">/</span> <span class="va">sum</span>(<span class="va">b_w</span>(<span class="op">:</span>))<span class="op">;</span></span>
-<span id="cb12-6"><a href="#cb12-6"></a><span class="op">&gt;&gt;</span> <span class="va">b_ens</span> <span class="op">=</span> <span class="va">sum</span>(<span class="va">b_alpha</span>)<span class="op">;</span></span>
-<span id="cb12-7"><a href="#cb12-7"></a><span class="op">&gt;&gt;</span> <span class="va">b_ens</span> <span class="op">=</span> <span class="va">dot</span>(<span class="va">b_ens</span>(<span class="op">:</span>)<span class="op">,</span> <span class="va">b_w</span>(<span class="op">:</span>))<span class="op">;</span></span>
-<span id="cb12-8"><a href="#cb12-8"></a></span>
-<span id="cb12-9"><a href="#cb12-9"></a><span class="op">&gt;&gt;</span> <span class="va">e_w</span>   <span class="op">=</span> <span class="va">exp</span>(<span class="va">e_logw</span> <span class="op">-</span> <span class="va">max</span>(<span class="va">e_logw</span>(<span class="op">:</span>)))<span class="op">;</span></span>
-<span id="cb12-10"><a href="#cb12-10"></a><span class="op">&gt;&gt;</span> <span class="va">e_w</span>   <span class="op">=</span> <span class="va">e_w</span> <span class="op">/</span> <span class="va">sum</span>(<span class="va">e_w</span>(<span class="op">:</span>))<span class="op">;</span></span>
-<span id="cb12-11"><a href="#cb12-11"></a><span class="op">&gt;&gt;</span> <span class="va">e_ens</span> <span class="op">=</span> <span class="va">sum</span>(<span class="va">e_alpha</span>)<span class="op">;</span></span>
-<span id="cb12-12"><a href="#cb12-12"></a><span class="op">&gt;&gt;</span> <span class="va">e_ens</span> <span class="op">=</span> <span class="va">dot</span>(<span class="va">e_ens</span>(<span class="op">:</span>)<span class="op">,</span> <span class="va">e_w</span>(<span class="op">:</span>))<span class="op">;</span></span>
-<span id="cb12-13"><a href="#cb12-13"></a></span>
-<span id="cb12-14"><a href="#cb12-14"></a><span class="op">&gt;&gt;</span> <span class="va">disp</span>([<span class="va">sum</span>(<span class="va">example_data</span>.<span class="va">gamma</span>) <span class="va">b_ens</span> <span class="va">e_ens</span>])</span>
-<span id="cb12-15"><a href="#cb12-15"></a>    <span class="fl">5.0000</span>    <span class="fl">5.0025</span>    <span class="fl">6.1924</span></span></code></pre></div>
-<p>The fourth group consists of gene prioritization results under the baseline (<code>b_p1</code> &amp; <code>b_p2</code>) and enrichment model (<code>e_p1</code> &amp; <code>e_p2</code>). Following <a href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and Stephens (2018)</a>, here we define a gene as “trait-associated” (i.e. <code>gene_cau(j)==1</code>) if at least one SNP within 100 kb of the transcribed region of this gene has non-zero effect.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb13-1"><a href="#cb13-1"></a><span class="op">&gt;&gt;</span> <span class="va">disp</span>([<span class="va">b_p1</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>) <span class="va">e_p1</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>) <span class="va">gene_cau</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>)])<span class="op">;</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a>    <span class="fl">0.0005</span>    <span class="fl">0.0002</span>         <span class="fl">0</span></span>
-<span id="cb13-3"><a href="#cb13-3"></a>    <span class="fl">0.0033</span>    <span class="fl">0.0013</span>         <span class="fl">0</span></span>
-<span id="cb13-4"><a href="#cb13-4"></a>    <span class="fl">0.0007</span>    <span class="fl">0.0244</span>         <span class="fl">0</span></span>
-<span id="cb13-5"><a href="#cb13-5"></a>    <span class="fl">0.0044</span>    <span class="fl">1.0000</span>    <span class="fl">1.0000</span></span>
-<span id="cb13-6"><a href="#cb13-6"></a>    <span class="fl">0.0146</span>    <span class="fl">0.2846</span>    <span class="fl">1.0000</span></span>
-<span id="cb13-7"><a href="#cb13-7"></a>    <span class="fl">0.0018</span>    <span class="fl">0.0007</span>         <span class="fl">0</span></span>
-<span id="cb13-8"><a href="#cb13-8"></a>    <span class="fl">0.0012</span>    <span class="fl">0.0230</span>         <span class="fl">0</span></span>
-<span id="cb13-9"><a href="#cb13-9"></a>    <span class="fl">0.0004</span>    <span class="fl">0.0167</span>         <span class="fl">0</span></span>
-<span id="cb13-10"><a href="#cb13-10"></a>    <span class="fl">0.0001</span>    <span class="fl">0.0009</span>         <span class="fl">0</span></span>
-<span id="cb13-11"><a href="#cb13-11"></a>    <span class="fl">1.0000</span>    <span class="fl">1.0000</span>    <span class="fl">1.0000</span></span></code></pre></div>
-<p>We can see that the enrichment model has higher power to identify trait-associated genes than the baseline model, since it exploits the underlying enrichment signal.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb14-1"><a href="#cb14-1"></a><span class="op">&gt;&gt;</span> <span class="va">disp</span>([<span class="va">b_p1</span>(<span class="va">gene_cau</span><span class="op">==</span><span class="fl">1</span>) <span class="va">e_p1</span>(<span class="va">gene_cau</span><span class="op">==</span><span class="fl">1</span>)])<span class="op">;</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a>    <span class="fl">0.0044</span>    <span class="fl">1.0000</span></span>
-<span id="cb14-3"><a href="#cb14-3"></a>    <span class="fl">0.0146</span>    <span class="fl">0.2846</span></span>
-<span id="cb14-4"><a href="#cb14-4"></a>    <span class="fl">1.0000</span>    <span class="fl">1.0000</span></span>
-<span id="cb14-5"><a href="#cb14-5"></a>    <span class="fl">1.0000</span>    <span class="fl">1.0000</span></span>
-<span id="cb14-6"><a href="#cb14-6"></a>    <span class="fl">0.6437</span>    <span class="fl">0.9949</span></span>
-<span id="cb14-7"><a href="#cb14-7"></a>    <span class="fl">0.6437</span>    <span class="fl">0.9949</span></span>
-<span id="cb14-8"><a href="#cb14-8"></a>    <span class="fl">0.0131</span>    <span class="fl">0.2308</span></span>
-<span id="cb14-9"><a href="#cb14-9"></a>    <span class="fl">0.0113</span>    <span class="fl">0.1893</span></span>
-<span id="cb14-10"><a href="#cb14-10"></a>    <span class="fl">0.6437</span>    <span class="fl">0.9949</span></span>
-<span id="cb14-11"><a href="#cb14-11"></a>    <span class="fl">0.6437</span>    <span class="fl">0.9949</span></span>
-<span id="cb14-12"><a href="#cb14-12"></a>    <span class="fl">1.0000</span>    <span class="fl">1.0000</span></span>
-<span id="cb14-13"><a href="#cb14-13"></a>    <span class="fl">0.6441</span>    <span class="fl">0.9949</span></span>
-<span id="cb14-14"><a href="#cb14-14"></a>    <span class="fl">0.9970</span>    <span class="fl">1.0000</span></span>
-<span id="cb14-15"><a href="#cb14-15"></a>    <span class="fl">0.9970</span>    <span class="fl">1.0000</span></span>
-<span id="cb14-16"><a href="#cb14-16"></a>    <span class="fl">0.2892</span>    <span class="fl">0.9947</span></span>
-<span id="cb14-17"><a href="#cb14-17"></a>    <span class="fl">0.9970</span>    <span class="fl">1.0000</span></span></code></pre></div>
+<p>There are four groups of output variables in the result file
+above.</p>
+<p>The first group consists of estimated variational parameters
+<code>b_alpha</code> &amp; <code>b_mu</code> &amp; <code>b_s</code>
+under the baseline model, where <code>b_alpha(:,i)</code> &amp;
+<code>b_mu(:,i)</code> &amp; <code>b_s(:,i)</code> correspond to
+estimation under the hyper-parameter setting
+<code>[sigb, theta0(i)]</code>.</p>
+<p>The second group consists of estimated variational parameters
+<code>e_alpha</code> &amp; <code>e_mu</code> &amp; <code>e_s</code>
+under the enrichment model, where <code>e_alpha(:,i,j)</code> &amp;
+<code>e_mu(:,i,j)</code> &amp; <code>e_s(:,i,j)</code> correspond to
+estimation under the hyper-parameter setting
+<code>[sigb, theta0(i), theta(j)]</code>.</p>
+<p>The third group consists of estimated variational lower bounds under
+the baseline (<code>b_logw</code>) and enrichment (<code>e_logw</code>)
+model, and log 10 enrichment Bayes factor (<code>log10_bf</code>).</p>
+<p>Since this dataset is simulated from the enrichment model, RSS yields
+a large log 10 enrichment Bayes factor as expected:</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">fprintf</span>(<span class="ss">&#39;Log 10 enrichment Bayes factor: %.4f ...\n&#39;</span><span class="op">,</span> <span class="va">log10_bf</span>)<span class="op">;</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="va">Log</span> <span class="fl">10</span> <span class="va">enrichment</span> <span class="va">Bayes</span> <span class="va">factor</span><span class="op">:</span> <span class="fl">19.3335</span> <span class="op">...</span></span></code></pre></div>
+<p>Further, by combining <code>*_logw</code> with <code>*_alpha</code>,
+we can estimate the number of SNPs with non-zero effect, and compare
+with the truth:</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">fprintf</span>(<span class="ss">&#39;Total number of SNPs with non-zero effect: %d ...\n&#39;</span><span class="op">,</span> <span class="va">sum</span>(<span class="va">example_data</span>.<span class="va">gamma</span>))<span class="op">;</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="va">Total</span> <span class="va">number</span> <span class="va">of</span> <span class="va">SNPs</span> <span class="va">with</span> <span class="va">non</span><span class="op">-</span><span class="va">zero</span> <span class="va">effect</span><span class="op">:</span> <span class="fl">5</span> <span class="op">...</span></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">b_w</span>   <span class="op">=</span> <span class="va">exp</span>(<span class="va">b_logw</span> <span class="op">-</span> <span class="va">max</span>(<span class="va">b_logw</span>(<span class="op">:</span>)))<span class="op">;</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">b_w</span>   <span class="op">=</span> <span class="va">b_w</span> <span class="op">/</span> <span class="va">sum</span>(<span class="va">b_w</span>(<span class="op">:</span>))<span class="op">;</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">b_ens</span> <span class="op">=</span> <span class="va">sum</span>(<span class="va">b_alpha</span>)<span class="op">;</span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">b_ens</span> <span class="op">=</span> <span class="va">dot</span>(<span class="va">b_ens</span>(<span class="op">:</span>)<span class="op">,</span> <span class="va">b_w</span>(<span class="op">:</span>))<span class="op">;</span></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">e_w</span>   <span class="op">=</span> <span class="va">exp</span>(<span class="va">e_logw</span> <span class="op">-</span> <span class="va">max</span>(<span class="va">e_logw</span>(<span class="op">:</span>)))<span class="op">;</span></span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">e_w</span>   <span class="op">=</span> <span class="va">e_w</span> <span class="op">/</span> <span class="va">sum</span>(<span class="va">e_w</span>(<span class="op">:</span>))<span class="op">;</span></span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">e_ens</span> <span class="op">=</span> <span class="va">sum</span>(<span class="va">e_alpha</span>)<span class="op">;</span></span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">e_ens</span> <span class="op">=</span> <span class="va">dot</span>(<span class="va">e_ens</span>(<span class="op">:</span>)<span class="op">,</span> <span class="va">e_w</span>(<span class="op">:</span>))<span class="op">;</span></span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">disp</span>([<span class="va">sum</span>(<span class="va">example_data</span>.<span class="va">gamma</span>) <span class="va">b_ens</span> <span class="va">e_ens</span>])</span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a>    <span class="fl">5.0000</span>    <span class="fl">5.0025</span>    <span class="fl">6.1924</span></span></code></pre></div>
+<p>The fourth group consists of gene prioritization results under the
+baseline (<code>b_p1</code> &amp; <code>b_p2</code>) and enrichment
+model (<code>e_p1</code> &amp; <code>e_p2</code>). Following <a
+href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and
+Stephens (2018)</a>, here we define a gene as “trait-associated”
+(i.e. <code>gene_cau(j)==1</code>) if at least one SNP within 100 kb of
+the transcribed region of this gene has non-zero effect.</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">disp</span>([<span class="va">b_p1</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>) <span class="va">e_p1</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>) <span class="va">gene_cau</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>)])<span class="op">;</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>    <span class="fl">0.0005</span>    <span class="fl">0.0002</span>         <span class="fl">0</span></span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>    <span class="fl">0.0033</span>    <span class="fl">0.0013</span>         <span class="fl">0</span></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>    <span class="fl">0.0007</span>    <span class="fl">0.0244</span>         <span class="fl">0</span></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>    <span class="fl">0.0044</span>    <span class="fl">1.0000</span>    <span class="fl">1.0000</span></span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>    <span class="fl">0.0146</span>    <span class="fl">0.2846</span>    <span class="fl">1.0000</span></span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>    <span class="fl">0.0018</span>    <span class="fl">0.0007</span>         <span class="fl">0</span></span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>    <span class="fl">0.0012</span>    <span class="fl">0.0230</span>         <span class="fl">0</span></span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>    <span class="fl">0.0004</span>    <span class="fl">0.0167</span>         <span class="fl">0</span></span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a>    <span class="fl">0.0001</span>    <span class="fl">0.0009</span>         <span class="fl">0</span></span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a>    <span class="fl">1.0000</span>    <span class="fl">1.0000</span>    <span class="fl">1.0000</span></span></code></pre></div>
+<p>We can see that the enrichment model has higher power to identify
+trait-associated genes than the baseline model, since it exploits the
+underlying enrichment signal.</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">disp</span>([<span class="va">b_p1</span>(<span class="va">gene_cau</span><span class="op">==</span><span class="fl">1</span>) <span class="va">e_p1</span>(<span class="va">gene_cau</span><span class="op">==</span><span class="fl">1</span>)])<span class="op">;</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>    <span class="fl">0.0044</span>    <span class="fl">1.0000</span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>    <span class="fl">0.0146</span>    <span class="fl">0.2846</span></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>    <span class="fl">1.0000</span>    <span class="fl">1.0000</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>    <span class="fl">1.0000</span>    <span class="fl">1.0000</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>    <span class="fl">0.6437</span>    <span class="fl">0.9949</span></span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a>    <span class="fl">0.6437</span>    <span class="fl">0.9949</span></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a>    <span class="fl">0.0131</span>    <span class="fl">0.2308</span></span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a>    <span class="fl">0.0113</span>    <span class="fl">0.1893</span></span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a>    <span class="fl">0.6437</span>    <span class="fl">0.9949</span></span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a>    <span class="fl">0.6437</span>    <span class="fl">0.9949</span></span>
+<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a>    <span class="fl">1.0000</span>    <span class="fl">1.0000</span></span>
+<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a>    <span class="fl">0.6441</span>    <span class="fl">0.9949</span></span>
+<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a>    <span class="fl">0.9970</span>    <span class="fl">1.0000</span></span>
+<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a>    <span class="fl">0.9970</span>    <span class="fl">1.0000</span></span>
+<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a>    <span class="fl">0.2892</span>    <span class="fl">0.9947</span></span>
+<span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a>    <span class="fl">0.9970</span>    <span class="fl">1.0000</span></span></code></pre></div>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">session_info</span>()</span></code></pre></div>
+<pre><code>─ Session info ───────────────────────────────────────────────────────────────
+ setting  value
+ version  R version 4.3.2 (2023-10-31)
+ os       macOS Sonoma 14.5
+ system   x86_64, darwin20
+ ui       X11
+ language (EN)
+ collate  en_US.UTF-8
+ ctype    en_US.UTF-8
+ tz       America/New_York
+ date     2024-07-03
+ pandoc   3.1.11 @ /Applications/RStudio.app/Contents/Resources/app/quarto/bin/tools/x86_64/ (via rmarkdown)
+
+─ Packages ───────────────────────────────────────────────────────────────────
+ package     * version date (UTC) lib source
+ bslib         0.4.2   2022-12-16 [1] CRAN (R 4.3.0)
+ cachem        1.0.8   2023-05-01 [1] CRAN (R 4.3.0)
+ callr         3.7.3   2022-11-02 [1] CRAN (R 4.3.0)
+ cli           3.6.1   2023-03-23 [1] CRAN (R 4.3.0)
+ crayon        1.5.2   2022-09-29 [1] CRAN (R 4.3.0)
+ devtools      2.4.5   2022-10-11 [1] CRAN (R 4.3.0)
+ digest        0.6.33  2023-07-07 [1] CRAN (R 4.3.0)
+ ellipsis      0.3.2   2021-04-29 [1] CRAN (R 4.3.0)
+ evaluate      0.21    2023-05-05 [1] CRAN (R 4.3.0)
+ fansi         1.0.4   2023-01-22 [1] CRAN (R 4.3.0)
+ fastmap       1.1.1   2023-02-24 [1] CRAN (R 4.3.0)
+ fs            1.6.2   2023-04-25 [1] CRAN (R 4.3.0)
+ getPass       0.2-2   2017-07-21 [1] CRAN (R 4.3.0)
+ git2r         0.32.0  2023-04-12 [1] CRAN (R 4.3.0)
+ glue          1.6.2   2022-02-24 [1] CRAN (R 4.3.0)
+ htmltools     0.5.5   2023-03-23 [1] CRAN (R 4.3.0)
+ htmlwidgets   1.6.2   2023-03-17 [1] CRAN (R 4.3.0)
+ httpuv        1.6.11  2023-05-11 [1] CRAN (R 4.3.0)
+ httr          1.4.7   2023-08-15 [1] CRAN (R 4.3.0)
+ jquerylib     0.1.4   2021-04-26 [1] CRAN (R 4.3.0)
+ jsonlite      1.8.7   2023-06-29 [1] CRAN (R 4.3.0)
+ knitr         1.42    2023-01-25 [1] CRAN (R 4.3.0)
+ later         1.3.1   2023-05-02 [1] CRAN (R 4.3.0)
+ lifecycle     1.0.3   2022-10-07 [1] CRAN (R 4.3.0)
+ magrittr      2.0.3   2022-03-30 [1] CRAN (R 4.3.0)
+ memoise       2.0.1   2021-11-26 [1] CRAN (R 4.3.0)
+ mime          0.12    2021-09-28 [1] CRAN (R 4.3.0)
+ miniUI        0.1.1.1 2018-05-18 [1] CRAN (R 4.3.0)
+ pillar        1.9.0   2023-03-22 [1] CRAN (R 4.3.0)
+ pkgbuild      1.4.2   2023-06-26 [1] CRAN (R 4.3.0)
+ pkgconfig     2.0.3   2019-09-22 [1] CRAN (R 4.3.0)
+ pkgload       1.3.2.1 2023-07-08 [1] CRAN (R 4.3.0)
+ prettyunits   1.1.1   2020-01-24 [1] CRAN (R 4.3.0)
+ processx      3.8.2   2023-06-30 [1] CRAN (R 4.3.0)
+ profvis       0.3.8   2023-05-02 [1] CRAN (R 4.3.0)
+ promises      1.2.0.1 2021-02-11 [1] CRAN (R 4.3.0)
+ ps            1.7.5   2023-04-18 [1] CRAN (R 4.3.0)
+ purrr         1.0.2   2023-08-10 [1] CRAN (R 4.3.0)
+ R6            2.5.1   2021-08-19 [1] CRAN (R 4.3.0)
+ Rcpp          1.0.11  2023-07-06 [1] CRAN (R 4.3.0)
+ remotes       2.4.2.1 2023-07-18 [1] CRAN (R 4.3.0)
+ rlang         1.1.1   2023-04-28 [1] CRAN (R 4.3.0)
+ rmarkdown     2.21    2023-03-26 [1] CRAN (R 4.3.0)
+ rprojroot     2.0.3   2022-04-02 [1] CRAN (R 4.3.0)
+ rstudioapi    0.14    2022-08-22 [1] CRAN (R 4.3.0)
+ sass          0.4.6   2023-05-03 [1] CRAN (R 4.3.0)
+ sessioninfo   1.2.2   2021-12-06 [1] CRAN (R 4.3.0)
+ shiny         1.7.4.1 2023-07-06 [1] CRAN (R 4.3.0)
+ stringi       1.7.12  2023-01-11 [1] CRAN (R 4.3.0)
+ stringr       1.5.0   2022-12-02 [1] CRAN (R 4.3.0)
+ tibble        3.2.1   2023-03-20 [1] CRAN (R 4.3.0)
+ urlchecker    1.0.1   2021-11-30 [1] CRAN (R 4.3.0)
+ usethis       2.2.2   2023-07-06 [1] CRAN (R 4.3.0)
+ utf8          1.2.3   2023-01-31 [1] CRAN (R 4.3.0)
+ vctrs         0.6.3   2023-06-14 [1] CRAN (R 4.3.0)
+ whisker       0.4.1   2022-12-05 [1] CRAN (R 4.3.0)
+ workflowr   * 1.7.0   2021-12-21 [1] CRAN (R 4.3.0)
+ xfun          0.39    2023-04-20 [1] CRAN (R 4.3.0)
+ xtable        1.8-4   2019-04-21 [1] CRAN (R 4.3.0)
+ yaml          2.3.7   2023-01-23 [1] CRAN (R 4.3.0)
+
+ [1] /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/library
+
+──────────────────────────────────────────────────────────────────────────────</code></pre>
+</div>
 </div>
 </div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
-http://docs.mathjax.org/en/latest/configuration.html.  This will make
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
 the presentation more consistent at the cost of the webpage sometimes
 taking slightly longer to load. Note that this only works because the
 footer is added to webpages before the MathJax javascript. -->
@@ -850,7 +1223,7 @@ footer is added to webpages before the MathJax javascript. -->
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -868,7 +1241,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
@@ -877,6 +1250,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')
