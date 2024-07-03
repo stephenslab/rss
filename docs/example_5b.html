@@ -14,22 +14,30 @@
 
 <title>Example 5: Enrichment and prioritization analysis of GWAS summary statistics using RSS (Part B)</title>
 
-<script src="site_libs/header-attrs-2.3/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
 
-<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
 <style type="text/css">
 div.section {
@@ -39,12 +47,30 @@ div.section {
 
 
 
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
-<style type="text/css">code{white-space: pre;}</style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -79,7 +105,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -92,7 +118,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -113,13 +139,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -127,39 +160,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 
 
@@ -169,10 +172,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -189,40 +188,16 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -250,7 +225,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -262,7 +237,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -272,11 +247,28 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.parent().addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -288,13 +280,12 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -302,16 +293,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -414,7 +398,7 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
+<div class="row">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
@@ -428,7 +412,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -450,7 +434,7 @@ div.tocify {
   <a href="example.html">Examples</a>
 </li>
 <li>
-  <a href="faq.html">FAQ</a>
+  <a href="faq.html">FAQs</a>
 </li>
 <li>
   <a href="news.html">News</a>
@@ -459,7 +443,7 @@ div.tocify {
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/stephenslab/rss">
-    <span class="fa fa-github"></span>
+    <span class="fab fa-github"></span>
      
   </a>
 </li>
@@ -468,11 +452,12 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
-<h1 class="title toc-ignore">Example 5: Enrichment and prioritization analysis of GWAS summary statistics using RSS (Part B)</h1>
+<h1 class="title toc-ignore">Example 5: Enrichment and prioritization
+analysis of GWAS summary statistics using RSS (Part B)</h1>
 <h4 class="author">Xiang Zhu</h4>
 
 </div>
@@ -480,7 +465,9 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -489,7 +476,9 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -498,17 +487,27 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-06-24
+<strong>Last updated:</strong> 2024-07-03
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
 </p>
 <p>
-<strong>Knit directory:</strong> <code>rss/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>rss/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -517,111 +516,149 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
 <div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20200623code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20200623)</code> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20200623code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20200623)</code> </a>
 </p>
 </div>
-<div id="strongSeedstrongcodesetseed20200623code" class="panel-collapse collapse">
+<div id="strongSeedstrongcodesetseed20200623code"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20200623)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(20200623)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
 </p>
 </div>
-<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
 <div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
 </p>
 </div>
 <div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree1e806afd56f7e541f351cd53e2a8cbf4b1af63aatargetblank1e806afa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/rss/tree/1e806afd56f7e541f351cd53e2a8cbf4b1af63aa" target="_blank">1e806af</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree20593ef811ea3639c43cba9182f9d9a4095b92b9targetblank20593efa">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/stephenslab/rss/tree/20593ef811ea3639c43cba9182f9d9a4095b92b9" target="_blank">20593ef</a>
+</a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree1e806afd56f7e541f351cd53e2a8cbf4b1af63aatargetblank1e806afa" class="panel-collapse collapse">
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree20593ef811ea3639c43cba9182f9d9a4095b92b9targetblank20593efa"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/rss/tree/1e806afd56f7e541f351cd53e2a8cbf4b1af63aa" target="_blank">1e806af</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version
+<a href="https://github.com/stephenslab/rss/tree/20593ef811ea3639c43cba9182f9d9a4095b92b9" target="_blank">20593ef</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    .spelling
-    Ignored:    examples/example5/.Rhistory
-    Ignored:    examples/example5/Aseg_chr16.mat
-    Ignored:    examples/example5/example5_simulated_data.mat
-    Ignored:    examples/example5/example5_simulated_results.mat
-    Ignored:    examples/example5/ibd2015_path2641_genes_results.mat
-
-Untracked files:
-    Untracked:  docs_old/
-
-Unstaged changes:
-    Modified:   rmd/_site.yml
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -632,7 +669,12 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>rmd/example_5b.Rmd</code>) and HTML (<code>docs/example_5b.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>rmd/example_5b.Rmd</code>) and HTML
+(<code>docs/example_5b.html</code>) files. If you’ve configured a remote
+Git repository (see <code>?wflow_git_remote</code>), click on the
+hyperlinks in the table below to view the files as they were in that
+past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -656,6 +698,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/rss/blob/20593ef811ea3639c43cba9182f9d9a4095b92b9/rmd/example_5b.Rmd" target="_blank">20593ef</a>
+</td>
+<td>
+Xiang Zhu
+</td>
+<td>
+2024-07-03
+</td>
+<td>
+wflow_publish("rmd/example_5b.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/rss/bab3f582716fec43ec1d9285b4aff4484afb6075/docs/example_5b.html" target="_blank">bab3f58</a>
+</td>
+<td>
+Xiang Zhu
+</td>
+<td>
+2020-06-24
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -687,7 +763,7 @@ Xiang Zhu
 2020-06-24
 </td>
 <td>
-wflow_publish(“rmd/example_5b.Rmd”)
+wflow_publish("rmd/example_5b.Rmd")
 </td>
 </tr>
 </tbody>
@@ -699,170 +775,339 @@ wflow_publish(“rmd/example_5b.Rmd”)
 </div>
 <div id="overview" class="section level2">
 <h2>Overview</h2>
-<p>This is Part B of <a href="example_5.html">Example 5</a>, which illustrates how to perform enrichment analysis of GWAS summary statistics based on variational Bayes (VB) inference of RSS-BVSR model. This part describes an end-to-end enrichment analysis of inflammatory bowel disease (IBD) GWAS summary statistics (<a href="https://www.ncbi.nlm.nih.gov/pubmed/26192919">Liu et al, 2015</a>) and a gene set named “IL23-mediated signaling events” (Pathway Commons 2, PID, 37 genes) using RSS. This part illustrates the actual data analyses performed in <a href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and Stephens (2018)</a>.</p>
-<p>To reproduce results of Example 5 Part B, please use scripts in the directory <a href="https://github.com/stephenslab/rss/tree/master/examples/example5"><code>example5</code></a>, and follow the step-by-step guide below. Before running any script in <a href="https://github.com/stephenslab/rss/tree/master/examples/example5"><code>example5</code></a>, please install the <a href="https://github.com/stephenslab/rss/tree/master/src_vb">VB subroutines</a> of RSS. Please find installation instructions <a href="setup_vb.html">here</a>.</p>
-<p>Since a genome-wide enrichment analysis is conducted here, this part is more complicated than <a href="example_5a.html">Example 5 Part A</a>, which is based on a relatively small simulated dataset. It is advisable to go through <a href="example_5a.html">Example 5 Part A</a> before diving into this real data example.</p>
-<p>Note that the working directory here is assumed to be <code>rss/examples/example5</code>. Please modify certain scripts accordingly if a different directory is used.</p>
+<p>This is Part B of <a href="example_5.html">Example 5</a>, which
+illustrates how to perform enrichment analysis of GWAS summary
+statistics based on variational Bayes (VB) inference of RSS-BVSR model.
+This part describes an end-to-end enrichment analysis of inflammatory
+bowel disease (IBD) GWAS summary statistics (<a
+href="https://www.ncbi.nlm.nih.gov/pubmed/26192919">Liu et al, 2015</a>)
+and a gene set named “IL23-mediated signaling events” (Pathway Commons
+2, PID, 37 genes) using RSS. This part illustrates the actual data
+analyses performed in <a
+href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and
+Stephens (2018)</a>.</p>
+<p>To reproduce results of Example 5 Part B, please use scripts in the
+directory <a
+href="https://github.com/stephenslab/rss/tree/master/examples/example5"><code>example5</code></a>,
+and follow the step-by-step guide below. Before running any script in <a
+href="https://github.com/stephenslab/rss/tree/master/examples/example5"><code>example5</code></a>,
+please install the <a
+href="https://github.com/stephenslab/rss/tree/master/src_vb">VB
+subroutines</a> of RSS. Please find installation instructions <a
+href="setup_vb.html">here</a>.</p>
+<p>Since a genome-wide enrichment analysis is conducted here, this part
+is more complicated than <a href="example_5a.html">Example 5 Part A</a>,
+which is based on a relatively small simulated dataset. It is advisable
+to go through <a href="example_5a.html">Example 5 Part A</a> before
+diving into this real data example.</p>
+<p>Note that the working directory here is assumed to be
+<code>rss/examples/example5</code>. Please modify certain scripts
+accordingly if a different directory is used.</p>
 </div>
 <div id="step-by-step-illustration" class="section level2">
 <h2>Step-by-step illustration</h2>
-<div id="fitting-the-baseline-model-with-example5_null.m" class="section level3">
-<h3>Fitting the baseline model with <a href="https://github.com/stephenslab/rss/blob/master/examples/example5/example5_null.m"><code>example5_null.m</code></a></h3>
-<p>Since we have to perform Bayesian multiple regression analyses of 1.1 million common SNPs multiple times when fitting the baseline model, we need to use the memory-efficient and parallel implementation of RSS <a href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_bigmem_squarem.m"><code>rss_varbvsr_bigmem_squarem.m</code></a>, which requires <a href="https://www.mathworks.com/help/distcomp/index.html">MATLAB Parallel Computing Toolbox</a>. If you do not have this toolbox available, please skip this section, and use our result files for the following enrichment analysis instead (see Step 4).</p>
-<p><strong>Step 1</strong>. Download the input data file <a href="https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/ibd2015_sumstat.mat"><code>ibd2015_sumstat.mat</code></a>, which contains the GWAS summary statistics and LD matrix estimates. This file is large (17G) because it has a LD matrix of 1.1 million common SNPs. Please contact me (<code>xiangzhu[at]uchicago.edu</code>) if you have trouble accessing this file.</p>
-<p>Before proceeding to the next step, let’s look at the contents of <a href="https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/ibd2015_sumstat.mat"><code>ibd2015_sumstat.mat</code></a>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1"></a><span class="op">&gt;&gt;</span> <span class="va">sumstat</span> <span class="op">=</span> <span class="va">matfile</span>(<span class="ss">&#39;ibd2015_sumstat.mat&#39;</span>)<span class="op">;</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="op">&gt;&gt;</span> <span class="va">sumstat</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="va">sumstat</span> <span class="op">=</span> </span>
-<span id="cb1-5"><a href="#cb1-5"></a>  <span class="va">matlab</span>.<span class="va">io</span>.<span class="va">MatFile</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a>  <span class="va">Properties</span><span class="op">:</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a>      <span class="va">Properties</span>.<span class="va">Source</span><span class="op">:</span> <span class="ss">&#39;ibd2015_sumstat.mat&#39;</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a>    <span class="va">Properties</span>.<span class="va">Writable</span><span class="op">:</span> <span class="va">false</span>                                               </span>
-<span id="cb1-9"><a href="#cb1-9"></a>                  <span class="va">SiRiS</span><span class="op">:</span> [<span class="fl">22</span><span class="va">x1</span> <span class="va">cell</span>]                                         </span>
-<span id="cb1-10"><a href="#cb1-10"></a>                <span class="va">betahat</span><span class="op">:</span> [<span class="fl">22</span><span class="va">x1</span> <span class="va">cell</span>]                                         </span>
-<span id="cb1-11"><a href="#cb1-11"></a>                    <span class="va">chr</span><span class="op">:</span> [<span class="fl">22</span><span class="va">x1</span> <span class="va">cell</span>]                                         </span>
-<span id="cb1-12"><a href="#cb1-12"></a>                    <span class="va">pos</span><span class="op">:</span> [<span class="fl">22</span><span class="va">x1</span> <span class="va">cell</span>]                                         </span>
-<span id="cb1-13"><a href="#cb1-13"></a>                     <span class="va">se</span><span class="op">:</span> [<span class="fl">22</span><span class="va">x1</span> <span class="va">cell</span>]</span></code></pre></div>
-<p>Here GWAS summary statistics and LD estimates are stored as <a href="https://www.mathworks.com/help/matlab/cell-arrays.html">cell arrays</a>. For each Chromosome <code>j</code>,</p>
+<div id="fitting-the-baseline-model-with-example5_null.m"
+class="section level3">
+<h3>Fitting the baseline model with <a
+href="https://github.com/stephenslab/rss/blob/master/examples/example5/example5_null.m"><code>example5_null.m</code></a></h3>
+<p>Since we have to perform Bayesian multiple regression analyses of 1.1
+million common SNPs multiple times when fitting the baseline model, we
+need to use the memory-efficient and parallel implementation of RSS <a
+href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_bigmem_squarem.m"><code>rss_varbvsr_bigmem_squarem.m</code></a>,
+which requires <a
+href="https://www.mathworks.com/help/distcomp/index.html">MATLAB
+Parallel Computing Toolbox</a>. If you do not have this toolbox
+available, please skip this section, and use our result files for the
+following enrichment analysis instead (see Step 4).</p>
+<p><strong>Step 1</strong>. Download the data files.</p>
+<p>All data files required to run this example are freely available at
+Zenodo <a href="https://doi.org/10.5281/zenodo.12636416"><img
+src="https://zenodo.org/badge/DOI/10.5281/zenodo.12636416.svg"
+alt="DOI" /></a>. Please contact me if you have trouble accessing this
+file. After a complete download, you should see the following files.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode zsh"><code class="sourceCode zsh"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> tree ./</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">./</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="ex">├──</span> Aseg_chr16.mat</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="ex">├──</span> example5_simulated_data.mat</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="ex">├──</span> example5_simulated_results.mat</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="ex">├──</span> ibd2015_gsea_seed_459_path2641_squarem.mat</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="ex">├──</span> ibd2015_null_h_30_theta0_285_seed_459_squarem_step1.mat</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="ex">├──</span> ibd2015_null_h_30_theta0_288_seed_459_squarem_step1.mat</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="ex">├──</span> ibd2015_null_h_30_theta0_290_seed_459_squarem_step1.mat</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="ex">├──</span> ibd2015_path2641_genes.mat</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="ex">├──</span> ibd2015_path2641_genes_results.mat</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="ex">├──</span> ibd2015_sumstat.mat</span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="ex">└──</span> ibd2015_sumstat_path2641.mat</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="ex">0</span> directories, 11 files</span></code></pre></div>
+<p>The input data file <a
+href="https://zenodo.org/doi/10.5281/zenodo.12636415"><code>ibd2015_sumstat.mat</code></a>
+contains the GWAS summary statistics and LD matrix estimates. This file
+is large (17G) because it has a LD matrix of 1.1 million common SNPs.
+Before proceeding to the next step, let’s look at the contents of <a
+href="https://zenodo.org/doi/10.5281/zenodo.12636415"><code>ibd2015_sumstat.mat</code></a>.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">sumstat</span> <span class="op">=</span> <span class="va">matfile</span>(<span class="ss">&#39;ibd2015_sumstat.mat&#39;</span>)<span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">sumstat</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="va">sumstat</span> <span class="op">=</span> </span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="va">matlab</span>.<span class="va">io</span>.<span class="va">MatFile</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="va">Properties</span><span class="op">:</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>      <span class="va">Properties</span>.<span class="va">Source</span><span class="op">:</span> <span class="ss">&#39;ibd2015_sumstat.mat&#39;</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>    <span class="va">Properties</span>.<span class="va">Writable</span><span class="op">:</span> <span class="va">false</span>                                               </span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>                  <span class="va">SiRiS</span><span class="op">:</span> [<span class="fl">22</span><span class="va">x1</span> <span class="va">cell</span>]                                         </span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>                <span class="va">betahat</span><span class="op">:</span> [<span class="fl">22</span><span class="va">x1</span> <span class="va">cell</span>]                                         </span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>                    <span class="va">chr</span><span class="op">:</span> [<span class="fl">22</span><span class="va">x1</span> <span class="va">cell</span>]                                         </span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>                    <span class="va">pos</span><span class="op">:</span> [<span class="fl">22</span><span class="va">x1</span> <span class="va">cell</span>]                                         </span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>                     <span class="va">se</span><span class="op">:</span> [<span class="fl">22</span><span class="va">x1</span> <span class="va">cell</span>]</span></code></pre></div>
+<p>Here GWAS summary statistics and LD estimates are stored as <a
+href="https://www.mathworks.com/help/matlab/cell-arrays.html">cell
+arrays</a>. For each Chromosome <code>j</code>,</p>
 <ul>
-<li><code>betahat{j,1}</code> stores single-SNP effect size estimates of all SNPs on Chromosome <code>j</code>;</li>
-<li><code>se{j,1}</code> stores standard errors of <code>betahat{j, 1}</code>;</li>
-<li><code>chr{j,1}</code> and <code>pos{j, 1}</code> store physical positions of these SNPs (GRCh37 build);</li>
-<li><code>SiRiS{j,1}</code> stores a sparse matrix, defined as <code>repmat((1./se),1,p) .* R .* repmat((1./se)',p,1)</code>, where <code>R</code> is the estimated LD matrix of these <code>p</code> SNPs.</li>
+<li><code>betahat{j,1}</code> stores single-SNP effect size estimates of
+all SNPs on Chromosome <code>j</code>;</li>
+<li><code>se{j,1}</code> stores standard errors of
+<code>betahat{j, 1}</code>;</li>
+<li><code>chr{j,1}</code> and <code>pos{j, 1}</code> store physical
+positions of these SNPs (GRCh37 build);</li>
+<li><code>SiRiS{j,1}</code> stores a sparse matrix, defined as
+<code>repmat((1./se),1,p) .* R .* repmat((1./se)',p,1)</code>, where
+<code>R</code> is the estimated LD matrix of these <code>p</code>
+SNPs.</li>
 </ul>
-<p><strong>Step 2</strong>. Specify several dataset-specific variables that are required by <a href="https://github.com/stephenslab/rss/blob/master/src_vb/null_template.m"><code>null_template.m</code></a>, a template script that fits a baseline model.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">% specify trait-specific information</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="va">trait_name</span>  <span class="op">=</span> <span class="ss">&#39;ibd2015&#39;</span><span class="op">;</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="va">sample_size</span> <span class="op">=</span> (<span class="fl">12882</span><span class="op">+</span><span class="fl">21770</span>)<span class="op">;</span> <span class="co">% cases: 12,882; controls: 21,770</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co">% specify grid of hyper-parameters</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="va">h_rv</span>      <span class="op">=</span> <span class="fl">0.3</span><span class="op">;</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="va">theta0_rv</span> <span class="op">=</span> (<span class="op">-</span><span class="fl">2.9</span><span class="op">:</span><span class="fl">0.025</span><span class="op">:-</span><span class="fl">2.85</span>)<span class="op">;</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="co">% specify stage of analysis</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="va">stage</span> <span class="op">=</span> <span class="ss">&#39;step1&#39;</span><span class="op">;</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="co">% specify random start and algorithm </span></span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="va">myseed</span> <span class="op">=</span> <span class="fl">459</span><span class="op">;</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="va">method</span> <span class="op">=</span> <span class="ss">&#39;squarem&#39;</span><span class="op">;</span></span></code></pre></div>
-<p>Note that here the grid of hyper-parameters is set minimum for illustration purpose. In practice we are using much larger grid of hyper-parameters (because we seldomly have a sensible guess for these parameters and we should learn them from data); please see <a href="https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-018-06805-x/MediaObjects/41467_2018_6805_MOESM1_ESM.pdf">Supplementary Tables 6-7</a> of <a href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and Stephens (2018)</a> for more details.</p>
-<p><strong>Step 3</strong>. Fit baseline models across a grid of hyper-parameters in parallel. We write a simple <code>sbatch</code> script, <a href="https://github.com/stephenslab/rss/blob/master/examples/example5/example5_null.sbatch"><code>example5_null.sbatch</code></a>, and submit it to a cluster where <a href="https://slurm.schedmd.com/">Slurm</a> has been installed.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode zsh"><code class="sourceCode zsh"><span id="cb3-1"><a href="#cb3-1"></a>sbatch example5_null.sbatch</span></code></pre></div>
-<p>The script <a href="https://github.com/stephenslab/rss/blob/master/examples/example5/example5_null.sbatch"><code>example5_null.sbatch</code></a> makes three copies of <a href="https://github.com/stephenslab/rss/blob/master/examples/example5/example5_null.m"><code>example5_null.m</code></a> (because there are three sets of <code>(h, theta0)</code> in the grid specified in Step 2), and then assigns one copy to each <code>(h, theta0)</code> setting.</p>
-<p>After the <code>sbatch</code> submission, these three jobs run in three different nodes simultaneously.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode zsh"><code class="sourceCode zsh"><span id="cb4-1"><a href="#cb4-1"></a>xiangzhu@midway-login1: squeue -u xiangzhu</span>
-<span id="cb4-2"><a href="#cb4-2"></a>             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST<span class="kw">(</span>REASON<span class="kw">)</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a>        29451148_3    sandyb  ibd2015 xiangzhu  R       1:29      1 midway249</span>
-<span id="cb4-4"><a href="#cb4-4"></a>        29451148_1    sandyb  ibd2015 xiangzhu  R       2:42      1 midway426</span>
-<span id="cb4-5"><a href="#cb4-5"></a>        29451148_2    sandyb  ibd2015 xiangzhu  R       2:42      1 midway427</span></code></pre></div>
-<p>Note that <a href="https://github.com/stephenslab/rss/blob/master/examples/example5/example5_null.sbatch"><code>example5_null.sbatch</code></a> is designed for the computing clusters at <a href="https://rcc.uchicago.edu/">University of Chicago Research Computing Center</a>. You may need to modify this script if you plan to run it on a different environment.</p>
-<p><strong>Step 4</strong>. Aggregate the baseline results for enrichment analyses. As soon as the three jobs in Step 3 are completed, the baseline results are saved as <code>mat</code> files (<a href="https://www.mathworks.com/help/matlab/import_export/mat-file-versions.html">version 7.3</a>).</p>
-<p>In case you cannot fit the baseline models in your own computing environment, you can download the following baseline result files from <a href="https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/" class="uri">https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/</a>.</p>
+<p><strong>Step 2</strong>. Specify several dataset-specific variables
+that are required by <a
+href="https://github.com/stephenslab/rss/blob/master/src_vb/null_template.m"><code>null_template.m</code></a>,
+a template script that fits a baseline model.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co">% specify trait-specific information</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="va">trait_name</span>  <span class="op">=</span> <span class="ss">&#39;ibd2015&#39;</span><span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="va">sample_size</span> <span class="op">=</span> (<span class="fl">12882</span><span class="op">+</span><span class="fl">21770</span>)<span class="op">;</span> <span class="co">% cases: 12,882; controls: 21,770</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">% specify grid of hyper-parameters</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="va">h_rv</span>      <span class="op">=</span> <span class="fl">0.3</span><span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="va">theta0_rv</span> <span class="op">=</span> (<span class="op">-</span><span class="fl">2.9</span><span class="op">:</span><span class="fl">0.025</span><span class="op">:-</span><span class="fl">2.85</span>)<span class="op">;</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">% specify stage of analysis</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="va">stage</span> <span class="op">=</span> <span class="ss">&#39;step1&#39;</span><span class="op">;</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">% specify random start and algorithm </span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="va">myseed</span> <span class="op">=</span> <span class="fl">459</span><span class="op">;</span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="va">method</span> <span class="op">=</span> <span class="ss">&#39;squarem&#39;</span><span class="op">;</span></span></code></pre></div>
+<p>Note that here the grid of hyper-parameters is set minimum for
+illustration purpose. In practice we are using much larger grid of
+hyper-parameters (because we seldom have a sensible guess for these
+parameters and we should learn them from data); please see <a
+href="https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-018-06805-x/MediaObjects/41467_2018_6805_MOESM1_ESM.pdf">Supplementary
+Tables 6-7</a> of <a
+href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and
+Stephens (2018)</a> for more details.</p>
+<p><strong>Step 3</strong>. Fit baseline models across a grid of
+hyper-parameters in parallel. We write a simple <code>sbatch</code>
+script, <a
+href="https://github.com/stephenslab/rss/blob/master/examples/example5/example5_null.sbatch"><code>example5_null.sbatch</code></a>,
+and submit it to a cluster where <a
+href="https://slurm.schedmd.com/">Slurm</a> has been installed.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode zsh"><code class="sourceCode zsh"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">sbatch</span> example5_null.sbatch</span></code></pre></div>
+<p>The script <a
+href="https://github.com/stephenslab/rss/blob/master/examples/example5/example5_null.sbatch"><code>example5_null.sbatch</code></a>
+makes three copies of <a
+href="https://github.com/stephenslab/rss/blob/master/examples/example5/example5_null.m"><code>example5_null.m</code></a>
+(because there are three sets of <code>(h, theta0)</code> in the grid
+specified in Step 2), and then assigns one copy to each
+<code>(h, theta0)</code> setting.</p>
+<p>After the <code>sbatch</code> submission, these three jobs run in
+three different nodes simultaneously.</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode zsh"><code class="sourceCode zsh"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">xiangzhu@midway-login1:</span> squeue <span class="at">-u</span> xiangzhu</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>             <span class="ex">JOBID</span> PARTITION     NAME     USER ST       TIME  NODES NODELIST<span class="op">(REASO</span>N<span class="op">)</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>        <span class="ex">29451148_3</span>    sandyb  ibd2015 xiangzhu  R       1:29      1 midway249</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>        <span class="ex">29451148_1</span>    sandyb  ibd2015 xiangzhu  R       2:42      1 midway426</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>        <span class="ex">29451148_2</span>    sandyb  ibd2015 xiangzhu  R       2:42      1 midway427</span></code></pre></div>
+<p>Note that <a
+href="https://github.com/stephenslab/rss/blob/master/examples/example5/example5_null.sbatch"><code>example5_null.sbatch</code></a>
+is designed for the computing clusters at <a
+href="https://rcc.uchicago.edu/">University of Chicago Research
+Computing Center</a>. You may need to modify this script if you plan to
+run it on a different environment.</p>
+<p><strong>Step 4</strong>. Aggregate the baseline results for
+enrichment analyses. As soon as the three jobs in Step 3 are completed,
+the baseline results are saved as <code>mat</code> files (<a
+href="https://www.mathworks.com/help/matlab/import_export/mat-file-versions.html">version
+7.3</a>).</p>
+<p>In case you cannot fit the baseline models in your own computing
+environment, you can download the following baseline result files from
+<a href="https://zenodo.org/doi/10.5281/zenodo.12636415"
+class="uri">https://zenodo.org/doi/10.5281/zenodo.12636415</a>.</p>
 <pre><code>xiangzhu@midway-login1: ls ibd2015_null_*.mat
 ibd2015_null_h_30_theta0_285_seed_459_squarem_step1.mat
 ibd2015_null_h_30_theta0_288_seed_459_squarem_step1.mat
 ibd2015_null_h_30_theta0_290_seed_459_squarem_step1.mat</code></pre>
 </div>
-<div id="fitting-the-enrichment-model-with-example5_gsea.m" class="section level3">
-<h3>Fitting the enrichment model with <a href="https://github.com/stephenslab/rss/blob/master/examples/example5/example5_gsea.m"><code>example5_gsea.m</code></a></h3>
-<p>Unlike fitting the baseline model, fitting the enrichment model does not require any specialized toolbox or any high-performance computing cluster. With the baseline result files listed above in place (i.e. downloaded and saved in the working directory <code>rss/examples/example5</code>), everyone should be able to run this part in a modern desktop by simply typing the following line in a MATLAB console:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb6-1"><a href="#cb6-1"></a><span class="op">&gt;&gt;</span> <span class="va">run</span> <span class="va">example5_gsea</span>.<span class="va">m</span></span></code></pre></div>
-<p>Since we use additional pathway information when fitting the enrichment model, here we need to download and add a new data file <a href="https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/ibd2015_sumstat_path2641.mat"><code>ibd2015_sumstat_path2641.mat</code></a> to the working directory <code>rss/examples/example5</code>. Let’s look at the content of this file first.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb7-1"><a href="#cb7-1"></a><span class="op">&gt;&gt;</span> <span class="va">sumstat</span> <span class="op">=</span> <span class="va">matfile</span>(<span class="ss">&#39;ibd2015_sumstat_path2641.mat&#39;</span>)<span class="op">;</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="op">&gt;&gt;</span> <span class="va">sumstat</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="va">sumstat</span> <span class="op">=</span> </span>
-<span id="cb7-5"><a href="#cb7-5"></a>  <span class="va">matlab</span>.<span class="va">io</span>.<span class="va">MatFile</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a>  <span class="va">Properties</span><span class="op">:</span></span>
-<span id="cb7-7"><a href="#cb7-7"></a>      <span class="va">Properties</span>.<span class="va">Source</span><span class="op">:</span> <span class="ss">&#39;ibd2015_sumstat_path2641.mat&#39;</span></span>
-<span id="cb7-8"><a href="#cb7-8"></a>    <span class="va">Properties</span>.<span class="va">Writable</span><span class="op">:</span> <span class="va">false</span>                                                        </span>
-<span id="cb7-9"><a href="#cb7-9"></a>                  <span class="va">SiRiS</span><span class="op">:</span> [<span class="fl">2990</span><span class="va">x2990</span> <span class="va">double</span>]                                           </span>
-<span id="cb7-10"><a href="#cb7-10"></a>                <span class="va">betahat</span><span class="op">:</span> [<span class="fl">2990</span><span class="va">x1</span>    <span class="va">double</span>]                                           </span>
-<span id="cb7-11"><a href="#cb7-11"></a>                    <span class="va">chr</span><span class="op">:</span> [<span class="fl">2990</span><span class="va">x1</span>    <span class="va">double</span>]                                           </span>
-<span id="cb7-12"><a href="#cb7-12"></a>                    <span class="va">pos</span><span class="op">:</span> [<span class="fl">2990</span><span class="va">x1</span>    <span class="va">double</span>]                                           </span>
-<span id="cb7-13"><a href="#cb7-13"></a>                     <span class="va">se</span><span class="op">:</span> [<span class="fl">2990</span><span class="va">x1</span>    <span class="va">double</span>]                                           </span>
-<span id="cb7-14"><a href="#cb7-14"></a>                   <span class="va">snps</span><span class="op">:</span> [<span class="fl">2990</span><span class="va">x1</span>    <span class="va">double</span>]</span></code></pre></div>
-<p>This new file contains GWAS summary statistics and LD estimates of SNPs that are “inside” a biological pathway named “IL23-mediated signaling events” (Pathway Commons 2, PID, 37 genes). As in <a href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and Stephens (2018)</a>, here we annotate a SNP as “inside a pathway” if this SNP is within 100 kb of transcribed region of any member gene in this pathway.</p>
-<p>The results of fitting the enrichment model are saved as <a href="https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/ibd2015_gsea_seed_459_path2641_squarem.mat"><code>ibd2015_gsea_seed_459_path2641_squarem.mat</code></a>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb8-1"><a href="#cb8-1"></a><span class="op">&gt;&gt;</span> <span class="va">load</span> <span class="va">ibd2015_gsea_seed_459_path2641_squarem</span>.<span class="va">mat</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="op">&gt;&gt;</span> <span class="va">whos</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a>  <span class="va">Name</span>            <span class="va">Size</span>                 <span class="va">Bytes</span>  <span class="va">Class</span>     <span class="va">Attributes</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a></span>
-<span id="cb8-5"><a href="#cb8-5"></a>  <span class="va">alpha</span>        <span class="fl">2990</span><span class="va">x3x101</span>            <span class="fl">7247760</span>  <span class="va">double</span>              </span>
-<span id="cb8-6"><a href="#cb8-6"></a>  <span class="va">h</span>               <span class="fl">1</span><span class="va">x1</span>                      <span class="fl">8</span>  <span class="va">double</span>              </span>
-<span id="cb8-7"><a href="#cb8-7"></a>  <span class="va">log10bf</span>         <span class="fl">1</span><span class="va">x1</span>                      <span class="fl">8</span>  <span class="va">double</span>              </span>
-<span id="cb8-8"><a href="#cb8-8"></a>  <span class="va">logw0</span>           <span class="fl">3</span><span class="va">x1</span>                     <span class="fl">24</span>  <span class="va">double</span>              </span>
-<span id="cb8-9"><a href="#cb8-9"></a>  <span class="va">logw1</span>           <span class="fl">3</span><span class="va">x101</span>                 <span class="fl">2424</span>  <span class="va">double</span>              </span>
-<span id="cb8-10"><a href="#cb8-10"></a>  <span class="va">method</span>          <span class="fl">1</span><span class="va">x7</span>                     <span class="fl">14</span>  <span class="va">char</span>                </span>
-<span id="cb8-11"><a href="#cb8-11"></a>  <span class="va">mu</span>           <span class="fl">2990</span><span class="va">x3x101</span>            <span class="fl">7247760</span>  <span class="va">double</span>              </span>
-<span id="cb8-12"><a href="#cb8-12"></a>  <span class="va">myseed</span>          <span class="fl">1</span><span class="va">x1</span>                      <span class="fl">8</span>  <span class="va">double</span>              </span>
-<span id="cb8-13"><a href="#cb8-13"></a>  <span class="va">runtime</span>         <span class="fl">1</span><span class="va">x1</span>                      <span class="fl">8</span>  <span class="va">double</span>              </span>
-<span id="cb8-14"><a href="#cb8-14"></a>  <span class="va">s</span>            <span class="fl">2990</span><span class="va">x3x101</span>            <span class="fl">7247760</span>  <span class="va">double</span>              </span>
-<span id="cb8-15"><a href="#cb8-15"></a>  <span class="va">snps</span>         <span class="fl">2990</span><span class="va">x1</span>                  <span class="fl">23920</span>  <span class="va">double</span>              </span>
-<span id="cb8-16"><a href="#cb8-16"></a>  <span class="va">theta</span>         <span class="fl">101</span><span class="va">x1</span>                    <span class="fl">808</span>  <span class="va">double</span>              </span>
-<span id="cb8-17"><a href="#cb8-17"></a>  <span class="va">theta0</span>          <span class="fl">3</span><span class="va">x1</span>                     <span class="fl">24</span>  <span class="va">double</span></span></code></pre></div>
+<div id="fitting-the-enrichment-model-with-example5_gsea.m"
+class="section level3">
+<h3>Fitting the enrichment model with <a
+href="https://github.com/stephenslab/rss/blob/master/examples/example5/example5_gsea.m"><code>example5_gsea.m</code></a></h3>
+<p>Unlike fitting the baseline model, fitting the enrichment model does
+not require any specialized toolbox or any high-performance computing
+cluster. With the baseline result files listed above in place
+(i.e. downloaded and saved in the working directory
+<code>rss/examples/example5</code>), everyone should be able to run this
+part in a modern desktop by simply typing the following line in a MATLAB
+console:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">run</span> <span class="va">example5_gsea</span>.<span class="va">m</span></span></code></pre></div>
+<p>Since we use additional pathway information when fitting the
+enrichment model, here we need to download and add a new data file <a
+href="https://zenodo.org/doi/10.5281/zenodo.12636415"><code>ibd2015_sumstat_path2641.mat</code></a>
+to the working directory <code>rss/examples/example5</code>. Let’s look
+at the content of this file first.</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">sumstat</span> <span class="op">=</span> <span class="va">matfile</span>(<span class="ss">&#39;ibd2015_sumstat_path2641.mat&#39;</span>)<span class="op">;</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">sumstat</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="va">sumstat</span> <span class="op">=</span> </span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>  <span class="va">matlab</span>.<span class="va">io</span>.<span class="va">MatFile</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>  <span class="va">Properties</span><span class="op">:</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>      <span class="va">Properties</span>.<span class="va">Source</span><span class="op">:</span> <span class="ss">&#39;ibd2015_sumstat_path2641.mat&#39;</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>    <span class="va">Properties</span>.<span class="va">Writable</span><span class="op">:</span> <span class="va">false</span>                                                        </span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>                  <span class="va">SiRiS</span><span class="op">:</span> [<span class="fl">2990</span><span class="va">x2990</span> <span class="va">double</span>]                                           </span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>                <span class="va">betahat</span><span class="op">:</span> [<span class="fl">2990</span><span class="va">x1</span>    <span class="va">double</span>]                                           </span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>                    <span class="va">chr</span><span class="op">:</span> [<span class="fl">2990</span><span class="va">x1</span>    <span class="va">double</span>]                                           </span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>                    <span class="va">pos</span><span class="op">:</span> [<span class="fl">2990</span><span class="va">x1</span>    <span class="va">double</span>]                                           </span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>                     <span class="va">se</span><span class="op">:</span> [<span class="fl">2990</span><span class="va">x1</span>    <span class="va">double</span>]                                           </span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>                   <span class="va">snps</span><span class="op">:</span> [<span class="fl">2990</span><span class="va">x1</span>    <span class="va">double</span>]</span></code></pre></div>
+<p>This new file contains GWAS summary statistics and LD estimates of
+SNPs that are “inside” a biological pathway named “IL23-mediated
+signaling events” (Pathway Commons 2, PID, 37 genes). As in <a
+href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and
+Stephens (2018)</a>, here we annotate a SNP as “inside a pathway” if
+this SNP is within 100 kb of transcribed region of any member gene in
+this pathway.</p>
+<p>The results of fitting the enrichment model are saved as <a
+href="https://zenodo.org/doi/10.5281/zenodo.12636415"><code>ibd2015_gsea_seed_459_path2641_squarem.mat</code></a>.</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">load</span> <span class="va">ibd2015_gsea_seed_459_path2641_squarem</span>.<span class="va">mat</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">whos</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="va">Name</span>            <span class="va">Size</span>                 <span class="va">Bytes</span>  <span class="va">Class</span>     <span class="va">Attributes</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  <span class="va">alpha</span>        <span class="fl">2990</span><span class="va">x3x101</span>            <span class="fl">7247760</span>  <span class="va">double</span>              </span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>  <span class="va">h</span>               <span class="fl">1</span><span class="va">x1</span>                      <span class="fl">8</span>  <span class="va">double</span>              </span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>  <span class="va">log10bf</span>         <span class="fl">1</span><span class="va">x1</span>                      <span class="fl">8</span>  <span class="va">double</span>              </span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>  <span class="va">logw0</span>           <span class="fl">3</span><span class="va">x1</span>                     <span class="fl">24</span>  <span class="va">double</span>              </span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>  <span class="va">logw1</span>           <span class="fl">3</span><span class="va">x101</span>                 <span class="fl">2424</span>  <span class="va">double</span>              </span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>  <span class="va">method</span>          <span class="fl">1</span><span class="va">x7</span>                     <span class="fl">14</span>  <span class="va">char</span>                </span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>  <span class="va">mu</span>           <span class="fl">2990</span><span class="va">x3x101</span>            <span class="fl">7247760</span>  <span class="va">double</span>              </span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a>  <span class="va">myseed</span>          <span class="fl">1</span><span class="va">x1</span>                      <span class="fl">8</span>  <span class="va">double</span>              </span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a>  <span class="va">runtime</span>         <span class="fl">1</span><span class="va">x1</span>                      <span class="fl">8</span>  <span class="va">double</span>              </span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a>  <span class="va">s</span>            <span class="fl">2990</span><span class="va">x3x101</span>            <span class="fl">7247760</span>  <span class="va">double</span>              </span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a>  <span class="va">snps</span>         <span class="fl">2990</span><span class="va">x1</span>                  <span class="fl">23920</span>  <span class="va">double</span>              </span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a>  <span class="va">theta</span>         <span class="fl">101</span><span class="va">x1</span>                    <span class="fl">808</span>  <span class="va">double</span>              </span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a>  <span class="va">theta0</span>          <span class="fl">3</span><span class="va">x1</span>                     <span class="fl">24</span>  <span class="va">double</span></span></code></pre></div>
 <p>There are three groups of output variables in the result file.</p>
-<p>The first group consists of user-specified quantities in <a href="https://github.com/stephenslab/rss/blob/master/examples/example5/example5_gsea.m"><code>example5_gsea.m</code></a>: <code>method</code> (model fitting algorithm), <code>myseed</code> (seed of random number generator), <code>h</code> &amp; <code>theta0</code> &amp; <code>theta</code> (grid of hyper-parameters), and <code>snps</code> (indices of “inside-pathway” SNPs in the genome).</p>
-<p>The second group consists of estimated variational parameters <code>alpha</code> &amp; <code>mu</code> &amp; <code>s</code> under the enrichment model, where <code>alpha(:,i,j)</code> &amp; <code>mu(:,i,j)</code> &amp; <code>s(:,i,j)</code> correspond to estimation under the hyper-parameter setting <code>[h, theta0(i), theta(j)]</code>. Note that these variational parameter estimates can be further used to prioritize genes within an enriched pathway; please see the next section.</p>
-<p>The third group consists of estimated variational lower bounds under the baseline (<code>logw0</code>) and enrichment (<code>logw1</code>) model, and the log 10 enrichment Bayes factor (<code>log10bf</code>).</p>
-<p>The log 10 enrichment Bayes factor is 22.1355, suggesting strong enrichment of genetic associations within “IL23-mediated signaling events” for IBD. This seems consistent with the important role of IL23 in immune response.</p>
+<p>The first group consists of user-specified quantities in <a
+href="https://github.com/stephenslab/rss/blob/master/examples/example5/example5_gsea.m"><code>example5_gsea.m</code></a>:
+<code>method</code> (model fitting algorithm), <code>myseed</code> (seed
+of random number generator), <code>h</code> &amp; <code>theta0</code>
+&amp; <code>theta</code> (grid of hyper-parameters), and
+<code>snps</code> (indices of “inside-pathway” SNPs in the genome).</p>
+<p>The second group consists of estimated variational parameters
+<code>alpha</code> &amp; <code>mu</code> &amp; <code>s</code> under the
+enrichment model, where <code>alpha(:,i,j)</code> &amp;
+<code>mu(:,i,j)</code> &amp; <code>s(:,i,j)</code> correspond to
+estimation under the hyper-parameter setting
+<code>[h, theta0(i), theta(j)]</code>. Note that these variational
+parameter estimates can be further used to prioritize genes within an
+enriched pathway; please see the next section.</p>
+<p>The third group consists of estimated variational lower bounds under
+the baseline (<code>logw0</code>) and enrichment (<code>logw1</code>)
+model, and the log 10 enrichment Bayes factor
+(<code>log10bf</code>).</p>
+<p>The log 10 enrichment Bayes factor is 22.1355, suggesting strong
+enrichment of genetic associations within “IL23-mediated signaling
+events” for IBD. This seems consistent with the important role of IL23
+in immune response.</p>
 </div>
-<div id="prioritizing-pathway-genes-with-example5_gene.m" class="section level3">
-<h3>Prioritizing pathway genes with <a href="https://github.com/stephenslab/rss/blob/master/examples/example5/example5_gene.m"><code>example5_gene.m</code></a></h3>
-<p>Now we use the baseline and enrichment model fitting results above to prioritize 37 member genes within the target pathway. Similar to <a href="example_5a.html">Example 5 Part A</a>, we need to download and save a gene information file <a href="https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/ibd2015_path2641_genes.mat"><code>ibd2015_path2641_genes.mat</code></a> in the working directory <code>rss/examples/example5</code> first.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb9-1"><a href="#cb9-1"></a><span class="op">&gt;&gt;</span> <span class="va">load</span> <span class="va">ibd2015_path2641_genes</span>.<span class="va">mat</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="op">&gt;&gt;</span> <span class="va">whos</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a>  <span class="va">Name</span>                  <span class="va">Size</span>                <span class="va">Bytes</span>  <span class="va">Class</span>     <span class="va">Attributes</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a></span>
-<span id="cb9-5"><a href="#cb9-5"></a>  <span class="va">Aseg</span>            <span class="fl">1081481</span><span class="va">x37</span>            <span class="fl">160000304</span>  <span class="va">double</span>    <span class="va">sparse</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a>  <span class="va">chr</span>             <span class="fl">1081481</span><span class="va">x1</span>               <span class="fl">4325924</span>  <span class="va">int32</span></span>
-<span id="cb9-7"><a href="#cb9-7"></a>  <span class="va">gene_chr</span>             <span class="fl">37</span><span class="va">x1</span>                   <span class="fl">296</span>  <span class="va">double</span></span>
-<span id="cb9-8"><a href="#cb9-8"></a>  <span class="va">gene_id</span>              <span class="fl">37</span><span class="va">x1</span>                  <span class="fl">4494</span>  <span class="va">cell</span></span>
-<span id="cb9-9"><a href="#cb9-9"></a>  <span class="va">gene_start</span>           <span class="fl">37</span><span class="va">x1</span>                   <span class="fl">296</span>  <span class="va">double</span></span>
-<span id="cb9-10"><a href="#cb9-10"></a>  <span class="va">gene_stop</span>            <span class="fl">37</span><span class="va">x1</span>                   <span class="fl">296</span>  <span class="va">double</span></span>
-<span id="cb9-11"><a href="#cb9-11"></a>  <span class="va">pos</span>             <span class="fl">1081481</span><span class="va">x1</span>               <span class="fl">4325924</span>  <span class="va">int32</span></span>
-<span id="cb9-12"><a href="#cb9-12"></a></span>
-<span id="cb9-13"><a href="#cb9-13"></a><span class="op">&gt;&gt;</span> <span class="va">whos</span> <span class="va">Aseg</span></span>
-<span id="cb9-14"><a href="#cb9-14"></a>  <span class="va">Name</span>            <span class="va">Size</span>                <span class="va">Bytes</span>  <span class="va">Class</span>     <span class="va">Attributes</span></span>
-<span id="cb9-15"><a href="#cb9-15"></a></span>
-<span id="cb9-16"><a href="#cb9-16"></a>  <span class="va">Aseg</span>      <span class="fl">1081481</span><span class="va">x37</span>            <span class="fl">160000304</span>  <span class="va">double</span>    <span class="va">sparse</span></span>
-<span id="cb9-17"><a href="#cb9-17"></a></span>
-<span id="cb9-18"><a href="#cb9-18"></a><span class="op">&gt;&gt;</span> <span class="va">full</span>(<span class="va">unique</span>(<span class="va">Aseg</span>(<span class="op">:</span>)))<span class="op">&#39;</span></span>
-<span id="cb9-19"><a href="#cb9-19"></a><span class="va">ans</span> <span class="op">=</span></span>
-<span id="cb9-20"><a href="#cb9-20"></a>     <span class="fl">0</span>     <span class="fl">1</span></span></code></pre></div>
-<p>As shown above, there are 1,081,481 genome-wide SNPs and 37 pathway member genes (both based on GRCh Build 37) in this simulated dataset. Here we assign a SNP <code>j</code> to a gene <code>g</code> (i.e. <code>Aseg(j,g)==1</code>) if and only if SNP <code>j</code> is within 100 kb of transcribed region of gene <code>g</code> (i.e. <code>[gene_start-100e3 gene_stop+100e3]</code>).</p>
-<p>With <a href="https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/ibd2015_path2641_genes.mat"><code>ibd2015_path2641_genes.mat</code></a> in place, we can then prioritize pathway genes by simply typing the following line in a MATLAB console:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb10-1"><a href="#cb10-1"></a><span class="op">&gt;&gt;</span> <span class="va">run</span> <span class="va">example5_gene</span>.<span class="va">m</span></span></code></pre></div>
-<p>The results of prioritizing pathway genes are saved as <a href="https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/ibd2015_path2641_genes_results.mat"><code>ibd2015_path2641_genes_results.mat</code></a>.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb11-1"><a href="#cb11-1"></a><span class="op">&gt;&gt;</span> <span class="va">load</span> <span class="va">ibd2015_path2641_genes_results</span>.<span class="va">mat</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="op">&gt;&gt;</span> <span class="va">whos</span></span>
-<span id="cb11-3"><a href="#cb11-3"></a>  <span class="va">Name</span>             <span class="va">Size</span>            <span class="va">Bytes</span>  <span class="va">Class</span>     <span class="va">Attributes</span></span>
-<span id="cb11-4"><a href="#cb11-4"></a></span>
-<span id="cb11-5"><a href="#cb11-5"></a>  <span class="va">b_p1</span>            <span class="fl">37</span><span class="va">x1</span>               <span class="fl">296</span>  <span class="va">double</span></span>
-<span id="cb11-6"><a href="#cb11-6"></a>  <span class="va">b_p2</span>            <span class="fl">37</span><span class="va">x1</span>               <span class="fl">296</span>  <span class="va">double</span></span>
-<span id="cb11-7"><a href="#cb11-7"></a>  <span class="va">e_p1</span>            <span class="fl">37</span><span class="va">x1</span>               <span class="fl">296</span>  <span class="va">double</span></span>
-<span id="cb11-8"><a href="#cb11-8"></a>  <span class="va">e_p2</span>            <span class="fl">37</span><span class="va">x1</span>               <span class="fl">296</span>  <span class="va">double</span></span>
-<span id="cb11-9"><a href="#cb11-9"></a>  <span class="va">gene_chr</span>        <span class="fl">37</span><span class="va">x1</span>               <span class="fl">296</span>  <span class="va">double</span></span>
-<span id="cb11-10"><a href="#cb11-10"></a>  <span class="va">gene_id</span>         <span class="fl">37</span><span class="va">x1</span>              <span class="fl">4494</span>  <span class="va">cell</span></span>
-<span id="cb11-11"><a href="#cb11-11"></a>  <span class="va">gene_start</span>      <span class="fl">37</span><span class="va">x1</span>               <span class="fl">296</span>  <span class="va">double</span></span>
-<span id="cb11-12"><a href="#cb11-12"></a>  <span class="va">gene_stop</span>       <span class="fl">37</span><span class="va">x1</span>               <span class="fl">296</span>  <span class="va">double</span></span></code></pre></div>
-<p>Similar to <a href="example_5a.html">Example 5 Part A</a>, <code>[b/e]_p_[1/2]</code> denotes the posterior probability of each locus (gene with 100 kb window) containing at lease 1/2 trait-associated SNPs under the baseline/enrichment model.</p>
+<div id="prioritizing-pathway-genes-with-example5_gene.m"
+class="section level3">
+<h3>Prioritizing pathway genes with <a
+href="https://github.com/stephenslab/rss/blob/master/examples/example5/example5_gene.m"><code>example5_gene.m</code></a></h3>
+<p>Now we use the baseline and enrichment model fitting results above to
+prioritize 37 member genes within the target pathway. Similar to <a
+href="example_5a.html">Example 5 Part A</a>, we need to download and
+save a gene information file <a
+href="https://zenodo.org/doi/10.5281/zenodo.12636415"><code>ibd2015_path2641_genes.mat</code></a>
+in the working directory <code>rss/examples/example5</code> first.</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">load</span> <span class="va">ibd2015_path2641_genes</span>.<span class="va">mat</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">whos</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>  <span class="va">Name</span>                  <span class="va">Size</span>                <span class="va">Bytes</span>  <span class="va">Class</span>     <span class="va">Attributes</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>  <span class="va">Aseg</span>            <span class="fl">1081481</span><span class="va">x37</span>            <span class="fl">160000304</span>  <span class="va">double</span>    <span class="va">sparse</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>  <span class="va">chr</span>             <span class="fl">1081481</span><span class="va">x1</span>               <span class="fl">4325924</span>  <span class="va">int32</span></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>  <span class="va">gene_chr</span>             <span class="fl">37</span><span class="va">x1</span>                   <span class="fl">296</span>  <span class="va">double</span></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>  <span class="va">gene_id</span>              <span class="fl">37</span><span class="va">x1</span>                  <span class="fl">4494</span>  <span class="va">cell</span></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>  <span class="va">gene_start</span>           <span class="fl">37</span><span class="va">x1</span>                   <span class="fl">296</span>  <span class="va">double</span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>  <span class="va">gene_stop</span>            <span class="fl">37</span><span class="va">x1</span>                   <span class="fl">296</span>  <span class="va">double</span></span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a>  <span class="va">pos</span>             <span class="fl">1081481</span><span class="va">x1</span>               <span class="fl">4325924</span>  <span class="va">int32</span></span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">whos</span> <span class="va">Aseg</span></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a>  <span class="va">Name</span>            <span class="va">Size</span>                <span class="va">Bytes</span>  <span class="va">Class</span>     <span class="va">Attributes</span></span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a>  <span class="va">Aseg</span>      <span class="fl">1081481</span><span class="va">x37</span>            <span class="fl">160000304</span>  <span class="va">double</span>    <span class="va">sparse</span></span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a></span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">full</span>(<span class="va">unique</span>(<span class="va">Aseg</span>(<span class="op">:</span>)))<span class="op">&#39;</span></span>
+<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a><span class="va">ans</span> <span class="op">=</span></span>
+<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a>     <span class="fl">0</span>     <span class="fl">1</span></span></code></pre></div>
+<p>As shown above, there are 1,081,481 genome-wide SNPs and 37 pathway
+member genes (both based on GRCh Build 37) in this simulated dataset.
+Here we assign a SNP <code>j</code> to a gene <code>g</code>
+(i.e. <code>Aseg(j,g)==1</code>) if and only if SNP <code>j</code> is
+within 100 kb of transcribed region of gene <code>g</code>
+(i.e. <code>[gene_start-100e3 gene_stop+100e3]</code>).</p>
+<p>With <a
+href="https://zenodo.org/doi/10.5281/zenodo.12636415"><code>ibd2015_path2641_genes.mat</code></a>
+in place, we can then prioritize pathway genes by simply typing the
+following line in a MATLAB console:</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">run</span> <span class="va">example5_gene</span>.<span class="va">m</span></span></code></pre></div>
+<p>The results of prioritizing pathway genes are saved as <a
+href="https://zenodo.org/doi/10.5281/zenodo.12636415"><code>ibd2015_path2641_genes_results.mat</code></a>.</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode matlab"><code class="sourceCode matlab"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">load</span> <span class="va">ibd2015_path2641_genes_results</span>.<span class="va">mat</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">whos</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  <span class="va">Name</span>             <span class="va">Size</span>            <span class="va">Bytes</span>  <span class="va">Class</span>     <span class="va">Attributes</span></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>  <span class="va">b_p1</span>            <span class="fl">37</span><span class="va">x1</span>               <span class="fl">296</span>  <span class="va">double</span></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>  <span class="va">b_p2</span>            <span class="fl">37</span><span class="va">x1</span>               <span class="fl">296</span>  <span class="va">double</span></span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>  <span class="va">e_p1</span>            <span class="fl">37</span><span class="va">x1</span>               <span class="fl">296</span>  <span class="va">double</span></span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>  <span class="va">e_p2</span>            <span class="fl">37</span><span class="va">x1</span>               <span class="fl">296</span>  <span class="va">double</span></span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>  <span class="va">gene_chr</span>        <span class="fl">37</span><span class="va">x1</span>               <span class="fl">296</span>  <span class="va">double</span></span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>  <span class="va">gene_id</span>         <span class="fl">37</span><span class="va">x1</span>              <span class="fl">4494</span>  <span class="va">cell</span></span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a>  <span class="va">gene_start</span>      <span class="fl">37</span><span class="va">x1</span>               <span class="fl">296</span>  <span class="va">double</span></span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a>  <span class="va">gene_stop</span>       <span class="fl">37</span><span class="va">x1</span>               <span class="fl">296</span>  <span class="va">double</span></span></code></pre></div>
+<p>Similar to <a href="example_5a.html">Example 5 Part A</a>,
+<code>[b/e]_p_[1/2]</code> denotes the posterior probability of each
+locus (gene with 100 kb window) containing at lease 1/2 trait-associated
+SNPs under the baseline/enrichment model.</p>
 <p>We can easily load the gene-level results in R as follows:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">suppressPackageStartupMessages</span>(<span class="kw">library</span>(R.matlab))</span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">suppressPackageStartupMessages</span>(<span class="kw">library</span>(dplyr))</span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="op">&gt;</span><span class="st"> </span></span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="er">&gt;</span><span class="st"> </span>res &lt;-<span class="st"> </span>R.matlab<span class="op">::</span><span class="kw">readMat</span>(<span class="st">&quot;ibd2015_path2641_genes_results.mat&quot;</span>)</span>
-<span id="cb12-5"><a href="#cb12-5"></a><span class="op">&gt;</span></span>
-<span id="cb12-6"><a href="#cb12-6"></a><span class="er">&gt;</span><span class="st"> </span>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">id=</span><span class="kw">unlist</span>(res<span class="op">$</span>gene.id), <span class="dt">chr=</span>res<span class="op">$</span>gene.chr, <span class="dt">start=</span>res<span class="op">$</span>gene.start, <span class="dt">stop=</span>res<span class="op">$</span>gene.stop, <span class="dt">b_p1=</span>res<span class="op">$</span>b.p1, <span class="dt">e_p1=</span>res<span class="op">$</span>e.p1, <span class="dt">b_p2=</span>res<span class="op">$</span>b.p2, <span class="dt">e_p2=</span>res<span class="op">$</span>e.p2)</span>
-<span id="cb12-7"><a href="#cb12-7"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">names</span>(df) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;gene&quot;</span>,<span class="st">&quot;chr&quot;</span>,<span class="st">&quot;start&quot;</span>,<span class="st">&quot;stop&quot;</span>,<span class="st">&quot;b_p1&quot;</span>,<span class="st">&quot;e_p1&quot;</span>,<span class="st">&quot;b_p2&quot;</span>,<span class="st">&quot;e_p2&quot;</span>)</span>
-<span id="cb12-8"><a href="#cb12-8"></a><span class="op">&gt;</span><span class="st"> </span>df &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">arrange</span>(df, <span class="op">-</span>e_p1, <span class="op">-</span>b_p1)</span>
-<span id="cb12-9"><a href="#cb12-9"></a><span class="op">&gt;</span></span>
-<span id="cb12-10"><a href="#cb12-10"></a><span class="er">&gt;</span><span class="st"> </span><span class="kw">sum</span>(df<span class="op">$</span>e_p1 <span class="op">&gt;=</span><span class="st"> </span>df<span class="op">$</span>b_p1)</span>
-<span id="cb12-11"><a href="#cb12-11"></a>[<span class="dv">1</span>] <span class="dv">35</span></span>
-<span id="cb12-12"><a href="#cb12-12"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">sum</span>(df<span class="op">$</span>e_p2 <span class="op">&gt;=</span><span class="st"> </span>df<span class="op">$</span>b_p2)</span>
-<span id="cb12-13"><a href="#cb12-13"></a>[<span class="dv">1</span>] <span class="dv">36</span></span></code></pre></div>
-<p>We can see that the enrichment model produces stronger gene-level signals for almost all 37 pathway genes than the baseline model:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(R.matlab))</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(dplyr))</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="er">&gt;</span> res <span class="ot">&lt;-</span> R.matlab<span class="sc">::</span><span class="fu">readMat</span>(<span class="st">&quot;ibd2015_path2641_genes_results.mat&quot;</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="sc">&gt;</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="er">&gt;</span> df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">id=</span><span class="fu">unlist</span>(res<span class="sc">$</span>gene.id), <span class="at">chr=</span>res<span class="sc">$</span>gene.chr, <span class="at">start=</span>res<span class="sc">$</span>gene.start, <span class="at">stop=</span>res<span class="sc">$</span>gene.stop, <span class="at">b_p1=</span>res<span class="sc">$</span>b.p1, <span class="at">e_p1=</span>res<span class="sc">$</span>e.p1, <span class="at">b_p2=</span>res<span class="sc">$</span>b.p2, <span class="at">e_p2=</span>res<span class="sc">$</span>e.p2)</span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">names</span>(df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;gene&quot;</span>,<span class="st">&quot;chr&quot;</span>,<span class="st">&quot;start&quot;</span>,<span class="st">&quot;stop&quot;</span>,<span class="st">&quot;b_p1&quot;</span>,<span class="st">&quot;e_p1&quot;</span>,<span class="st">&quot;b_p2&quot;</span>,<span class="st">&quot;e_p2&quot;</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="sc">&gt;</span> df <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">arrange</span>(df, <span class="sc">-</span>e_p1, <span class="sc">-</span>b_p1)</span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="sc">&gt;</span></span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">sum</span>(df<span class="sc">$</span>e_p1 <span class="sc">&gt;=</span> df<span class="sc">$</span>b_p1)</span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">35</span></span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">sum</span>(df<span class="sc">$</span>e_p2 <span class="sc">&gt;=</span> df<span class="sc">$</span>b_p2)</span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">36</span></span></code></pre></div>
+<p>We can see that the enrichment model produces stronger gene-level
+signals for almost all 37 pathway genes than the baseline model:</p>
 <table>
 <thead>
 <tr class="header">
@@ -1253,80 +1498,109 @@ ibd2015_null_h_30_theta0_290_seed_459_squarem_step1.mat</code></pre>
 </div>
 <div id="more-examples" class="section level2">
 <h2>More examples</h2>
-<p>The enrichment analyses of 31 complex traits and 4,026 gene sets reported in <a href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and Stephens (2018)</a> are essentially 124,806 “replications” of the example above (with larger grids on hyper-parameters). Our full analysis results are publicly available at <a href="https://xiangzhu.github.io/rss-gsea/" class="uri">https://xiangzhu.github.io/rss-gsea/</a>.</p>
+<p>The enrichment analyses of 31 complex traits and 4,026 gene sets
+reported in <a
+href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and
+Stephens (2018)</a> are essentially 124,806 “replications” of the
+example above (with larger grids on hyper-parameters). Our full analysis
+results are publicly available at <a
+href="https://xiangzhu.github.io/rss-gsea/"
+class="uri">https://xiangzhu.github.io/rss-gsea/</a>.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
-<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>devtools<span class="op">::</span><span class="kw">session_info</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">session_info</span>()</span></code></pre></div>
 <pre><code>─ Session info ───────────────────────────────────────────────────────────────
- setting  value                       
- version  R version 4.0.1 (2020-06-06)
- os       macOS Catalina 10.15.5      
- system   x86_64, darwin17.0          
- ui       X11                         
- language (EN)                        
- collate  en_US.UTF-8                 
- ctype    en_US.UTF-8                 
- tz       America/Los_Angeles         
- date     2020-06-24                  
+ setting  value
+ version  R version 4.3.2 (2023-10-31)
+ os       macOS Sonoma 14.5
+ system   x86_64, darwin20
+ ui       X11
+ language (EN)
+ collate  en_US.UTF-8
+ ctype    en_US.UTF-8
+ tz       America/New_York
+ date     2024-07-03
+ pandoc   3.1.11 @ /Applications/RStudio.app/Contents/Resources/app/quarto/bin/tools/x86_64/ (via rmarkdown)
 
 ─ Packages ───────────────────────────────────────────────────────────────────
- package     * version date       lib source        
- assertthat    0.2.1   2019-03-21 [1] CRAN (R 4.0.0)
- backports     1.1.8   2020-06-17 [1] CRAN (R 4.0.0)
- callr         3.4.3   2020-03-28 [1] CRAN (R 4.0.0)
- cli           2.0.2   2020-02-28 [1] CRAN (R 4.0.0)
- crayon        1.3.4   2017-09-16 [1] CRAN (R 4.0.0)
- desc          1.2.0   2018-05-01 [1] CRAN (R 4.0.0)
- devtools      2.3.0   2020-04-10 [1] CRAN (R 4.0.0)
- digest        0.6.25  2020-02-23 [1] CRAN (R 4.0.0)
- ellipsis      0.3.1   2020-05-15 [1] CRAN (R 4.0.0)
- evaluate      0.14    2019-05-28 [1] CRAN (R 4.0.0)
- fansi         0.4.1   2020-01-08 [1] CRAN (R 4.0.0)
- fs            1.4.1   2020-04-04 [1] CRAN (R 4.0.0)
- git2r         0.27.1  2020-05-03 [1] CRAN (R 4.0.0)
- glue          1.4.1   2020-05-13 [1] CRAN (R 4.0.0)
- htmltools     0.5.0   2020-06-16 [1] CRAN (R 4.0.0)
- httpuv        1.5.4   2020-06-06 [1] CRAN (R 4.0.0)
- knitr         1.29    2020-06-23 [1] CRAN (R 4.0.0)
- later         1.1.0.1 2020-06-05 [1] CRAN (R 4.0.0)
- magrittr      1.5     2014-11-22 [1] CRAN (R 4.0.0)
- memoise       1.1.0   2017-04-21 [1] CRAN (R 4.0.0)
- pkgbuild      1.0.8   2020-05-07 [1] CRAN (R 4.0.0)
- pkgload       1.1.0   2020-05-29 [1] CRAN (R 4.0.0)
- prettyunits   1.1.1   2020-01-24 [1] CRAN (R 4.0.0)
- processx      3.4.2   2020-02-09 [1] CRAN (R 4.0.0)
- promises      1.1.1   2020-06-09 [1] CRAN (R 4.0.0)
- ps            1.3.3   2020-05-08 [1] CRAN (R 4.0.0)
- R6            2.4.1   2019-11-12 [1] CRAN (R 4.0.0)
- Rcpp          1.0.4.6 2020-04-09 [1] CRAN (R 4.0.0)
- remotes       2.1.1   2020-02-15 [1] CRAN (R 4.0.0)
- rlang         0.4.6   2020-05-02 [1] CRAN (R 4.0.0)
- rmarkdown     2.3     2020-06-18 [1] CRAN (R 4.0.0)
- rprojroot     1.3-2   2018-01-03 [1] CRAN (R 4.0.0)
- sessioninfo   1.1.1   2018-11-05 [1] CRAN (R 4.0.0)
- stringi       1.4.6   2020-02-17 [1] CRAN (R 4.0.0)
- stringr       1.4.0   2019-02-10 [1] CRAN (R 4.0.0)
- testthat      2.3.2   2020-03-02 [1] CRAN (R 4.0.0)
- usethis       1.6.1   2020-04-29 [1] CRAN (R 4.0.0)
- whisker       0.4     2019-08-28 [1] CRAN (R 4.0.0)
- withr         2.2.0   2020-04-20 [1] CRAN (R 4.0.0)
- workflowr   * 1.6.2   2020-04-30 [1] CRAN (R 4.0.0)
- xfun          0.15    2020-06-21 [1] CRAN (R 4.0.0)
- yaml          2.2.1   2020-02-01 [1] CRAN (R 4.0.0)
+ package     * version date (UTC) lib source
+ bslib         0.4.2   2022-12-16 [1] CRAN (R 4.3.0)
+ cachem        1.0.8   2023-05-01 [1] CRAN (R 4.3.0)
+ callr         3.7.3   2022-11-02 [1] CRAN (R 4.3.0)
+ cli           3.6.1   2023-03-23 [1] CRAN (R 4.3.0)
+ crayon        1.5.2   2022-09-29 [1] CRAN (R 4.3.0)
+ devtools      2.4.5   2022-10-11 [1] CRAN (R 4.3.0)
+ digest        0.6.33  2023-07-07 [1] CRAN (R 4.3.0)
+ ellipsis      0.3.2   2021-04-29 [1] CRAN (R 4.3.0)
+ evaluate      0.21    2023-05-05 [1] CRAN (R 4.3.0)
+ fansi         1.0.4   2023-01-22 [1] CRAN (R 4.3.0)
+ fastmap       1.1.1   2023-02-24 [1] CRAN (R 4.3.0)
+ fs            1.6.2   2023-04-25 [1] CRAN (R 4.3.0)
+ getPass       0.2-2   2017-07-21 [1] CRAN (R 4.3.0)
+ git2r         0.32.0  2023-04-12 [1] CRAN (R 4.3.0)
+ glue          1.6.2   2022-02-24 [1] CRAN (R 4.3.0)
+ htmltools     0.5.5   2023-03-23 [1] CRAN (R 4.3.0)
+ htmlwidgets   1.6.2   2023-03-17 [1] CRAN (R 4.3.0)
+ httpuv        1.6.11  2023-05-11 [1] CRAN (R 4.3.0)
+ httr          1.4.7   2023-08-15 [1] CRAN (R 4.3.0)
+ jquerylib     0.1.4   2021-04-26 [1] CRAN (R 4.3.0)
+ jsonlite      1.8.7   2023-06-29 [1] CRAN (R 4.3.0)
+ knitr         1.42    2023-01-25 [1] CRAN (R 4.3.0)
+ later         1.3.1   2023-05-02 [1] CRAN (R 4.3.0)
+ lifecycle     1.0.3   2022-10-07 [1] CRAN (R 4.3.0)
+ magrittr      2.0.3   2022-03-30 [1] CRAN (R 4.3.0)
+ memoise       2.0.1   2021-11-26 [1] CRAN (R 4.3.0)
+ mime          0.12    2021-09-28 [1] CRAN (R 4.3.0)
+ miniUI        0.1.1.1 2018-05-18 [1] CRAN (R 4.3.0)
+ pillar        1.9.0   2023-03-22 [1] CRAN (R 4.3.0)
+ pkgbuild      1.4.2   2023-06-26 [1] CRAN (R 4.3.0)
+ pkgconfig     2.0.3   2019-09-22 [1] CRAN (R 4.3.0)
+ pkgload       1.3.2.1 2023-07-08 [1] CRAN (R 4.3.0)
+ prettyunits   1.1.1   2020-01-24 [1] CRAN (R 4.3.0)
+ processx      3.8.2   2023-06-30 [1] CRAN (R 4.3.0)
+ profvis       0.3.8   2023-05-02 [1] CRAN (R 4.3.0)
+ promises      1.2.0.1 2021-02-11 [1] CRAN (R 4.3.0)
+ ps            1.7.5   2023-04-18 [1] CRAN (R 4.3.0)
+ purrr         1.0.2   2023-08-10 [1] CRAN (R 4.3.0)
+ R6            2.5.1   2021-08-19 [1] CRAN (R 4.3.0)
+ Rcpp          1.0.11  2023-07-06 [1] CRAN (R 4.3.0)
+ remotes       2.4.2.1 2023-07-18 [1] CRAN (R 4.3.0)
+ rlang         1.1.1   2023-04-28 [1] CRAN (R 4.3.0)
+ rmarkdown     2.21    2023-03-26 [1] CRAN (R 4.3.0)
+ rprojroot     2.0.3   2022-04-02 [1] CRAN (R 4.3.0)
+ rstudioapi    0.14    2022-08-22 [1] CRAN (R 4.3.0)
+ sass          0.4.6   2023-05-03 [1] CRAN (R 4.3.0)
+ sessioninfo   1.2.2   2021-12-06 [1] CRAN (R 4.3.0)
+ shiny         1.7.4.1 2023-07-06 [1] CRAN (R 4.3.0)
+ stringi       1.7.12  2023-01-11 [1] CRAN (R 4.3.0)
+ stringr       1.5.0   2022-12-02 [1] CRAN (R 4.3.0)
+ tibble        3.2.1   2023-03-20 [1] CRAN (R 4.3.0)
+ urlchecker    1.0.1   2021-11-30 [1] CRAN (R 4.3.0)
+ usethis       2.2.2   2023-07-06 [1] CRAN (R 4.3.0)
+ utf8          1.2.3   2023-01-31 [1] CRAN (R 4.3.0)
+ vctrs         0.6.3   2023-06-14 [1] CRAN (R 4.3.0)
+ whisker       0.4.1   2022-12-05 [1] CRAN (R 4.3.0)
+ workflowr   * 1.7.0   2021-12-21 [1] CRAN (R 4.3.0)
+ xfun          0.39    2023-04-20 [1] CRAN (R 4.3.0)
+ xtable        1.8-4   2019-04-21 [1] CRAN (R 4.3.0)
+ yaml          2.3.7   2023-01-23 [1] CRAN (R 4.3.0)
 
-[1] /Library/Frameworks/R.framework/Versions/4.0/Resources/library</code></pre>
+ [1] /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/library
+
+──────────────────────────────────────────────────────────────────────────────</code></pre>
 </div>
 </div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
-http://docs.mathjax.org/en/latest/configuration.html.  This will make
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
 the presentation more consistent at the cost of the webpage sometimes
 taking slightly longer to load. Note that this only works because the
 footer is added to webpages before the MathJax javascript. -->
@@ -1348,7 +1622,7 @@ footer is added to webpages before the MathJax javascript. -->
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -1366,7 +1640,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
@@ -1375,6 +1649,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')
