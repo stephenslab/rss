@@ -13,12 +13,12 @@ editor_options:
 [`example5_null.sbatch`]: https://github.com/stephenslab/rss/blob/master/examples/example5/example5_null.sbatch
 [`example5_gsea.m`]: https://github.com/stephenslab/rss/blob/master/examples/example5/example5_gsea.m
 [`example5_gene.m`]: https://github.com/stephenslab/rss/blob/master/examples/example5/example5_gene.m
-[`ibd2015_sumstat.mat`]: https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/ibd2015_sumstat.mat
-[`ibd2015_sumstat_path2641.mat`]: https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/ibd2015_sumstat_path2641.mat
-[`ibd2015_gsea_seed_459_path2641_squarem.mat`]: https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/ibd2015_gsea_seed_459_path2641_squarem.mat
+[`ibd2015_sumstat.mat`]: https://zenodo.org/doi/10.5281/zenodo.12636415
+[`ibd2015_sumstat_path2641.mat`]: https://zenodo.org/doi/10.5281/zenodo.12636415
+[`ibd2015_gsea_seed_459_path2641_squarem.mat`]: https://zenodo.org/doi/10.5281/zenodo.12636415
 [Supplementary Tables 6-7]: https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-018-06805-x/MediaObjects/41467_2018_6805_MOESM1_ESM.pdf
-[`ibd2015_path2641_genes.mat`]: https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/ibd2015_path2641_genes.mat 
-[`ibd2015_path2641_genes_results.mat`]: https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/ibd2015_path2641_genes_results.mat
+[`ibd2015_path2641_genes.mat`]: https://zenodo.org/doi/10.5281/zenodo.12636415
+[`ibd2015_path2641_genes_results.mat`]: https://zenodo.org/doi/10.5281/zenodo.12636415
 
 ## Overview
 
@@ -58,11 +58,33 @@ which requires [MATLAB Parallel Computing Toolbox](https://www.mathworks.com/hel
 If you do not have this toolbox available, please skip this section,
 and use our result files for the following enrichment analysis instead (see Step 4). 
 
-**Step 1**. Download the input data file [`ibd2015_sumstat.mat`][],
-which contains the GWAS summary statistics and LD matrix estimates.
-This file is large (17G) because it has a LD matrix of 1.1 million common SNPs.
-Please contact me (`xiangzhu[at]uchicago.edu`) if you have trouble accessing this file.
+**Step 1**. Download the data files.
 
+All data files required to run this example are freely available at Zenodo
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12636416.svg)](https://doi.org/10.5281/zenodo.12636416).
+Please contact me if you have trouble accessing this file.
+After a complete download, you should see the following files.
+
+```{r, eval=FALSE, engine='zsh'}
+$ tree ./
+./
+├── Aseg_chr16.mat
+├── example5_simulated_data.mat
+├── example5_simulated_results.mat
+├── ibd2015_gsea_seed_459_path2641_squarem.mat
+├── ibd2015_null_h_30_theta0_285_seed_459_squarem_step1.mat
+├── ibd2015_null_h_30_theta0_288_seed_459_squarem_step1.mat
+├── ibd2015_null_h_30_theta0_290_seed_459_squarem_step1.mat
+├── ibd2015_path2641_genes.mat
+├── ibd2015_path2641_genes_results.mat
+├── ibd2015_sumstat.mat
+└── ibd2015_sumstat_path2641.mat
+
+0 directories, 11 files
+```
+
+The input data file [`ibd2015_sumstat.mat`][] contains the GWAS summary statistics and LD matrix estimates.
+This file is large (17G) because it has a LD matrix of 1.1 million common SNPs.
 Before proceeding to the next step, let's look at the contents of [`ibd2015_sumstat.mat`][].
 
 ```matlab
@@ -114,7 +136,7 @@ method = 'squarem';
 ```
 
 Note that here the grid of hyper-parameters is set minimum for illustration purpose.
-In practice we are using much larger grid of hyper-parameters (because we seldomly
+In practice we are using much larger grid of hyper-parameters (because we seldom
 have a sensible guess for these parameters and we should learn them from data);
 please see [Supplementary Tables 6-7][] of [Zhu and Stephens (2018)][] for more details. 
 
@@ -150,7 +172,7 @@ As soon as the three jobs in Step 3 are completed, the baseline results are save
 
 In case you cannot fit the baseline models in your own computing environment,
 you can download the following baseline result files from
-<https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/>.
+<https://zenodo.org/doi/10.5281/zenodo.12636415>.
 
 ```
 xiangzhu@midway-login1: ls ibd2015_null_*.mat
