@@ -8,14 +8,14 @@ editor_options:
 
 [Zhu and Stephens (2018)]: https://www.nature.com/articles/s41467-018-06805-x
 [`example5_simulated.m`]: https://github.com/stephenslab/rss/blob/master/examples/example5/example5_simulated.m
-[`example5_simulated_data.mat`]: https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/example5_simulated_data.mat
-[`example5_simulated_results.mat`]: https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/example5_simulated_results.mat
+[`example5_simulated_data.mat`]: https://zenodo.org/doi/10.5281/zenodo.12636415
+[`example5_simulated_results.mat`]: https://zenodo.org/doi/10.5281/zenodo.12636415
 [Wellcome Trust Case Control Consortium, 2007]: https://www.ncbi.nlm.nih.gov/pubmed/17554300
 [`null_wrapper_fixsb.m`]: https://github.com/stephenslab/rss/blob/master/src_vb/null_wrapper_fixsb.m
 [`gsea_wrapper_fixsb.m`]: https://github.com/stephenslab/rss/blob/master/src_vb/gsea_wrapper_fixsb.m
 [Supplementary Figure 1]: https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-018-06805-x/MediaObjects/41467_2018_6805_MOESM1_ESM.pdf
 [`compute_pip.m`]: https://github.com/stephenslab/rss/blob/master/src_vb/compute_pip.m 
-[`Aseg_chr16.mat`]: https://projects.rcc.uchicago.edu/mstephens/rss_wiki/example5/Aseg_chr16.mat	 
+[`Aseg_chr16.mat`]: https://zenodo.org/doi/10.5281/zenodo.12636415
 
 ## Overview
 
@@ -54,8 +54,28 @@ Please modify [`example5_simulated.m`][] accordingly if a different directory is
 
 ### Step 1: Download input data
 
-Please download and save [`example5_simulated_data.mat`][] in the working directory.
-Please contact me (`xiangzhu[at]uchicago.edu`) if you have trouble accessing this file.
+All data files required to run this example are freely available at Zenodo
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12636416.svg)](https://doi.org/10.5281/zenodo.12636416).
+Please contact me if you have trouble accessing this file.
+After a complete download, you should see the following files.
+
+```{r, eval=FALSE, engine='zsh'}
+$ tree ./
+./
+├── Aseg_chr16.mat
+├── example5_simulated_data.mat
+├── example5_simulated_results.mat
+├── ibd2015_gsea_seed_459_path2641_squarem.mat
+├── ibd2015_null_h_30_theta0_285_seed_459_squarem_step1.mat
+├── ibd2015_null_h_30_theta0_288_seed_459_squarem_step1.mat
+├── ibd2015_null_h_30_theta0_290_seed_459_squarem_step1.mat
+├── ibd2015_path2641_genes.mat
+├── ibd2015_path2641_genes_results.mat
+├── ibd2015_sumstat.mat
+└── ibd2015_sumstat_path2641.mat
+
+0 directories, 11 files
+```
 
 The data file [`example5_simulated_data.mat`][] contains the following elements
 that will be used by RSS.
