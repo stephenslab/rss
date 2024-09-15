@@ -50,7 +50,6 @@ The repository is licensed under the [MIT License](LICENSE).
 1. Get started from some short [tutorials](http://stephenslab.github.io/rss).
 2. Refer to [FAQ](https://stephenslab.github.io/rss/faq.html) for answers to some common questions.
 3. Create a new [issue](https://github.com/stephenslab/rss/issues) to report bugs and/or request features.
-4. Send an email to `xiangzhu[at]psu[dot]edu`.
 
 ### Citation
 
@@ -89,10 +88,8 @@ genome-wide analyses of complex human traits.
 [[Online Results](https://xiangzhu.github.io/rss-net-results/)]
 [[Software](https://github.com/SUwonglab/rss-net)]
 
-- Genetic architecture inference of complex traits based on RSS likelihood <br> TBA
-- Simple and robust heritability estimation based on RSS likelihood <br> TBA
-- Cross-population genetic analysis of complex traits based on RSS likelihood <br> TBA 
-
+- **More extensions of RSS to come. Stay tuned!**
+ 
 ### Collaboration
 
 Here we have developed a [likelihood function](http://dx.doi.org/10.1214/17-AOAS1046)
@@ -109,7 +106,7 @@ please feel free to contact us. We are glad to help!
 
 ### Contact
 
-[Xiang Zhu](https://github.com/xiangzhu) <br>
+[Xiang Zhu, Ph.D.](https://github.com/xiangzhu) <br>
 [Matthew Stephens Lab](http://stephenslab.uchicago.edu) <br>
 [Department of Statistics](https://stat.uchicago.edu) <br>
 [University of Chicago](https://www.uchicago.edu) <br>
