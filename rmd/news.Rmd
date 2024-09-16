@@ -8,48 +8,61 @@ editor_options:
   chunk_output_type: console
 ---
 
-[sequence-conserved enhancer-like elements]: https://doi.org/10.1101/2022.08.19.504589
+[sequence-conserved enhancer-like elements]: https://doi.org/10.1186/s13059-023-03142-1
 [RSS-NET]: https://doi.org/10.1038/s41467-021-22588-0 
 [RSS-E]: https://doi.org/10.1038/s41467-018-06805-x
 [RSS likelihood]: https://doi.org/10.1214/17-aoas1046
 
-- 07/31/2023: Xiang received the [Penn State Clinical and Translational Science Institute](http://ctsi.psu.edu/)
-Bridges to Translation Pilot Grant as the Lead PI to incorporate single-cell genomics and multi-ancestry GWAS
-into the [RSS likelihood][] framework, with a special focus on genetics of substance use in diverse human populations.
-*Penn State Today* published a [press release](https://www.psu.edu/news/clinical-and-translational-science-institute/story/penn-state-ctsi-announces-seven-bridges/).
+- 06/18/2024: Xiang presented various extensions of [RSS-NET][] for the integrative analysis of human disease genetics and enhancer biology at the 2024 ICSA Applied Statistics Symposium, Nashville, TN. 
 
-- 05/12/2023: Xiang presented the [RSS likelihood][] and its various applications in human genetics
+- 06/12/2024: Xiang presented various extensions of [RSS-NET][] for the integrative analysis of human disease genetics and enhancer biology at the WNAR 2024, Fort Collins, CO. 
+
+- 05/02/2024: Xiang received the Consortium of Rural States Multi-institutional Pilot Award as the Contact PI to incorporate innovative causal modeling techniques into the [RSS likelihood][] framework, with a special focus on enhancing the transferability of polygenic predictions for health and disease across diverse populations. *Penn State Today* published a [press release](https://www.psu.edu/news/clinical-and-translational-science-institute/story/consortium-rural-states-multi-institutional) about this award.
+
+- 05/01/2024: Xiang presented various extensions of [RSS-NET][] for the integrative analysis of human disease genetics and enhancer biology at the STATGEN 2024, Pittsburgh, PA.   
+
+- 02/12/2024: Xiang presented the [RSS likelihood][] and its extensions in various applications of human genetics at the Clinical and Translational Science Institute, Pennsylvania State University, University Park, PA.
+
+- 02/08/2024: Xiang presented various extensions of [RSS-NET][] for the integrative analysis of human disease genetics and enhancer biology at the Departments of Biostatistics and Genetics, University of North Carolina at Chapel Hill, Chapel Hill, NC. 
+
+- 01/02/2024: The [RSS-NET][] extension to analyze [sequence-conserved enhancer-like elements][] was published in *Genome Biology*.
+
+- 11/28/2023: Xiang received the [Rock Ethics Institute Faculty Fellowship](https://rockethics.psu.edu/people/xiang-zhu/) as the PI to develop innovative AI for the effective and ethical prediction of genetic disease risk across diverse populations, based on the [RSS likelihood][] framework.
+
+- 11/14/2023: Xiang presented various extensions of [RSS-NET][] for the integrative analysis of human disease genetics and enhancer biology at the Division of Biostatistics and Health Data Science, University of Minnesota Twin Cities, Minneapolis, MN.  
+
+- 11/09/2023: Xiang presented the [RSS likelihood][] and its extensions in various applications of human genetics at the Department of Statistics, University of Wisconsin–Madison, Madison, WI.  
+
+- 07/31/2023: Xiang received the [Penn State Clinical and Translational Science Institute](http://ctsi.psu.edu/)
+Bridges to Translation Pilot Award as the Lead PI to incorporate single-cell genomics and multi-ancestry GWAS
+into the [RSS likelihood][] framework, with a special focus on genetics of substance use in diverse human populations.
+*Penn State Today* published a [press release](https://www.psu.edu/news/clinical-and-translational-science-institute/story/penn-state-ctsi-announces-seven-bridges/) about this award.
+
+- 05/12/2023: Xiang presented the [RSS likelihood][] and its extensions in various applications of human genetics
 at the Department of Biostatistics and Epidemiology, University of Massachusetts, Amherst, MA.
 
-- 04/28/2023: Xiang presented the extension of [RSS-NET][] to analyze
-[sequence-conserved enhancer-like elements][]
-at the Program in Computational Biology, University of Chicago, Chicago, IL.
+- 04/28/2023: Xiang presented various extensions of [RSS-NET][] for the integrative analysis of human disease genetics and enhancer biology at the Program in Computational Biology, University of Chicago, Chicago, IL.
 
-- 04/26/2023: Xiang presented the [RSS likelihood][] and its various applications in human genetics
+- 04/26/2023: Xiang presented the [RSS likelihood][] and its extensions in various applications of human genetics
 at the Department of Mathematics, Statistics and Computer Science, University of Illinois at Chicago, Chicago, IL.
 
-- 04/20/2023: Xiang presented the [RSS likelihood][] and its various applications in human genetics
+- 04/20/2023: Xiang presented the [RSS likelihood][] and its extensions in various applications of human genetics
 at the Department of Statistics, University of Florida, Gainesville, FL.
 
-- 04/14/2023: Xiang presented the extension of [RSS-NET][] to analyze
-[sequence-conserved enhancer-like elements][]
-at the Department of Biostatistics, University of Florida, Gainesville, FL.
+- 04/14/2023: Xiang presented various extensions of [RSS-NET][] for the integrative analysis of human disease genetics and enhancer biology at the Department of Biostatistics, University of Florida, Gainesville, FL.
 
-- 03/01/2023: Xiang presented the extension of [RSS-NET][] to analyze
-[sequence-conserved enhancer-like elements][]
-at the Center for Computational Biology and Bioinformatics,
-Pennsylvania State University, University Park, PA.
+- 03/01/2023: Xiang presented various extensions of [RSS-NET][] for the integrative analysis of human disease genetics and enhancer biology at the Center for Computational Biology and Bioinformatics, Pennsylvania State University, University Park, PA.
 
 - 02/03/2023: Xiang's recent work on the genetics of cardiovascular health in diverse human populations
-and the ongoing effort to extend RSS methods to multi-ancestry GWAS were featured as the
+and the ongoing effort to extend the [RSS likelihood][] framework for multi-ancestry GWAS were featured as the
 [Editor's Picks in *Penn State Today*](https://www.psu.edu/news/eberly-college-science/story/improving-heart-health-diversifying-genetic-data/).
 
 - 12/18/2022: Xiang presented [RSS-NET][] and its extensions to analyze
 [H3K27ac HiChIP networks](https://doi.org/10.1073/pnas.2115601119) and
-[sequence-conserved enhancer-like elements]
+[sequence-conserved enhancer-like elements][]
 at the 2022 CMStatistics, London, UK.
 
-- 09/14/2022: Xiang presented the [RSS likelihood][] and its various applications in human genetics
+- 09/14/2022: Xiang presented the [RSS likelihood][] and its extensions in various applications of human genetics
 at the Department of Statistics, University of Nebraska-Lincoln, Lincoln, NE.
 
 - 08/19/2022: Xiang extended [RSS-NET][] to analyze
@@ -67,13 +80,15 @@ This [application](https://doi.org/10.1038/s41591-022-01891-3) was published in 
 Seed Grant as the Lead PI to incorporate single-cell genomics and multi-ancestry GWAS into the [RSS likelihood][] framework,
 with a special focus on genetics of tobacco use in diverse human populations.
 
-- 05/02/2022: Xiang presented [RSS-NET][] at the Department of Statistics, 
+- 05/02/2022: Xiang presented [RSS-NET][] and its extensions to analyze
+[H3K27ac HiChIP networks](https://doi.org/10.1073/pnas.2115601119) and
+[sequence-conserved enhancer-like elements][] at the Department of Statistics, 
 University of Missouri, Columbia, MO.
 
 - 03/30/2022: Xiang received the [Penn State Institute for Computational and Data Sciences](https://www.icds.psu.edu/)
 Seed Grant as the Lead PI to incorporate single-cell genomics and multi-ancestry GWAS into the [RSS likelihood][] framework,
 with a special focus on genetics of cardiometabolic diseases in diverse human populations.
-*Penn State Today* published a [press release](https://www.psu.edu/news/institute-computational-and-data-sciences/story/seed-grants-fund-projects-tackle-huge-scientific/).
+*Penn State Today* published a [press release](https://www.psu.edu/news/institute-computational-and-data-sciences/story/seed-grants-fund-projects-tackle-huge-scientific/) about this grant.
 
 - 01/04/2022: Xiang extended [RSS-NET][] to analyze regulatory networks derived
 from H3K27ac HiChIP experiments. This [extension](https://doi.org/10.1073/pnas.2115601119)
@@ -92,8 +107,6 @@ Penn State College of Medicine, Hershey, PA.
 
 - 04/14/2021: Xiang presented [RSS-NET][] at the 2021 Virtual CSHL
 Probabilistic Modeling in Genomics Meeting. 
-
-- 03/03/2021: [RSS-NET][] was accepted by *Nature Communications*.
 
 - 11/04/2020: Xiang presented [RSS-NET][] at the 2020 Virtual CSHL
 Biological Data Science Meeting. 
@@ -126,11 +139,6 @@ on [RSS likelihood][] and [RSS-E][].
 
 - 10/19/2018: [RSS-E][] was published in *Nature Communications*.
 
-- 10/09/2018: Xiang presented [RSS-E][] at the MVP/ERIC/Assimes Group Meeting,
-Stanford University, Stanford, CA.
-
-- 09/29/2018: [RSS-E][] was accepted by *Nature Communications*.
-
 - 10/19/2017: Xiang presented [RSS-E][] at the 2017 ASHG, Orlando, FL.
 
 - 10/05/2017: [RSS likelihood][] was published in *Annals of Applied Statistics*.
@@ -149,8 +157,6 @@ University of Chicago, Chicago, IL.
 
 - 05/02/2017: Xiang presented [RSS-E][] at the Mind Bytes 2017,
 University of Chicago, Chicago, IL. This work won the [Mind Bytes Award for Big-Data Research](https://mindbytes.uchicago.edu/2017/callforposters.php#tab8).
-
-- 04/04/2017: [RSS likelihood][] was accepted by *Annals of Applied Statistics*.
 
 - 02/22/2017: Xiang presented [RSS likelihood][] at
 the Department of Statistics, Stanford University, Stanford, CA.
