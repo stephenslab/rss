@@ -14,8 +14,8 @@
 
 <title>Regression with Summary Statistics (RSS) wiki</title>
 
-<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -31,10 +31,10 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 
-<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
 <style type="text/css">
 div.section {
@@ -52,6 +52,7 @@ div.section {
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
     </style>
+
 
 
 
@@ -81,6 +82,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -138,11 +142,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -171,8 +179,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -180,16 +188,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -233,7 +234,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -277,7 +278,8 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Regression with Summary Statistics (RSS) wiki</h1>
+<h1 class="title toc-ignore">Regression with Summary Statistics (RSS)
+wiki</h1>
 <h4 class="author">Xiang Zhu</h4>
 
 </div>
@@ -285,7 +287,9 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -294,7 +298,9 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -303,17 +309,27 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-03-04
+<strong>Last updated:</strong> 2024-09-16
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
 </p>
 <p>
-<strong>Knit directory:</strong> <code>rss/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>rss/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -322,39 +338,65 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree5599e44f6f1d7099b53c6859a239c2848f79e883targetblank5599e44a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/rss/tree/5599e44f6f1d7099b53c6859a239c2848f79e883" target="_blank">5599e44</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree941a146ebc0cf0ff1dfa5bbd4f2662140b4dddaetargetblank941a146a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/stephenslab/rss/tree/941a146ebc0cf0ff1dfa5bbd4f2662140b4dddae" target="_blank">941a146</a>
+</a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree5599e44f6f1d7099b53c6859a239c2848f79e883targetblank5599e44a" class="panel-collapse collapse">
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree941a146ebc0cf0ff1dfa5bbd4f2662140b4dddaetargetblank941a146a"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/rss/tree/5599e44f6f1d7099b53c6859a239c2848f79e883" target="_blank">5599e44</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version
+<a href="https://github.com/stephenslab/rss/tree/941a146ebc0cf0ff1dfa5bbd4f2662140b4dddae" target="_blank">941a146</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -365,7 +407,11 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>rmd/index.Rmd</code>) and HTML (<code>docs/index.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>rmd/index.Rmd</code>) and HTML
+(<code>docs/index.html</code>) files. If you’ve configured a remote Git
+repository (see <code>?wflow_git_remote</code>), click on the hyperlinks
+in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -391,6 +437,23 @@ Message
 <tbody>
 <tr>
 <td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/rss/a7b6cd3312f62ee465ab332b3e8f803ed6d4ad44/docs/index.html" target="_blank">a7b6cd3</a>
+</td>
+<td>
+Xiang Zhu
+</td>
+<td>
+2021-03-04
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
 Rmd
 </td>
 <td>
@@ -403,7 +466,7 @@ Xiang Zhu
 2021-03-04
 </td>
 <td>
-wflow_publish(“rmd/index.Rmd”)
+wflow_publish("rmd/index.Rmd")
 </td>
 </tr>
 <tr>
@@ -471,7 +534,7 @@ Xiang Zhu
 2021-03-04
 </td>
 <td>
-wflow_publish(“rmd/index.Rmd”)
+wflow_publish("rmd/index.Rmd")
 </td>
 </tr>
 <tr>
@@ -539,7 +602,7 @@ Xiang Zhu
 2020-06-23
 </td>
 <td>
-wflow_publish(“rmd/index.Rmd”)
+wflow_publish("rmd/index.Rmd")
 </td>
 </tr>
 <tr>
@@ -573,7 +636,7 @@ Xiang Zhu
 2020-06-23
 </td>
 <td>
-wflow_publish(“rmd/index.Rmd”)
+wflow_publish("rmd/index.Rmd")
 </td>
 </tr>
 <tr>
@@ -602,36 +665,53 @@ rename workflowr dir
 </div>
 <p>Welcome to Regression with Summary Statistics (RSS) wiki!</p>
 <div id="installation" class="section level2">
-<h2><img src="https://static.thenounproject.com/png/2218944-200.png" width="48"/> <a href="setup.html">Installation</a></h2>
+<h2><img src="https://static.thenounproject.com/png/2218944-200.png" width="48"/>
+<a href="setup.html">Installation</a></h2>
 <p>This page provides instructions for installing RSS software.</p>
 </div>
 <div id="functions" class="section level2">
-<h2><img src="https://static.thenounproject.com/png/2342347-200.png" width="48"/> <a href="function.html">Functions</a></h2>
-<p>This page outlines functions and scripts associated with RSS methods.</p>
+<h2><img src="https://static.thenounproject.com/png/2342347-200.png" width="48"/>
+<a href="function.html">Functions</a></h2>
+<p>This page outlines functions and scripts associated with RSS
+methods.</p>
 </div>
 <div id="examples" class="section level2">
-<h2><img src="https://static.thenounproject.com/png/2019098-200.png" width="48"/> <a href="example.html">Examples</a></h2>
-<p>This page gives end-to-end examples of using RSS methods and software.</p>
+<h2><img src="https://static.thenounproject.com/png/2019098-200.png" width="48"/>
+<a href="example.html">Examples</a></h2>
+<p>This page gives end-to-end examples of using RSS methods and
+software.</p>
 </div>
 <div id="faqs" class="section level2">
-<h2><img src="https://static.thenounproject.com/png/3408080-200.png" width="48"/> <a href="faq.html">FAQs</a></h2>
-<p>This page answers frequently ask questions (FAQs) about RSS methods and software.</p>
+<h2><img src="https://static.thenounproject.com/png/3408080-200.png" width="48"/>
+<a href="faq.html">FAQs</a></h2>
+<p>This page answers frequently ask questions (FAQs) about RSS methods
+and software.</p>
 </div>
 <div id="news" class="section level2">
-<h2><img src="https://static.thenounproject.com/png/689848-200.png" width="48"/> <a href="news.html">News</a></h2>
-<p>This page lists progress updates related to RSS methods and software.</p>
+<h2><img src="https://static.thenounproject.com/png/689848-200.png" width="48"/>
+<a href="news.html">News</a></h2>
+<p>This page lists progress updates related to RSS methods and
+software.</p>
 </div>
 <div id="contact" class="section level2">
-<h2><img src="https://static.thenounproject.com/png/223469-200.png" width="48"/> Contact</h2>
-<p>Please feel free to create a new <a href="https://github.com/stephenslab/rss/issues">issue</a> and/or send an email to <a href="https://github.com/xiangzhu">xiangzhu[at]psu.edu</a>.</p>
+<h2><img src="https://static.thenounproject.com/png/223469-200.png" width="48"/>
+Contact</h2>
+<p>Please feel free to create a new <a
+href="https://github.com/stephenslab/rss/issues">issue</a> and/or send
+an email to <a
+href="https://github.com/xiangzhu">xiangzhu[at]psu.edu</a>.</p>
 <hr />
-<p><small> Icons used in this wiki are credited to the <a href="https://thenounproject.com/">Noun Project</a>. This wiki is created using <a href="https://github.com/jdblischak/workflowr">workflowr</a>. </small></p>
+<p><small> Icons used in this wiki are credited to the <a
+href="https://thenounproject.com/">Noun Project</a>. This wiki is
+created using <a
+href="https://github.com/jdblischak/workflowr">workflowr</a>.
+</small></p>
 </div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
-http://docs.mathjax.org/en/latest/configuration.html.  This will make
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
 the presentation more consistent at the cost of the webpage sometimes
 taking slightly longer to load. Note that this only works because the
 footer is added to webpages before the MathJax javascript. -->

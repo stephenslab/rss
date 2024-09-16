@@ -14,8 +14,8 @@
 
 <title>Function Reference</title>
 
-<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -30,12 +30,12 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -55,6 +55,7 @@ div.section {
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
     </style>
+
 
 
 
@@ -84,6 +85,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -141,11 +145,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -174,8 +182,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -183,16 +191,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -309,7 +310,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -361,7 +362,9 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -370,7 +373,9 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -379,17 +384,27 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-01-24
+<strong>Last updated:</strong> 2024-09-16
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
 </p>
 <p>
-<strong>Knit directory:</strong> <code>rss/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>rss/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -398,31 +413,54 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree7f4dd4a660c41392c18f943ea04da25e5c6dc039targetblank7f4dd4aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/rss/tree/7f4dd4a660c41392c18f943ea04da25e5c6dc039" target="_blank">7f4dd4a</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree941a146ebc0cf0ff1dfa5bbd4f2662140b4dddaetargetblank941a146a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/stephenslab/rss/tree/941a146ebc0cf0ff1dfa5bbd4f2662140b4dddae" target="_blank">941a146</a>
+</a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree7f4dd4a660c41392c18f943ea04da25e5c6dc039targetblank7f4dd4aa" class="panel-collapse collapse">
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabrsstree941a146ebc0cf0ff1dfa5bbd4f2662140b4dddaetargetblank941a146a"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/rss/tree/7f4dd4a660c41392c18f943ea04da25e5c6dc039" target="_blank">7f4dd4a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version
+<a href="https://github.com/stephenslab/rss/tree/941a146ebc0cf0ff1dfa5bbd4f2662140b4dddae" target="_blank">941a146</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
 Ignored files:
@@ -431,7 +469,9 @@ Ignored files:
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -442,7 +482,12 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>rmd/function.Rmd</code>) and HTML (<code>docs/function.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>rmd/function.Rmd</code>) and HTML
+(<code>docs/function.html</code>) files. If you’ve configured a remote
+Git repository (see <code>?wflow_git_remote</code>), click on the
+hyperlinks in the table below to view the files as they were in that
+past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -466,6 +511,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/rss/ca7cee47579836d0d29b46efebd6cd5930547d55/docs/function.html" target="_blank">ca7cee4</a>
+</td>
+<td>
+Xiang Zhu
+</td>
+<td>
+2022-01-24
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -543,36 +605,66 @@ wflow_publish("rmd/function.Rmd")
 </div>
 <div id="markov-chain-monte-carlo-mcmc" class="section level2">
 <h2>Markov chain Monte Carlo (MCMC)</h2>
-<p>Details of MCMC algorithms for <a href="https://github.com/stephenslab/rss/blob/master/src/rss_bvsr.m"><code>rss_bvsr.m</code></a> and <a href="https://github.com/stephenslab/rss/blob/master/src/rss_bslmm.m"><code>rss_bslmm.m</code></a> are available in Supplementary Appendix B of <a href="https://projecteuclid.org/euclid.aoas/1507168840">Zhu and Stephens (2017)</a> Details of MCMC algorithms for <a href="https://github.com/stephenslab/rss/blob/master/src/rss_ash.m"><code>rss_ash.m</code></a> are available in this <a href="https://www.stat.uchicago.edu/~xiangzhu/rss_mcmc.pdf">unpublished note</a><sup>1</sup>. Note that only <a href="https://github.com/stephenslab/rss/blob/master/src/rss_bvsr.m"><code>rss_bvsr.m</code></a> and <a href="https://github.com/stephenslab/rss/blob/master/src/rss_bslmm.m"><code>rss_bslmm.m</code></a> were used to generate results in <a href="https://projecteuclid.org/euclid.aoas/1507168840">Zhu and Stephens (2017)</a>.</p>
+<p>Details of MCMC algorithms for <a
+href="https://github.com/stephenslab/rss/blob/master/src/rss_bvsr.m"><code>rss_bvsr.m</code></a>
+and <a
+href="https://github.com/stephenslab/rss/blob/master/src/rss_bslmm.m"><code>rss_bslmm.m</code></a>
+are available in Supplementary Appendix B of <a
+href="https://projecteuclid.org/euclid.aoas/1507168840">Zhu and Stephens
+(2017)</a> Details of MCMC algorithms for <a
+href="https://github.com/stephenslab/rss/blob/master/src/rss_ash.m"><code>rss_ash.m</code></a>
+are available in this <a
+href="https://www.stat.uchicago.edu/~xiangzhu/rss_mcmc.pdf">unpublished
+note</a><sup>1</sup>. Note that only <a
+href="https://github.com/stephenslab/rss/blob/master/src/rss_bvsr.m"><code>rss_bvsr.m</code></a>
+and <a
+href="https://github.com/stephenslab/rss/blob/master/src/rss_bslmm.m"><code>rss_bslmm.m</code></a>
+were used to generate results in <a
+href="https://projecteuclid.org/euclid.aoas/1507168840">Zhu and Stephens
+(2017)</a>.</p>
 <div id="rss_bvsr.m" class="section level3">
-<h3><a href="https://github.com/stephenslab/rss/blob/master/src/rss_bvsr.m"><code>rss_bvsr.m</code></a></h3>
-<p>Fit the RSS-BVSR model that consists of RSS likelihood and BVSR prior <a href="https://projecteuclid.org/euclid.aoas/1318514285">(Guan and Stephens, 2011)</a>:</p>
+<h3><a
+href="https://github.com/stephenslab/rss/blob/master/src/rss_bvsr.m"><code>rss_bvsr.m</code></a></h3>
+<p>Fit the RSS-BVSR model that consists of RSS likelihood and BVSR prior
+<a href="https://projecteuclid.org/euclid.aoas/1318514285">(Guan and
+Stephens, 2011)</a>:</p>
 <p><span class="math display">\[
 \begin{aligned}
-\widehat{\boldsymbol\beta} &amp;\sim {\cal N}({\bf SRS}^{-1}{\boldsymbol\beta},{\bf SRS}),\\
+\widehat{\boldsymbol\beta} &amp;\sim {\cal N}({\bf
+SRS}^{-1}{\boldsymbol\beta},{\bf SRS}),\\
 \beta_j &amp;\sim \pi\cdot{\cal N}(0,\sigma_B^2) + (1-\pi)\cdot\delta_0,
 \end{aligned}
 \]</span></p>
 <p>using a Metropolis-Hastings algorithm.</p>
 </div>
 <div id="rss_bslmm.m" class="section level3">
-<h3><a href="https://github.com/stephenslab/rss/blob/master/src/rss_bslmm.m"><code>rss_bslmm.m</code></a></h3>
-<p>Fit the RSS-BSLMM model that consists of RSS likelihood and BSLMM prior <a href="https://doi.org/10.1371/journal.pgen.1003264">(Zhou et al, 2013)</a>:</p>
+<h3><a
+href="https://github.com/stephenslab/rss/blob/master/src/rss_bslmm.m"><code>rss_bslmm.m</code></a></h3>
+<p>Fit the RSS-BSLMM model that consists of RSS likelihood and BSLMM
+prior <a href="https://doi.org/10.1371/journal.pgen.1003264">(Zhou et
+al, 2013)</a>:</p>
 <p><span class="math display">\[
 \begin{aligned}
-\widehat{\boldsymbol\beta} &amp;\sim {\cal N}({\bf SRS}^{-1}{\boldsymbol\beta},{\bf SRS}),\\
-\beta_j &amp;\sim \pi\cdot{\cal N}(0,\sigma_B^2+\sigma_P^2) + (1-\pi)\cdot{\cal N}(0,\sigma_P^2),
+\widehat{\boldsymbol\beta} &amp;\sim {\cal N}({\bf
+SRS}^{-1}{\boldsymbol\beta},{\bf SRS}),\\
+\beta_j &amp;\sim \pi\cdot{\cal N}(0,\sigma_B^2+\sigma_P^2) +
+(1-\pi)\cdot{\cal N}(0,\sigma_P^2),
 \end{aligned}
 \]</span></p>
 <p>using a component-wise MCMC algorithm.</p>
 </div>
 <div id="rss_ash.m" class="section level3">
-<h3><a href="https://github.com/stephenslab/rss/blob/master/src/rss_ash.m"><code>rss_ash.m</code></a></h3>
-<p>Fit the RSS-ASH model that consists of RSS likelihood and ASH prior <a href="https://doi.org/10.1093/biostatistics/kxw041">(Stephens, 2017)</a>:</p>
+<h3><a
+href="https://github.com/stephenslab/rss/blob/master/src/rss_ash.m"><code>rss_ash.m</code></a></h3>
+<p>Fit the RSS-ASH model that consists of RSS likelihood and ASH prior
+<a href="https://doi.org/10.1093/biostatistics/kxw041">(Stephens,
+2017)</a>:</p>
 <p><span class="math display">\[
 \begin{aligned}
-\widehat{\boldsymbol\beta} &amp;\sim {\cal N}({\bf SRS}^{-1}{\boldsymbol\beta},{\bf SRS}),\\
-\beta_j &amp;\sim \pi_0 \cdot \delta_0 + {\textstyle\sum}_{k=1}^K \pi_k \cdot {\cal N}(0,\sigma_k^2),
+\widehat{\boldsymbol\beta} &amp;\sim {\cal N}({\bf
+SRS}^{-1}{\boldsymbol\beta},{\bf SRS}),\\
+\beta_j &amp;\sim \pi_0 \cdot \delta_0 + {\textstyle\sum}_{k=1}^K \pi_k
+\cdot {\cal N}(0,\sigma_k^2),
 \end{aligned}
 \]</span></p>
 <p>using a component-wise MCMC algorithm.</p>
@@ -580,88 +672,201 @@ wflow_publish("rmd/function.Rmd")
 </div>
 <div id="variational-bayes-vb" class="section level2">
 <h2>Variational Bayes (VB)</h2>
-<p>Details of VB algorithms, SQUAREM accelerator and parallel implementation are available in Supplementary Notes of <a href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and Stephens (2018)</a>. Note that only <a href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_squarem.m"><code>rss_varbvsr_squarem.m</code></a> and <a href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_bigmem_squarem.m"><code>rss_varbvsr_bigmem_squarem.m</code></a> were used to generate results in <a href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and Stephens (2018)</a>. The other functions were developed merely for testing and benchmarking.</p>
+<p>Details of VB algorithms, SQUAREM accelerator and parallel
+implementation are available in Supplementary Notes of <a
+href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and
+Stephens (2018)</a>. Note that only <a
+href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_squarem.m"><code>rss_varbvsr_squarem.m</code></a>
+and <a
+href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_bigmem_squarem.m"><code>rss_varbvsr_bigmem_squarem.m</code></a>
+were used to generate results in <a
+href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and
+Stephens (2018)</a>. The other functions were developed merely for
+testing and benchmarking.</p>
 <div id="rss_varbvsr.m" class="section level3">
-<h3><a href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr.m"><code>rss_varbvsr.m</code></a></h3>
+<h3><a
+href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr.m"><code>rss_varbvsr.m</code></a></h3>
 <p>Fit the following extended RSS-BVSR model</p>
 <p><span class="math display">\[
 \begin{aligned}
-\widehat{\boldsymbol\beta} &amp;\sim {\cal N}({\bf SRS}^{-1}{\boldsymbol\beta},{\bf SRS}),\\
-\beta_j &amp;\sim \pi_j\cdot{\cal N}(0,\sigma_j^2) + (1-\pi_j)\cdot\delta_0,
+\widehat{\boldsymbol\beta} &amp;\sim {\cal N}({\bf
+SRS}^{-1}{\boldsymbol\beta},{\bf SRS}),\\
+\beta_j &amp;\sim \pi_j\cdot{\cal N}(0,\sigma_j^2) +
+(1-\pi_j)\cdot\delta_0,
 \end{aligned}
 \]</span></p>
-<p>using a mean-field VB algorithm. The VB algorithm largely follows <a href="https://projecteuclid.org/euclid.ba/1339616726">Carbonetto and Stephens (2012)</a>. This is an extended RSS-BVSR model because each SNP <span class="math inline">\(j\)</span> can have its own hyper-parameters <span class="math inline">\(\{\pi_j,\sigma_j^2\}\)</span>, whereas the standard RSS-BVSR model assumes that all SNPs share the same hyper-parameters <span class="math inline">\(\{\pi,\sigma_B^2\}\)</span>.</p>
+<p>using a mean-field VB algorithm. The VB algorithm largely follows <a
+href="https://projecteuclid.org/euclid.ba/1339616726">Carbonetto and
+Stephens (2012)</a>. This is an extended RSS-BVSR model because each SNP
+<span class="math inline">\(j\)</span> can have its own hyper-parameters
+<span class="math inline">\(\{\pi_j,\sigma_j^2\}\)</span>, whereas the
+standard RSS-BVSR model assumes that all SNPs share the same
+hyper-parameters <span
+class="math inline">\(\{\pi,\sigma_B^2\}\)</span>.</p>
 </div>
 <div id="rss_varbvsr_squarem.m" class="section level3">
-<h3><a href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_squarem.m"><code>rss_varbvsr_squarem.m</code></a></h3>
-<p>This is a variant of <a href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr.m"><code>rss_varbvsr.m</code></a> with the SQUAREM accelerator <a href="https://doi.org/10.1111/j.1467-9469.2007.00585.x">(Varadhan and Roland, 2008)</a> added.</p>
+<h3><a
+href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_squarem.m"><code>rss_varbvsr_squarem.m</code></a></h3>
+<p>This is a variant of <a
+href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr.m"><code>rss_varbvsr.m</code></a>
+with the SQUAREM accelerator <a
+href="https://doi.org/10.1111/j.1467-9469.2007.00585.x">(Varadhan and
+Roland, 2008)</a> added.</p>
 </div>
 <div id="rss_varbvsr_parallel.m" class="section level3">
-<h3><a href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_parallel.m"><code>rss_varbvsr_parallel.m</code></a></h3>
-<p>This is a parallel implementation of <a href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr.m"><code>rss_varbvsr.m</code></a> based on MATLAB <a href="https://www.mathworks.com/help/distcomp/index.html">Parallel Computing Toolbox</a>.</p>
+<h3><a
+href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_parallel.m"><code>rss_varbvsr_parallel.m</code></a></h3>
+<p>This is a parallel implementation of <a
+href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr.m"><code>rss_varbvsr.m</code></a>
+based on MATLAB <a
+href="https://www.mathworks.com/help/distcomp/index.html">Parallel
+Computing Toolbox</a>.</p>
 </div>
 <div id="rss_varbvsr_pasquarem.m" class="section level3">
-<h3><a href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_pasquarem.m"><code>rss_varbvsr_pasquarem.m</code></a></h3>
-<p>This is a parallel implementation of <a href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_squarem.m"><code>rss_varbvsr_squarem.m</code></a> based on MATLAB <a href="https://www.mathworks.com/help/distcomp/index.html">Parallel Computing Toolbox</a>.</p>
+<h3><a
+href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_pasquarem.m"><code>rss_varbvsr_pasquarem.m</code></a></h3>
+<p>This is a parallel implementation of <a
+href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_squarem.m"><code>rss_varbvsr_squarem.m</code></a>
+based on MATLAB <a
+href="https://www.mathworks.com/help/distcomp/index.html">Parallel
+Computing Toolbox</a>.</p>
 </div>
 <div id="rss_varbvsr_bigmem.m" class="section level3">
-<h3><a href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_bigmem.m"><code>rss_varbvsr_bigmem.m</code></a></h3>
-<p>This is a memory-efficient implementation of <a href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_parallel.m"><code>rss_varbvsr_parallel.m</code></a>.</p>
+<h3><a
+href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_bigmem.m"><code>rss_varbvsr_bigmem.m</code></a></h3>
+<p>This is a memory-efficient implementation of <a
+href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_parallel.m"><code>rss_varbvsr_parallel.m</code></a>.</p>
 </div>
 <div id="rss_varbvsr_bigmem_squarem.m" class="section level3">
-<h3><a href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_bigmem_squarem.m"><code>rss_varbvsr_bigmem_squarem.m</code></a></h3>
-<p>This is a memory-efficient implementation of <a href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_pasquarem.m"><code>rss_varbvsr_pasquarem.m</code></a>.</p>
+<h3><a
+href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_bigmem_squarem.m"><code>rss_varbvsr_bigmem_squarem.m</code></a></h3>
+<p>This is a memory-efficient implementation of <a
+href="https://github.com/stephenslab/rss/blob/master/src_vb/rss_varbvsr_pasquarem.m"><code>rss_varbvsr_pasquarem.m</code></a>.</p>
 </div>
 </div>
 <div id="miscellaneous" class="section level2">
 <h2>Miscellaneous</h2>
 <div id="import_1000g_vcf.sh" class="section level3">
-<h3><a href="https://github.com/stephenslab/rss/blob/master/misc/import_1000g_vcf.sh"><code>import_1000g_vcf.sh</code></a></h3>
-<p>Output <a href="https://www.internationalgenome.org/data">1000 Genomes</a> phased haplotypes of a given list of SNPs in <a href="https://mathgen.stats.ox.ac.uk/impute/impute_v2.html#input_options">IMPUTE reference-panel format</a>.</p>
+<h3><a
+href="https://github.com/stephenslab/rss/blob/master/misc/import_1000g_vcf.sh"><code>import_1000g_vcf.sh</code></a></h3>
+<p>Output <a href="https://www.internationalgenome.org/data">1000
+Genomes</a> phased haplotypes of a given list of SNPs in <a
+href="https://mathgen.stats.ox.ac.uk/impute/impute_v2.html#input_options">IMPUTE
+reference-panel format</a>.</p>
 </div>
 <div id="compute_pve.m" class="section level3">
-<h3><a href="https://github.com/stephenslab/rss/blob/master/src/compute_pve.m"><code>compute_pve.m</code></a></h3>
-<p>Use GWAS summary data to estimate PVE (or SNP heritability), a quantity defined by Equation 2.10 in <a href="https://projecteuclid.org/euclid.aoas/1318514285">Guan and Stephens (2011)</a>. This function corresponds to Equation 3.7 in <a href="https://projecteuclid.org/euclid.aoas/1507168840">Zhu and Stephens (2017)</a>.</p>
+<h3><a
+href="https://github.com/stephenslab/rss/blob/master/src/compute_pve.m"><code>compute_pve.m</code></a></h3>
+<p>Use GWAS summary data to estimate PVE (or SNP heritability), a
+quantity defined by Equation 2.10 in <a
+href="https://projecteuclid.org/euclid.aoas/1318514285">Guan and
+Stephens (2011)</a>. This function corresponds to Equation 3.7 in <a
+href="https://projecteuclid.org/euclid.aoas/1507168840">Zhu and Stephens
+(2017)</a>.</p>
 </div>
 <div id="band_storage.m" class="section level3">
-<h3><a href="https://github.com/stephenslab/rss/blob/master/misc/band_storage.m"><code>band_storage.m</code></a></h3>
-<p>Convert a symmetric, banded matrix to a compact matrix in such a way that only the main diagonal and the nonzero super-diagonals are stored. This function is used to reduce the file size of a large LD matrix.</p>
+<h3><a
+href="https://github.com/stephenslab/rss/blob/master/misc/band_storage.m"><code>band_storage.m</code></a></h3>
+<p>Convert a symmetric, banded matrix to a compact matrix in such a way
+that only the main diagonal and the nonzero super-diagonals are stored.
+This function is used to reduce the file size of a large LD matrix.</p>
 </div>
 <div id="find_bandwidth.m" class="section level3">
-<h3><a href="https://github.com/stephenslab/rss/blob/master/misc/find_bandwidth.m"><code>find_bandwidth.m</code></a></h3>
+<h3><a
+href="https://github.com/stephenslab/rss/blob/master/misc/find_bandwidth.m"><code>find_bandwidth.m</code></a></h3>
 <p>Find the bandwidth of a symmetric, banded matrix.</p>
 </div>
 <div id="get_corr.m" class="section level3">
-<h3><a href="https://github.com/stephenslab/rss/blob/master/misc/get_corr.m"><code>get_corr.m</code></a></h3>
-<p>Compute linkage disequilibrium (LD) matrix using the shrinkage estimator proposed in <a href="https://www.ncbi.nlm.nih.gov/pubmed/21479081">Wen and Stephens (2010)</a>. This function is also implemented in an <code>R</code> package <a href="https://github.com/stephenslab/ldshrink"><code>ldshrink</code></a>.</p>
+<h3><a
+href="https://github.com/stephenslab/rss/blob/master/misc/get_corr.m"><code>get_corr.m</code></a></h3>
+<p>Compute linkage disequilibrium (LD) matrix using the shrinkage
+estimator proposed in <a
+href="https://www.ncbi.nlm.nih.gov/pubmed/21479081">Wen and Stephens
+(2010)</a>. This function is also implemented in an <code>R</code>
+package <a
+href="https://github.com/stephenslab/ldshrink"><code>ldshrink</code></a>.</p>
 </div>
 <div id="data_maker.m" class="section level3">
-<h3><a href="https://github.com/stephenslab/rss/blob/master/misc/data_maker.m"><code>data_maker.m</code></a></h3>
-<p>Simulate phenotype data from the genome-wide multiple-SNP model described in <a href="https://doi.org/10.1371/journal.pgen.1003264">Zhou et al (2013)</a>, and then compute the single-SNP summary statistics for each SNP. This function was used in some simulation studies of <a href="https://projecteuclid.org/euclid.aoas/1507168840">Zhu and Stephens (2017)</a>.</p>
+<h3><a
+href="https://github.com/stephenslab/rss/blob/master/misc/data_maker.m"><code>data_maker.m</code></a></h3>
+<p>Simulate phenotype data from the genome-wide multiple-SNP model
+described in <a href="https://doi.org/10.1371/journal.pgen.1003264">Zhou
+et al (2013)</a>, and then compute the single-SNP summary statistics for
+each SNP. This function was used in some simulation studies of <a
+href="https://projecteuclid.org/euclid.aoas/1507168840">Zhu and Stephens
+(2017)</a>.</p>
 </div>
 <div id="enrich_datamaker.m" class="section level3">
-<h3><a href="https://github.com/stephenslab/rss/blob/master/misc/enrich_datamaker.m"><code>enrich_datamaker.m</code></a></h3>
-<p>Simulate phenotype data from the genetic association enrichment model described in <a href="https://doi.org/10.1371/journal.pgen.1003770">Carbonetto and Stephens (2013)</a>, and then compute the single-SNP summary statistics for each SNP. This function was used in some simulation studies of <a href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and Stephens (2018)</a>.</p>
+<h3><a
+href="https://github.com/stephenslab/rss/blob/master/misc/enrich_datamaker.m"><code>enrich_datamaker.m</code></a></h3>
+<p>Simulate phenotype data from the genetic association enrichment model
+described in <a
+href="https://doi.org/10.1371/journal.pgen.1003770">Carbonetto and
+Stephens (2013)</a>, and then compute the single-SNP summary statistics
+for each SNP. This function was used in some simulation studies of <a
+href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and
+Stephens (2018)</a>.</p>
 </div>
 <div id="null_single.m-null_template.m" class="section level3">
-<h3><a href="https://github.com/stephenslab/rss/blob/master/src_vb/null_single.m"><code>null_single.m</code></a> &amp; <a href="https://github.com/stephenslab/rss/blob/master/src_vb/null_template.m"><code>null_template.m</code></a></h3>
-<p>Fit genome-wide multiple-SNP “baseline model” to single-SNP summary data, using <a href="https://github.com/stephenslab/rss/tree/master/src_vb"><code>rss/src_vb</code> functions</a>. These scripts were used in data analyses of <a href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and Stephens (2018)</a>.</p>
+<h3><a
+href="https://github.com/stephenslab/rss/blob/master/src_vb/null_single.m"><code>null_single.m</code></a>
+&amp; <a
+href="https://github.com/stephenslab/rss/blob/master/src_vb/null_template.m"><code>null_template.m</code></a></h3>
+<p>Fit genome-wide multiple-SNP “baseline model” to single-SNP summary
+data, using <a
+href="https://github.com/stephenslab/rss/tree/master/src_vb"><code>rss/src_vb</code>
+functions</a>. These scripts were used in data analyses of <a
+href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and
+Stephens (2018)</a>.</p>
 </div>
 <div id="gsea_wrapper.m-gsea_template.m" class="section level3">
-<h3><a href="https://github.com/stephenslab/rss/blob/master/src_vb/gsea_wrapper.m"><code>gsea_wrapper.m</code></a> &amp; <a href="https://github.com/stephenslab/rss/blob/master/src_vb/gsea_template.m"><code>gsea_template.m</code></a></h3>
-<p>Fit genome-wide multiple-SNP “enrichment model” to single-SNP summary data, using <a href="https://github.com/stephenslab/rss/tree/master/src_vb"><code>rss/src_vb</code> functions</a>. These scripts were used in data analyses of <a href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and Stephens (2018)</a>.</p>
+<h3><a
+href="https://github.com/stephenslab/rss/blob/master/src_vb/gsea_wrapper.m"><code>gsea_wrapper.m</code></a>
+&amp; <a
+href="https://github.com/stephenslab/rss/blob/master/src_vb/gsea_template.m"><code>gsea_template.m</code></a></h3>
+<p>Fit genome-wide multiple-SNP “enrichment model” to single-SNP summary
+data, using <a
+href="https://github.com/stephenslab/rss/tree/master/src_vb"><code>rss/src_vb</code>
+functions</a>. These scripts were used in data analyses of <a
+href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and
+Stephens (2018)</a>.</p>
 </div>
-<div id="null_wrapper_fixsb.m-gsea_wrapper_fixsb.m" class="section level3">
-<h3><a href="https://github.com/stephenslab/rss/blob/master/src_vb/null_wrapper_fixsb.m"><code>null_wrapper_fixsb.m</code></a> &amp; <a href="https://github.com/stephenslab/rss/blob/master/src_vb/gsea_wrapper_fixsb.m"><code>gsea_wrapper_fixsb.m</code></a></h3>
-<p>Fit genome-wide multiple-SNP “baseline model” and “enrichment model” to single-SNP summary data, using a fixed prior variance of causal genetic effects (<span class="math inline">\(\sigma_B^2\)</span>) in <a href="https://github.com/stephenslab/rss/tree/master/src_vb"><code>rss/src_vb</code> functions</a>. These scripts were used in simulation studies of <a href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and Stephens (2018)</a>.</p>
+<div id="null_wrapper_fixsb.m-gsea_wrapper_fixsb.m"
+class="section level3">
+<h3><a
+href="https://github.com/stephenslab/rss/blob/master/src_vb/null_wrapper_fixsb.m"><code>null_wrapper_fixsb.m</code></a>
+&amp; <a
+href="https://github.com/stephenslab/rss/blob/master/src_vb/gsea_wrapper_fixsb.m"><code>gsea_wrapper_fixsb.m</code></a></h3>
+<p>Fit genome-wide multiple-SNP “baseline model” and “enrichment model”
+to single-SNP summary data, using a fixed prior variance of causal
+genetic effects (<span class="math inline">\(\sigma_B^2\)</span>) in <a
+href="https://github.com/stephenslab/rss/tree/master/src_vb"><code>rss/src_vb</code>
+functions</a>. These scripts were used in simulation studies of <a
+href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and
+Stephens (2018)</a>.</p>
 </div>
 <div id="ash_lrt_31traits.r" class="section level3">
-<h3><a href="https://github.com/stephenslab/rss/blob/master/misc/ash_lrt_31traits.R"><code>ash_lrt_31traits.R</code></a></h3>
-<p>Compute a simple likelihood ratio as a sanity check for the more complicated enrichment analysis method developed in <a href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and Stephens (2018)</a>. This likelihood ratio calculation is based on an <code>R</code> package <a href="https://cran.r-project.org/web/packages/ashr/index.html"><code>ashr</code></a>.</p>
+<h3><a
+href="https://github.com/stephenslab/rss/blob/master/misc/ash_lrt_31traits.R"><code>ash_lrt_31traits.R</code></a></h3>
+<p>Compute a simple likelihood ratio as a sanity check for the more
+complicated enrichment analysis method developed in <a
+href="https://www.nature.com/articles/s41467-018-06805-x">Zhu and
+Stephens (2018)</a>. This likelihood ratio calculation is based on an
+<code>R</code> package <a
+href="https://cran.r-project.org/web/packages/ashr/index.html"><code>ashr</code></a>.</p>
 <hr />
 <p><strong>Footnotes:</strong></p>
 <ol style="list-style-type: decimal">
-<li>There is a missing multiplier term <span class="math inline">\({\omega_k}/{\omega_1}\)</span> on the right-hand side of Equation 5.1 in this note (page 4). However, this missing term was correctly reflected in the source codes of <a href="https://github.com/stephenslab/rss/blob/master/src/rss_ash.m"><code>rss_ash.m</code></a>, in particular, Lines 80-81 of <a href="https://github.com/stephenslab/rss/blob/master/src/update_bz.m"><code>update_bz.m</code></a>. We thank Geyu Zhou <a href="mailto:geyu.zhou@yale.edu" class="email">geyu.zhou@yale.edu</a> for pointing out this typo on 01/14/2019.</li>
+<li>There is a missing multiplier term <span
+class="math inline">\({\omega_k}/{\omega_1}\)</span> on the right-hand
+side of Equation 5.1 in this note (page 4). However, this missing term
+was correctly reflected in the source codes of <a
+href="https://github.com/stephenslab/rss/blob/master/src/rss_ash.m"><code>rss_ash.m</code></a>,
+in particular, Lines 80-81 of <a
+href="https://github.com/stephenslab/rss/blob/master/src/update_bz.m"><code>update_bz.m</code></a>.
+We thank Geyu Zhou <a href="mailto:geyu.zhou@yale.edu"
+class="email">geyu.zhou@yale.edu</a> for pointing out this typo on
+01/14/2019.</li>
 </ol>
 </div>
 </div>
